@@ -7,7 +7,11 @@ export type WorkflowId =
   | "meeting_to_action_plan" 
   | "decision_helper" 
   | "weekly_plan_builder" 
-  | "personal_ai_assistant_setup";
+  | "personal_ai_assistant_setup"
+  | "fix_my_content"
+  | "idea_to_revenue"
+  | "brand_voice_generator"
+  | "social_bio_builder";
 
 export const useAIWorkflow = <T = unknown>(workflowId: WorkflowId) => {
   const [isLoading, setIsLoading] = useState(false);
