@@ -134,7 +134,7 @@ const Hero = () => {
               y: -5,
               scale: 1.02
             }} className="rounded-2xl p-6 bg-white/5 backdrop-blur-sm border border-white/10 cursor-pointer group hover:border-primary/30 transition-colors">
-                  <div className="text-3xl mb-3 text-zinc-50">{tool.icon}</div>
+                  <div className="text-3xl mb-3 text-primary-foreground">{tool.icon}</div>
                   <h3 className="font-semibold text-lg mb-1 text-white group-hover:text-primary transition-colors">{tool.name}</h3>
                   <p className="text-sm text-white/50">{tool.desc}</p>
                 </motion.div>)}
