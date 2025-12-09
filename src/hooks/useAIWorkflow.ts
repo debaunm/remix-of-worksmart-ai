@@ -19,7 +19,8 @@ export type WorkflowId =
   | "early_retirement_calculator"
   | "press_release_generator"
   | "pitch_deck_reviewer"
-  | "life_simplifier";
+  | "life_simplifier"
+  | "linkedin_21_day_exec_content";
 
 export const useAIWorkflow = <T = unknown>(workflowId: WorkflowId) => {
   const [isLoading, setIsLoading] = useState(false);

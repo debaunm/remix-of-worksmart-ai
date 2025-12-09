@@ -23,6 +23,7 @@ import EarlyRetirementCalculator from "./pages/tools/EarlyRetirementCalculator";
 import PressReleaseGenerator from "./pages/tools/PressReleaseGenerator";
 import PitchDeckReviewer from "./pages/tools/PitchDeckReviewer";
 import LifeSimplifier from "./pages/tools/LifeSimplifier";
+import LinkedIn21DayContentPlan from "./pages/tools/LinkedIn21DayContentPlan";
 
 const queryClient = new QueryClient();
 
@@ -52,6 +53,7 @@ const App = () => (
           <Route path="/tools/press-release-generator" element={<PressReleaseGenerator />} />
           <Route path="/tools/pitch-deck-reviewer" element={<PitchDeckReviewer />} />
           <Route path="/tools/life-simplifier" element={<LifeSimplifier />} />
+          <Route path="/tools/linkedin-21-day-content-plan" element={<LinkedIn21DayContentPlan />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
