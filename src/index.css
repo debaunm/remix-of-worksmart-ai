@@ -187,6 +187,28 @@
     background-color: hsl(var(--background));
   }
 
+  /* Tier badge styles */
+  .badge-tier-free {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border;
+    background-color: hsl(var(--primary) / 0.1);
+    color: hsl(var(--primary));
+    border-color: hsl(var(--primary) / 0.2);
+  }
+
+  .badge-tier-pro {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border;
+    background-color: hsl(38 92% 50% / 0.1);
+    color: hsl(38 92% 50%);
+    border-color: hsl(38 92% 50% / 0.2);
+  }
+
+  .badge-tier-executive {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border;
+    background-color: hsl(280 68% 60% / 0.1);
+    color: hsl(280 68% 60%);
+    border-color: hsl(280 68% 60% / 0.2);
+  }
+
   /* Icon container styles from Figma */
   .icon-container {
     @apply flex items-center justify-center w-12 h-12 rounded-xl;
@@ -198,5 +220,17 @@
     @apply flex items-center justify-center w-12 h-12 rounded-xl;
     background-color: hsl(var(--primary) / 0.2);
     color: hsl(var(--primary));
+  }
+
+  .icon-container-pro {
+    @apply flex items-center justify-center w-12 h-12 rounded-xl;
+    background-color: hsl(38 92% 50% / 0.1);
+    color: hsl(38 92% 50%);
+  }
+
+  .icon-container-executive {
+    @apply flex items-center justify-center w-12 h-12 rounded-xl;
+    background-color: hsl(280 68% 60% / 0.1);
+    color: hsl(280 68% 60%);
   }
 }
