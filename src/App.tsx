@@ -15,6 +15,11 @@ import FixMyContent from "./pages/tools/FixMyContent";
 import IdeaToRevenue from "./pages/tools/IdeaToRevenue";
 import BrandVoiceGenerator from "./pages/tools/BrandVoiceGenerator";
 import SocialBioBuilder from "./pages/tools/SocialBioBuilder";
+import CLevelStatementBuilder from "./pages/tools/CLevelStatementBuilder";
+import RolesAndResponsibilitiesCreator from "./pages/tools/RolesAndResponsibilitiesCreator";
+import BudgetBuilderPrompts from "./pages/tools/BudgetBuilderPrompts";
+import LinkedInAuditToolExec from "./pages/tools/LinkedInAuditToolExec";
+import EarlyRetirementCalculator from "./pages/tools/EarlyRetirementCalculator";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +41,11 @@ const App = () => (
           <Route path="/tools/idea-to-revenue" element={<IdeaToRevenue />} />
           <Route path="/tools/brand-voice-generator" element={<BrandVoiceGenerator />} />
           <Route path="/tools/social-bio-builder" element={<SocialBioBuilder />} />
+          <Route path="/tools/c-level-statement-builder" element={<CLevelStatementBuilder />} />
+          <Route path="/tools/roles-and-responsibilities-creator" element={<RolesAndResponsibilitiesCreator />} />
+          <Route path="/tools/budget-builder-prompts" element={<BudgetBuilderPrompts />} />
+          <Route path="/tools/linkedin-audit-tool-exec" element={<LinkedInAuditToolExec />} />
+          <Route path="/tools/early-retirement-calculator" element={<EarlyRetirementCalculator />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

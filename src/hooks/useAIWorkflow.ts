@@ -11,7 +11,12 @@ export type WorkflowId =
   | "fix_my_content"
   | "idea_to_revenue"
   | "brand_voice_generator"
-  | "social_bio_builder";
+  | "social_bio_builder"
+  | "c_level_statement_builder"
+  | "roles_and_responsibilities_creator"
+  | "budget_builder_prompts"
+  | "linkedin_audit_tool_exec"
+  | "early_retirement_calculator";
 
 export const useAIWorkflow = <T = unknown>(workflowId: WorkflowId) => {
   const [isLoading, setIsLoading] = useState(false);

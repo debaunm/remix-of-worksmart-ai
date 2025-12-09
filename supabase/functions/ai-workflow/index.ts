@@ -23,6 +23,16 @@ const SYSTEM_PROMPTS: Record<string, string> = {
   brand_voice_generator: `You are BrandVoiceAgent_v2 in the AI Content Engine. Extract a user's brand voice from sample writing and create consistent voice rules. Steps: 1) Analyze sentence structure, rhythm, tone, emotion, and storytelling patterns. 2) Convert patterns into a voice_profile. 3) Translate patterns into actionable voice_rules. 4) Create 2–3 sample rewrites to show the voice in action. 5) Identify potential inconsistencies. Output JSON with: voice_profile{tone, pacing, formality, signature_elements[]}, voice_rules[], sample_rewrites[], inconsistencies[].`,
 
   social_bio_builder: `You are SocialBioAgent_v2 in the AI Content Engine. Create optimized bios for major platforms. Steps: 1) Clarify positioning (who you are, what you do, who you help). 2) Condense into platform-specific formats respecting character limits. 3) Create versions for Instagram, TikTok, LinkedIn, and personal website. 4) Include CTA matched to desired_action. 5) Generate 3 headline options for LinkedIn. Output JSON with: instagram_bio, tiktok_bio, linkedin_headline[], linkedin_about, website_about, cta.`,
+
+  c_level_statement_builder: `You are CLevelStatementAgent_v1 for executives. Turn leadership updates and decisions into polished C-level and board-ready statements. Steps: 1) Clarify strategic intent using purpose and desired_outcome. 2) Segment audience into stakeholder groups with their concerns. 3) Build narrative structure: current situation, what leadership is doing, what it means, what happens next. 4) Weave in key_facts truthfully and concisely. 5) Frame risks constructively. 6) Generate key_messages (3-7 quotable sentences). 7) Produce talking_points for Q&A. 8) Recommend delivery channel and format. Output JSON with: statement, key_messages[], stakeholder_implications[], talking_points[], delivery_guidance.`,
+
+  roles_and_responsibilities_creator: `You are RoleClarityAgent_v1 for executives. Build role clarity definitions, RACI maps, and accountability charts. Steps: 1) Create concise role_summary explaining why this role exists. 2) Cluster responsibilities into themes (strategy, execution, communication). 3) Derive specific, observable success_criteria. 4) Build RACI matrix across projects showing Responsible, Accountable, Consulted, Informed. 5) Identify gaps or overlaps in ownership. 6) Generate alignment_actions to resolve ambiguities. Output JSON with: role_summary, success_criteria[], responsibilities[], raci{}, gaps_identified[], alignment_actions[].`,
+
+  budget_builder_prompts: `You are BudgetBuilderAgent_v1 for executives. Create clear project or department budgets with scenarios. Steps: 1) Construct baseline_budget from revenue, expenses, headcount. 2) Compute key metrics: total_expenses, net_result, margin_percentage. 3) Generate low scenario (lean), medium scenario (balanced), high scenario (growth/investment). 4) Identify cost_drivers with largest impact. 5) Create summary explaining tradeoffs and recommending one scenario. Respect constraints. Output JSON with: baseline_budget{}, scenarios{low, medium, high}, cost_drivers[], summary.`,
+
+  linkedin_audit_tool_exec: `You are LinkedInAuditAgent_v1 for executives. Audit LinkedIn profiles for clarity, authority, and strategic positioning. Steps: 1) Evaluate about_section, headline, experience for clarity, specificity, outcomes, leadership signaling. 2) Identify authority_gaps (missing metrics, generic language, unclear seniority). 3) Rewrite about_section emphasizing leadership, scope, and results. 4) Generate upgraded headline_options combining role, domain, value proposition. 5) Create 30-day content_plan focused on thought leadership. Output JSON with: audit_summary, rewritten_about, headline_options[], authority_gaps[], content_plan_30_days[].`,
+
+  early_retirement_calculator: `You are RetirementCalcAgent_v1. Produce forecast and savings strategy for early retirement. Steps: 1) Estimate annual spending from expenses. 2) Calculate FIRE number using 4% safe withdrawal rate. 3) Estimate timeline to reach FIRE number. 4) Generate three paths: aggressive (higher savings), moderate (small improvements), conservative (slower with safety). 5) Identify gap between current position and target. 6) Convert moderate path into monthly_habits and practices. Flag unrealistic inputs. State projections are estimates, not financial advice. Output JSON with: fire_number, timeline, gap, paths{aggressive[], moderate[], conservative[]}, monthly_habits[].`,
 };
 
 const buildUserPrompt = (workflowId: string, inputs: Record<string, string>): string => {
@@ -143,6 +153,62 @@ PERSONALITY TRAITS: ${inputs.personality_traits || 'Not specified'}
 DESIRED ACTION: ${inputs.desired_action || 'Not specified'}
 
 Return structured JSON with instagram_bio, tiktok_bio, linkedin_headline, linkedin_about, website_about, cta.`;
+
+    case 'c_level_statement_builder':
+      return `Create a polished C-level statement.
+
+PURPOSE: ${inputs.purpose}
+AUDIENCE: ${inputs.audience || 'Not specified'}
+KEY FACTS: ${inputs.key_facts}
+RISKS/SENSITIVITIES: ${inputs.risks || 'None specified'}
+DESIRED OUTCOME: ${inputs.desired_outcome || 'Not specified'}
+
+Return structured JSON with statement, key_messages, stakeholder_implications, talking_points, delivery_guidance.`;
+
+    case 'roles_and_responsibilities_creator':
+      return `Build role clarity documentation.
+
+ROLE NAME: ${inputs.role_name}
+RESPONSIBILITIES: ${inputs.responsibilities}
+CURRENT PROJECTS: ${inputs.projects || 'Not specified'}
+CROSS-TEAM PARTNERS: ${inputs.cross_team_partners || 'Not specified'}
+90-DAY SUCCESS CRITERIA: ${inputs.success_criteria || 'Not specified'}
+
+Return structured JSON with role_summary, success_criteria, responsibilities, raci, gaps_identified, alignment_actions.`;
+
+    case 'budget_builder_prompts':
+      return `Build a budget with scenarios.
+
+REVENUE: ${inputs.revenue}
+EXPENSES: ${inputs.expenses}
+HEADCOUNT: ${inputs.headcount || 'Not specified'}
+GOALS: ${inputs.goals || 'Not specified'}
+CONSTRAINTS: ${inputs.constraints || 'None specified'}
+
+Return structured JSON with baseline_budget, scenarios{low, medium, high}, cost_drivers, summary.`;
+
+    case 'linkedin_audit_tool_exec':
+      return `Audit this executive LinkedIn profile.
+
+HEADLINE: ${inputs.headline || 'Not provided'}
+ABOUT SECTION: ${inputs.about_section || 'Not provided'}
+EXPERIENCE: ${inputs.experience || 'Not provided'}
+CAREER GOAL: ${inputs.career_goal || 'Not specified'}
+TARGET ROLES: ${inputs.target_roles || 'Not specified'}
+
+Return structured JSON with audit_summary, rewritten_about, headline_options, authority_gaps, content_plan_30_days.`;
+
+    case 'early_retirement_calculator':
+      return `Calculate early retirement plan.
+
+ANNUAL INCOME: ${inputs.income}
+MONTHLY EXPENSES: ${inputs.expenses}
+SAVINGS RATE: ${inputs.savings_rate || 'Not specified'}
+CURRENT INVESTMENTS: ${inputs.current_investments || 'Not specified'}
+CURRENT AGE: ${inputs.current_age || 'Not specified'}
+TARGET RETIREMENT AGE: ${inputs.target_retirement_age || 'Not specified'}
+
+Return structured JSON with fire_number, timeline, gap, paths{aggressive, moderate, conservative}, monthly_habits.`;
 
     default:
       throw new Error(`Unknown workflow: ${workflowId}`);
