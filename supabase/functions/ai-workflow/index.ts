@@ -15,6 +15,14 @@ const SYSTEM_PROMPTS: Record<string, string> = {
   weekly_plan_builder: `You are WeeklyPlanAgent_v1 in the AI Work-For-You Starter Kit. You convert goals, responsibilities, constraints, and energy patterns into a realistic weekly plan. Steps: 1) Group goals into Must / Should / Could for this week. 2) Map responsibilities and known commitments onto days. 3) Respect energy patterns (deep work in high energy, admin in low energy). 4) Suggest specific time blocks, but keep them flexible. 5) Identify 3–5 things to drop, delegate, or defer. 6) Suggest 1 simple reset ritual for the end of the week. Output must follow weekly_plan_output_v1 JSON. If anything critical is missing, ask a single multi-part clarifying question, then plan.`,
   
   personal_ai_assistant_setup: `You are AssistantSetupAgent_v1 in the AI Work-For-You Starter Kit. Your job is to design a reusable system prompt for the user's personal AI assistant. Steps: 1) Understand the user's role, responsibilities, goals, tools, and communication style. 2) Generate a clear assistant persona description. 3) Define working rules (what the assistant should always do, never do, and how to ask follow-up questions). 4) Specify preferred output formats (bullets, tables, JSON, etc.). 5) Provide 5–10 example queries the user can paste into their assistant. Output must follow assistant_setup_output_v1 JSON. Do not include platform-specific tokens; keep it portable across OpenAI, Claude, Gemini, etc.`,
+
+  fix_my_content: `You are ContentFixerAgent_v2 in the AI Content Engine. Transform rough content into platform-specific polished outputs. Steps: 1) Analyze raw_content for core idea and emotional anchor. 2) Rewrite content for clarity, impact, and platform conventions. 3) Generate 10 strong hook options tailored to the platform. 4) Produce 3 finished variants: direct, story-based, educational. 5) Create angle_buckets (3–5 angles) the creator can use repeatedly. 6) Extract a CTA appropriate for chosen platform. Output JSON with: improved_version, hook_options[], angle_buckets[], variants{direct, story, educational}, cta_options[].`,
+
+  idea_to_revenue: `You are OfferBuilderAgent_v2 in the AI Content Engine. Turn rough ideas into structured, validated product concepts. Steps: 1) Define JTBD (job-to-be-done). 2) Clarify the problem and promise. 3) Suggest features aligned with skillset and constraints. 4) Map value ladder (free → premium). 5) Recommend pricing using value equation. 6) Identify differentiators. 7) Generate a 3-day micro-launch plan. Output JSON with: offer_name, JTBD, problem, promise, features[], value_ladder[], pricing, differentiators[], launch_plan_3_days[].`,
+
+  brand_voice_generator: `You are BrandVoiceAgent_v2 in the AI Content Engine. Extract a user's brand voice from sample writing and create consistent voice rules. Steps: 1) Analyze sentence structure, rhythm, tone, emotion, and storytelling patterns. 2) Convert patterns into a voice_profile. 3) Translate patterns into actionable voice_rules. 4) Create 2–3 sample rewrites to show the voice in action. 5) Identify potential inconsistencies. Output JSON with: voice_profile{tone, pacing, formality, signature_elements[]}, voice_rules[], sample_rewrites[], inconsistencies[].`,
+
+  social_bio_builder: `You are SocialBioAgent_v2 in the AI Content Engine. Create optimized bios for major platforms. Steps: 1) Clarify positioning (who you are, what you do, who you help). 2) Condense into platform-specific formats respecting character limits. 3) Create versions for Instagram, TikTok, LinkedIn, and personal website. 4) Include CTA matched to desired_action. 5) Generate 3 headline options for LinkedIn. Output JSON with: instagram_bio, tiktok_bio, linkedin_headline[], linkedin_about, website_about, cta.`,
 };
 
 const buildUserPrompt = (workflowId: string, inputs: Record<string, string>): string => {
@@ -92,6 +100,49 @@ HOW I LIKE TO COMMUNICATE (short, detailed, formal, casual):
 ${inputs.communication_style || 'Not specified'}
 
 Return structured JSON only following assistant_setup_output_v1.`;
+
+    case 'fix_my_content':
+      return `Fix and optimize this content for ${inputs.platform || 'social media'}.
+
+RAW CONTENT:
+${inputs.raw_content}
+
+TONE PREFERENCE: ${inputs.tone_preference || 'Not specified'}
+PROFILE URLS FOR CONTEXT: ${inputs.profile_urls || 'None provided'}
+
+Return structured JSON with improved_version, hook_options, variants, angle_buckets, cta_options.`;
+
+    case 'idea_to_revenue':
+      return `Convert this idea into a structured product concept.
+
+IDEA:
+${inputs.idea_text}
+
+MY SKILLS/EXPERIENCE: ${inputs.skillset || 'Not specified'}
+CONSTRAINTS: ${inputs.constraints || 'None specified'}
+
+Return structured JSON with offer_name, JTBD, problem, promise, features, value_ladder, pricing, differentiators, launch_plan_3_days.`;
+
+    case 'brand_voice_generator':
+      return `Analyze these writing samples and extract my brand voice.
+
+WRITING SAMPLES:
+${inputs.writing_samples}
+
+TONE ADJECTIVES I WANT: ${inputs.tone_adjectives || 'Not specified'}
+
+Return structured JSON with voice_profile, voice_rules, sample_rewrites, inconsistencies.`;
+
+    case 'social_bio_builder':
+      return `Create optimized bios for my social platforms.
+
+MY ROLE: ${inputs.role}
+EXPERTISE: ${inputs.expertise || 'Not specified'}
+ACHIEVEMENTS: ${inputs.achievements || 'Not specified'}
+PERSONALITY TRAITS: ${inputs.personality_traits || 'Not specified'}
+DESIRED ACTION: ${inputs.desired_action || 'Not specified'}
+
+Return structured JSON with instagram_bio, tiktok_bio, linkedin_headline, linkedin_about, website_about, cta.`;
 
     default:
       throw new Error(`Unknown workflow: ${workflowId}`);

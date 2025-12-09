@@ -11,6 +11,10 @@ import MeetingToActionPlan from "./pages/tools/MeetingToActionPlan";
 import DecisionHelper from "./pages/tools/DecisionHelper";
 import WeeklyPlanBuilder from "./pages/tools/WeeklyPlanBuilder";
 import PersonalAIAssistantSetup from "./pages/tools/PersonalAIAssistantSetup";
+import FixMyContent from "./pages/tools/FixMyContent";
+import IdeaToRevenue from "./pages/tools/IdeaToRevenue";
+import BrandVoiceGenerator from "./pages/tools/BrandVoiceGenerator";
+import SocialBioBuilder from "./pages/tools/SocialBioBuilder";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +32,10 @@ const App = () => (
           <Route path="/tools/decision-helper" element={<DecisionHelper />} />
           <Route path="/tools/weekly-plan-builder" element={<WeeklyPlanBuilder />} />
           <Route path="/tools/personal-ai-assistant-setup" element={<PersonalAIAssistantSetup />} />
+          <Route path="/tools/fix-my-content" element={<FixMyContent />} />
+          <Route path="/tools/idea-to-revenue" element={<IdeaToRevenue />} />
+          <Route path="/tools/brand-voice-generator" element={<BrandVoiceGenerator />} />
+          <Route path="/tools/social-bio-builder" element={<SocialBioBuilder />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
