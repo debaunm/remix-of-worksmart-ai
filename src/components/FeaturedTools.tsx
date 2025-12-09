@@ -73,7 +73,7 @@ const FeaturedTools = () => {
                   <Link to={tool.route || "#"} className="block h-full">
                     <div className="h-full rounded-2xl bg-white border border-border p-6 hover:border-primary/50 hover:shadow-card-hover transition-all duration-300 cursor-pointer group">
                       {/* Header */}
-                      <div className="flex items-start justify-between mb-4 text-accent-foreground">
+                      <div className="flex items-start justify-between mb-4">
                         <div className="icon-container">
                           <IconComponent className="w-6 h-6" />
                         </div>
