@@ -6,6 +6,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import WriteItBetter from "./pages/tools/WriteItBetter";
+import RewriteMessage from "./pages/tools/RewriteMessage";
+import MeetingToActionPlan from "./pages/tools/MeetingToActionPlan";
+import DecisionHelper from "./pages/tools/DecisionHelper";
+import WeeklyPlanBuilder from "./pages/tools/WeeklyPlanBuilder";
+import PersonalAIAssistantSetup from "./pages/tools/PersonalAIAssistantSetup";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +23,11 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/tools/write-it-better" element={<WriteItBetter />} />
+          <Route path="/tools/rewrite-message" element={<RewriteMessage />} />
+          <Route path="/tools/meeting-to-action-plan" element={<MeetingToActionPlan />} />
+          <Route path="/tools/decision-helper" element={<DecisionHelper />} />
+          <Route path="/tools/weekly-plan-builder" element={<WeeklyPlanBuilder />} />
+          <Route path="/tools/personal-ai-assistant-setup" element={<PersonalAIAssistantSetup />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
