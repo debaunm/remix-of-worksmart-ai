@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,50 +6,91 @@
 
 @layer base {
   :root {
-    --background: 222 47% 4%;
-    --foreground: 210 40% 98%;
+    /* Light theme base - for content sections */
+    --background: 0 0% 98%;
+    --foreground: 222 47% 11%;
 
-    --card: 222 47% 6%;
-    --card-foreground: 210 40% 98%;
+    /* Cards on light background */
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
 
-    --popover: 222 47% 6%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
 
-    --primary: 199 89% 48%;
-    --primary-foreground: 222 47% 4%;
+    /* Emerald green primary */
+    --primary: 152 69% 41%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 222 30% 12%;
-    --secondary-foreground: 210 40% 98%;
+    /* Light gray secondary */
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 222 47% 11%;
 
-    --muted: 222 30% 14%;
-    --muted-foreground: 215 20% 55%;
+    /* Muted tones */
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
 
-    --accent: 174 77% 44%;
-    --accent-foreground: 222 47% 4%;
+    /* Accent - slightly different green */
+    --accent: 158 64% 52%;
+    --accent-foreground: 222 47% 11%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 222 30% 16%;
-    --input: 222 30% 16%;
-    --ring: 199 89% 48%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 152 69% 41%;
 
     --radius: 0.75rem;
 
-    /* Custom tokens */
-    --glow-primary: 199 89% 48%;
-    --glow-accent: 174 77% 44%;
-    --gradient-start: 199 89% 48%;
-    --gradient-end: 174 77% 44%;
+    /* Dark section colors (for hero, navbar, footer) */
+    --dark-bg: 160 24% 8%;
+    --dark-card: 160 20% 12%;
+    --dark-border: 160 15% 18%;
+    --dark-muted: 160 10% 40%;
 
-    --sidebar-background: 222 47% 6%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 199 89% 48%;
-    --sidebar-primary-foreground: 222 47% 4%;
-    --sidebar-accent: 222 30% 12%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 222 30% 16%;
-    --sidebar-ring: 199 89% 48%;
+    /* Custom tokens */
+    --glow-primary: 152 69% 41%;
+    --gradient-start: 152 69% 41%;
+    --gradient-end: 158 64% 52%;
+
+    --sidebar-background: 160 24% 8%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 152 69% 41%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 160 20% 12%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 160 15% 18%;
+    --sidebar-ring: 152 69% 41%;
+  }
+
+  .dark {
+    --background: 160 24% 8%;
+    --foreground: 0 0% 98%;
+
+    --card: 160 20% 12%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 160 20% 12%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 152 69% 41%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 160 15% 18%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 160 15% 18%;
+    --muted-foreground: 160 10% 55%;
+
+    --accent: 158 64% 52%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 160 15% 18%;
+    --input: 160 15% 18%;
+    --ring: 152 69% 41%;
   }
 }
 
@@ -60,7 +101,28 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  /* Dark section utility class */
+  .dark-section {
+    background-color: hsl(var(--dark-bg));
+    color: hsl(0 0% 98%);
+  }
+
+  .dark-section .text-foreground {
+    color: hsl(0 0% 98%);
+  }
+
+  .dark-section .text-muted-foreground {
+    color: hsl(var(--dark-muted));
+  }
+
+  .dark-section .bg-card {
+    background-color: hsl(var(--dark-card));
+  }
+
+  .dark-section .border-border {
+    border-color: hsl(var(--dark-border));
   }
 }
 
@@ -86,5 +148,55 @@
 
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Card shadows for light sections */
+  .card-shadow {
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  }
+
+  .card-shadow-lg {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+
+  /* Dark gradient background */
+  .dark-gradient-bg {
+    background: linear-gradient(180deg, hsl(160 24% 8%) 0%, hsl(160 24% 6%) 100%);
+  }
+
+  /* Subtle grid pattern for hero */
+  .grid-pattern {
+    background-image: 
+      linear-gradient(hsl(var(--dark-border) / 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--dark-border) / 0.3) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+}
+
+@layer components {
+  /* Badge/pill styles */
+  .badge-new {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium;
+    background-color: hsl(var(--primary) / 0.15);
+    color: hsl(var(--primary));
+  }
+
+  .badge-feature {
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border;
+    border-color: hsl(var(--border));
+    background-color: hsl(var(--background));
+  }
+
+  /* Icon container styles from Figma */
+  .icon-container {
+    @apply flex items-center justify-center w-12 h-12 rounded-xl;
+    background-color: hsl(var(--primary) / 0.1);
+    color: hsl(var(--primary));
+  }
+
+  .icon-container-dark {
+    @apply flex items-center justify-center w-12 h-12 rounded-xl;
+    background-color: hsl(var(--primary) / 0.2);
+    color: hsl(var(--primary));
   }
 }

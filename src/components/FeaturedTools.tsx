@@ -26,7 +26,7 @@ const FeaturedTools = () => {
   const { data: tools, isLoading } = useFeaturedTools();
 
   return (
-    <section id="features" className="py-32 relative bg-secondary/30">
+    <section id="features" className="py-24 bg-secondary/50">
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <motion.div
@@ -36,11 +36,11 @@ const FeaturedTools = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <span className="text-primary font-semibold mb-4 block">Most Popular</span>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Featured <span className="gradient-text">AI Tools</span>
+          <span className="text-primary font-semibold mb-4 block text-sm">Most Popular</span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
+            Featured <span className="text-primary">AI Tools</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Our most-loved tools that save professionals hours every week.
           </p>
         </motion.div>
@@ -48,8 +48,8 @@ const FeaturedTools = () => {
         {/* Tools Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {isLoading ? (
-            Array.from({ length: 3 }).map((_, index) => (
-              <div key={index} className="rounded-2xl bg-card border border-border/50 p-6">
+            Array.from({ length: 6 }).map((_, index) => (
+              <div key={index} className="rounded-2xl bg-white border border-border p-6 shadow-card">
                 <Skeleton className="w-12 h-12 rounded-xl mb-4" />
                 <Skeleton className="h-4 w-20 mb-2" />
                 <Skeleton className="h-6 w-40 mb-2" />
@@ -69,14 +69,14 @@ const FeaturedTools = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
                   <Link to={tool.route || "#"} className="block h-full">
-                    <div className="h-full rounded-2xl bg-card border border-border/50 p-6 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 cursor-pointer group">
+                    <div className="h-full rounded-2xl bg-white border border-border p-6 hover:border-primary/50 hover:shadow-card-hover transition-all duration-300 cursor-pointer group">
                       {/* Header */}
                       <div className="flex items-start justify-between mb-4">
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center group-hover:from-primary/30 group-hover:to-accent/30 transition-colors">
-                          <IconComponent className="w-6 h-6 text-primary" />
+                        <div className="icon-container">
+                          <IconComponent className="w-6 h-6" />
                         </div>
                         {tool.badge && (
-                          <span className="text-xs font-medium bg-primary/20 text-primary px-2 py-1 rounded-full">
+                          <span className="text-xs font-medium bg-primary/10 text-primary px-2 py-1 rounded-full">
                             {tool.badge}
                           </span>
                         )}
@@ -88,7 +88,7 @@ const FeaturedTools = () => {
                       </span>
 
                       {/* Title */}
-                      <h3 className="text-xl font-bold mt-2 mb-2 group-hover:text-primary transition-colors">
+                      <h3 className="text-lg font-bold mt-2 mb-2 text-foreground group-hover:text-primary transition-colors">
                         {tool.name}
                       </h3>
 
