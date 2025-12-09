@@ -20,6 +20,9 @@ import RolesAndResponsibilitiesCreator from "./pages/tools/RolesAndResponsibilit
 import BudgetBuilderPrompts from "./pages/tools/BudgetBuilderPrompts";
 import LinkedInAuditToolExec from "./pages/tools/LinkedInAuditToolExec";
 import EarlyRetirementCalculator from "./pages/tools/EarlyRetirementCalculator";
+import PressReleaseGenerator from "./pages/tools/PressReleaseGenerator";
+import PitchDeckReviewer from "./pages/tools/PitchDeckReviewer";
+import LifeSimplifier from "./pages/tools/LifeSimplifier";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +49,9 @@ const App = () => (
           <Route path="/tools/budget-builder-prompts" element={<BudgetBuilderPrompts />} />
           <Route path="/tools/linkedin-audit-tool-exec" element={<LinkedInAuditToolExec />} />
           <Route path="/tools/early-retirement-calculator" element={<EarlyRetirementCalculator />} />
+          <Route path="/tools/press-release-generator" element={<PressReleaseGenerator />} />
+          <Route path="/tools/pitch-deck-reviewer" element={<PitchDeckReviewer />} />
+          <Route path="/tools/life-simplifier" element={<LifeSimplifier />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
