@@ -1,35 +1,24 @@
 import { motion } from "framer-motion";
 import { Rocket, Briefcase, Heart, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCategoriesWithTools } from "@/hooks/useTools";
+import { Skeleton } from "@/components/ui/skeleton";
 
-const categories = [
-  {
-    icon: Rocket,
-    title: "For Founders & Creators",
-    description: "Turn ideas into offers, polish content, and build your brand voice with AI assistance.",
-    tools: ["Fix My Content", "Idea-to-Offer Converter", "Brand Voice Generator", "Script Polisher", "30-Second Brainstormer", "Social Bio Builder"],
-    color: "from-primary to-blue-400",
-    count: 15,
-  },
-  {
-    icon: Briefcase,
-    title: "For Executives & Professionals",
-    description: "Communicate with clarity, make better decisions, and lead with confidence.",
-    tools: ["Write It Better", "CEO Email Generator", "Meeting-to-Action", "Board Statement Builder", "LinkedIn Audit Tool", "Boundaries Script Generator"],
-    color: "from-accent to-emerald-400",
-    count: 20,
-  },
-  {
-    icon: Heart,
-    title: "Life & Productivity",
-    description: "Organize your life, make smarter decisions, and reclaim your time.",
-    tools: ["AI Decision Helper", "Personal Life Organizer", "Inbox Cleaner", "Daily Planning Generator", "Goal Tracker", "Habit Builder"],
-    color: "from-purple-400 to-pink-400",
-    count: 15,
-  },
-];
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  Rocket,
+  Briefcase,
+  Heart,
+};
+
+const colorMap: Record<string, string> = {
+  cyan: "from-primary to-blue-400",
+  blue: "from-blue-500 to-blue-400",
+  purple: "from-purple-400 to-pink-400",
+};
 
 const ToolCategories = () => {
+  const { data: categories, isLoading } = useCategoriesWithTools();
+
   return (
     <section id="tools" className="py-32 relative">
       <div className="container mx-auto px-6">
@@ -51,58 +40,79 @@ const ToolCategories = () => {
 
         {/* Categories Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {categories.map((category, index) => (
-            <motion.div
-              key={category.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group"
-            >
-              <div className="h-full rounded-3xl bg-card border border-border/50 p-8 hover:border-primary/50 transition-all duration-300">
-                {/* Icon */}
-                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${category.color} flex items-center justify-center mb-6`}>
-                  <category.icon className="w-7 h-7 text-primary-foreground" />
-                </div>
-
-                {/* Title & Count */}
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-2xl font-bold">{category.title}</h3>
-                  <span className="text-sm text-muted-foreground bg-secondary px-3 py-1 rounded-full">
-                    {category.count} tools
-                  </span>
-                </div>
-
-                {/* Description */}
-                <p className="text-muted-foreground mb-6">{category.description}</p>
-
-                {/* Tools List */}
+          {isLoading ? (
+            Array.from({ length: 3 }).map((_, index) => (
+              <div key={index} className="rounded-3xl bg-card border border-border/50 p-8">
+                <Skeleton className="w-14 h-14 rounded-2xl mb-6" />
+                <Skeleton className="h-8 w-48 mb-3" />
+                <Skeleton className="h-16 w-full mb-6" />
                 <div className="space-y-2 mb-8">
-                  {category.tools.slice(0, 4).map((tool) => (
-                    <div
-                      key={tool}
-                      className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-                    >
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                      {tool}
-                    </div>
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <Skeleton key={i} className="h-5 w-32" />
                   ))}
-                  {category.tools.length > 4 && (
-                    <div className="text-sm text-primary cursor-pointer hover:underline">
-                      +{category.tools.length - 4} more tools
-                    </div>
-                  )}
                 </div>
-
-                {/* CTA */}
-                <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-all">
-                  Explore Category
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
+                <Skeleton className="h-10 w-full" />
               </div>
-            </motion.div>
-          ))}
+            ))
+          ) : (
+            categories?.map((category, index) => {
+              const IconComponent = iconMap[category.icon || "Rocket"] || Rocket;
+              const gradientColor = colorMap[category.color || "cyan"] || colorMap.cyan;
+
+              return (
+                <motion.div
+                  key={category.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="group"
+                >
+                  <div className="h-full rounded-3xl bg-card border border-border/50 p-8 hover:border-primary/50 transition-all duration-300">
+                    {/* Icon */}
+                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${gradientColor} flex items-center justify-center mb-6`}>
+                      <IconComponent className="w-7 h-7 text-primary-foreground" />
+                    </div>
+
+                    {/* Title & Count */}
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="text-2xl font-bold">{category.name}</h3>
+                      <span className="text-sm text-muted-foreground bg-secondary px-3 py-1 rounded-full">
+                        {category.tools?.length || 0} tools
+                      </span>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-muted-foreground mb-6">{category.description}</p>
+
+                    {/* Tools List */}
+                    <div className="space-y-2 mb-8">
+                      {category.tools?.slice(0, 4).map((tool) => (
+                        <div
+                          key={tool.id}
+                          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                        >
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                          {tool.name}
+                        </div>
+                      ))}
+                      {(category.tools?.length || 0) > 4 && (
+                        <div className="text-sm text-primary cursor-pointer hover:underline">
+                          +{(category.tools?.length || 0) - 4} more tools
+                        </div>
+                      )}
+                    </div>
+
+                    {/* CTA */}
+                    <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-all">
+                      Explore Category
+                      <ArrowRight className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </motion.div>
+              );
+            })
+          )}
         </div>
       </div>
     </section>
