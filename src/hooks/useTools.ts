@@ -1,6 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
+export type ToolTier = 
+  | 'free_prompt' 
+  | 'paid_executive' 
+  | 'paid_entrepreneur' 
+  | 'paid_crossover' 
+  | 'non_paid_personal';
+
 export interface Tool {
   id: string;
   name: string;
@@ -14,6 +21,7 @@ export interface Tool {
   badge: string | null;
   display_order: number | null;
   category_id: string | null;
+  tier: ToolTier;
   category?: ToolCategory;
 }
 
