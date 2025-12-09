@@ -65,6 +65,7 @@ export type Database = {
           route: string | null
           short_description: string | null
           slug: string
+          tier: Database["public"]["Enums"]["tool_tier"]
           updated_at: string
         }
         Insert: {
@@ -81,6 +82,7 @@ export type Database = {
           route?: string | null
           short_description?: string | null
           slug: string
+          tier?: Database["public"]["Enums"]["tool_tier"]
           updated_at?: string
         }
         Update: {
@@ -97,6 +99,7 @@ export type Database = {
           route?: string | null
           short_description?: string | null
           slug?: string
+          tier?: Database["public"]["Enums"]["tool_tier"]
           updated_at?: string
         }
         Relationships: [
@@ -117,7 +120,12 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      tool_tier:
+        | "free_prompt"
+        | "paid_executive"
+        | "paid_entrepreneur"
+        | "paid_crossover"
+        | "non_paid_personal"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -244,6 +252,14 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      tool_tier: [
+        "free_prompt",
+        "paid_executive",
+        "paid_entrepreneur",
+        "paid_crossover",
+        "non_paid_personal",
+      ],
+    },
   },
 } as const
