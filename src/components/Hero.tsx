@@ -4,8 +4,8 @@ import { ArrowRight, Play, Shield, Zap, Clock } from "lucide-react";
 const Hero = () => {
   return <section className="relative overflow-hidden">
       {/* Dark Hero Section */}
-      <div className="dark-section dark-gradient-bg grid-pattern pt-32 pb-24 bg-secondary-foreground">
-        <div className="container mx-auto px-6 relative z-10 bg-secondary-foreground">
+      <div className="dark-section dark-gradient-bg grid-pattern pt-32 pb-24">
+        <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             {/* Badge */}
             <motion.div initial={{
