@@ -8,6 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAIWorkflow } from "@/hooks/useAIWorkflow";
 import { toast } from "sonner";
+import EmailCaptureGate from "@/components/EmailCaptureGate";
+import { useEmailGate } from "@/hooks/useEmailGate";
 
 const SocialBioBuilder = () => {
   const [role, setRole] = useState("");
@@ -18,6 +20,7 @@ const SocialBioBuilder = () => {
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
   const { execute, isLoading, result } = useAIWorkflow("social_bio_builder");
+  const { hasSubmittedEmail, handleEmailSubmitted } = useEmailGate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,7 +65,12 @@ const SocialBioBuilder = () => {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6 mb-8">
+        <EmailCaptureGate 
+          toolName="Social Bio Builder" 
+          onEmailSubmitted={handleEmailSubmitted}
+          hasSubmittedEmail={hasSubmittedEmail}
+        >
+          <form onSubmit={handleSubmit} className="space-y-6 mb-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="role">Your Role *</Label>
@@ -149,6 +157,7 @@ const SocialBioBuilder = () => {
             )}
           </div>
         )}
+        </EmailCaptureGate>
       </div>
     </div>
   );
