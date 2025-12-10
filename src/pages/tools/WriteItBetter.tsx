@@ -6,6 +6,8 @@ import { ArrowLeft, Copy, Check, Sparkles, Zap, Target, MessageSquare } from "lu
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
+import EmailCaptureGate from "@/components/EmailCaptureGate";
+import { useEmailGate } from "@/hooks/useEmailGate";
 
 type OutputType = "clearer" | "shorter" | "confident";
 
@@ -20,6 +22,7 @@ const WriteItBetter = () => {
   const [activeTab, setActiveTab] = useState<OutputType>("clearer");
   const [copied, setCopied] = useState(false);
   const { toast } = useToast();
+  const { hasSubmittedEmail, handleEmailSubmitted } = useEmailGate();
 
   const handleProcess = async () => {
     if (!input.trim()) {
@@ -78,6 +81,11 @@ const WriteItBetter = () => {
           Back to Tools
         </Link>
 
+        <EmailCaptureGate
+          toolName="Write It Better"
+          onEmailSubmitted={handleEmailSubmitted}
+          hasSubmittedEmail={hasSubmittedEmail}
+        >
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <motion.div
@@ -232,6 +240,7 @@ const WriteItBetter = () => {
             </ul>
           </motion.div>
         </div>
+        </EmailCaptureGate>
       </main>
     </div>
   );

@@ -8,6 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAIWorkflow } from "@/hooks/useAIWorkflow";
 import { toast } from "sonner";
+import EmailCaptureGate from "@/components/EmailCaptureGate";
+import { useEmailGate } from "@/hooks/useEmailGate";
 
 const FixMyContent = () => {
   const [rawContent, setRawContent] = useState("");
@@ -17,6 +19,7 @@ const FixMyContent = () => {
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
   const { execute, isLoading, result } = useAIWorkflow("fix_my_content");
+  const { hasSubmittedEmail, handleEmailSubmitted } = useEmailGate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,6 +67,11 @@ const FixMyContent = () => {
           </div>
         </div>
 
+        <EmailCaptureGate
+          toolName="Fix My Content"
+          onEmailSubmitted={handleEmailSubmitted}
+          hasSubmittedEmail={hasSubmittedEmail}
+        >
         <form onSubmit={handleSubmit} className="space-y-6 mb-8">
           <div className="space-y-2">
             <Label htmlFor="rawContent">Your Raw Content *</Label>
@@ -248,6 +256,7 @@ const FixMyContent = () => {
             )}
           </div>
         )}
+        </EmailCaptureGate>
       </div>
     </div>
   );
