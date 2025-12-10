@@ -96,11 +96,12 @@ const ToolsByTier = () => {
     (tool) => tool.tier === "free_prompt" || tool.tier === "non_paid_personal"
   ) || [];
 
-  const paidTools = tools?.filter(
-    (tool) =>
-      tool.tier === "paid_executive" ||
-      tool.tier === "paid_entrepreneur" ||
-      tool.tier === "paid_crossover"
+  const executiveTools = tools?.filter(
+    (tool) => tool.tier === "paid_executive" || tool.tier === "paid_crossover"
+  ) || [];
+
+  const entrepreneurTools = tools?.filter(
+    (tool) => tool.tier === "paid_entrepreneur" || tool.tier === "paid_crossover"
   ) || [];
 
   const renderSkeletons = (count: number) =>
@@ -137,7 +138,7 @@ const ToolsByTier = () => {
               </p>
             </div>
             <span className="ml-auto text-xs font-medium bg-primary/10 text-primary px-3 py-1.5 rounded-full">
-              {freeTools.length} available
+              FREE
             </span>
           </div>
 
@@ -150,12 +151,13 @@ const ToolsByTier = () => {
           </div>
         </motion.div>
 
-        {/* Paid Tools Section */}
+        {/* Executive Tools Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mb-16"
         >
           <div className="flex items-center gap-3 mb-8">
             <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-amber-500/10">
@@ -163,48 +165,91 @@ const ToolsByTier = () => {
             </div>
             <div>
               <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-                PRO Tools
+                Executive Tools
               </h2>
               <p className="text-muted-foreground text-sm">
-                Advanced AI tools for executives and entrepreneurs
+                AI-powered tools for leaders and executives
               </p>
             </div>
-            <span className="ml-auto text-xs font-medium bg-amber-500/10 text-amber-600 px-3 py-1.5 rounded-full flex items-center gap-1.5">
-              <Lock className="w-3 h-3" />
-              {paidTools.length} tools
+            <span className="ml-auto text-sm font-bold bg-amber-500/10 text-amber-600 px-4 py-2 rounded-full flex items-center gap-2">
+              <Lock className="w-3.5 h-3.5" />
+              $97
             </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {isLoading
-              ? renderSkeletons(6)
-              : paidTools.map((tool, index) => (
+              ? renderSkeletons(4)
+              : executiveTools.map((tool, index) => (
                   <ToolCard key={tool.id} tool={tool} index={index} />
                 ))}
           </div>
+        </motion.div>
 
-          {/* Upgrade CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-12 text-center"
-          >
-            <div className="inline-flex flex-col items-center p-8 rounded-2xl border border-amber-500/20 bg-gradient-to-br from-amber-500/5 to-transparent">
-              <Crown className="w-8 h-8 text-amber-600 mb-3" />
-              <h3 className="text-lg font-bold text-foreground mb-2">
-                Unlock All PRO Tools
-              </h3>
-              <p className="text-muted-foreground text-sm mb-4 max-w-md">
-                Get access to our complete suite of executive and entrepreneur tools designed to save you hours every week.
-              </p>
-              <button className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500 text-white font-semibold hover:bg-amber-600 transition-colors">
-                <Lock className="w-4 h-4" />
-                Upgrade to PRO
-              </button>
+        {/* Entrepreneur Tools Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mb-16"
+        >
+          <div className="flex items-center gap-3 mb-8">
+            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-violet-500/10">
+              <TrendingUp className="w-5 h-5 text-violet-600" />
             </div>
-          </motion.div>
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">
+                Entrepreneur Tools
+              </h2>
+              <p className="text-muted-foreground text-sm">
+                Scale your business with AI-driven insights
+              </p>
+            </div>
+            <span className="ml-auto text-sm font-bold bg-violet-500/10 text-violet-600 px-4 py-2 rounded-full flex items-center gap-2">
+              <Lock className="w-3.5 h-3.5" />
+              $97
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {isLoading
+              ? renderSkeletons(4)
+              : entrepreneurTools.map((tool, index) => (
+                  <ToolCard key={tool.id} tool={tool} index={index} />
+                ))}
+          </div>
+        </motion.div>
+
+        {/* All Access Bundle CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="text-center"
+        >
+          <div className="inline-flex flex-col items-center p-8 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 via-amber-500/5 to-violet-500/5">
+            <div className="flex items-center gap-2 mb-3">
+              <Crown className="w-6 h-6 text-amber-600" />
+              <span className="text-2xl font-bold text-foreground">+</span>
+              <TrendingUp className="w-6 h-6 text-violet-600" />
+            </div>
+            <h3 className="text-xl font-bold text-foreground mb-2">
+              All Access Bundle
+            </h3>
+            <p className="text-muted-foreground text-sm mb-4 max-w-md">
+              Get access to all Executive AND Entrepreneur tools. Save $74 compared to buying separately.
+            </p>
+            <div className="flex items-baseline gap-2 mb-4">
+              <span className="text-3xl font-bold text-foreground">$120</span>
+              <span className="text-muted-foreground line-through text-sm">$194</span>
+            </div>
+            <button className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-violet-500 text-white font-semibold hover:from-amber-600 hover:to-violet-600 transition-all shadow-lg">
+              <Sparkles className="w-4 h-4" />
+              Get All Access
+            </button>
+          </div>
         </motion.div>
       </div>
     </section>
