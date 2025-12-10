@@ -26,6 +26,7 @@ import PressReleaseGenerator from "./pages/tools/PressReleaseGenerator";
 import PitchDeckReviewer from "./pages/tools/PitchDeckReviewer";
 import LifeSimplifier from "./pages/tools/LifeSimplifier";
 import LinkedIn21DayContentPlan from "./pages/tools/LinkedIn21DayContentPlan";
+import LifeCoachAI from "./pages/tools/LifeCoachAI";
 
 const queryClient = new QueryClient();
 
@@ -58,6 +59,7 @@ const App = () => (
           <Route path="/tools/pitch-deck-reviewer" element={<PitchDeckReviewer />} />
           <Route path="/tools/life-simplifier" element={<LifeSimplifier />} />
           <Route path="/tools/linkedin-21-day-content-plan" element={<LinkedIn21DayContentPlan />} />
+          <Route path="/tools/life-coach-ai" element={<LifeCoachAI />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
