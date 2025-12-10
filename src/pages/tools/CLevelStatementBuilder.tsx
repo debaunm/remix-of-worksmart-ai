@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { ArrowLeft, FileText, Loader2, Copy, Check } from "lucide-react";
+import { ArrowLeft, FileText, Loader2, Copy, Check, HelpCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useAIWorkflow } from "@/hooks/useAIWorkflow";
 import { toast } from "sonner";
 
@@ -126,6 +127,127 @@ const CLevelStatementBuilder = () => {
             )}
           </Button>
         </form>
+
+        {/* Instructional Content */}
+        <Card className="mb-8 border-primary/20 bg-primary/5">
+          <CardHeader>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <HelpCircle className="w-5 h-5 text-primary" />
+              How to Use This Tool
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-muted-foreground mb-4">
+              This tool creates polished, board-ready executive statements you can use for company-wide announcements, investor updates, crisis communications, or leadership presentations. Here's how to get the best results.
+            </p>
+            
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="purpose">
+                <AccordionTrigger className="text-foreground font-medium">1. Statement Purpose</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground space-y-2">
+                  <p>Be specific about why you're communicating. The purpose shapes the tone, structure, and framing.</p>
+                  <p className="font-medium text-foreground">Examples:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-2">
+                    <li>Quarterly performance update for investors</li>
+                    <li>Organizational restructuring announcement</li>
+                    <li>Product launch announcement to customers</li>
+                    <li>Crisis response to media inquiry</li>
+                    <li>Strategic pivot communication to board</li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="audience">
+                <AccordionTrigger className="text-foreground font-medium">2. Audience</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground space-y-2">
+                  <p>Different audiences require different language, detail levels, and framing. Be specific.</p>
+                  <p className="font-medium text-foreground">Common audiences:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-2">
+                    <li><strong>Board of Directors:</strong> Strategic, metrics-focused, governance-aware</li>
+                    <li><strong>Investors:</strong> Growth-oriented, financial clarity, risk transparency</li>
+                    <li><strong>Full Company:</strong> Inclusive, motivational, action-oriented</li>
+                    <li><strong>Leadership Team:</strong> Tactical, decision-focused, accountabilities clear</li>
+                    <li><strong>Customers:</strong> Value-focused, trust-building, forward-looking</li>
+                    <li><strong>Media:</strong> Concise, quotable, narrative-driven</li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="facts">
+                <AccordionTrigger className="text-foreground font-medium">3. Key Facts</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground space-y-2">
+                  <p>List the non-negotiable information that must be included. These are the facts your statement will be built around.</p>
+                  <p className="font-medium text-foreground">Include:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-2">
+                    <li>Specific numbers and metrics (revenue, growth %, headcount)</li>
+                    <li>Dates and timelines</li>
+                    <li>Names and titles of key people involved</li>
+                    <li>Decisions that have been made</li>
+                    <li>Changes that are happening</li>
+                  </ul>
+                  <p className="italic">Tip: More facts = better statement. Don't hold back on details here.</p>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="risks">
+                <AccordionTrigger className="text-foreground font-medium">4. Risks & Sensitivities</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground space-y-2">
+                  <p>What could go wrong? What topics need careful handling? This helps craft language that's honest but strategic.</p>
+                  <p className="font-medium text-foreground">Consider:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-2">
+                    <li>Legal or compliance concerns</li>
+                    <li>Morale impacts (layoffs, restructuring)</li>
+                    <li>Competitive sensitivities</li>
+                    <li>Media/PR landmines</li>
+                    <li>Stakeholder concerns that need addressing</li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="outcome">
+                <AccordionTrigger className="text-foreground font-medium">5. Desired Outcome</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground space-y-2">
+                  <p>What should your audience think, feel, or do after reading this? This shapes the call-to-action and emotional tone.</p>
+                  <p className="font-medium text-foreground">Examples:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-2">
+                    <li>"Feel confident in leadership's direction"</li>
+                    <li>"Understand and support the restructuring"</li>
+                    <li>"Approve the proposed budget"</li>
+                    <li>"Trust that we're handling the crisis well"</li>
+                    <li>"Get excited about the new product direction"</li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="output">
+                <AccordionTrigger className="text-foreground font-medium">6. What You'll Get</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground space-y-2">
+                  <p>When you press Generate, you'll receive:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-2">
+                    <li><strong>Full Statement:</strong> A polished, ready-to-deliver executive statement</li>
+                    <li><strong>Key Messages:</strong> The 3-5 core points your statement conveys</li>
+                    <li><strong>Talking Points:</strong> Supporting points for Q&A or follow-up conversations</li>
+                    <li><strong>Delivery Guidance:</strong> Tips on tone, timing, and presentation</li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="prompts">
+                <AccordionTrigger className="text-foreground font-medium">Pro Tips for Better Output</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground space-y-2">
+                  <p>Ask yourself these questions while filling out the form:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-2">
+                    <li>What question will this statement raise that I should answer preemptively?</li>
+                    <li>What's the one thing I absolutely cannot have misunderstood?</li>
+                    <li>If this leaked to the press, what would the headline be?</li>
+                    <li>What does success look like 24 hours after this goes out?</li>
+                    <li>Who's the most skeptical person in my audience, and what do they need to hear?</li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </CardContent>
+        </Card>
 
         {data && (
           <div className="space-y-6">

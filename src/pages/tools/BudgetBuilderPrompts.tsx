@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { ArrowLeft, Calculator, Loader2, Copy, Check } from "lucide-react";
+import { ArrowLeft, Calculator, Loader2, Copy, Check, HelpCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useAIWorkflow } from "@/hooks/useAIWorkflow";
 import { toast } from "sonner";
 
@@ -127,6 +128,134 @@ const BudgetBuilderPrompts = () => {
             )}
           </Button>
         </form>
+
+        {/* Instructional Content */}
+        <Card className="mb-8 border-primary/20 bg-primary/5">
+          <CardHeader>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <HelpCircle className="w-5 h-5 text-primary" />
+              How to Use This Tool
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-muted-foreground mb-4">
+              This tool creates professional budget scenarios with low, medium, and high projections. Whether you're planning for a board meeting, investor pitch, or internal strategy session, here's how to get the most useful output.
+            </p>
+            
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="revenue">
+                <AccordionTrigger className="text-foreground font-medium">1. Revenue</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground space-y-2">
+                  <p>Enter your current or projected revenue. Be specific about the time period.</p>
+                  <p className="font-medium text-foreground">Good examples:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-2">
+                    <li>$500,000 annual revenue</li>
+                    <li>$42,000/month recurring</li>
+                    <li>$1.2M ARR with 15% YoY growth</li>
+                    <li>Projected $800K next fiscal year</li>
+                  </ul>
+                  <p className="italic">Tip: Include growth trends if relevant (e.g., "growing 8% month-over-month").</p>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="expenses">
+                <AccordionTrigger className="text-foreground font-medium">2. Major Expenses</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground space-y-2">
+                  <p>List your significant recurring costs. The more detail, the better the scenario modeling.</p>
+                  <p className="font-medium text-foreground">Categories to consider:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-2">
+                    <li><strong>Payroll:</strong> Salaries, benefits, contractors</li>
+                    <li><strong>Operations:</strong> Rent, utilities, insurance</li>
+                    <li><strong>Software:</strong> SaaS subscriptions, tools, infrastructure</li>
+                    <li><strong>Marketing:</strong> Ads, content, events</li>
+                    <li><strong>Professional Services:</strong> Legal, accounting, consulting</li>
+                    <li><strong>Equipment:</strong> Hardware, supplies</li>
+                  </ul>
+                  <p className="italic">Format tip: "Payroll: $28K/mo, Rent: $5K/mo, Marketing: $8K/mo, Software: $3K/mo"</p>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="headcount">
+                <AccordionTrigger className="text-foreground font-medium">3. Headcount & Payroll</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground space-y-2">
+                  <p>Describe your team size and compensation structure. This helps model hiring scenarios.</p>
+                  <p className="font-medium text-foreground">Include:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-2">
+                    <li>Current headcount (FTEs and contractors)</li>
+                    <li>Total monthly payroll cost</li>
+                    <li>Planned hires or reductions</li>
+                    <li>Average salary ranges if relevant</li>
+                  </ul>
+                  <p className="font-medium text-foreground">Example:</p>
+                  <p>"12 FTEs + 3 contractors, $85K/month total payroll. Planning to hire 2 engineers in Q2."</p>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="goals">
+                <AccordionTrigger className="text-foreground font-medium">4. Financial Goals</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground space-y-2">
+                  <p>What are you optimizing for? Different goals lead to different budget recommendations.</p>
+                  <p className="font-medium text-foreground">Common goals:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-2">
+                    <li><strong>Maximize runway:</strong> Extend cash to survive longer</li>
+                    <li><strong>Hit profitability:</strong> Break even or achieve positive margins</li>
+                    <li><strong>Support growth:</strong> Invest in scaling revenue</li>
+                    <li><strong>Prepare for fundraise:</strong> Optimize metrics for investors</li>
+                    <li><strong>Reduce burn:</strong> Cut expenses strategically</li>
+                  </ul>
+                  <p className="font-medium text-foreground">Example:</p>
+                  <p>"Hit 20% net margin while maintaining 10% monthly growth"</p>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="constraints">
+                <AccordionTrigger className="text-foreground font-medium">5. Constraints</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground space-y-2">
+                  <p>What limitations must the budget respect? These are the non-negotiables.</p>
+                  <p className="font-medium text-foreground">Examples:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-2">
+                    <li>Minimum headcount requirements</li>
+                    <li>Contractual obligations (e.g., 12-month lease)</li>
+                    <li>Marketing minimums for growth targets</li>
+                    <li>Compliance or regulatory costs</li>
+                    <li>Board-mandated spending limits</li>
+                  </ul>
+                  <p className="italic">Example: "Can't reduce engineering below 5 people. Marketing must stay above $5K for lead gen."</p>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="output">
+                <AccordionTrigger className="text-foreground font-medium">6. What You'll Get</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground space-y-2">
+                  <p>When you press Generate, you'll receive:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-2">
+                    <li><strong>Baseline Budget:</strong> Your current state organized clearly</li>
+                    <li><strong>Low Scenario:</strong> Conservative/cost-cutting version</li>
+                    <li><strong>Medium Scenario:</strong> Balanced approach</li>
+                    <li><strong>High Scenario:</strong> Growth-focused/investment version</li>
+                    <li><strong>Executive Summary:</strong> Key insights and recommendations</li>
+                  </ul>
+                  <p>Each scenario includes expense totals, net results, margins, and strategic notes.</p>
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="prompts">
+                <AccordionTrigger className="text-foreground font-medium">Pro Tips for Better Output</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground space-y-2">
+                  <p>Ask yourself these questions while filling out the form:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-2">
+                    <li>What's my current monthly burn rate?</li>
+                    <li>How many months of runway do I have?</li>
+                    <li>Which expenses are fixed vs. variable?</li>
+                    <li>What would I cut first in a downturn?</li>
+                    <li>What investment would have the highest ROI?</li>
+                    <li>What does my board or investors expect to see?</li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </CardContent>
+        </Card>
 
         {data && (
           <div className="space-y-6">
