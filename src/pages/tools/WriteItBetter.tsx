@@ -6,7 +6,7 @@ import { ArrowLeft, Copy, Check, Sparkles, Zap, Target, MessageSquare } from "lu
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
-import EmailCaptureGate from "@/components/EmailCaptureGate";
+import ResultsEmailGate from "@/components/ResultsEmailGate";
 import { useEmailGate } from "@/hooks/useEmailGate";
 
 type OutputType = "clearer" | "shorter" | "confident";
@@ -70,6 +70,8 @@ const WriteItBetter = () => {
     { id: "confident", label: "More Confident", icon: MessageSquare, description: "Assertive, decisive tone" },
   ];
 
+  const hasResults = !!outputs.clearer;
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -81,11 +83,6 @@ const WriteItBetter = () => {
           Back to Tools
         </Link>
 
-        <EmailCaptureGate
-          toolName="Write It Better"
-          onEmailSubmitted={handleEmailSubmitted}
-          hasSubmittedEmail={hasSubmittedEmail}
-        >
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <motion.div
@@ -147,81 +144,89 @@ const WriteItBetter = () => {
               </div>
             </div>
 
-            {/* Output Section */}
-            {(outputs.clearer || isProcessing) && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="rounded-2xl bg-card border border-border/50 overflow-hidden"
-              >
-                {/* Tabs */}
-                <div className="flex border-b border-border/50">
-                  {tabs.map((tab) => (
-                    <button
-                      key={tab.id}
-                      onClick={() => setActiveTab(tab.id)}
-                      className={`flex-1 py-4 px-6 text-sm font-medium transition-colors relative ${
-                        activeTab === tab.id
-                          ? "text-primary"
-                          : "text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      <div className="flex items-center justify-center gap-2">
-                        <tab.icon className="w-4 h-4" />
-                        {tab.label}
-                      </div>
-                      {activeTab === tab.id && (
-                        <motion.div
-                          layoutId="activeTab"
-                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-accent"
-                        />
-                      )}
-                    </button>
-                  ))}
-                </div>
+            {/* Results Section - Gated by Email */}
+            <ResultsEmailGate
+              toolName="Write It Better"
+              onEmailSubmitted={handleEmailSubmitted}
+              hasSubmittedEmail={hasSubmittedEmail}
+              hasResults={hasResults}
+            >
+              {/* Output Section */}
+              {(outputs.clearer || isProcessing) && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="rounded-2xl bg-card border border-border/50 overflow-hidden"
+                >
+                  {/* Tabs */}
+                  <div className="flex border-b border-border/50">
+                    {tabs.map((tab) => (
+                      <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id)}
+                        className={`flex-1 py-4 px-6 text-sm font-medium transition-colors relative ${
+                          activeTab === tab.id
+                            ? "text-primary"
+                            : "text-muted-foreground hover:text-foreground"
+                        }`}
+                      >
+                        <div className="flex items-center justify-center gap-2">
+                          <tab.icon className="w-4 h-4" />
+                          {tab.label}
+                        </div>
+                        {activeTab === tab.id && (
+                          <motion.div
+                            layoutId="activeTab"
+                            className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-accent"
+                          />
+                        )}
+                      </button>
+                    ))}
+                  </div>
 
-                {/* Tab Content */}
-                <div className="p-6">
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {tabs.find((t) => t.id === activeTab)?.description}
-                  </p>
-                  
-                  {isProcessing ? (
-                    <div className="min-h-[150px] flex items-center justify-center">
-                      <div className="flex items-center gap-3 text-muted-foreground">
-                        <Sparkles className="w-5 h-5 animate-spin text-primary" />
-                        <span>Improving your text...</span>
+                  {/* Tab Content */}
+                  <div className="p-6">
+                    <p className="text-sm text-muted-foreground mb-4">
+                      {tabs.find((t) => t.id === activeTab)?.description}
+                    </p>
+                    
+                    {isProcessing ? (
+                      <div className="min-h-[150px] flex items-center justify-center">
+                        <div className="flex items-center gap-3 text-muted-foreground">
+                          <Sparkles className="w-5 h-5 animate-spin text-primary" />
+                          <span>Improving your text...</span>
+                        </div>
                       </div>
-                    </div>
-                  ) : (
-                    <>
-                      <div className="min-h-[150px] p-4 rounded-xl bg-secondary/30 border border-border/30 whitespace-pre-wrap">
-                        {outputs[activeTab]}
-                      </div>
-                      <div className="flex justify-end mt-4">
-                        <Button
-                          onClick={handleCopy}
-                          variant="outline"
-                          size="sm"
-                        >
-                          {copied ? (
-                            <>
-                              <Check className="w-4 h-4" />
-                              Copied!
-                            </>
-                          ) : (
-                            <>
-                              <Copy className="w-4 h-4" />
-                              Copy to clipboard
-                            </>
-                          )}
-                        </Button>
-                      </div>
-                    </>
-                  )}
-                </div>
-              </motion.div>
-            )}
+                    ) : (
+                      <>
+                        <div className="min-h-[150px] p-4 rounded-xl bg-secondary/30 border border-border/30 whitespace-pre-wrap">
+                          {outputs[activeTab]}
+                        </div>
+                        <div className="flex justify-end mt-4">
+                          <Button
+                            onClick={handleCopy}
+                            variant="outline"
+                            size="sm"
+                          >
+                            {copied ? (
+                              <>
+                                <Check className="w-4 h-4" />
+                                Copied!
+                              </>
+                            ) : (
+                              <>
+                                <Copy className="w-4 h-4" />
+                                Copy to clipboard
+                              </>
+                            )}
+                          </Button>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </motion.div>
+              )}
+            </ResultsEmailGate>
           </motion.div>
 
           {/* Tips */}
@@ -240,7 +245,6 @@ const WriteItBetter = () => {
             </ul>
           </motion.div>
         </div>
-        </EmailCaptureGate>
       </main>
     </div>
   );
