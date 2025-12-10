@@ -57,14 +57,16 @@ const Hero = () => {
                 Start Using Free Tools
                 <ArrowUpRight className="w-5 h-5" />
               </Button>
-              <Button
-                variant="outline"
-                size="xl"
-                className="bg-white text-foreground hover:bg-white/90 border-0 px-8"
-              >
-                <Play className="w-4 h-4 fill-current" />
-                See How It Works
-              </Button>
+              <a href="/pricing">
+                <Button
+                  variant="outline"
+                  size="xl"
+                  className="bg-white text-foreground hover:bg-white/90 border-0 px-8"
+                >
+                  Explore Paid Suites
+                  <ArrowUpRight className="w-5 h-5" />
+                </Button>
+              </a>
             </motion.div>
 
             {/* Trust Indicators */}

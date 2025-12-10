@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { CheckCircle, Zap, Target, TrendingUp, ArrowRight, Sparkles, Clock, Brain } from "lucide-react";
+import { CheckCircle, Zap, Target, TrendingUp, ArrowRight, Sparkles, Mail, Unlock, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -8,27 +8,27 @@ import Footer from "@/components/Footer";
 const steps = [
   {
     number: "01",
-    title: "Choose Your Tool",
-    description: "Browse our curated collection of AI-powered tools designed for executives, entrepreneurs, and professionals.",
-    icon: Target,
-  },
-  {
-    number: "02",
-    title: "Input Your Context",
-    description: "Provide the specific details about your situation, goals, or content. Our tools are designed to understand your unique needs.",
-    icon: Brain,
-  },
-  {
-    number: "03",
-    title: "Get AI-Powered Results",
-    description: "Receive structured, actionable outputs crafted by advanced AI models trained on best practices and proven frameworks.",
+    title: "Try a Free Tool",
+    description: "Start with any of our free AI tools — no login required. Experience the power of executive-grade AI in seconds.",
     icon: Sparkles,
   },
   {
+    number: "02",
+    title: "Sign Up with Your Email",
+    description: "Love the results? Enter your email to save your outputs and unlock access to your personalized dashboard.",
+    icon: Mail,
+  },
+  {
+    number: "03",
+    title: "Get Your Personalized Plan",
+    description: "Based on your usage, we'll recommend the tools and workflows that match your goals — whether you're an executive or entrepreneur.",
+    icon: Target,
+  },
+  {
     number: "04",
-    title: "Apply & Succeed",
-    description: "Use the personalized recommendations, content, and strategies to accelerate your professional success.",
-    icon: TrendingUp,
+    title: "Unlock Advanced Tools",
+    description: "Graduate to our paid suites for multi-step frameworks, structured outputs, and premium features that save you 10+ hours weekly.",
+    icon: Unlock,
   },
 ];
 
