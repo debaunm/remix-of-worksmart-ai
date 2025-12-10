@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Sparkles, Menu, X, Crown, Briefcase, Zap } from "lucide-react";
+import { Sparkles, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -31,10 +31,9 @@ const Navbar = () => {
   const mobileMenuBorderStyles = useDarkText ? "border-border" : "border-white/20";
 
   const navItems = [
-    { label: "Executive Suite", href: "/#all-tools", icon: Crown },
-    { label: "Entrepreneur Suite", href: "/#all-tools", icon: Briefcase },
-    { label: "Free Tools", href: "/#all-tools", icon: Zap },
-    { label: "Pricing", href: "/pricing", icon: null },
+    { label: "Tools", href: "/#all-tools" },
+    { label: "How It Works", href: "/how-it-works" },
+    { label: "Pricing", href: "/pricing" },
   ];
 
   return (
@@ -69,16 +68,15 @@ const Navbar = () => {
                 <a 
                   key={item.label}
                   href={item.href} 
-                  className={`transition-colors flex items-center gap-1.5 text-sm ${navLinkStyles}`}
+                  className={`transition-colors text-sm ${navLinkStyles}`}
                 >
-                  {item.icon && <item.icon className="w-4 h-4" />}
                   {item.label}
                 </a>
               ) : (
                 <Link 
                   key={item.label}
                   to={item.href} 
-                  className={`transition-colors flex items-center gap-1.5 text-sm font-medium ${navLinkStyles}`}
+                  className={`transition-colors text-sm font-medium ${navLinkStyles}`}
                 >
                   {item.label}
                 </Link>
@@ -118,17 +116,16 @@ const Navbar = () => {
                   <a 
                     key={item.label}
                     href={item.href} 
-                    className={`transition-colors py-2 flex items-center gap-2 ${navLinkStyles}`}
+                    className={`transition-colors py-2 ${navLinkStyles}`}
                     onClick={() => setIsOpen(false)}
                   >
-                    {item.icon && <item.icon className="w-4 h-4" />}
                     {item.label}
                   </a>
                 ) : (
                   <Link 
                     key={item.label}
                     to={item.href} 
-                    className={`transition-colors py-2 flex items-center gap-2 ${navLinkStyles}`}
+                    className={`transition-colors py-2 ${navLinkStyles}`}
                     onClick={() => setIsOpen(false)}
                   >
                     {item.label}
