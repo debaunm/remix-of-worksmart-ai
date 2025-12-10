@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { ArrowLeft, PiggyBank, Loader2, Copy, Check, TrendingUp, Target, Shield, Zap, AlertCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,7 @@ import { useAIWorkflow } from "@/hooks/useAIWorkflow";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
+import CoastFIREChart from "@/components/CoastFIREChart";
 
 const EarlyRetirementCalculator = () => {
   const [currentAge, setCurrentAge] = useState("35");
@@ -65,6 +66,15 @@ const EarlyRetirementCalculator = () => {
 
   const data = result as Record<string, unknown> | null;
   const paths = data?.paths as Record<string, string[]> | undefined;
+
+  // Parse FIRE number for chart
+  const parsedFireNumber = useMemo(() => {
+    if (!data?.fire_number) return 0;
+    const fireStr = String(data.fire_number).replace(/[$,]/g, '');
+    return parseFloat(fireStr) || 0;
+  }, [data]);
+
+  const showChart = data && parsedFireNumber > 0;
 
   return (
     <div className="min-h-screen bg-background">
@@ -338,6 +348,26 @@ const EarlyRetirementCalculator = () => {
                 )}
               </CardContent>
             </Card>
+
+            {/* Portfolio Growth Chart */}
+            {showChart && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+              >
+                <CoastFIREChart
+                  currentAge={parseInt(currentAge)}
+                  retirementAge={parseInt(retirementAge)}
+                  currentAssets={parseFloat(currentAssets)}
+                  monthlyContributions={parseFloat(monthlyContributions)}
+                  growthRate={parseFloat(growthRate)}
+                  inflationRate={parseFloat(inflationRate)}
+                  investmentFees={parseFloat(investmentFees)}
+                  fireNumber={parsedFireNumber}
+                />
+              </motion.div>
+            )}
             
             <p className="text-xs text-muted-foreground text-center">
               Disclaimer: This is for educational purposes only and not financial advice. Consult a financial advisor.
