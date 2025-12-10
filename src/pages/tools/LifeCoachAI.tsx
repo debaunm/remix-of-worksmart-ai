@@ -280,33 +280,6 @@ const LifeCoachAI = () => {
             </div>
           </div>
 
-          {/* Framework Info */}
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-card border border-border rounded-lg p-4">
-              <h3 className="font-semibold text-foreground mb-2">🔴 Obligation Rules</h3>
-              <p className="text-sm text-muted-foreground">
-                "I should...", "I must...", "I have to..." — These create resentment and exhaustion.
-              </p>
-            </div>
-            <div className="bg-card border border-border rounded-lg p-4">
-              <h3 className="font-semibold text-foreground mb-2">🟠 Time Rules</h3>
-              <p className="text-sm text-muted-foreground">
-                "I don't have time for..." — These create scarcity mindset and chronic rushing.
-              </p>
-            </div>
-            <div className="bg-card border border-border rounded-lg p-4">
-              <h3 className="font-semibold text-foreground mb-2">🟡 Perfectionism Rules</h3>
-              <p className="text-sm text-muted-foreground">
-                "It has to be perfect before..." — These create paralysis and impostor syndrome.
-              </p>
-            </div>
-            <div className="bg-card border border-border rounded-lg p-4">
-              <h3 className="font-semibold text-foreground mb-2">🟣 Emotional Rules</h3>
-              <p className="text-sm text-muted-foreground">
-                "I'm not allowed to feel..." — These create disconnection and burnout.
-              </p>
-            </div>
-          </div>
         </div>
       </main>
     </div>
