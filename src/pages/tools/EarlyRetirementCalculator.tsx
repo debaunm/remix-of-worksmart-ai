@@ -1,38 +1,58 @@
 import { useState } from "react";
-import { ArrowLeft, PiggyBank, Loader2, Copy, Check } from "lucide-react";
+import { ArrowLeft, PiggyBank, Loader2, Copy, Check, TrendingUp, Target, Shield, Zap, AlertCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useAIWorkflow } from "@/hooks/useAIWorkflow";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
+import Navbar from "@/components/Navbar";
 
 const EarlyRetirementCalculator = () => {
-  const [income, setIncome] = useState("");
-  const [expenses, setExpenses] = useState("");
-  const [savingsRate, setSavingsRate] = useState("");
-  const [currentInvestments, setCurrentInvestments] = useState("");
-  const [currentAge, setCurrentAge] = useState("");
-  const [targetRetirementAge, setTargetRetirementAge] = useState("");
+  const [currentAge, setCurrentAge] = useState("35");
+  const [retirementAge, setRetirementAge] = useState("61");
+  const [annualSpending, setAnnualSpending] = useState("60000");
+  const [currentAssets, setCurrentAssets] = useState("75000");
+  const [monthlyContributions, setMonthlyContributions] = useState("0");
+  const [growthRate, setGrowthRate] = useState("10");
+  const [inflationRate, setInflationRate] = useState("3");
+  const [withdrawalRate, setWithdrawalRate] = useState("4");
+  const [investmentFees, setInvestmentFees] = useState("0.5");
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
   const { execute, isLoading, result } = useAIWorkflow("early_retirement_calculator");
 
+  const validateInputs = () => {
+    const age = parseInt(currentAge);
+    const retirement = parseInt(retirementAge);
+    
+    if (age >= 100 || retirement >= 100) {
+      toast.error("Please choose ages of 100 or less");
+      return false;
+    }
+    if (age >= retirement) {
+      toast.error("Current age must be less than retirement age");
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!income.trim() || !expenses.trim()) {
-      toast.error("Please provide income and expenses");
-      return;
-    }
+    if (!validateInputs()) return;
 
     await execute({
-      income,
-      expenses,
-      savings_rate: savingsRate,
-      current_investments: currentInvestments,
       current_age: currentAge,
-      target_retirement_age: targetRetirementAge,
+      retirement_age: retirementAge,
+      annual_spending: annualSpending,
+      current_assets: currentAssets,
+      monthly_contributions: monthlyContributions,
+      growth_rate: growthRate,
+      inflation_rate: inflationRate,
+      withdrawal_rate: withdrawalRate,
+      investment_fees: investmentFees,
     });
   };
 
@@ -48,190 +68,536 @@ const EarlyRetirementCalculator = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <Navbar />
+      
+      <main className="container mx-auto px-4 pt-28 pb-20 max-w-6xl">
         <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-8 transition-colors">
           <ArrowLeft className="w-4 h-4" />
           Back to Tools
         </Link>
 
-        <div className="flex items-center gap-3 mb-6">
-          <div className="p-3 rounded-xl bg-primary/10">
-            <PiggyBank className="w-6 h-6 text-primary" />
+        {/* Hero Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-12"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border/50 bg-card/50 backdrop-blur-sm mb-6">
+            <PiggyBank className="w-4 h-4 text-primary" />
+            <span className="text-xs font-medium text-primary uppercase tracking-wider">Coast FIRE Calculator</span>
           </div>
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">Early Retirement Calculator</h1>
-            <p className="text-muted-foreground">Plan your path to financial independence</p>
-          </div>
-        </div>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            Plan Your <span className="gradient-text">Financial Freedom</span>
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Get clear on the number that lets your investments carry you to retirement without grinding forever.
+          </p>
+        </motion.div>
 
-        <form onSubmit={handleSubmit} className="space-y-6 mb-8">
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="space-y-2">
-              <Label htmlFor="income">Annual Income (before tax) *</Label>
-              <Input
-                id="income"
-                placeholder="e.g., $150,000"
-                value={income}
-                onChange={(e) => setIncome(e.target.value)}
-              />
-            </div>
+        {/* Calculator Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="grid lg:grid-cols-2 gap-8 mb-16"
+        >
+          {/* Calculator Form */}
+          <Card className="border-border/50">
+            <CardHeader>
+              <CardTitle className="text-2xl">Coast FIRE Calculator</CardTitle>
+              <CardDescription>Enter your numbers to see your path</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="currentAge">Current Age</Label>
+                    <Input
+                      id="currentAge"
+                      type="number"
+                      value={currentAge}
+                      onChange={(e) => setCurrentAge(e.target.value)}
+                    />
+                    <p className="text-xs text-muted-foreground">Must be less than 100</p>
+                  </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="expenses">Monthly Expenses *</Label>
-              <Input
-                id="expenses"
-                placeholder="e.g., $6,000/month"
-                value={expenses}
-                onChange={(e) => setExpenses(e.target.value)}
-              />
-            </div>
-          </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="retirementAge">Retirement Age</Label>
+                    <Input
+                      id="retirementAge"
+                      type="number"
+                      value={retirementAge}
+                      onChange={(e) => setRetirementAge(e.target.value)}
+                    />
+                    <p className="text-xs text-muted-foreground">Most people use 61</p>
+                  </div>
+                </div>
 
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="space-y-2">
-              <Label htmlFor="savingsRate">Savings Rate (%)</Label>
-              <Input
-                id="savingsRate"
-                placeholder="e.g., 30%"
-                value={savingsRate}
-                onChange={(e) => setSavingsRate(e.target.value)}
-              />
-            </div>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="annualSpending">Annual Spending</Label>
+                    <div className="relative">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
+                      <Input
+                        id="annualSpending"
+                        type="number"
+                        className="pl-7"
+                        value={annualSpending}
+                        onChange={(e) => setAnnualSpending(e.target.value)}
+                      />
+                    </div>
+                  </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="currentInvestments">Current Investments</Label>
-              <Input
-                id="currentInvestments"
-                placeholder="e.g., $250,000"
-                value={currentInvestments}
-                onChange={(e) => setCurrentInvestments(e.target.value)}
-              />
-            </div>
-          </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="currentAssets">Current Invested Assets</Label>
+                    <div className="relative">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
+                      <Input
+                        id="currentAssets"
+                        type="number"
+                        className="pl-7"
+                        value={currentAssets}
+                        onChange={(e) => setCurrentAssets(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                </div>
 
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="space-y-2">
-              <Label htmlFor="currentAge">Current Age</Label>
-              <Input
-                id="currentAge"
-                placeholder="e.g., 35"
-                value={currentAge}
-                onChange={(e) => setCurrentAge(e.target.value)}
-              />
-            </div>
+                <div className="space-y-2">
+                  <Label htmlFor="monthlyContributions">Monthly Contributions</Label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
+                    <Input
+                      id="monthlyContributions"
+                      type="number"
+                      className="pl-7"
+                      value={monthlyContributions}
+                      onChange={(e) => setMonthlyContributions(e.target.value)}
+                    />
+                  </div>
+                  <p className="text-xs text-muted-foreground">Use $0 to check if you're already at Coast</p>
+                </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="targetRetirementAge">Target Retirement Age</Label>
-              <Input
-                id="targetRetirementAge"
-                placeholder="e.g., 50"
-                value={targetRetirementAge}
-                onChange={(e) => setTargetRetirementAge(e.target.value)}
-              />
-            </div>
-          </div>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="growthRate">Investment Growth Rate</Label>
+                    <div className="relative">
+                      <Input
+                        id="growthRate"
+                        type="number"
+                        step="0.1"
+                        className="pr-7"
+                        value={growthRate}
+                        onChange={(e) => setGrowthRate(e.target.value)}
+                      />
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">%</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">10% is historical average</p>
+                  </div>
 
-          <Button type="submit" disabled={isLoading} className="w-full">
-            {isLoading ? (
-              <>
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Calculating your FIRE path...
-              </>
-            ) : (
-              "Calculate Retirement Plan"
-            )}
-          </Button>
-        </form>
+                  <div className="space-y-2">
+                    <Label htmlFor="inflationRate">Inflation Rate</Label>
+                    <div className="relative">
+                      <Input
+                        id="inflationRate"
+                        type="number"
+                        step="0.1"
+                        className="pr-7"
+                        value={inflationRate}
+                        onChange={(e) => setInflationRate(e.target.value)}
+                      />
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">%</span>
+                    </div>
+                  </div>
+                </div>
 
-        {data && (
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="withdrawalRate">Safe Withdrawal Rate</Label>
+                    <div className="relative">
+                      <Input
+                        id="withdrawalRate"
+                        type="number"
+                        step="0.1"
+                        className="pr-7"
+                        value={withdrawalRate}
+                        onChange={(e) => setWithdrawalRate(e.target.value)}
+                      />
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">%</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">4% is commonly used</p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="investmentFees">Investment Fees</Label>
+                    <div className="relative">
+                      <Input
+                        id="investmentFees"
+                        type="number"
+                        step="0.01"
+                        className="pr-7"
+                        value={investmentFees}
+                        onChange={(e) => setInvestmentFees(e.target.value)}
+                      />
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <Button type="submit" disabled={isLoading} className="w-full" size="lg">
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Calculating...
+                    </>
+                  ) : (
+                    "Calculate"
+                  )}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+
+          {/* Results Section */}
           <div className="space-y-6">
-            <h2 className="text-2xl font-semibold text-foreground">Your FIRE Analysis</h2>
+            <Card className="border-border/50">
+              <CardHeader>
+                <CardTitle className="text-2xl">Results</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {!data ? (
+                  <div className="text-center py-12 text-muted-foreground">
+                    <TrendingUp className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                    <p>Enter your numbers and click Calculate to see your Coast FIRE analysis</p>
+                  </div>
+                ) : (
+                  <div className="space-y-6">
+                    <div className="grid gap-4">
+                      <div className="p-4 rounded-xl bg-primary/10 border border-primary/20">
+                        <p className="text-sm text-muted-foreground mb-1">Coast FIRE Number</p>
+                        <p className="text-3xl font-bold text-primary">{String(data.fire_number)}</p>
+                        <p className="text-xs text-muted-foreground mt-1">Target invested assets needed</p>
+                      </div>
+                      
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="p-4 rounded-xl bg-card border border-border/50">
+                          <p className="text-sm text-muted-foreground mb-1">Timeline</p>
+                          <p className="text-2xl font-bold text-foreground">{data.timeline as string}</p>
+                          <p className="text-xs text-muted-foreground">Years to Coast FIRE</p>
+                        </div>
+                        <div className="p-4 rounded-xl bg-card border border-border/50">
+                          <p className="text-sm text-muted-foreground mb-1">Gap to Close</p>
+                          <p className="text-2xl font-bold text-foreground">{String(data.gap)}</p>
+                          <p className="text-xs text-muted-foreground">Remaining to invest</p>
+                        </div>
+                      </div>
+                    </div>
 
-            <div className="grid gap-4 md:grid-cols-3">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">FIRE Number</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-3xl font-bold text-primary">{String(data.fire_number)}</p>
-                  <p className="text-sm text-muted-foreground mt-1">Target invested assets needed</p>
-                </CardContent>
-              </Card>
+                    {paths && (
+                      <div className="space-y-3">
+                        <h3 className="font-semibold">Your Paths</h3>
+                        {(["aggressive", "moderate", "conservative"] as const).map((tier) => {
+                          const pathItems = paths[tier];
+                          if (!pathItems) return null;
+                          return (
+                            <div key={tier} className="p-3 rounded-lg bg-secondary/30 border border-border/30">
+                              <p className="text-sm font-medium capitalize mb-2">{tier} Path</p>
+                              <ul className="space-y-1">
+                                {pathItems.map((item: string, i: number) => (
+                                  <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                                    <span className="text-primary">•</span>
+                                    <span>{item}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Timeline</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-3xl font-bold text-primary">{data.timeline as string}</p>
-                  <p className="text-sm text-muted-foreground mt-1">Years to reach FIRE</p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Gap to Close</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-3xl font-bold text-primary">{String(data.gap)}</p>
-                  <p className="text-sm text-muted-foreground mt-1">Remaining to invest</p>
-                </CardContent>
-              </Card>
-            </div>
-
-            {paths && (
-              <div className="grid gap-4 md:grid-cols-3">
-                {(["aggressive", "moderate", "conservative"] as const).map((tier) => {
-                  const pathItems = paths[tier];
-                  if (!pathItems) return null;
-                  return (
-                    <Card key={tier}>
-                      <CardHeader>
-                        <CardTitle className="text-lg capitalize">{tier} Path</CardTitle>
-                      </CardHeader>
-                      <CardContent>
+                    {data.monthly_habits && (data.monthly_habits as string[]).length > 0 && (
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <h3 className="font-semibold">Monthly Habits to Build</h3>
+                          <Button variant="ghost" size="sm" onClick={() => copyToClipboard(JSON.stringify(data.monthly_habits), "habits")}>
+                            {copiedField === "habits" ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                          </Button>
+                        </div>
                         <ul className="space-y-2">
-                          {pathItems.map((item: string, i: number) => (
+                          {(data.monthly_habits as string[]).map((habit: string, i: number) => (
                             <li key={i} className="flex items-start gap-2 text-sm">
-                              <span className="text-primary font-bold">•</span>
-                              <span className="text-foreground">{item}</span>
+                              <span className="text-primary font-bold">{i + 1}.</span>
+                              <span className="text-foreground">{habit}</span>
                             </li>
                           ))}
                         </ul>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
-            )}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+            
+            <p className="text-xs text-muted-foreground text-center">
+              Disclaimer: This is for educational purposes only and not financial advice. Consult a financial advisor.
+            </p>
+          </div>
+        </motion.div>
 
-            {data.monthly_habits && (data.monthly_habits as string[]).length > 0 && (
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between">
-                  <CardTitle className="text-lg">Monthly Habits to Build</CardTitle>
-                  <Button variant="ghost" size="sm" onClick={() => copyToClipboard(JSON.stringify(data.monthly_habits), "habits")}>
-                    {copiedField === "habits" ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                  </Button>
+        {/* Educational Content */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="space-y-12"
+        >
+          {/* What is Coast FIRE */}
+          <section className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-4">Coast FIRE Calculator: Your Path to Financial Independence 2024</h2>
+            <p className="text-muted-foreground text-lg mb-6">
+              If you're trying to figure out when you can stop stressing about retirement savings, this calculator gives you a realistic, data-backed view of your Coast FIRE number. Coast FIRE isn't about extreme frugality. It's about getting your money invested early and letting compounding do the work.
+            </p>
+
+            <Card className="border-border/50 mb-8">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Target className="w-5 h-5 text-primary" />
+                  What is Coast FIRE?
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">
+                  Coast FIRE is a strategy where you save aggressively early in your career, then let your portfolio grow on its own while you shift into a lifestyle that actually feels sustainable. Once you hit your Coast number, you don't have to keep feeding retirement accounts for the math to work.
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Key Benefits */}
+            <Card className="border-border/50 mb-8">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Zap className="w-5 h-5 text-primary" />
+                  Key Benefits of Coast FIRE
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  {[
+                    "Know exactly when you can stop contributing to retirement",
+                    "Use compound growth to your advantage",
+                    "Create flexibility in your career",
+                    "Build toward financial independence without sacrificing your quality of life",
+                    "Make a smarter long-term plan instead of guessing"
+                  ].map((benefit, i) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <span className="text-primary font-bold">•</span>
+                      <span className="text-muted-foreground">{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </section>
+
+          {/* Coast FIRE vs Traditional FIRE */}
+          <section className="max-w-4xl mx-auto">
+            <h2 className="text-2xl font-bold mb-4">How Coast FIRE Differs from Traditional FIRE</h2>
+            <p className="text-muted-foreground mb-6">
+              Traditional FIRE often demands saving half (or more) of your income. Coast FIRE is more balanced. Once your investments can grow to your retirement target without new contributions, you get your time and energy back. This approach allows you to:
+            </p>
+            <div className="grid sm:grid-cols-2 gap-4 mb-8">
+              {[
+                "Decrease your savings rate after hitting your Coast number",
+                "Cover your lifestyle while your money grows",
+                "Make career decisions based on meaning, not pressure",
+                "Protect your work-life balance",
+                "Let compounding do the heavy lifting"
+              ].map((point, i) => (
+                <div key={i} className="flex items-start gap-2 p-3 rounded-lg bg-secondary/30 border border-border/30">
+                  <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                  <span className="text-sm text-foreground">{point}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* How Coast FIRE Works */}
+          <section className="max-w-4xl mx-auto">
+            <h2 className="text-2xl font-bold mb-4">How Coast FIRE Works</h2>
+            <p className="text-muted-foreground mb-6">
+              The foundation is compound interest. Money invested early has decades to multiply. A 30-year-old with $200k invested today could easily reach $1M by 65 without adding a dollar, assuming conservative returns. The curve accelerates over time, which is why early savings matter so much.
+            </p>
+            <p className="text-muted-foreground mb-8">
+              Our calculator handles the math for you, so you can focus on the decisions.
+            </p>
+
+            <Card className="border-border/50">
+              <CardHeader>
+                <CardTitle>Key Components of Coast FIRE Planning</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">Your Coast number depends on:</p>
+                <ul className="space-y-2">
+                  {[
+                    "Your current and target retirement age",
+                    "Your expected retirement lifestyle",
+                    "Where you live and your healthcare needs",
+                    "Your existing investments",
+                    "Your projected spending",
+                    "Inflation",
+                    "Realistic return assumptions"
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <span className="text-primary font-bold">•</span>
+                      <span className="text-muted-foreground">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-muted-foreground mt-4">
+                  Get these inputs right and your path becomes predictable instead of guesswork.
+                </p>
+              </CardContent>
+            </Card>
+          </section>
+
+          {/* Benefits and Challenges */}
+          <section className="max-w-4xl mx-auto">
+            <h2 className="text-2xl font-bold mb-6">Benefits and Challenges of Coast FIRE</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card className="border-primary/20 bg-primary/5">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-lg">
+                    <TrendingUp className="w-5 h-5 text-primary" />
+                    Advantages
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
+                  <p className="text-muted-foreground mb-4">
+                    Coast FIRE removes the mental weight of aggressive saving. Once you hit your number, life opens up. People often report:
+                  </p>
                   <ul className="space-y-2">
-                    {(data.monthly_habits as string[]).map((habit: string, i: number) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <span className="text-primary font-bold">{i + 1}.</span>
-                        <span className="text-foreground">{habit}</span>
+                    {[
+                      "Lower financial stress",
+                      "More freedom to choose work they actually enjoy",
+                      "Better balance day to day",
+                      "A healthier long-term plan than traditional FIRE"
+                    ].map((adv, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm">
+                        <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                        <span className="text-foreground">{adv}</span>
                       </li>
                     ))}
                   </ul>
                 </CardContent>
               </Card>
-            )}
 
-            <p className="text-xs text-muted-foreground text-center">
-              Disclaimer: This is for educational purposes only and not financial advice. Consult a financial advisor.
-            </p>
-          </div>
-        )}
-      </div>
+              <Card className="border-border/50">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-lg">
+                    <AlertCircle className="w-5 h-5 text-muted-foreground" />
+                    Potential Drawbacks
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    It does require front-loaded savings and long-term discipline. Markets can move against you, and life changes can shift your targets. If you're planning decades ahead, you'll need to revisit assumptions regularly.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+
+          {/* Strategies */}
+          <section className="max-w-4xl mx-auto">
+            <h2 className="text-2xl font-bold mb-6">Strategies to Reach Coast FIRE</h2>
+            
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <Card className="border-border/50">
+                <CardHeader>
+                  <CardTitle className="text-lg">Investment Approaches</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Most people follow a diversified, low-fee index fund strategy. Real estate or REITs can add another layer. The goal is steady, long-term growth with minimal drag.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-border/50">
+                <CardHeader>
+                  <CardTitle className="text-lg">Ways to Accelerate Your Progress</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2">
+                    {[
+                      "Max out tax-advantaged accounts early",
+                      "Build multiple income streams",
+                      "Level up high-value skills",
+                      "Keep a solid emergency fund",
+                      "Rebalance regularly"
+                    ].map((tip, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm">
+                        <span className="text-primary font-bold">•</span>
+                        <span className="text-muted-foreground">{tip}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+
+            <Card className="border-destructive/20 bg-destructive/5">
+              <CardHeader>
+                <CardTitle className="text-lg">Common Mistakes to Avoid</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  {[
+                    "Assuming unrealistic returns",
+                    "Underestimating future expenses",
+                    "Ignoring life changes like kids, relocation, or health needs"
+                  ].map((mistake, i) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <AlertCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
+                      <span className="text-muted-foreground">{mistake}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </section>
+
+          {/* Next Steps */}
+          <section className="max-w-4xl mx-auto">
+            <Card className="border-primary/20 bg-gradient-to-br from-primary/10 to-transparent">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Shield className="w-5 h-5 text-primary" />
+                  Next Steps
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  {[
+                    "Run your numbers.",
+                    "Create a plan based on reality, not vibes.",
+                    "Adjust yearly.",
+                    "Stay flexible as your life and goals evolve."
+                  ].map((step, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <span className="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-sm font-bold flex-shrink-0">
+                        {i + 1}
+                      </span>
+                      <span className="text-foreground font-medium">{step}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </section>
+        </motion.div>
+      </main>
     </div>
   );
 };
