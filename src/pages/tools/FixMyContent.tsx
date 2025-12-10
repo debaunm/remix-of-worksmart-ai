@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAIWorkflow } from "@/hooks/useAIWorkflow";
 import { toast } from "sonner";
-import EmailCaptureGate from "@/components/EmailCaptureGate";
+import ResultsEmailGate from "@/components/ResultsEmailGate";
 import { useEmailGate } from "@/hooks/useEmailGate";
 
 const FixMyContent = () => {
@@ -67,11 +67,6 @@ const FixMyContent = () => {
           </div>
         </div>
 
-        <EmailCaptureGate
-          toolName="Fix My Content"
-          onEmailSubmitted={handleEmailSubmitted}
-          hasSubmittedEmail={hasSubmittedEmail}
-        >
         <form onSubmit={handleSubmit} className="space-y-6 mb-8">
           <div className="space-y-2">
             <Label htmlFor="rawContent">Your Raw Content *</Label>
@@ -141,122 +136,128 @@ const FixMyContent = () => {
           </Button>
         </form>
 
-        {data && (
-          <div className="space-y-6">
-            <h2 className="text-2xl font-semibold text-foreground">Your Polished Content</h2>
+        <ResultsEmailGate
+          toolName="Fix My Content"
+          onEmailSubmitted={handleEmailSubmitted}
+          hasSubmittedEmail={hasSubmittedEmail}
+          hasResults={!!data}
+        >
+          {data && (
+            <div className="space-y-6">
+              <h2 className="text-2xl font-semibold text-foreground">Your Polished Content</h2>
 
-            {data.improved_version && (
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between">
-                  <CardTitle className="text-lg">Improved Version</CardTitle>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => copyToClipboard(data.improved_version as string, "improved")}
-                  >
-                    {copiedField === "improved" ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                  </Button>
-                </CardHeader>
-                <CardContent>
-                  <p className="whitespace-pre-wrap">{data.improved_version as string}</p>
-                </CardContent>
-              </Card>
-            )}
+              {data.improved_version && (
+                <Card>
+                  <CardHeader className="flex flex-row items-center justify-between">
+                    <CardTitle className="text-lg">Improved Version</CardTitle>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => copyToClipboard(data.improved_version as string, "improved")}
+                    >
+                      {copiedField === "improved" ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                    </Button>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="whitespace-pre-wrap">{data.improved_version as string}</p>
+                  </CardContent>
+                </Card>
+              )}
 
-            {data.hook_options && (data.hook_options as string[]).length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Hook Options</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    {(data.hook_options as string[]).map((hook: string, i: number) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <span className="text-primary font-bold">{i + 1}.</span>
-                        <span>{hook}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            )}
+              {data.hook_options && (data.hook_options as string[]).length > 0 && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Hook Options</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2">
+                      {(data.hook_options as string[]).map((hook: string, i: number) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <span className="text-primary font-bold">{i + 1}.</span>
+                          <span>{hook}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              )}
 
-            {data.variants && (
-              <div className="grid gap-4 md:grid-cols-3">
-                {(data.variants as Record<string, string>).direct && (
-                  <Card>
-                    <CardHeader className="flex flex-row items-center justify-between pb-2">
-                      <CardTitle className="text-sm font-medium">Direct</CardTitle>
-                      <Button variant="ghost" size="sm" onClick={() => copyToClipboard((data.variants as Record<string, string>).direct, "direct")}>
-                        {copiedField === "direct" ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-                      </Button>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground whitespace-pre-wrap">{(data.variants as Record<string, string>).direct}</p>
-                    </CardContent>
-                  </Card>
-                )}
-                {(data.variants as Record<string, string>).story && (
-                  <Card>
-                    <CardHeader className="flex flex-row items-center justify-between pb-2">
-                      <CardTitle className="text-sm font-medium">Story-Based</CardTitle>
-                      <Button variant="ghost" size="sm" onClick={() => copyToClipboard((data.variants as Record<string, string>).story, "story")}>
-                        {copiedField === "story" ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-                      </Button>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground whitespace-pre-wrap">{(data.variants as Record<string, string>).story}</p>
-                    </CardContent>
-                  </Card>
-                )}
-                {(data.variants as Record<string, string>).educational && (
-                  <Card>
-                    <CardHeader className="flex flex-row items-center justify-between pb-2">
-                      <CardTitle className="text-sm font-medium">Educational</CardTitle>
-                      <Button variant="ghost" size="sm" onClick={() => copyToClipboard((data.variants as Record<string, string>).educational, "educational")}>
-                        {copiedField === "educational" ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-                      </Button>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground whitespace-pre-wrap">{(data.variants as Record<string, string>).educational}</p>
-                    </CardContent>
-                  </Card>
-                )}
-              </div>
-            )}
+              {data.variants && (
+                <div className="grid gap-4 md:grid-cols-3">
+                  {(data.variants as Record<string, string>).direct && (
+                    <Card>
+                      <CardHeader className="flex flex-row items-center justify-between pb-2">
+                        <CardTitle className="text-sm font-medium">Direct</CardTitle>
+                        <Button variant="ghost" size="sm" onClick={() => copyToClipboard((data.variants as Record<string, string>).direct, "direct")}>
+                          {copiedField === "direct" ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                        </Button>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-muted-foreground whitespace-pre-wrap">{(data.variants as Record<string, string>).direct}</p>
+                      </CardContent>
+                    </Card>
+                  )}
+                  {(data.variants as Record<string, string>).story && (
+                    <Card>
+                      <CardHeader className="flex flex-row items-center justify-between pb-2">
+                        <CardTitle className="text-sm font-medium">Story-Based</CardTitle>
+                        <Button variant="ghost" size="sm" onClick={() => copyToClipboard((data.variants as Record<string, string>).story, "story")}>
+                          {copiedField === "story" ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                        </Button>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-muted-foreground whitespace-pre-wrap">{(data.variants as Record<string, string>).story}</p>
+                      </CardContent>
+                    </Card>
+                  )}
+                  {(data.variants as Record<string, string>).educational && (
+                    <Card>
+                      <CardHeader className="flex flex-row items-center justify-between pb-2">
+                        <CardTitle className="text-sm font-medium">Educational</CardTitle>
+                        <Button variant="ghost" size="sm" onClick={() => copyToClipboard((data.variants as Record<string, string>).educational, "educational")}>
+                          {copiedField === "educational" ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                        </Button>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-muted-foreground whitespace-pre-wrap">{(data.variants as Record<string, string>).educational}</p>
+                      </CardContent>
+                    </Card>
+                  )}
+                </div>
+              )}
 
-            {data.angle_buckets && (data.angle_buckets as string[]).length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Angle Buckets</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {(data.angle_buckets as string[]).map((angle: string, i: number) => (
-                      <span key={i} className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">{angle}</span>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+              {data.angle_buckets && (data.angle_buckets as string[]).length > 0 && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Angle Buckets</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-wrap gap-2">
+                      {(data.angle_buckets as string[]).map((angle: string, i: number) => (
+                        <span key={i} className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">{angle}</span>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
 
-            {data.cta_options && (data.cta_options as string[]).length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">CTA Options</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-1">
-                    {(data.cta_options as string[]).map((cta: string, i: number) => (
-                      <li key={i} className="text-muted-foreground">• {cta}</li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            )}
-          </div>
-        )}
-        </EmailCaptureGate>
+              {data.cta_options && (data.cta_options as string[]).length > 0 && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">CTA Options</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-1">
+                      {(data.cta_options as string[]).map((cta: string, i: number) => (
+                        <li key={i} className="text-muted-foreground">• {cta}</li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+          )}
+        </ResultsEmailGate>
       </div>
     </div>
   );
