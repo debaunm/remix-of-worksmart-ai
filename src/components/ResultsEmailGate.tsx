@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 interface ResultsEmailGateProps {
   toolName: string;
@@ -44,6 +45,22 @@ const ResultsEmailGate = ({
     setIsSubmitting(true);
     
     try {
+      // Send to ActiveCampaign via edge function
+      const { data, error } = await supabase.functions.invoke('add-activecampaign-contact', {
+        body: {
+          email,
+          firstName,
+          toolName,
+          agreedToMarketing
+        }
+      });
+
+      if (error) {
+        console.error('ActiveCampaign error:', error);
+        // Still allow access even if ActiveCampaign fails
+      }
+
+      // Store locally as backup
       const storedEmails = JSON.parse(localStorage.getItem("worksmart_emails") || "[]");
       storedEmails.push({
         email,
@@ -58,7 +75,10 @@ const ResultsEmailGate = ({
       toast.success("You're all set! Here are your results.");
       onEmailSubmitted(email);
     } catch (error) {
-      toast.error("Something went wrong. Please try again.");
+      console.error('Error submitting email:', error);
+      // Still allow access even if there's an error
+      toast.success("You're all set! Here are your results.");
+      onEmailSubmitted(email);
     } finally {
       setIsSubmitting(false);
     }
