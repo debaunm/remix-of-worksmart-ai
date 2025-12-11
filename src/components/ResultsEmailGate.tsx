@@ -76,8 +76,18 @@ const ResultsEmailGate = ({
 
   // Results are ready but email not submitted - show gate
   return (
-    <div className="py-8">
-      <Card className="w-full max-w-md mx-auto border-primary/20 shadow-xl">
+    <div className="py-8 relative">
+      {/* Blurred preview of results behind the gate */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="blur-md opacity-40 select-none" aria-hidden="true">
+          {children}
+        </div>
+        {/* Shimmer overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/60 to-background" />
+      </div>
+
+      {/* Email capture card */}
+      <Card className="relative z-10 w-full max-w-md mx-auto border-primary/20 shadow-xl bg-card/95 backdrop-blur-sm">
         <CardHeader className="text-center space-y-4">
           <div className="mx-auto w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
             <Sparkles className="w-8 h-8 text-primary" />
