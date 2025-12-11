@@ -5,3 +5,6 @@ verify_jwt = false
 
 [functions.life-coach-chat]
 verify_jwt = false
+
+[functions.add-activecampaign-contact]
+verify_jwt = false
