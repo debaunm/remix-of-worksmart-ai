@@ -50,10 +50,14 @@ const PromptLibrary = () => {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const [expandedPacks, setExpandedPacks] = useState<Set<string>>(new Set());
+  const [expandedPacks, setExpandedPacks] = useState<Set<string> | "all">("all");
   const { toast } = useToast();
 
   const isUnlocked = localStorage.getItem("prompt_library_unlocked") === "true";
+
+  const isPackExpanded = (packId: string) => {
+    return expandedPacks === "all" || expandedPacks.has(packId);
+  };
 
   const handleCopyClick = (prompt: Prompt) => {
     if (isUnlocked) {
@@ -129,6 +133,12 @@ const PromptLibrary = () => {
 
   const togglePack = (packId: string) => {
     setExpandedPacks(prev => {
+      if (prev === "all") {
+        // First toggle: close this pack, expand all others
+        const allIds = packs?.map(p => p.id) || [];
+        const next = new Set(allIds.filter(id => id !== packId));
+        return next;
+      }
       const next = new Set(prev);
       if (next.has(packId)) {
         next.delete(packId);
@@ -151,15 +161,15 @@ const PromptLibrary = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
-              Free Resource
+            <Badge className="mb-4 bg-amber-500/10 text-amber-400 border-amber-500/20">
+              $14.99 One-Time Purchase
             </Badge>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Prompt Library
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Copy-paste prompts for executives, founders, and life optimization. 
-              Enter your email once to unlock unlimited access.
+              Unlock instant access to our entire collection.
             </p>
           </motion.div>
         </div>
@@ -180,7 +190,7 @@ const PromptLibrary = () => {
           ) : (
             packs?.map((pack, index) => {
               const Icon = iconMap[pack.icon || "Sparkles"] || Sparkles;
-              const isExpanded = expandedPacks.has(pack.id);
+              const isExpanded = isPackExpanded(pack.id);
               
               return (
                 <motion.div
@@ -302,11 +312,11 @@ const PromptLibrary = () => {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-primary" />
-              Unlock All Prompts
+              Get Full Access for $14.99
             </DialogTitle>
             <DialogDescription>
-              Enter your email to get instant access to our entire prompt library. 
-              No spam, just useful AI resources.
+              One-time purchase for lifetime access to our entire prompt library. 
+              No subscription, no hidden fees.
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleEmailSubmit} className="space-y-4">
@@ -323,8 +333,11 @@ const PromptLibrary = () => {
               className="w-full" 
               disabled={isSubmitting || !email.trim()}
             >
-              {isSubmitting ? "Unlocking..." : "Unlock & Copy Prompt"}
+              {isSubmitting ? "Processing..." : "Purchase for $14.99"}
             </Button>
+            <p className="text-xs text-center text-muted-foreground">
+              Secure payment via Stripe
+            </p>
           </form>
         </DialogContent>
       </Dialog>
