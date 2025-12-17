@@ -31,6 +31,7 @@ import LifeCoachAI from "./pages/tools/LifeCoachAI";
 import AIAccelerator from "./pages/courses/AIAccelerator";
 import ChatGPT101 from "./pages/courses/ChatGPT101";
 import MediaCompany from "./pages/courses/MediaCompany";
+import Advisors from "./pages/Advisors";
 
 const queryClient = new QueryClient();
 
@@ -45,6 +46,7 @@ const App = () => (
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/prompts" element={<PromptLibrary />} />
+          <Route path="/advisors" element={<Advisors />} />
           <Route path="/courses/ai-accelerator" element={<AIAccelerator />} />
           <Route path="/courses/chatgpt-101" element={<ChatGPT101 />} />
           <Route path="/courses/media-company" element={<MediaCompany />} />
