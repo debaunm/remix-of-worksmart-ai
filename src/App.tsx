@@ -28,6 +28,9 @@ import PitchDeckReviewer from "./pages/tools/PitchDeckReviewer";
 import LifeSimplifier from "./pages/tools/LifeSimplifier";
 import LinkedIn21DayContentPlan from "./pages/tools/LinkedIn21DayContentPlan";
 import LifeCoachAI from "./pages/tools/LifeCoachAI";
+import AIAccelerator from "./pages/courses/AIAccelerator";
+import ChatGPT101 from "./pages/courses/ChatGPT101";
+import MediaCompany from "./pages/courses/MediaCompany";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +45,9 @@ const App = () => (
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/prompts" element={<PromptLibrary />} />
+          <Route path="/courses/ai-accelerator" element={<AIAccelerator />} />
+          <Route path="/courses/chatgpt-101" element={<ChatGPT101 />} />
+          <Route path="/courses/media-company" element={<MediaCompany />} />
           <Route path="/tools/write-it-better" element={<WriteItBetter />} />
           <Route path="/tools/rewrite-message" element={<RewriteMessage />} />
           <Route path="/tools/meeting-to-action-plan" element={<MeetingToActionPlan />} />
