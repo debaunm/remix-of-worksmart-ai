@@ -76,7 +76,7 @@ const Navbar = () => {
               </div>
             </div>
             <span className={`text-xl font-bold transition-colors ${logoTextStyles}`}>
-              WorkSmart<span className="text-primary">.ai</span>
+              Worksmart <span className="text-primary">Advisor</span>
             </span>
           </Link>
 
