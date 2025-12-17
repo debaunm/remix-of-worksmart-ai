@@ -8,26 +8,26 @@ import Footer from "@/components/Footer";
 const steps = [
   {
     number: "01",
-    title: "Try a Free Tool",
-    description: "Start with any of our free AI tools — no login required. Experience the power of executive-grade AI in seconds.",
+    title: "Explore Free Tools",
+    description: "Start with our free AI tools — no login required. Experience instant value with executive-grade AI prompts and calculators.",
     icon: Sparkles,
   },
   {
     number: "02",
-    title: "Sign Up with Your Email",
-    description: "Love the results? Enter your email to save your outputs and unlock access to your personalized dashboard.",
+    title: "Browse Prompt Packs",
+    description: "Access our curated prompt library ($14.99) for copy-paste AI prompts across business, content, and productivity categories.",
     icon: Mail,
   },
   {
     number: "03",
-    title: "Get Your Personalized Plan",
-    description: "Based on your usage, we'll recommend the tools and workflows that match your goals — whether you're an executive or entrepreneur.",
+    title: "Upgrade to Premium Tools",
+    description: "Unlock Executive ($97) or Entrepreneur ($97) tool suites — or get All Access ($120) for multi-step frameworks and premium features.",
     icon: Target,
   },
   {
     number: "04",
-    title: "Unlock Advanced Tools",
-    description: "Graduate to our paid suites for multi-step frameworks, structured outputs, and premium features that save you 10+ hours weekly.",
+    title: "Master AI with Courses",
+    description: "Level up with our courses: ChatGPT 101 ($97), AI Accelerator ($297), or 1 Person Media Company ($397) for complete transformation.",
     icon: Unlock,
   },
 ];
@@ -57,12 +57,12 @@ const testimonials = [
     role: "VP of Operations",
   },
   {
-    quote: "I've tried dozens of AI tools. WorkSmart.ai is the only one that actually understands what executives need.",
+    quote: "I've tried dozens of AI tools. Worksmart Advisor is the only one that actually understands what executives need.",
     author: "Michael R.",
     role: "CEO, Tech Startup",
   },
   {
-    quote: "The Brand Voice Generator captured my personality perfectly. Now all my content sounds authentically me.",
+    quote: "The AI Accelerator course transformed how I work. Now I save 15+ hours a week with the frameworks I learned.",
     author: "Jessica L.",
     role: "Founder & Creator",
   },
@@ -227,7 +227,7 @@ const HowItWorks = () => {
               Ready to Work Smarter?
             </h2>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Join thousands of professionals who are already saving hours every week with WorkSmart.ai
+              Join thousands of professionals who are already saving hours every week with Worksmart Advisor
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/#all-tools">
