@@ -37,7 +37,7 @@ const Footer = () => {
                 <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
                   <Sparkles className="w-4 h-4 text-primary-foreground" />
                 </div>
-                <span className="text-lg font-bold text-white">WorkSmart.ai</span>
+                <span className="text-lg font-bold text-white">Worksmart Advisor</span>
               </a>
               <p className="text-sm text-white/50">
                 The AI Tools Vault for professionals who want results without complexity.
@@ -80,7 +80,7 @@ const Footer = () => {
           {/* Bottom */}
           <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/10">
             <p className="text-sm text-white/50 mb-4 md:mb-0">
-              © 2024 WorkSmart.ai. All rights reserved.
+              © 2024 Worksmart Advisor. All rights reserved.
             </p>
             <div className="flex items-center gap-4">
               <a href="#" className="text-white/50 hover:text-white transition-colors">
