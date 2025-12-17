@@ -1,13 +1,15 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Sparkles, Menu, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { Sparkles, Menu, X, ChevronDown, BookOpen, FileText, GraduationCap } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [resourcesOpen, setResourcesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const dropdownRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +17,16 @@ const Navbar = () => {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setResourcesOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   // Check if we're on homepage - only homepage has dark hero
@@ -32,9 +44,15 @@ const Navbar = () => {
 
   const navItems = [
     { label: "Tools", href: "/#all-tools" },
-    { label: "Prompts", href: "/prompts" },
     { label: "How It Works", href: "/how-it-works" },
     { label: "Pricing", href: "/pricing" },
+  ];
+
+  const resourceItems = [
+    { label: "Prompt Library", href: "/prompts", icon: FileText, description: "Copy-paste AI prompts" },
+    { label: "AI Accelerator", href: "/courses/ai-accelerator", icon: GraduationCap, description: "Master AI workflows" },
+    { label: "ChatGPT 101", href: "/courses/chatgpt-101", icon: BookOpen, description: "Beginner friendly" },
+    { label: "1 Person Media Company", href: "/courses/media-company", icon: Sparkles, description: "Build your content empire" },
   ];
 
   return (
@@ -83,6 +101,41 @@ const Navbar = () => {
                 </Link>
               )
             ))}
+            
+            {/* Resources Dropdown */}
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setResourcesOpen(!resourcesOpen)}
+                className={`flex items-center gap-1 transition-colors text-sm font-medium ${navLinkStyles}`}
+              >
+                Resources
+                <ChevronDown className={`w-4 h-4 transition-transform ${resourcesOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {resourcesOpen && (
+                <div className="absolute top-full left-0 mt-2 w-72 bg-background border border-border rounded-lg shadow-lg z-50 py-2">
+                  {resourceItems.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <Link
+                        key={item.label}
+                        to={item.href}
+                        className="flex items-start gap-3 px-4 py-3 hover:bg-muted transition-colors"
+                        onClick={() => setResourcesOpen(false)}
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                          <Icon className="w-4 h-4 text-primary" />
+                        </div>
+                        <div>
+                          <div className="font-medium text-sm text-foreground">{item.label}</div>
+                          <div className="text-xs text-muted-foreground">{item.description}</div>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* CTA */}
@@ -133,6 +186,26 @@ const Navbar = () => {
                   </Link>
                 )
               ))}
+              
+              {/* Resources Section */}
+              <div className="pt-2 border-t border-border/50">
+                <span className={`text-xs font-semibold uppercase tracking-wider ${useDarkText ? 'text-muted-foreground' : 'text-white/60'}`}>
+                  Resources
+                </span>
+                <div className="mt-2 space-y-1">
+                  {resourceItems.map((item) => (
+                    <Link
+                      key={item.label}
+                      to={item.href}
+                      className={`block py-2 transition-colors ${navLinkStyles}`}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+              
               <div className="flex flex-col gap-2 pt-4">
                 <Button variant="ghost" className={`w-full ${buttonGhostStyles}`}>
                   Sign In
