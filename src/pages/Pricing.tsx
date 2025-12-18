@@ -41,7 +41,8 @@ const tiers = [
     price: "$0",
     description: "Get started with essential AI tools",
     icon: Sparkles,
-    color: "primary",
+    iconColor: "text-primary",
+    bgColor: "bg-primary/10",
     features: [
       "4 Free AI Tools",
       "Basic output formatting",
@@ -55,7 +56,8 @@ const tiers = [
     price: "$97",
     description: "Advanced tools for corporate leaders",
     icon: Crown,
-    color: "purple-500",
+    iconColor: "text-purple-500",
+    bgColor: "bg-purple-500/10",
     features: [
       "All Free Tools",
       "8 Executive-Only Tools",
@@ -71,7 +73,8 @@ const tiers = [
     price: "$97",
     description: "Growth tools for founders & creators",
     icon: Briefcase,
-    color: "amber-500",
+    iconColor: "text-amber-500",
+    bgColor: "bg-amber-500/10",
     features: [
       "All Free Tools",
       "3 Entrepreneur-Only Tools",
@@ -87,7 +90,8 @@ const tiers = [
     price: "$120",
     description: "Everything in one powerful package",
     icon: Zap,
-    color: "primary",
+    iconColor: "text-primary",
+    bgColor: "bg-primary/10",
     features: [
       "All Free Tools",
       "All Executive Tools",
@@ -159,8 +163,8 @@ const Pricing = () => {
                     </div>
                   )}
                   <CardHeader className="text-center pb-2">
-                    <div className={`w-12 h-12 mx-auto mb-4 rounded-xl bg-${tier.color}/10 flex items-center justify-center`}>
-                      <tier.icon className={`w-6 h-6 text-${tier.color}`} />
+                    <div className={`w-12 h-12 mx-auto mb-4 rounded-xl ${tier.bgColor} flex items-center justify-center`}>
+                      <tier.icon className={`w-6 h-6 ${tier.iconColor}`} />
                     </div>
                     <CardTitle className="text-xl">{tier.name}</CardTitle>
                     <CardDescription>{tier.description}</CardDescription>
