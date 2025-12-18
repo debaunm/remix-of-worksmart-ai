@@ -51,7 +51,7 @@ const Hero = () => {
             duration: 0.5,
             delay: 0.2
           }} className="text-lg md:text-xl text-white/60 mb-10 max-w-2xl mx-auto">
-              Join 10,000+ professionals using WorkSmart.ai to automate tasks,
+              Join 10,000+ professionals using Worksmart Advisor to automate tasks,
               make faster decisions, and create better content — all for free.
             </motion.p>
 
