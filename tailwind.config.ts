@@ -67,6 +67,22 @@ export default {
           border: "hsl(var(--dark-border))",
           muted: "hsl(var(--dark-muted))",
         },
+        // Marketplace tier colors
+        tier: {
+          free: "hsl(var(--tier-free))",
+          pro: "hsl(var(--tier-pro))",
+          executive: "hsl(var(--tier-executive))",
+        },
+        // Trust colors
+        trust: {
+          blue: "hsl(var(--trust-blue))",
+        },
+        warning: {
+          orange: "hsl(var(--warning-orange))",
+        },
+        success: {
+          green: "hsl(var(--success-green))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
