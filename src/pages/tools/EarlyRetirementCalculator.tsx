@@ -326,7 +326,7 @@ const EarlyRetirementCalculator = () => {
                       </div>
                     )}
 
-                    {data.monthly_habits && (data.monthly_habits as string[]).length > 0 && (
+                    {data.monthly_habits && Array.isArray(data.monthly_habits) && (data.monthly_habits as unknown[]).length > 0 && (
                       <div className="space-y-3">
                         <div className="flex items-center justify-between">
                           <h3 className="font-semibold">Monthly Habits to Build</h3>
@@ -335,12 +335,19 @@ const EarlyRetirementCalculator = () => {
                           </Button>
                         </div>
                         <ul className="space-y-2">
-                          {(data.monthly_habits as string[]).map((habit: string, i: number) => (
-                            <li key={i} className="flex items-start gap-2 text-sm">
-                              <span className="text-primary font-bold">{i + 1}.</span>
-                              <span className="text-foreground">{habit}</span>
-                            </li>
-                          ))}
+                          {(data.monthly_habits as unknown[]).map((habit: unknown, i: number) => {
+                            const habitText = typeof habit === 'string' 
+                              ? habit 
+                              : typeof habit === 'object' && habit !== null
+                                ? (habit as Record<string, unknown>).description || JSON.stringify(habit)
+                                : String(habit);
+                            return (
+                              <li key={i} className="flex items-start gap-2 text-sm">
+                                <span className="text-primary font-bold">{i + 1}.</span>
+                                <span className="text-foreground">{String(habitText)}</span>
+                              </li>
+                            );
+                          })}
                         </ul>
                       </div>
                     )}
