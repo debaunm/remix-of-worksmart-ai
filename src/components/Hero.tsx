@@ -51,8 +51,8 @@ const Hero = () => {
             duration: 0.5,
             delay: 0.2
           }} className="text-lg md:text-xl text-white/60 mb-10 max-w-2xl mx-auto">
-              Join 10,000+ professionals using Worksmart Advisor to automate tasks,
-              make faster decisions, and create better content — all for free.
+              The all-in-one AI operating system for thinking, deciding, creating, 
+              and executing at a higher level — built for modern professionals and founders.
             </motion.p>
 
             {/* CTAs */}

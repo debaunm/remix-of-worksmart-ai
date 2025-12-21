@@ -86,10 +86,10 @@ const HowItWorks = () => {
               AI-Powered Productivity
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-              Work Smarter, Not Harder
+              The Operating System for Modern Professionals
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Professional-grade AI tools that deliver executive-level results in seconds. 
+              An all-in-one AI operating system for thinking, deciding, creating, and executing at a higher level.
               No learning curve. No complexity. Just results.
             </p>
           </motion.div>

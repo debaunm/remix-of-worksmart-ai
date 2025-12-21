@@ -40,7 +40,7 @@ const Footer = () => {
                 <span className="text-lg font-bold text-white">Worksmart Advisor</span>
               </a>
               <p className="text-sm text-white/50">
-                The AI Tools Vault for professionals who want results without complexity.
+                The AI operating system for modern professionals and founders.
               </p>
             </div>
 
