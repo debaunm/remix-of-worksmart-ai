@@ -28,6 +28,7 @@ import PitchDeckReviewer from "./pages/tools/PitchDeckReviewer";
 import LifeSimplifier from "./pages/tools/LifeSimplifier";
 import LinkedIn21DayContentPlan from "./pages/tools/LinkedIn21DayContentPlan";
 import LifeCoachAI from "./pages/tools/LifeCoachAI";
+import ServicePricingWorkbook from "./pages/tools/ServicePricingWorkbook";
 import AIAccelerator from "./pages/courses/AIAccelerator";
 import ChatGPT101 from "./pages/courses/ChatGPT101";
 import MediaCompany from "./pages/courses/MediaCompany";
@@ -70,6 +71,7 @@ const App = () => (
           <Route path="/tools/life-simplifier" element={<LifeSimplifier />} />
           <Route path="/tools/linkedin-21-day-content-plan" element={<LinkedIn21DayContentPlan />} />
           <Route path="/tools/life-coach-ai" element={<LifeCoachAI />} />
+          <Route path="/tools/service-pricing-workbook" element={<ServicePricingWorkbook />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
