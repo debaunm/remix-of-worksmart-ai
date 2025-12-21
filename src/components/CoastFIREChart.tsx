@@ -1,6 +1,9 @@
-import { useMemo } from "react";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
+import { useMemo, useState } from "react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ChevronDown, ChevronUp, BarChart3 } from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 interface CoastFIREChartProps {
   currentAge: number;
@@ -11,13 +14,17 @@ interface CoastFIREChartProps {
   inflationRate: number;
   investmentFees: number;
   fireNumber: number;
+  annualSpending?: number;
+  withdrawalRate?: number;
 }
 
 interface ChartDataPoint {
   age: number;
-  portfolio: number;
-  coastOnly: number;
-  fireTarget: number;
+  ageLabel: string;
+  totalWealth: number;
+  realValue: number;
+  growth: number;
+  withdrawals: number;
 }
 
 const formatCurrency = (value: number) => {
@@ -25,9 +32,18 @@ const formatCurrency = (value: number) => {
     return `$${(value / 1000000).toFixed(1)}M`;
   }
   if (value >= 1000) {
-    return `$${(value / 1000).toFixed(0)}K`;
+    return `$${Math.round(value / 1000)}K`;
   }
-  return `$${value.toFixed(0)}`;
+  return `$${Math.round(value)}`;
+};
+
+const formatCurrencyFull = (value: number) => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(value);
 };
 
 const CoastFIREChart = ({
@@ -39,40 +55,73 @@ const CoastFIREChart = ({
   inflationRate,
   investmentFees,
   fireNumber,
+  annualSpending = 60000,
+  withdrawalRate = 4,
 }: CoastFIREChartProps) => {
+  const [showTable, setShowTable] = useState(false);
+
   const chartData = useMemo(() => {
     const data: ChartDataPoint[] = [];
-    const netGrowthRate = (growthRate - inflationRate - investmentFees) / 100;
+    const nominalGrowthRate = (growthRate - investmentFees) / 100;
+    const realGrowthRate = (growthRate - inflationRate - investmentFees) / 100;
+    const inflationRateDecimal = inflationRate / 100;
     const annualContribution = monthlyContributions * 12;
     
-    let portfolioWithContributions = currentAssets;
-    let portfolioCoastOnly = currentAssets;
+    // Calculate through age 75 or 10 years past retirement
+    const endAge = Math.max(retirementAge + 20, 75);
     
-    for (let age = currentAge; age <= retirementAge; age++) {
+    let totalWealth = currentAssets;
+    let realValue = currentAssets;
+    let cumulativeInflation = 1;
+    
+    for (let age = currentAge; age <= endAge; age++) {
+      const isRetired = age >= retirementAge;
+      
+      // Calculate inflation-adjusted spending for this year
+      const currentSpending = annualSpending * cumulativeInflation;
+      
+      // Calculate this year's growth
+      const yearlyGrowth = totalWealth * nominalGrowthRate;
+      
+      // Calculate withdrawals (only during retirement)
+      const yearlyWithdrawals = isRetired ? currentSpending : 0;
+      
       data.push({
         age,
-        portfolio: Math.round(portfolioWithContributions),
-        coastOnly: Math.round(portfolioCoastOnly),
-        fireTarget: fireNumber,
+        ageLabel: `Age ${age}`,
+        totalWealth: Math.max(0, Math.round(totalWealth)),
+        realValue: Math.max(0, Math.round(realValue)),
+        growth: Math.max(0, Math.round(yearlyGrowth)),
+        withdrawals: Math.round(yearlyWithdrawals),
       });
       
-      // Grow with contributions
-      portfolioWithContributions = portfolioWithContributions * (1 + netGrowthRate) + annualContribution;
-      // Grow without contributions (coast mode)
-      portfolioCoastOnly = portfolioCoastOnly * (1 + netGrowthRate);
+      // Update for next year
+      if (!isRetired) {
+        // Accumulation phase: add contributions and growth
+        totalWealth = totalWealth * (1 + nominalGrowthRate) + annualContribution;
+        realValue = realValue * (1 + realGrowthRate) + annualContribution;
+      } else {
+        // Retirement phase: subtract withdrawals, add growth
+        totalWealth = Math.max(0, totalWealth * (1 + nominalGrowthRate) - currentSpending);
+        realValue = Math.max(0, realValue * (1 + realGrowthRate) - annualSpending);
+      }
+      
+      // Update cumulative inflation
+      cumulativeInflation *= (1 + inflationRateDecimal);
     }
     
     return data;
-  }, [currentAge, retirementAge, currentAssets, monthlyContributions, growthRate, inflationRate, investmentFees, fireNumber]);
+  }, [currentAge, retirementAge, currentAssets, monthlyContributions, growthRate, inflationRate, investmentFees, annualSpending, withdrawalRate]);
 
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
         <div className="bg-card border border-border rounded-lg p-3 shadow-lg">
-          <p className="font-semibold mb-2">Age {label}</p>
+          <p className="font-semibold mb-2">{label}</p>
           {payload.map((entry: any, index: number) => (
-            <p key={index} className="text-sm" style={{ color: entry.color }}>
-              {entry.name}: {formatCurrency(entry.value)}
+            <p key={index} className="text-sm flex justify-between gap-4" style={{ color: entry.color }}>
+              <span>{entry.name}:</span>
+              <span className="font-medium">{formatCurrency(entry.value)}</span>
             </p>
           ))}
         </div>
@@ -81,91 +130,188 @@ const CoastFIREChart = ({
     return null;
   };
 
+  const renderLegend = () => (
+    <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-4 text-sm">
+      <div className="flex items-center gap-2">
+        <div className="w-4 h-1 rounded" style={{ backgroundColor: '#4F7DF3' }} />
+        <span className="text-muted-foreground">Total Wealth</span>
+      </div>
+      <div className="flex items-center gap-2">
+        <div className="w-4 h-1 rounded" style={{ backgroundColor: '#4ADE80' }} />
+        <span className="text-muted-foreground">Real Value (Today's Money)</span>
+      </div>
+      <div className="flex items-center gap-2">
+        <div className="w-4 h-1 rounded" style={{ backgroundColor: '#A78BFA' }} />
+        <span className="text-muted-foreground">Growth</span>
+      </div>
+      <div className="flex items-center gap-2">
+        <div className="w-4 h-1 rounded" style={{ backgroundColor: '#F87171' }} />
+        <span className="text-muted-foreground">Withdrawals</span>
+      </div>
+    </div>
+  );
+
   return (
-    <Card className="border-border/50">
-      <CardHeader>
-        <CardTitle className="text-lg flex items-center gap-2">
-          Portfolio Growth Projection
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="h-[300px] w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-              <defs>
-                <linearGradient id="portfolioGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0} />
-                </linearGradient>
-                <linearGradient id="coastGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="hsl(var(--muted-foreground))" stopOpacity={0.2} />
-                  <stop offset="95%" stopColor="hsl(var(--muted-foreground))" stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" className="stroke-border/50" />
-              <XAxis 
-                dataKey="age" 
-                tick={{ fontSize: 12 }}
-                tickLine={false}
-                axisLine={false}
-                className="text-muted-foreground"
-              />
-              <YAxis 
-                tickFormatter={formatCurrency}
-                tick={{ fontSize: 12 }}
-                tickLine={false}
-                axisLine={false}
-                className="text-muted-foreground"
-                width={60}
-              />
-              <Tooltip content={<CustomTooltip />} />
-              <ReferenceLine 
-                y={fireNumber} 
-                stroke="hsl(var(--destructive))" 
-                strokeDasharray="5 5" 
-                label={{ 
-                  value: "FIRE Target", 
-                  position: "right",
-                  fill: "hsl(var(--destructive))",
-                  fontSize: 11
-                }} 
-              />
-              <Area
-                type="monotone"
-                dataKey="coastOnly"
-                name="Coast Only"
-                stroke="hsl(var(--muted-foreground))"
-                strokeWidth={2}
-                strokeDasharray="4 4"
-                fill="url(#coastGradient)"
-              />
-              <Area
-                type="monotone"
-                dataKey="portfolio"
-                name="With Contributions"
-                stroke="hsl(var(--primary))"
-                strokeWidth={2}
-                fill="url(#portfolioGradient)"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        </div>
-        <div className="flex flex-wrap gap-4 mt-4 text-sm">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-primary" />
-            <span className="text-muted-foreground">With Contributions</span>
+    <div className="space-y-4">
+      <Card className="border-border/50">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-lg">Yearly Overview with Inflation</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {renderLegend()}
+          <div className="h-[350px] w-full mt-4">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart 
+                data={chartData} 
+                margin={{ top: 20, right: 20, left: 10, bottom: 20 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" className="stroke-border/30" />
+                <XAxis 
+                  dataKey="ageLabel" 
+                  tick={{ fontSize: 10 }}
+                  tickLine={false}
+                  axisLine={{ stroke: 'hsl(var(--border))' }}
+                  angle={-45}
+                  textAnchor="end"
+                  height={60}
+                  interval={Math.floor(chartData.length / 12)}
+                />
+                <YAxis 
+                  tickFormatter={formatCurrency}
+                  tick={{ fontSize: 11 }}
+                  tickLine={false}
+                  axisLine={{ stroke: 'hsl(var(--border))' }}
+                  width={70}
+                />
+                <Tooltip content={<CustomTooltip />} />
+                <Line
+                  type="monotone"
+                  dataKey="totalWealth"
+                  name="Total Wealth"
+                  stroke="#4F7DF3"
+                  strokeWidth={2}
+                  dot={{ r: 3, fill: '#4F7DF3' }}
+                  activeDot={{ r: 5 }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="realValue"
+                  name="Real Value (Today's Money)"
+                  stroke="#4ADE80"
+                  strokeWidth={2}
+                  dot={{ r: 3, fill: '#4ADE80' }}
+                  activeDot={{ r: 5 }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="growth"
+                  name="Growth"
+                  stroke="#A78BFA"
+                  strokeWidth={2}
+                  dot={{ r: 3, fill: '#A78BFA' }}
+                  activeDot={{ r: 5 }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="withdrawals"
+                  name="Withdrawals"
+                  stroke="#F87171"
+                  strokeWidth={2}
+                  dot={{ r: 3, fill: '#F87171' }}
+                  activeDot={{ r: 5 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-0.5 bg-muted-foreground" style={{ borderStyle: 'dashed' }} />
-            <span className="text-muted-foreground">Coast Only (No Contributions)</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-0.5 bg-destructive" style={{ borderStyle: 'dashed' }} />
-            <span className="text-muted-foreground">FIRE Target</span>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+
+      <Card className="border-border/50">
+        <Collapsible open={showTable} onOpenChange={setShowTable}>
+          <CardHeader className="pb-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <BarChart3 className="w-5 h-5 text-primary" />
+                <CardTitle className="text-lg">Detailed Financial Projection</CardTitle>
+              </div>
+              <CollapsibleTrigger asChild>
+                <Button variant="default" size="sm" className="gap-2">
+                  {showTable ? (
+                    <>
+                      Hide Table
+                      <ChevronUp className="w-4 h-4" />
+                    </>
+                  ) : (
+                    <>
+                      Show Table
+                      <ChevronDown className="w-4 h-4" />
+                    </>
+                  )}
+                </Button>
+              </CollapsibleTrigger>
+            </div>
+          </CardHeader>
+          <CollapsibleContent>
+            <CardContent>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th className="text-left py-3 px-2 font-semibold text-muted-foreground">Age</th>
+                      <th className="text-right py-3 px-2 font-semibold text-muted-foreground">Total Wealth</th>
+                      <th className="text-right py-3 px-2 font-semibold text-muted-foreground">Real Value</th>
+                      <th className="text-right py-3 px-2 font-semibold text-muted-foreground">Growth</th>
+                      <th className="text-right py-3 px-2 font-semibold text-muted-foreground">Withdrawals</th>
+                      <th className="text-left py-3 px-2 font-semibold text-muted-foreground">Phase</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {chartData.map((row, index) => {
+                      const isRetirementYear = row.age === retirementAge;
+                      const isRetired = row.age >= retirementAge;
+                      return (
+                        <tr 
+                          key={row.age} 
+                          className={`border-b border-border/50 ${isRetirementYear ? 'bg-primary/10' : ''} hover:bg-muted/50 transition-colors`}
+                        >
+                          <td className="py-2 px-2 font-medium">
+                            {row.age}
+                            {isRetirementYear && (
+                              <span className="ml-2 text-xs text-primary font-normal">(Retirement)</span>
+                            )}
+                          </td>
+                          <td className="text-right py-2 px-2" style={{ color: '#4F7DF3' }}>
+                            {formatCurrencyFull(row.totalWealth)}
+                          </td>
+                          <td className="text-right py-2 px-2" style={{ color: '#4ADE80' }}>
+                            {formatCurrencyFull(row.realValue)}
+                          </td>
+                          <td className="text-right py-2 px-2" style={{ color: '#A78BFA' }}>
+                            {formatCurrencyFull(row.growth)}
+                          </td>
+                          <td className="text-right py-2 px-2" style={{ color: '#F87171' }}>
+                            {row.withdrawals > 0 ? formatCurrencyFull(row.withdrawals) : '—'}
+                          </td>
+                          <td className="py-2 px-2">
+                            <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                              isRetired 
+                                ? 'bg-amber-500/20 text-amber-600 dark:text-amber-400' 
+                                : 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400'
+                            }`}>
+                              {isRetired ? 'Retirement' : 'Accumulation'}
+                            </span>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </CollapsibleContent>
+        </Collapsible>
+      </Card>
+    </div>
   );
 };
 
