@@ -379,6 +379,8 @@ const EarlyRetirementCalculator = () => {
                   inflationRate={parseFloat(inflationRate)}
                   investmentFees={parseFloat(investmentFees)}
                   fireNumber={parsedFireNumber}
+                  annualSpending={parseFloat(annualSpending)}
+                  withdrawalRate={parseFloat(withdrawalRate)}
                 />
               </motion.div>
             )}
