@@ -20,7 +20,6 @@ const TopToolsGrid = ({
 
   const filteredTools = tools?.filter((tool) => {
     if (category === "all") return true;
-    // Map categories to tool properties/names for filtering
     const categoryMap: Record<string, string[]> = {
       think: ["Decision", "Life Coach", "Strategy"],
       plan: ["Weekly", "Budget", "Roles"],
@@ -36,36 +35,36 @@ const TopToolsGrid = ({
 
   const renderSkeletons = () =>
     Array.from({ length: limit }).map((_, index) => (
-      <div key={index} className="marketplace-card">
-        <div className="flex items-start justify-between mb-4">
-          <Skeleton className="w-12 h-12 rounded-xl" />
+      <div key={index} className="bg-card rounded-2xl border border-border p-6">
+        <div className="flex items-start justify-between mb-5">
+          <Skeleton className="w-14 h-14 rounded-2xl" />
           <Skeleton className="w-16 h-6 rounded-full" />
         </div>
         <Skeleton className="h-3 w-16 mb-2" />
         <Skeleton className="h-5 w-32 mb-2" />
-        <Skeleton className="h-10 w-full mb-4" />
-        <Skeleton className="h-4 w-24 mb-4" />
-        <div className="flex justify-between pt-4 border-t border-border">
+        <Skeleton className="h-10 w-full mb-5" />
+        <Skeleton className="h-4 w-24 mb-5" />
+        <div className="flex justify-between pt-5 border-t border-border">
           <Skeleton className="h-6 w-16" />
-          <Skeleton className="h-8 w-20 rounded-md" />
+          <Skeleton className="h-8 w-20 rounded-lg" />
         </div>
       </div>
     ));
 
   return (
-    <section className="py-16 bg-background">
+    <section id="all-tools" className="py-20 bg-background">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-10"
+          className="mb-12"
         >
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
             {title}
           </h2>
-          <p className="text-muted-foreground">
+          <p className="text-lg text-muted-foreground">
             {subtitle}
           </p>
         </motion.div>
