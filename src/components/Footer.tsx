@@ -1,88 +1,23 @@
-import { Sparkles, Twitter, Linkedin, Mail } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Sparkles, Twitter, Linkedin, Mail, Shield, Clock } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer>
-      {/* CTA Section - Primary Green */}
-      <div className="bg-primary py-20">
-        <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-primary-foreground">
-              Empowering Your Professional Growth
-            </h2>
-            <p className="text-lg text-primary-foreground/80 mb-8">
-              Join thousands of professionals using AI to save time and do better work.
+    <footer className="dark-section bg-[hsl(160,24%,8%)]">
+      <div className="container mx-auto px-6 py-16">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+          {/* Brand */}
+          <div className="col-span-2 md:col-span-1">
+            <Link to="/" className="flex items-center gap-2 mb-4">
+              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+                <Sparkles className="w-4 h-4 text-primary-foreground" />
+              </div>
+              <span className="text-lg font-bold text-white">Worksmart</span>
+            </Link>
+            <p className="text-sm text-white/50 mb-4">
+              The AI operating system for modern professionals and founders.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button 
-                variant="outline" 
-                size="lg" 
-                className="bg-white text-primary hover:bg-white/90 border-white font-semibold"
-              >
-                Start Using Free Tools
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Footer Links - Dark */}
-      <div className="dark-section bg-[hsl(160,24%,8%)]">
-        <div className="container mx-auto px-6 py-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-            {/* Brand */}
-            <div className="col-span-2 md:col-span-1">
-              <a href="/" className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                  <Sparkles className="w-4 h-4 text-primary-foreground" />
-                </div>
-                <span className="text-lg font-bold text-white">Worksmart Advisor</span>
-              </a>
-              <p className="text-sm text-white/50">
-                The AI operating system for modern professionals and founders.
-              </p>
-            </div>
-
-            {/* Tools */}
-            <div>
-              <h4 className="font-semibold mb-4 text-white">Tools</h4>
-              <ul className="space-y-2 text-sm text-white/50">
-                <li><a href="#" className="hover:text-white transition-colors">For Founders</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">For Executives</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">For Productivity</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">All Tools</a></li>
-              </ul>
-            </div>
-
-            {/* Company */}
-            <div>
-              <h4 className="font-semibold mb-4 text-white">Company</h4>
-              <ul className="space-y-2 text-sm text-white/50">
-                <li><a href="/advisors" className="hover:text-white transition-colors">Our Advisors</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-                <li><a href="/pricing" className="hover:text-white transition-colors">Pricing</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-              </ul>
-            </div>
-
-            {/* Legal */}
-            <div>
-              <h4 className="font-semibold mb-4 text-white">Legal</h4>
-              <ul className="space-y-2 text-sm text-white/50">
-                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Cookie Policy</a></li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Bottom */}
-          <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/10">
-            <p className="text-sm text-white/50 mb-4 md:mb-0">
-              © 2024 Worksmart Advisor. All rights reserved.
-            </p>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <a href="#" className="text-white/50 hover:text-white transition-colors">
                 <Twitter className="w-5 h-5" />
               </a>
@@ -93,6 +28,70 @@ const Footer = () => {
                 <Mail className="w-5 h-5" />
               </a>
             </div>
+          </div>
+
+          {/* Product */}
+          <div>
+            <h4 className="font-semibold mb-4 text-white">Product</h4>
+            <ul className="space-y-2 text-sm text-white/50">
+              <li><Link to="/how-it-works" className="hover:text-white transition-colors">About Worksmart</Link></li>
+              <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
+            </ul>
+          </div>
+
+          {/* Account */}
+          <div>
+            <h4 className="font-semibold mb-4 text-white">Account</h4>
+            <ul className="space-y-2 text-sm text-white/50">
+              <li><a href="#" className="hover:text-white transition-colors">Profile</a></li>
+              <li><Link to="/pricing" className="hover:text-white transition-colors">Join Pro</Link></li>
+              <li><a href="#" className="hover:text-white transition-colors">Terms & Privacy</a></li>
+            </ul>
+          </div>
+
+          {/* Resources */}
+          <div>
+            <h4 className="font-semibold mb-4 text-white">Resources</h4>
+            <ul className="space-y-2 text-sm text-white/50">
+              <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Partner with us</a></li>
+              <li><Link to="/prompts" className="hover:text-white transition-colors">Prompt Library</Link></li>
+            </ul>
+          </div>
+
+          {/* Learning */}
+          <div>
+            <h4 className="font-semibold mb-4 text-white">Learning</h4>
+            <ul className="space-y-2 text-sm text-white/50">
+              <li><Link to="/courses/ai-accelerator" className="hover:text-white transition-colors">AI Accelerator</Link></li>
+              <li><Link to="/courses/chatgpt-101" className="hover:text-white transition-colors">ChatGPT 101</Link></li>
+              <li><Link to="/courses/media-company" className="hover:text-white transition-colors">Media Company</Link></li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Trust banner */}
+        <div className="flex flex-wrap items-center justify-center gap-6 py-6 border-t border-b border-white/10 mb-8">
+          <div className="flex items-center gap-2 text-white/60 text-sm">
+            <Shield className="w-4 h-4 text-primary" />
+            Money-back guarantee
+          </div>
+          <div className="flex items-center gap-2 text-white/60 text-sm">
+            <Clock className="w-4 h-4 text-primary" />
+            Support within 24 hours
+          </div>
+        </div>
+
+        {/* Bottom */}
+        <div className="flex flex-col md:flex-row items-center justify-between">
+          <p className="text-sm text-white/50 mb-4 md:mb-0">
+            © 2024 Worksmart Advisor. All rights reserved.
+          </p>
+          <div className="flex items-center gap-4 text-sm text-white/50">
+            <a href="#" className="hover:text-white transition-colors">Privacy</a>
+            <a href="#" className="hover:text-white transition-colors">Terms</a>
+            <a href="#" className="hover:text-white transition-colors">Cookies</a>
           </div>
         </div>
       </div>

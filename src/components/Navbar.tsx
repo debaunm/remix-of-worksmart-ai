@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Sparkles, Menu, X, ChevronDown, BookOpen, FileText, GraduationCap } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Sparkles, Menu, X, ChevronDown, BookOpen, FileText, GraduationCap, Search, ShoppingCart } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -8,6 +9,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const location = useLocation();
   const dropdownRef = useRef<HTMLDivElement>(null);
   
@@ -29,18 +31,17 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Check if we're on homepage - only homepage has dark hero
   const isHomepage = location.pathname === "/";
   const useDarkText = scrolled || !isHomepage;
 
   const navLinkStyles = useDarkText 
     ? "text-foreground hover:text-primary" 
-    : "text-white opacity-80 hover:opacity-100";
-  const logoTextStyles = useDarkText ? "text-foreground" : "text-white";
+    : "text-foreground hover:text-primary";
+  const logoTextStyles = useDarkText ? "text-foreground" : "text-foreground";
   const buttonGhostStyles = useDarkText 
     ? "text-muted-foreground hover:text-foreground hover:bg-secondary" 
-    : "text-white/80 hover:text-white hover:bg-white/10";
-  const mobileMenuBorderStyles = useDarkText ? "border-border" : "border-white/20";
+    : "text-muted-foreground hover:text-foreground hover:bg-secondary";
+  const mobileMenuBorderStyles = "border-border";
 
   const navItems = [
     { label: "Tools", href: "/#all-tools" },

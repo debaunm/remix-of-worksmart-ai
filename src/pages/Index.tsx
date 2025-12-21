@@ -1,16 +1,36 @@
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import ToolsByTier from "@/components/ToolsByTier";
-import CoursesSection from "@/components/CoursesSection";
 import Footer from "@/components/Footer";
+import MarketplaceHero from "@/components/marketplace/MarketplaceHero";
+import CategoryNav from "@/components/marketplace/CategoryNav";
+import TopToolsGrid from "@/components/marketplace/TopToolsGrid";
+import EndingSoonSection from "@/components/marketplace/EndingSoonSection";
+import PromoBanner from "@/components/marketplace/PromoBanner";
+import StaffPicksSection from "@/components/marketplace/StaffPicksSection";
+import BundlesSection from "@/components/marketplace/BundlesSection";
+import NewsletterCTA from "@/components/marketplace/NewsletterCTA";
 
 const Index = () => {
+  const [activeCategory, setActiveCategory] = useState("all");
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <Hero />
-      <ToolsByTier />
-      <CoursesSection />
+      <MarketplaceHero />
+      <CategoryNav 
+        activeCategory={activeCategory} 
+        onCategoryChange={setActiveCategory} 
+      />
+      <TopToolsGrid 
+        category={activeCategory}
+        title="Top Tools"
+        subtitle="Our most popular AI-powered tools for thinking, planning, creating, and executing."
+      />
+      <EndingSoonSection />
+      <PromoBanner />
+      <StaffPicksSection />
+      <BundlesSection />
+      <NewsletterCTA />
       <Footer />
     </div>
   );
