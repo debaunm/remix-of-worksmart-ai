@@ -124,7 +124,7 @@ const Pricing = () => {
               <span className="gradient-text">Pricing</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-              Choose the suite that matches your role. Pay once, use forever.
+              The AI operating system for modern professionals and founders. Choose the suite that matches your role.
             </p>
           </motion.div>
         </div>
