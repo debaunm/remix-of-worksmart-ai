@@ -44,7 +44,6 @@ const Navbar = () => {
   const mobileMenuBorderStyles = "border-border";
 
   const navItems = [
-    { label: "Tools", href: "/#all-tools" },
     { label: "How It Works", href: "/how-it-works" },
     { label: "Pricing", href: "/pricing" },
   ];
