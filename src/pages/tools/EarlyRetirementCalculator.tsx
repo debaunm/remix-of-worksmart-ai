@@ -65,7 +65,7 @@ const EarlyRetirementCalculator = () => {
   };
 
   const data = result as Record<string, unknown> | null;
-  const paths = data?.paths as Record<string, string[]> | undefined;
+  const paths = data?.paths as Record<string, unknown[]> | undefined;
 
   // Parse FIRE number for chart
   const parsedFireNumber = useMemo(() => {
@@ -313,12 +313,19 @@ const EarlyRetirementCalculator = () => {
                             <div key={tier} className="p-3 rounded-lg bg-secondary/30 border border-border/30">
                               <p className="text-sm font-medium capitalize mb-2">{tier} Path</p>
                               <ul className="space-y-1">
-                                {pathItems.map((item: string, i: number) => (
-                                  <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                                    <span className="text-primary">•</span>
-                                    <span>{item}</span>
-                                  </li>
-                                ))}
+                                {pathItems.map((item: unknown, i: number) => {
+                                  const itemText = typeof item === 'string' 
+                                    ? item 
+                                    : typeof item === 'object' && item !== null
+                                      ? (item as Record<string, unknown>).description || JSON.stringify(item)
+                                      : String(item);
+                                  return (
+                                    <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                                      <span className="text-primary">•</span>
+                                      <span>{String(itemText)}</span>
+                                    </li>
+                                  );
+                                })}
                               </ul>
                             </div>
                           );
