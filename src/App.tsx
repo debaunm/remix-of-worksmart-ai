@@ -25,6 +25,7 @@ import LinkedInAuditToolExec from "./pages/tools/LinkedInAuditToolExec";
 import EarlyRetirementCalculator from "./pages/tools/EarlyRetirementCalculator";
 import PressReleaseGenerator from "./pages/tools/PressReleaseGenerator";
 import PitchDeckReviewer from "./pages/tools/PitchDeckReviewer";
+import PitchDeckBuilder from "./pages/tools/PitchDeckBuilder";
 import LifeSimplifier from "./pages/tools/LifeSimplifier";
 import LinkedIn21DayContentPlan from "./pages/tools/LinkedIn21DayContentPlan";
 import LifeCoachAI from "./pages/tools/LifeCoachAI";
@@ -68,6 +69,7 @@ const App = () => (
           <Route path="/tools/early-retirement-calculator" element={<EarlyRetirementCalculator />} />
           <Route path="/tools/press-release-generator" element={<PressReleaseGenerator />} />
           <Route path="/tools/pitch-deck-reviewer" element={<PitchDeckReviewer />} />
+          <Route path="/tools/pitch-deck-builder" element={<PitchDeckBuilder />} />
           <Route path="/tools/life-simplifier" element={<LifeSimplifier />} />
           <Route path="/tools/linkedin-21-day-content-plan" element={<LinkedIn21DayContentPlan />} />
           <Route path="/tools/life-coach-ai" element={<LifeCoachAI />} />
