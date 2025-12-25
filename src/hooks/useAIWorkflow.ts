@@ -19,6 +19,7 @@ export type WorkflowId =
   | "early_retirement_calculator"
   | "press_release_generator"
   | "pitch_deck_reviewer"
+  | "pitch_deck_builder"
   | "life_simplifier"
   | "linkedin_21_day_exec_content";
 
