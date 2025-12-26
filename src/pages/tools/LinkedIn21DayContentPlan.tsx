@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useAIWorkflow } from "@/hooks/useAIWorkflow";
 import { toast } from "sonner";
+import BuyToolButton from "@/components/BuyToolButton";
 
 interface DayContent {
   day_number: number;
@@ -94,20 +95,23 @@ const LinkedIn21DayContentPlan = () => {
           Back to Tools
         </Link>
 
-        <div className="flex items-center gap-3 mb-6">
-          <div className="p-3 rounded-xl bg-primary/10">
-            <Calendar className="w-6 h-6 text-primary" />
-          </div>
-          <div className="flex-1">
-            <div className="flex items-center gap-2">
-              <h1 className="text-3xl font-bold text-foreground">21-Day LinkedIn Content Architect</h1>
-              <Badge variant="secondary" className="bg-amber-100 text-amber-800 flex items-center gap-1">
-                <Crown className="w-3 h-3" />
-                Premium
-              </Badge>
+        <div className="flex flex-col md:flex-row md:items-start gap-4 mb-6">
+          <div className="flex items-center gap-3 flex-1">
+            <div className="p-3 rounded-xl bg-primary/10">
+              <Calendar className="w-6 h-6 text-primary" />
             </div>
-            <p className="text-muted-foreground">Generate a strategic 21-day LinkedIn content plan for executives</p>
+            <div className="flex-1">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h1 className="text-3xl font-bold text-foreground">21-Day LinkedIn Content Architect</h1>
+                <Badge variant="secondary" className="bg-amber-100 text-amber-800 flex items-center gap-1">
+                  <Crown className="w-3 h-3" />
+                  Premium
+                </Badge>
+              </div>
+              <p className="text-muted-foreground">Generate a strategic 21-day LinkedIn content plan for executives</p>
+            </div>
           </div>
+          <BuyToolButton toolName="21-Day LinkedIn Content Architect" />
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6 mb-8">

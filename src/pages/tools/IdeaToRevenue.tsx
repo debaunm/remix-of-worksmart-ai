@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAIWorkflow } from "@/hooks/useAIWorkflow";
 import { toast } from "sonner";
+import BuyToolButton from "@/components/BuyToolButton";
 
 const IdeaToRevenue = () => {
   const [ideaText, setIdeaText] = useState("");
@@ -47,14 +48,17 @@ const IdeaToRevenue = () => {
           Back to Tools
         </Link>
 
-        <div className="flex items-center gap-3 mb-6">
-          <div className="p-3 rounded-xl bg-primary/10">
-            <Lightbulb className="w-6 h-6 text-primary" />
+        <div className="flex flex-col md:flex-row md:items-start gap-4 mb-6">
+          <div className="flex items-center gap-3 flex-1">
+            <div className="p-3 rounded-xl bg-primary/10">
+              <Lightbulb className="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-foreground">Idea-to-Revenue Converter</h1>
+              <p className="text-muted-foreground">Turn your idea into a structured product with pricing and launch plan</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">Idea-to-Revenue Converter</h1>
-            <p className="text-muted-foreground">Turn your idea into a structured product with pricing and launch plan</p>
-          </div>
+          <BuyToolButton toolName="Idea-to-Revenue Converter" />
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6 mb-8">
