@@ -1,4 +1,4 @@
-import { Check, X, Sparkles, Crown, Briefcase, Zap } from "lucide-react";
+import { Check, X, Sparkles, Crown, Briefcase, Zap, ShoppingCart } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -124,8 +124,24 @@ const Pricing = () => {
               <span className="gradient-text">Pricing</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-              The AI operating system for modern professionals and founders. Choose the suite that matches your role.
+              The AI operating system for modern professionals and founders. Choose a suite or buy individual tools.
             </p>
+          </motion.div>
+
+          {/* Single Tool Purchase Highlight */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-8"
+          >
+            <div className="inline-flex items-center gap-3 bg-accent/50 border border-border rounded-full px-6 py-3">
+              <ShoppingCart className="w-5 h-5 text-primary" />
+              <span className="text-sm md:text-base">
+                <span className="font-semibold">New:</span> Buy any paid tool individually for{" "}
+                <span className="font-bold text-primary">$14.99</span>
+              </span>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -250,6 +266,13 @@ const Pricing = () => {
                             <span className="text-xs text-muted-foreground">$97</span>
                           </div>
                         </TableHead>
+                        <TableHead className="text-center">
+                          <div className="flex flex-col items-center gap-1">
+                            <ShoppingCart className="w-4 h-4 text-emerald-500" />
+                            <span>Single Tool</span>
+                            <span className="text-xs text-muted-foreground">$14.99 each</span>
+                          </div>
+                        </TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -275,6 +298,15 @@ const Pricing = () => {
                               <Check className="w-5 h-5 text-amber-500 mx-auto" />
                             ) : (
                               <X className="w-5 h-5 text-muted-foreground/40 mx-auto" />
+                            )}
+                          </TableCell>
+                          <TableCell className="text-center">
+                            {!feature.free ? (
+                              <span className="text-xs font-medium text-emerald-600 bg-emerald-500/10 px-2 py-1 rounded">
+                                $14.99
+                              </span>
+                            ) : (
+                              <span className="text-xs text-muted-foreground">Free</span>
                             )}
                           </TableCell>
                         </TableRow>
@@ -306,8 +338,12 @@ const Pricing = () => {
           <div className="space-y-6">
             {[
               {
+                q: "Can I buy just one tool instead of a suite?",
+                a: "Absolutely! Any paid tool can be purchased individually for $14.99. Perfect if you only need one specific tool. If you later decide to get a suite, we'll credit your single-tool purchases.",
+              },
+              {
                 q: "Is this a one-time payment or subscription?",
-                a: "One-time payment. Pay once, use forever with lifetime updates.",
+                a: "One-time payment for everything—suites and individual tools. Pay once, use forever with lifetime updates.",
               },
               {
                 q: "What's included in the All Access Bundle?",
@@ -315,7 +351,7 @@ const Pricing = () => {
               },
               {
                 q: "Can I upgrade later?",
-                a: "Yes! If you start with one suite, you can upgrade to All Access anytime. We'll credit your previous purchase.",
+                a: "Yes! If you start with individual tools or one suite, you can upgrade anytime. We'll credit your previous purchases.",
               },
               {
                 q: "Do I need any technical skills?",
