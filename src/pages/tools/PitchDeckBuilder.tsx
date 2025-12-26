@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { useAIWorkflow } from "@/hooks/useAIWorkflow";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import BuyToolButton from "@/components/BuyToolButton";
 
 interface PitchDeckResult {
   company_name: string;
@@ -109,14 +110,17 @@ ${result.deck_tips.map((t) => `• ${t}`).join("\n")}`;
         </Link>
 
         <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
-              <Rocket className="w-6 h-6 text-white" />
+          <div className="flex flex-col md:flex-row md:items-start gap-4 mb-4">
+            <div className="flex items-center gap-3 flex-1">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
+                <Rocket className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-foreground">Pitch Deck Builder</h1>
+                <p className="text-muted-foreground">Create a YC-style pitch deck outline in minutes</p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-3xl font-bold text-foreground">Pitch Deck Builder</h1>
-              <p className="text-muted-foreground">Create a YC-style pitch deck outline in minutes</p>
-            </div>
+            <BuyToolButton toolName="Pitch Deck Builder" />
           </div>
         </div>
 

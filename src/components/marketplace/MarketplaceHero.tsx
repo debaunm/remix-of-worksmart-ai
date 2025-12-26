@@ -44,9 +44,19 @@ const MarketplaceHero = () => {
           </h1>
 
           {/* Subheadline */}
-          <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
-            Sign up for system updates and get exclusive access to tools, workshops, and resources built for modern professionals.
+          <p className="text-lg md:text-xl text-muted-foreground mb-6 max-w-2xl mx-auto leading-relaxed">
+            Professional AI tools you can buy individually for $14.99 or unlock entire suites at a discount.
           </p>
+          
+          {/* Pricing highlight */}
+          <div className="flex flex-wrap items-center justify-center gap-4 mb-10 text-sm">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-medium">
+              Individual tools: $14.99 each
+            </span>
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted text-muted-foreground font-medium">
+              Suites from $97 (save 50%+)
+            </span>
+          </div>
 
           {/* Email Capture Form */}
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-12">

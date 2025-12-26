@@ -10,6 +10,7 @@ import { useAIWorkflow } from "@/hooks/useAIWorkflow";
 import { toast } from "sonner";
 import ResultsEmailGate from "@/components/ResultsEmailGate";
 import { useEmailGate } from "@/hooks/useEmailGate";
+import BuyToolButton from "@/components/BuyToolButton";
 
 const SocialBioBuilder = () => {
   const [role, setRole] = useState("");
@@ -55,14 +56,17 @@ const SocialBioBuilder = () => {
           Back to Tools
         </Link>
 
-        <div className="flex items-center gap-3 mb-6">
-          <div className="p-3 rounded-xl bg-primary/10">
-            <User className="w-6 h-6 text-primary" />
+        <div className="flex flex-col md:flex-row md:items-start gap-4 mb-6">
+          <div className="flex items-center gap-3 flex-1">
+            <div className="p-3 rounded-xl bg-primary/10">
+              <User className="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-foreground">Social Bio Builder</h1>
+              <p className="text-muted-foreground">Create optimized bios for all your social platforms</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">Social Bio Builder</h1>
-            <p className="text-muted-foreground">Create optimized bios for all your social platforms</p>
-          </div>
+          <BuyToolButton toolName="Social Bio Builder" />
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6 mb-8">

@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import { useAIWorkflow } from "@/hooks/useAIWorkflow";
+import BuyToolButton from "@/components/BuyToolButton";
 
 interface RewriteResult {
   rewrite: string;
@@ -83,16 +84,21 @@ const RewriteMessage = () => {
 
         <div className="max-w-4xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border/50 bg-card/50 backdrop-blur-sm mb-6">
-              <PenLine className="w-4 h-4 text-primary" />
-              <span className="text-xs font-medium text-primary uppercase tracking-wider">AI Workflow</span>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+              <div className="flex-1">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border/50 bg-card/50 backdrop-blur-sm mb-6">
+                  <PenLine className="w-4 h-4 text-primary" />
+                  <span className="text-xs font-medium text-primary uppercase tracking-wider">AI Workflow</span>
+                </div>
+                <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                  Rewrite <span className="gradient-text">Message</span>
+                </h1>
+                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                  Transform any draft into a clearer, more confident, and effective message while preserving your intent.
+                </p>
+              </div>
+              <BuyToolButton toolName="Rewrite Message" className="self-start md:self-center" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Rewrite <span className="gradient-text">Message</span>
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Transform any draft into a clearer, more confident, and effective message while preserving your intent.
-            </p>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="space-y-8">

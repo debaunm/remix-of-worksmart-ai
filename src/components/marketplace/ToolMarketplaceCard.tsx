@@ -29,15 +29,15 @@ const getTierInfo = (tier: string) => {
   switch (tier) {
     case "free_prompt":
     case "non_paid_personal":
-      return { label: "Free", className: "bg-success-green/10 text-success-green", price: null };
+      return { label: "Free", className: "bg-success-green/10 text-success-green", price: null, suitePrice: null };
     case "paid_executive":
-      return { label: "Executive", className: "bg-tier-executive/10 text-tier-executive", price: "$97" };
+      return { label: "$14.99", className: "bg-primary/10 text-primary", price: "$14.99", suitePrice: "$97" };
     case "paid_entrepreneur":
-      return { label: "Pro", className: "bg-primary/10 text-primary", price: "$97" };
+      return { label: "$14.99", className: "bg-primary/10 text-primary", price: "$14.99", suitePrice: "$97" };
     case "paid_crossover":
-      return { label: "All Access", className: "bg-accent/10 text-accent", price: "$120" };
+      return { label: "$14.99", className: "bg-primary/10 text-primary", price: "$14.99", suitePrice: "$120" };
     default:
-      return { label: "Free", className: "bg-success-green/10 text-success-green", price: null };
+      return { label: "Free", className: "bg-success-green/10 text-success-green", price: null, suitePrice: null };
   }
 };
 
@@ -105,11 +105,11 @@ const ToolMarketplaceCard = ({ tool, index, showCountdown = false }: ToolMarketp
 
       {/* Price & CTA */}
       <div className="flex items-center justify-between mt-auto pt-5 border-t border-border">
-        <div className="flex items-baseline gap-2">
+        <div className="flex flex-col">
           {tierInfo.price ? (
             <>
               <span className="text-xl font-bold text-foreground">{tierInfo.price}</span>
-              <span className="text-sm text-muted-foreground line-through">$197</span>
+              <span className="text-xs text-muted-foreground">or {tierInfo.suitePrice} suite</span>
             </>
           ) : (
             <span className="text-xl font-bold text-success-green">Free</span>
