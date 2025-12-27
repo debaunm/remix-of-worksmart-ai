@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import ResultsEmailGate from "@/components/ResultsEmailGate";
 import { useEmailGate } from "@/hooks/useEmailGate";
+import BuyToolButton from "@/components/BuyToolButton";
 
 type OutputType = "clearer" | "shorter" | "confident";
 
@@ -99,6 +100,9 @@ const WriteItBetter = () => {
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Transform any message into clearer, shorter, or more confident versions instantly. Perfect for emails, Slack messages, and memos.
             </p>
+            <div className="mt-6">
+              <BuyToolButton toolName="Write It Better" />
+            </div>
           </motion.div>
 
           {/* Tool Interface */}

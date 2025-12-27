@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ArrowLeft, FileText, Loader2, Copy, Check, HelpCircle } from "lucide-react";
+import BuyToolButton from "@/components/BuyToolButton";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -53,14 +54,17 @@ const CLevelStatementBuilder = () => {
           Back to Tools
         </Link>
 
-        <div className="flex items-center gap-3 mb-6">
-          <div className="p-3 rounded-xl bg-primary/10">
-            <FileText className="w-6 h-6 text-primary" />
+        <div className="flex flex-col md:flex-row md:items-start gap-4 mb-6">
+          <div className="flex items-center gap-3 flex-1">
+            <div className="p-3 rounded-xl bg-primary/10">
+              <FileText className="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-foreground">C-Level Statement Builder</h1>
+              <p className="text-muted-foreground">Create polished board-ready executive statements</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">C-Level Statement Builder</h1>
-            <p className="text-muted-foreground">Create polished board-ready executive statements</p>
-          </div>
+          <BuyToolButton toolName="C-Level Statement Builder" />
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6 mb-8">

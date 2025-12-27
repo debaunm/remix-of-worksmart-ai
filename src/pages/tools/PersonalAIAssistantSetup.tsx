@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import { useAIWorkflow } from "@/hooks/useAIWorkflow";
+import BuyToolButton from "@/components/BuyToolButton";
 
 interface AssistantResult {
   assistant_system_prompt: string;
@@ -86,6 +87,9 @@ const PersonalAIAssistantSetup = () => {
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Generate a custom system prompt that configures any AI assistant around your role, goals, and preferences.
             </p>
+            <div className="mt-6">
+              <BuyToolButton toolName="Personal AI Assistant Setup" />
+            </div>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="space-y-8">
