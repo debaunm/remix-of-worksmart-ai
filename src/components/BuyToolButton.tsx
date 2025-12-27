@@ -4,13 +4,17 @@ import { Link } from "react-router-dom";
 
 interface BuyToolButtonProps {
   toolName: string;
+  toolSlug?: string;
   className?: string;
 }
 
-const BuyToolButton = ({ toolName, className = "" }: BuyToolButtonProps) => {
+const BuyToolButton = ({ toolName, toolSlug, className = "" }: BuyToolButtonProps) => {
+  // For now, link directly to success page (would be checkout in production)
+  const slug = toolSlug || toolName.toLowerCase().replace(/\s+/g, "-");
+  
   return (
     <Link 
-      to={`/pricing?tool=${encodeURIComponent(toolName)}`}
+      to={`/purchase-success?tool=${encodeURIComponent(toolName)}&slug=${encodeURIComponent(slug)}`}
       className={className}
     >
       <Button 
