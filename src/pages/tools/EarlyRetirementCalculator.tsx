@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { ArrowLeft, PiggyBank, Loader2, Copy, Check, TrendingUp, Target, Shield, Zap, AlertCircle } from "lucide-react";
+import BuyToolButton from "@/components/BuyToolButton";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -102,6 +103,9 @@ const EarlyRetirementCalculator = () => {
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Get clear on the number that lets your investments carry you to retirement without grinding forever.
           </p>
+          <div className="mt-6">
+            <BuyToolButton toolName="Early Retirement Calculator" />
+          </div>
         </motion.div>
 
         {/* Calculator Section */}

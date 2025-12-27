@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import { useAIWorkflow } from "@/hooks/useAIWorkflow";
+import BuyToolButton from "@/components/BuyToolButton";
 
 interface Option {
   label: string;
@@ -87,6 +88,9 @@ const DecisionHelper = () => {
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Turn a messy decision into clear options, pros/cons, risks, and a recommended path forward.
             </p>
+            <div className="mt-6">
+              <BuyToolButton toolName="Decision Helper" />
+            </div>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="space-y-8">

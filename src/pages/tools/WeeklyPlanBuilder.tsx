@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import { useAIWorkflow } from "@/hooks/useAIWorkflow";
+import BuyToolButton from "@/components/BuyToolButton";
 
 interface TimeBlock {
   time_window: string;
@@ -92,6 +93,9 @@ const WeeklyPlanBuilder = () => {
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Turn your goals and responsibilities into a realistic weekly plan with smart time blocks.
             </p>
+            <div className="mt-6">
+              <BuyToolButton toolName="Weekly Plan Builder" />
+            </div>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="space-y-8">

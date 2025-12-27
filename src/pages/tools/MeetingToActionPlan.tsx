@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import { useAIWorkflow } from "@/hooks/useAIWorkflow";
+import BuyToolButton from "@/components/BuyToolButton";
 
 interface ActionItem {
   task: string;
@@ -88,6 +89,9 @@ const MeetingToActionPlan = () => {
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Convert messy meeting notes into a structured summary, decisions, risks, and actionable task list.
             </p>
+            <div className="mt-6">
+              <BuyToolButton toolName="Meeting to Action Plan" />
+            </div>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="space-y-8">

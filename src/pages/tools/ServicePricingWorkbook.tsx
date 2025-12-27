@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { ArrowLeft, DollarSign, Clock, Target, TrendingUp, FileText, Info, Plus, Trash2, Copy, Check, Printer } from "lucide-react";
+import BuyToolButton from "@/components/BuyToolButton";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -230,6 +231,9 @@ ${quoteNotes ? `NOTES:\n${quoteNotes}` : ""}
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Stop guessing on pricing. Calculate your true costs, set profitable rates, and create professional quotes.
           </p>
+          <div className="mt-6">
+            <BuyToolButton toolName="Service Pricing Workbook" />
+          </div>
         </motion.div>
 
         {/* Dashboard Summary Cards */}

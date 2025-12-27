@@ -2,6 +2,7 @@ import { ArrowLeft, RotateCcw, MessageCircle, BookOpen, Target, TrendingUp } fro
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
+import BuyToolButton from "@/components/BuyToolButton";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import LifeCoachChat from "@/components/life-coach/LifeCoachChat";
@@ -45,6 +46,14 @@ const LifeCoachAI = () => {
             This interactive playbook translates the core principles of "Rewrite Your Rules" into action. 
             Move beyond theory and start designing a life that's successful on the outside and deeply fulfilling on the inside.
           </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="mt-6"
+          >
+            <BuyToolButton toolName="Life Coach AI" />
+          </motion.div>
         </section>
 
         {/* Main Content with Tabs */}
