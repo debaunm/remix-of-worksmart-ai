@@ -34,6 +34,7 @@ import AIAccelerator from "./pages/courses/AIAccelerator";
 import ChatGPT101 from "./pages/courses/ChatGPT101";
 import MediaCompany from "./pages/courses/MediaCompany";
 import Advisors from "./pages/Advisors";
+import PurchaseSuccess from "./pages/PurchaseSuccess";
 
 const queryClient = new QueryClient();
 
@@ -74,6 +75,7 @@ const App = () => (
           <Route path="/tools/linkedin-21-day-content-plan" element={<LinkedIn21DayContentPlan />} />
           <Route path="/tools/life-coach-ai" element={<LifeCoachAI />} />
           <Route path="/tools/service-pricing-workbook" element={<ServicePricingWorkbook />} />
+          <Route path="/purchase-success" element={<PurchaseSuccess />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
