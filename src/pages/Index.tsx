@@ -4,7 +4,6 @@ import Footer from "@/components/Footer";
 import MarketplaceHero from "@/components/marketplace/MarketplaceHero";
 import CategoryNav from "@/components/marketplace/CategoryNav";
 import TopToolsGrid from "@/components/marketplace/TopToolsGrid";
-import EndingSoonSection from "@/components/marketplace/EndingSoonSection";
 import PromoBanner from "@/components/marketplace/PromoBanner";
 import StaffPicksSection from "@/components/marketplace/StaffPicksSection";
 import BundlesSection from "@/components/marketplace/BundlesSection";
@@ -24,9 +23,8 @@ const Index = () => {
       <TopToolsGrid 
         category={activeCategory}
         title="Top Tools"
-        subtitle="Our most popular AI-powered tools for thinking, planning, creating, and executing."
+        subtitle="Our most popular AI-powered tools for brand, life, money, and productivity."
       />
-      <EndingSoonSection />
       <PromoBanner />
       <StaffPicksSection />
       <BundlesSection />
