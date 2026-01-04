@@ -1,14 +1,13 @@
 import { motion } from "framer-motion";
-import { Lightbulb, Calendar, PenTool, Zap, GraduationCap, Star, Clock } from "lucide-react";
+import { Sparkles, Heart, DollarSign, Zap, GraduationCap, Star } from "lucide-react";
 
 const categories = [
-  { id: "think", label: "Think", icon: Lightbulb },
-  { id: "plan", label: "Plan", icon: Calendar },
-  { id: "create", label: "Create", icon: PenTool },
-  { id: "execute", label: "Execute", icon: Zap },
+  { id: "brand", label: "Brand", icon: Sparkles },
+  { id: "life", label: "Life", icon: Heart },
+  { id: "money", label: "Money", icon: DollarSign },
+  { id: "productivity", label: "Productivity", icon: Zap },
   { id: "courses", label: "Courses", icon: GraduationCap },
   { id: "new", label: "New arrivals", icon: Star },
-  { id: "ending", label: "Ending soon", icon: Clock },
 ];
 
 interface CategoryNavProps {
