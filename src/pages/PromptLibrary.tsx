@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Copy, Check, Lock, Mail, Users, Rocket, Sparkles, Compass, ChevronDown } from "lucide-react";
+import { Copy, Check, Lock, Mail, Users, Rocket, Sparkles, Compass, ChevronDown, TrendingUp } from "lucide-react";
 import { LucideIcon } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -31,6 +31,7 @@ const iconMap: Record<string, LucideIcon> = {
   Rocket,
   Sparkles,
   Compass,
+  TrendingUp,
 };
 
 const categoryColors: Record<string, string> = {
@@ -47,6 +48,7 @@ const PromptLibrary = () => {
   });
   const [emailDialogOpen, setEmailDialogOpen] = useState(false);
   const [pendingPromptId, setPendingPromptId] = useState<string | null>(null);
+  const [selectedPackId, setSelectedPackId] = useState<string | null>(null);
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -59,13 +61,18 @@ const PromptLibrary = () => {
     return expandedPacks === "all" || expandedPacks.has(packId);
   };
 
-  const handleCopyClick = (prompt: Prompt) => {
+  const handleCopyClick = (prompt: Prompt, packId: string) => {
     if (isUnlocked) {
       copyToClipboard(prompt);
     } else {
       setPendingPromptId(prompt.id);
+      setSelectedPackId(packId);
       setEmailDialogOpen(true);
     }
+  };
+
+  const getSelectedPack = () => {
+    return packs?.find(p => p.id === selectedPackId);
   };
 
   const copyToClipboard = async (prompt: Prompt) => {
@@ -162,14 +169,14 @@ const PromptLibrary = () => {
             transition={{ duration: 0.5 }}
           >
             <Badge className="mb-4 bg-amber-500/10 text-amber-400 border-amber-500/20">
-              $14.99 One-Time Purchase
+              Prompt Bundles
             </Badge>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Prompt Library
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Copy-paste prompts for executives, founders, and life optimization. 
-              Unlock instant access to our entire collection.
+              Purchase individual bundles to unlock access.
             </p>
           </motion.div>
         </div>
@@ -191,6 +198,7 @@ const PromptLibrary = () => {
             packs?.map((pack, index) => {
               const Icon = iconMap[pack.icon || "Sparkles"] || Sparkles;
               const isExpanded = isPackExpanded(pack.id);
+              const packPrice = pack.price || 14.99;
               
               return (
                 <motion.div
@@ -209,13 +217,16 @@ const PromptLibrary = () => {
                                 <Icon className="h-6 w-6 text-primary" />
                               </div>
                               <div>
-                                <div className="flex items-center gap-3 mb-1">
+                                <div className="flex items-center gap-3 mb-1 flex-wrap">
                                   <CardTitle className="text-xl">{pack.name}</CardTitle>
                                   <Badge 
                                     variant="outline" 
                                     className={categoryColors[pack.category || "life"]}
                                   >
                                     {pack.category}
+                                  </Badge>
+                                  <Badge className="bg-amber-500/10 text-amber-400 border-amber-500/20">
+                                    ${packPrice.toFixed(2)}
                                   </Badge>
                                 </div>
                                 <CardDescription className="text-base">
@@ -271,7 +282,7 @@ const PromptLibrary = () => {
                                   <Button
                                     size="sm"
                                     variant={isUnlocked ? "outline" : "default"}
-                                    onClick={() => handleCopyClick(prompt)}
+                                    onClick={() => handleCopyClick(prompt, pack.id)}
                                     className="shrink-0"
                                   >
                                     {copiedId === prompt.id ? (
@@ -309,36 +320,44 @@ const PromptLibrary = () => {
       {/* Email Dialog */}
       <Dialog open={emailDialogOpen} onOpenChange={setEmailDialogOpen}>
         <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <Sparkles className="h-5 w-5 text-primary" />
-              Get Full Access for $14.99
-            </DialogTitle>
-            <DialogDescription>
-              One-time purchase for lifetime access to our entire prompt library. 
-              No subscription, no hidden fees.
-            </DialogDescription>
-          </DialogHeader>
-          <form onSubmit={handleEmailSubmit} className="space-y-4">
-            <Input
-              type="email"
-              placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              disabled={isSubmitting}
-            />
-            <Button 
-              type="submit" 
-              className="w-full" 
-              disabled={isSubmitting || !email.trim()}
-            >
-              {isSubmitting ? "Processing..." : "Purchase for $14.99"}
-            </Button>
-            <p className="text-xs text-center text-muted-foreground">
-              Secure payment via Stripe
-            </p>
-          </form>
+          {(() => {
+            const selectedPack = getSelectedPack();
+            const packPrice = selectedPack?.price || 14.99;
+            return (
+              <>
+                <DialogHeader>
+                  <DialogTitle className="flex items-center gap-2">
+                    <Sparkles className="h-5 w-5 text-primary" />
+                    {selectedPack ? `Unlock ${selectedPack.name}` : "Unlock Prompts"}
+                  </DialogTitle>
+                  <DialogDescription>
+                    One-time purchase for lifetime access to {selectedPack?.name || "this prompt pack"}. 
+                    No subscription, no hidden fees.
+                  </DialogDescription>
+                </DialogHeader>
+                <form onSubmit={handleEmailSubmit} className="space-y-4">
+                  <Input
+                    type="email"
+                    placeholder="you@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    disabled={isSubmitting}
+                  />
+                  <Button 
+                    type="submit" 
+                    className="w-full" 
+                    disabled={isSubmitting || !email.trim()}
+                  >
+                    {isSubmitting ? "Processing..." : `Purchase for $${packPrice.toFixed(2)}`}
+                  </Button>
+                  <p className="text-xs text-center text-muted-foreground">
+                    Secure payment via Stripe
+                  </p>
+                </form>
+              </>
+            );
+          })()}
         </DialogContent>
       </Dialog>
 
