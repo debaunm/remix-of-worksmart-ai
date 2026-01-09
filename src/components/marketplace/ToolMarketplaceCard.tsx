@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Star, Clock, PenLine, MessageSquare, Target, ClipboardList, Lightbulb, User, Presentation, TrendingUp, FileText, Sparkles, Utensils, PenTool } from "lucide-react";
+import { Clock, PenLine, MessageSquare, Target, ClipboardList, Lightbulb, User, Presentation, TrendingUp, FileText, Sparkles, Utensils, PenTool } from "lucide-react";
 import { Tool } from "@/hooks/useTools";
 import { Button } from "@/components/ui/button";
 
@@ -81,19 +81,6 @@ const ToolMarketplaceCard = ({ tool, index, showCountdown = false }: ToolMarketp
         {tool.short_description || tool.description}
       </p>
 
-      {/* Rating */}
-      <div className="flex items-center gap-2 mb-5">
-        <div className="flex items-center text-amber-400">
-          {[...Array(5)].map((_, i) => (
-            <Star
-              key={i}
-              className={`w-4 h-4 ${i < Math.floor(rating) ? "fill-current" : "fill-none opacity-30"}`}
-            />
-          ))}
-        </div>
-        <span className="text-sm font-medium text-foreground">{rating.toFixed(1)}</span>
-        <span className="text-xs text-muted-foreground">({reviewCount})</span>
-      </div>
 
       {/* Countdown */}
       {showCountdown && (
