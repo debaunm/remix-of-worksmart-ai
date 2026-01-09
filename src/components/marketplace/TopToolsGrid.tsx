@@ -21,13 +21,12 @@ const TopToolsGrid = ({
   const filteredTools = tools?.filter((tool) => {
     if (category === "all") return true;
     const categoryMap: Record<string, string[]> = {
-      think: ["Decision", "Life Coach", "Strategy"],
-      plan: ["Weekly", "Budget", "Roles"],
-      create: ["Content", "Brand", "LinkedIn", "Bio", "Write", "Press"],
-      execute: ["Meeting", "Pitch", "Service"],
+      brand: ["Brand", "LinkedIn", "Bio", "Content", "Write", "Press", "Fix My Content"],
+      life: ["Life Coach", "Life Simplifier", "Decision"],
+      money: ["Budget", "Service Pricing", "Early Retirement", "Idea-to-Revenue"],
+      productivity: ["Meeting", "Pitch", "Roles", "C-Level", "Weekly"],
       courses: [],
       new: [],
-      ending: [],
     };
     const keywords = categoryMap[category] || [];
     return keywords.some(keyword => tool.name.includes(keyword));
