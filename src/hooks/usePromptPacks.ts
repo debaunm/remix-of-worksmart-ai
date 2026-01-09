@@ -18,6 +18,7 @@ export interface PromptPack {
   icon: string | null;
   category: string | null;
   display_order: number | null;
+  price: number | null;
   prompts?: Prompt[];
 }
 
