@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Sparkles, Heart, DollarSign, Zap, GraduationCap, Star } from "lucide-react";
+import { Sparkles, Heart, DollarSign, Zap, GraduationCap, Star, MessageSquareText } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const categories = [
   { id: "brand", label: "Brand", icon: Sparkles },
@@ -7,6 +8,7 @@ const categories = [
   { id: "money", label: "Money", icon: DollarSign },
   { id: "productivity", label: "Productivity", icon: Zap },
   { id: "courses", label: "Courses", icon: GraduationCap },
+  { id: "prompts", label: "Prompt Library", icon: MessageSquareText, isLink: true, href: "/prompts" },
   { id: "new", label: "New arrivals", icon: Star },
 ];
 
@@ -16,6 +18,8 @@ interface CategoryNavProps {
 }
 
 const CategoryNav = ({ activeCategory, onCategoryChange }: CategoryNavProps) => {
+  const navigate = useNavigate();
+  
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -38,6 +42,20 @@ const CategoryNav = ({ activeCategory, onCategoryChange }: CategoryNavProps) => 
           {categories.map((category) => {
             const Icon = category.icon;
             const isActive = activeCategory === category.id;
+            
+            if ('isLink' in category && category.isLink) {
+              return (
+                <button
+                  key={category.id}
+                  onClick={() => navigate(category.href)}
+                  className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all border bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 hover:border-primary/30"
+                >
+                  <Icon className="w-4 h-4" />
+                  {category.label}
+                </button>
+              );
+            }
+            
             return (
               <button
                 key={category.id}
