@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Shield, RefreshCw, Users } from "lucide-react";
+import { Shield, RefreshCw, Users, MessageSquareText, ArrowRight } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const trustBadges = [
   { icon: Shield, label: "Curated by experts" },
@@ -12,6 +13,7 @@ const trustBadges = [
 
 const MarketplaceHero = () => {
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,7 +75,29 @@ const MarketplaceHero = () => {
             </Button>
           </form>
 
-          {/* Trust Badges */}
+          {/* Featured Prompt Library Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            onClick={() => navigate("/prompts")}
+            className="max-w-md mx-auto mb-12 p-4 rounded-2xl bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 border border-primary/20 cursor-pointer hover:border-primary/40 hover:shadow-lg transition-all group"
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center shrink-0">
+                <MessageSquareText className="w-6 h-6 text-primary" />
+              </div>
+              <div className="flex-1 text-left">
+                <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                  Prompt Library
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  50+ ready-to-use AI prompts • $9.99 per pack
+                </p>
+              </div>
+              <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+            </div>
+          </motion.div>
           <div className="flex flex-wrap items-center justify-center gap-8">
             {trustBadges.map((badge, index) => {
               const Icon = badge.icon;
