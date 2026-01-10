@@ -9,7 +9,6 @@ const categories = [
   { id: "productivity", label: "Productivity", icon: Zap },
   { id: "courses", label: "Courses", icon: GraduationCap },
   { id: "prompts", label: "Prompt Library", icon: MessageSquareText, isLink: true, href: "/prompts" },
-  { id: "new", label: "New arrivals", icon: Star },
 ];
 
 interface CategoryNavProps {
