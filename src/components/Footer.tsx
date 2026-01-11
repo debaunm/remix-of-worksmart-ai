@@ -54,19 +54,21 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4 text-white">Resources</h4>
             <ul className="space-y-2 text-sm text-white/50">
-              <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Partner with us</a></li>
               <li><Link to="/prompts" className="hover:text-white transition-colors">Prompt Library</Link></li>
+              <li><Link to="/tools/early-retirement-calculator" className="hover:text-white transition-colors">Cash Flow Projection Guide</Link></li>
+              <li><Link to="/tools/budget-builder-prompts" className="hover:text-white transition-colors">Budget Builder Prompts</Link></li>
+              <li><Link to="/tools/linkedin-21-day-content-plan" className="hover:text-white transition-colors">Content Pipeline Planning</Link></li>
+              <li><Link to="/tools/weekly-plan-builder" className="hover:text-white transition-colors">Weekly Planning System</Link></li>
             </ul>
           </div>
 
-          {/* Learning */}
+          {/* Sessions */}
           <div>
-            <h4 className="font-semibold mb-4 text-white">Learning</h4>
+            <h4 className="font-semibold mb-4 text-white">Sessions</h4>
             <ul className="space-y-2 text-sm text-white/50">
-              <li><Link to="/courses/ai-accelerator" className="hover:text-white transition-colors">AI Accelerator</Link></li>
-              <li><Link to="/courses/chatgpt-101" className="hover:text-white transition-colors">ChatGPT 101</Link></li>
-              <li><Link to="/courses/media-company" className="hover:text-white transition-colors">Media Company</Link></li>
+              <li><Link to="/sessions/ai-foundations" className="hover:text-white transition-colors">AI Foundations</Link></li>
+              <li><Link to="/sessions/ai-content-systems" className="hover:text-white transition-colors">AI Content Systems</Link></li>
+              <li><Link to="/sessions/automation-zapier" className="hover:text-white transition-colors">Automation with Zapier</Link></li>
             </ul>
           </div>
         </div>

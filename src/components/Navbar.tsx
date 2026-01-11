@@ -1,17 +1,13 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Sparkles, Menu, X, ChevronDown, BookOpen, FileText, GraduationCap, Search, ShoppingCart } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import { Sparkles, Menu, X } from "lucide-react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [resourcesOpen, setResourcesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
   const location = useLocation();
-  const dropdownRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     const handleScroll = () => {
@@ -19,16 +15,6 @@ const Navbar = () => {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setResourcesOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const isHomepage = location.pathname === "/";
@@ -46,16 +32,7 @@ const Navbar = () => {
   const navItems = [
     { label: "Money Systems", href: "/money-systems" },
     { label: "Work Systems", href: "/work-systems" },
-  ];
-
-  const moneyGuides = [
-    { label: "Cash Flow Projection Guide", href: "/tools/early-retirement-calculator", icon: FileText, description: "Plan your financial future" },
-    { label: "Budget Builder Prompts", href: "/tools/budget-builder-prompts", icon: BookOpen, description: "AI-powered budgeting" },
-  ];
-
-  const workGuides = [
-    { label: "Content Pipeline Planning", href: "/tools/linkedin-21-day-content-plan", icon: GraduationCap, description: "Build your content system" },
-    { label: "Weekly Planning System", href: "/tools/weekly-plan-builder", icon: Sparkles, description: "CEO-level productivity" },
+    { label: "Sessions", href: "/sessions" },
   ];
 
   return (
@@ -105,89 +82,6 @@ const Navbar = () => {
               )
             ))}
             
-            {/* Resources Dropdown */}
-            <div className="relative" ref={dropdownRef}>
-              <button
-                onClick={() => setResourcesOpen(!resourcesOpen)}
-                className={`flex items-center gap-1 transition-colors text-sm font-medium ${navLinkStyles}`}
-              >
-                Resources
-                <ChevronDown className={`w-4 h-4 transition-transform ${resourcesOpen ? 'rotate-180' : ''}`} />
-              </button>
-              
-              {resourcesOpen && (
-                <div className="absolute top-full left-0 mt-2 w-80 bg-background border border-border rounded-lg shadow-lg z-50 py-2">
-                  {/* Money Guides Section */}
-                  <div className="px-4 py-2">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                      Money Guides
-                    </span>
-                  </div>
-                  {moneyGuides.map((item) => {
-                    const Icon = item.icon;
-                    return (
-                      <Link
-                        key={item.label}
-                        to={item.href}
-                        className="flex items-start gap-3 px-4 py-3 hover:bg-muted transition-colors"
-                        onClick={() => setResourcesOpen(false)}
-                      >
-                        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                          <Icon className="w-4 h-4 text-primary" />
-                        </div>
-                        <div>
-                          <div className="font-medium text-sm text-foreground">{item.label}</div>
-                          <div className="text-xs text-muted-foreground">{item.description}</div>
-                        </div>
-                      </Link>
-                    );
-                  })}
-                  
-                  {/* Work Guides Section */}
-                  <div className="px-4 py-2 border-t border-border mt-2">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                      Work Guides
-                    </span>
-                  </div>
-                  {workGuides.map((item) => {
-                    const Icon = item.icon;
-                    return (
-                      <Link
-                        key={item.label}
-                        to={item.href}
-                        className="flex items-start gap-3 px-4 py-3 hover:bg-muted transition-colors"
-                        onClick={() => setResourcesOpen(false)}
-                      >
-                        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                          <Icon className="w-4 h-4 text-primary" />
-                        </div>
-                        <div>
-                          <div className="font-medium text-sm text-foreground">{item.label}</div>
-                          <div className="text-xs text-muted-foreground">{item.description}</div>
-                        </div>
-                      </Link>
-                    );
-                  })}
-
-                  {/* Prompt Library Link */}
-                  <div className="border-t border-border mt-2 pt-2">
-                    <Link
-                      to="/prompts"
-                      className="flex items-start gap-3 px-4 py-3 hover:bg-muted transition-colors"
-                      onClick={() => setResourcesOpen(false)}
-                    >
-                      <div className="w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center flex-shrink-0">
-                        <FileText className="w-4 h-4 text-accent-foreground" />
-                      </div>
-                      <div>
-                        <div className="font-medium text-sm text-foreground">Prompt Library</div>
-                        <div className="text-xs text-muted-foreground">50+ ready-to-use AI prompts</div>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-              )}
-            </div>
           </div>
 
           {/* CTA */}
@@ -239,50 +133,6 @@ const Navbar = () => {
                 )
               ))}
               
-              {/* Money Guides Section */}
-              <div className="pt-2 border-t border-border/50">
-                <span className={`text-xs font-semibold uppercase tracking-wider ${useDarkText ? 'text-muted-foreground' : 'text-white/60'}`}>
-                  Money Guides
-                </span>
-                <div className="mt-2 space-y-1">
-                  {moneyGuides.map((item) => (
-                    <Link
-                      key={item.label}
-                      to={item.href}
-                      className={`block py-2 transition-colors ${navLinkStyles}`}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-              
-              {/* Work Guides Section */}
-              <div className="pt-2 border-t border-border/50">
-                <span className={`text-xs font-semibold uppercase tracking-wider ${useDarkText ? 'text-muted-foreground' : 'text-white/60'}`}>
-                  Work Guides
-                </span>
-                <div className="mt-2 space-y-1">
-                  {workGuides.map((item) => (
-                    <Link
-                      key={item.label}
-                      to={item.href}
-                      className={`block py-2 transition-colors ${navLinkStyles}`}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                  <Link
-                    to="/prompts"
-                    className={`block py-2 transition-colors ${navLinkStyles}`}
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Prompt Library
-                  </Link>
-                </div>
-              </div>
               
               <div className="flex flex-col gap-2 pt-4">
                 <Button variant="ghost" className={`w-full ${buttonGhostStyles}`}>
