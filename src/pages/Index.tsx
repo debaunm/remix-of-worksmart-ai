@@ -2,6 +2,7 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import MarketplaceHero from "@/components/marketplace/MarketplaceHero";
+import FlagshipProducts from "@/components/marketplace/FlagshipProducts";
 import CategoryNav from "@/components/marketplace/CategoryNav";
 import TopToolsGrid from "@/components/marketplace/TopToolsGrid";
 import PromoBanner from "@/components/marketplace/PromoBanner";
@@ -16,14 +17,15 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <MarketplaceHero />
+      <FlagshipProducts />
       <CategoryNav 
         activeCategory={activeCategory} 
         onCategoryChange={setActiveCategory} 
       />
       <TopToolsGrid 
         category={activeCategory}
-        title="Top Tools"
-        subtitle="Our most popular AI-powered tools for brand, life, money, and productivity."
+        title="All Tools"
+        subtitle="Browse our complete collection of AI-powered tools."
       />
       <PromoBanner />
       <StaffPicksSection />
