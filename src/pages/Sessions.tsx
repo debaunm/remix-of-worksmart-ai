@@ -116,14 +116,9 @@ const SessionCard = ({ session }: { session: Session }) => (
         </span>
       </div>
       
-      {/* Cross-selling section */}
-      <div className="mt-4 pt-4 border-t border-border/50 space-y-2">
-        <div className="flex items-center gap-2 text-sm">
-          <Badge variant="outline" className="text-xs bg-primary/5 border-primary/20 text-primary">
-            Included with All Access
-          </Badge>
-        </div>
-        {session.complementarySystem && (
+      {/* Complementary system link */}
+      {session.complementarySystem && (
+        <div className="mt-4 pt-4 border-t border-border/50">
           <Link 
             to={session.complementarySystem.link}
             className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"
@@ -131,8 +126,8 @@ const SessionCard = ({ session }: { session: Session }) => (
             Complementary system: <span className="underline underline-offset-2">{session.complementarySystem.name}</span>
             <ArrowRight className="w-3 h-3" />
           </Link>
-        )}
-      </div>
+        </div>
+      )}
     </CardContent>
     <CardFooter className="pt-4 border-t border-border flex items-center justify-between">
       <span className="text-2xl font-bold text-foreground">{session.price}</span>
@@ -181,51 +176,29 @@ const Sessions = () => {
                 View Sessions
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
-              <Link to="/pricing">
-                <Button size="lg" variant="outline" className="text-lg px-8">
-                  Included with All Access
-                </Button>
-              </Link>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Sessions List */}
+      {/* Sessions List - Horizontal Layout */}
       <section id="sessions-list" className="py-20 px-4 bg-muted/30">
-        <div className="container mx-auto max-w-6xl">
-          {sessionCategories.map((category, categoryIndex) => (
-            <motion.div
-              key={category.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
-              className="mb-16 last:mb-0"
-            >
-              <div className="flex items-center gap-3 mb-8">
-                <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                  {category.icon}
-                </div>
-                <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-                  {category.title}
-                </h2>
-              </div>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {category.sessions.map((session, sessionIndex) => (
-                  <motion.div
-                    key={session.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: sessionIndex * 0.1 }}
-                  >
-                    <SessionCard session={session} />
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {sessionCategories.flatMap((category) =>
+              category.sessions.map((session, sessionIndex) => (
+                <motion.div
+                  key={session.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: sessionIndex * 0.1 }}
+                >
+                  <SessionCard session={session} />
+                </motion.div>
+              ))
+            )}
+          </div>
         </div>
       </section>
 
@@ -239,17 +212,15 @@ const Sessions = () => {
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Get all sessions with All Access
+              Ready to level up your execution?
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Unlock every session, tool, and system with a single pass. No subscriptions, lifetime access.
+              Each session is designed to give you actionable skills you can apply immediately.
             </p>
-            <Link to="/pricing">
-              <Button size="lg" className="text-lg px-8">
-                View All Access
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </Link>
+            <Button size="lg" onClick={scrollToSessions} className="text-lg px-8">
+              Browse Sessions
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
           </motion.div>
         </div>
       </section>
