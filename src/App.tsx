@@ -41,6 +41,9 @@ import MediaCompany from "./pages/courses/MediaCompany";
 import Advisors from "./pages/Advisors";
 import PurchaseSuccess from "./pages/PurchaseSuccess";
 import Sessions from "./pages/Sessions";
+import AIFoundations from "./pages/sessions/AIFoundations";
+import AIContentSystems from "./pages/sessions/AIContentSystems";
+import AutomationZapier from "./pages/sessions/AutomationZapier";
 
 const queryClient = new QueryClient();
 
@@ -62,6 +65,9 @@ const App = () => (
           <Route path="/prompts" element={<PromptLibrary />} />
           <Route path="/advisors" element={<Advisors />} />
           <Route path="/sessions" element={<Sessions />} />
+          <Route path="/sessions/ai-foundations" element={<AIFoundations />} />
+          <Route path="/sessions/ai-content-systems" element={<AIContentSystems />} />
+          <Route path="/sessions/automation-zapier" element={<AutomationZapier />} />
           <Route path="/courses/ai-accelerator" element={<AIAccelerator />} />
           <Route path="/courses/chatgpt-101" element={<ChatGPT101 />} />
           <Route path="/courses/media-company" element={<MediaCompany />} />
