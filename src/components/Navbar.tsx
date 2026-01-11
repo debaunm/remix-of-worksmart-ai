@@ -44,15 +44,18 @@ const Navbar = () => {
   const mobileMenuBorderStyles = "border-border";
 
   const navItems = [
-    { label: "How It Works", href: "/how-it-works" },
-    { label: "Pricing", href: "/pricing" },
+    { label: "Money Systems", href: "/money-systems" },
+    { label: "Work Systems", href: "/work-systems" },
   ];
 
-  const resourceItems = [
-    { label: "Prompt Library", href: "/prompts", icon: FileText, description: "Copy-paste AI prompts" },
-    { label: "AI Accelerator", href: "/courses/ai-accelerator", icon: GraduationCap, description: "Master AI workflows" },
-    { label: "ChatGPT 101", href: "/courses/chatgpt-101", icon: BookOpen, description: "Beginner friendly" },
-    { label: "1 Person Media Company", href: "/courses/media-company", icon: Sparkles, description: "Build your content empire" },
+  const moneyGuides = [
+    { label: "Cash Flow Projection Guide", href: "/tools/early-retirement-calculator", icon: FileText, description: "Plan your financial future" },
+    { label: "Budget Builder Prompts", href: "/tools/budget-builder-prompts", icon: BookOpen, description: "AI-powered budgeting" },
+  ];
+
+  const workGuides = [
+    { label: "Content Pipeline Planning", href: "/tools/linkedin-21-day-content-plan", icon: GraduationCap, description: "Build your content system" },
+    { label: "Weekly Planning System", href: "/tools/weekly-plan-builder", icon: Sparkles, description: "CEO-level productivity" },
   ];
 
   return (
@@ -113,8 +116,14 @@ const Navbar = () => {
               </button>
               
               {resourcesOpen && (
-                <div className="absolute top-full left-0 mt-2 w-72 bg-background border border-border rounded-lg shadow-lg z-50 py-2">
-                  {resourceItems.map((item) => {
+                <div className="absolute top-full left-0 mt-2 w-80 bg-background border border-border rounded-lg shadow-lg z-50 py-2">
+                  {/* Money Guides Section */}
+                  <div className="px-4 py-2">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                      Money Guides
+                    </span>
+                  </div>
+                  {moneyGuides.map((item) => {
                     const Icon = item.icon;
                     return (
                       <Link
@@ -133,6 +142,49 @@ const Navbar = () => {
                       </Link>
                     );
                   })}
+                  
+                  {/* Work Guides Section */}
+                  <div className="px-4 py-2 border-t border-border mt-2">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                      Work Guides
+                    </span>
+                  </div>
+                  {workGuides.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <Link
+                        key={item.label}
+                        to={item.href}
+                        className="flex items-start gap-3 px-4 py-3 hover:bg-muted transition-colors"
+                        onClick={() => setResourcesOpen(false)}
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                          <Icon className="w-4 h-4 text-primary" />
+                        </div>
+                        <div>
+                          <div className="font-medium text-sm text-foreground">{item.label}</div>
+                          <div className="text-xs text-muted-foreground">{item.description}</div>
+                        </div>
+                      </Link>
+                    );
+                  })}
+
+                  {/* Prompt Library Link */}
+                  <div className="border-t border-border mt-2 pt-2">
+                    <Link
+                      to="/prompts"
+                      className="flex items-start gap-3 px-4 py-3 hover:bg-muted transition-colors"
+                      onClick={() => setResourcesOpen(false)}
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center flex-shrink-0">
+                        <FileText className="w-4 h-4 text-accent-foreground" />
+                      </div>
+                      <div>
+                        <div className="font-medium text-sm text-foreground">Prompt Library</div>
+                        <div className="text-xs text-muted-foreground">50+ ready-to-use AI prompts</div>
+                      </div>
+                    </Link>
+                  </div>
                 </div>
               )}
             </div>
@@ -187,13 +239,13 @@ const Navbar = () => {
                 )
               ))}
               
-              {/* Resources Section */}
+              {/* Money Guides Section */}
               <div className="pt-2 border-t border-border/50">
                 <span className={`text-xs font-semibold uppercase tracking-wider ${useDarkText ? 'text-muted-foreground' : 'text-white/60'}`}>
-                  Resources
+                  Money Guides
                 </span>
                 <div className="mt-2 space-y-1">
-                  {resourceItems.map((item) => (
+                  {moneyGuides.map((item) => (
                     <Link
                       key={item.label}
                       to={item.href}
@@ -203,6 +255,32 @@ const Navbar = () => {
                       {item.label}
                     </Link>
                   ))}
+                </div>
+              </div>
+              
+              {/* Work Guides Section */}
+              <div className="pt-2 border-t border-border/50">
+                <span className={`text-xs font-semibold uppercase tracking-wider ${useDarkText ? 'text-muted-foreground' : 'text-white/60'}`}>
+                  Work Guides
+                </span>
+                <div className="mt-2 space-y-1">
+                  {workGuides.map((item) => (
+                    <Link
+                      key={item.label}
+                      to={item.href}
+                      className={`block py-2 transition-colors ${navLinkStyles}`}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                  <Link
+                    to="/prompts"
+                    className={`block py-2 transition-colors ${navLinkStyles}`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Prompt Library
+                  </Link>
                 </div>
               </div>
               
