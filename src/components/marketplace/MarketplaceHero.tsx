@@ -27,21 +27,22 @@ const MarketplaceHero = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6"
           >
-            Your Personal Operating System
+            The AI Operating System
           </motion.div>
 
           {/* Headline */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight tracking-tight">
             Build your personal operating system for{" "}
-            <span className="text-primary">money</span> and{" "}
-            <span className="text-primary">work</span>
+            <span className="text-primary">money</span>,{" "}
+            <span className="text-primary">work</span>, and{" "}
+            <span className="text-primary">execution</span>
           </h1>
 
           {/* Subheadline */}
           <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-            Purchase individual AI-powered tools for $14.99 each, or unlock the complete Work Smart suite with an All-Access pass and save 50%+.
+            An all-in-one AI operating system for thinking, deciding, creating, and executing at a higher level.
           </p>
 
           {/* CTA Button */}
