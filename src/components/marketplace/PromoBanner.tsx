@@ -17,10 +17,10 @@ const PromoBanner = () => {
           <div className="relative flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="text-center md:text-left">
               <h3 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-3">
-                Automate your workflow with Worksmart OS
+                Run your business like a CEO
               </h3>
               <p className="text-primary-foreground/80 text-lg max-w-xl">
-                Get all tools, courses, and updates for one simple price. Save $74.
+                Get all systems, tools, and lifetime updates for one simple price.
               </p>
             </div>
             <Link to="/pricing">

@@ -7,7 +7,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 
-const learningOutcomes = [
+const outcomes = [
   "Understand the core differences between ChatGPT, Claude, and Gemini",
   "Know which AI tool to use for specific tasks and workflows",
   "Avoid the most common prompting mistakes that waste time",
@@ -139,12 +139,12 @@ const AIFoundations = () => {
             <div className="flex items-center gap-3 mb-8">
               <Sparkles className="w-6 h-6 text-primary" />
               <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-                What You'll Learn
+                What You'll Walk Away With
               </h2>
             </div>
             
             <div className="grid md:grid-cols-2 gap-4">
-              {learningOutcomes.map((outcome, index) => (
+              {outcomes.map((outcome, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, x: -10 }}

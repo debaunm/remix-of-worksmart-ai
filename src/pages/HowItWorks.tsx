@@ -26,8 +26,8 @@ const steps = [
   },
   {
     number: "04",
-    title: "Master AI with Courses",
-    description: "Level up with our courses: ChatGPT 101 ($97), AI Accelerator ($297), or 1 Person Media Company ($397) for complete transformation.",
+    title: "Master AI with Deep-Dive Sessions",
+    description: "Go deeper with focused sessions: AI Foundations ($97), AI Content Systems ($297), or Automation Mastery ($97) for complete transformation.",
     icon: Unlock,
   },
 ];
@@ -62,7 +62,7 @@ const testimonials = [
     role: "CEO, Tech Startup",
   },
   {
-    quote: "The AI Accelerator course transformed how I work. Now I save 15+ hours a week with the frameworks I learned.",
+    quote: "The AI systems transformed how I operate. Now I save 15+ hours a week running my business like a CEO.",
     author: "Jessica L.",
     role: "Founder & Creator",
   },
@@ -90,7 +90,7 @@ const HowItWorks = () => {
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               An all-in-one AI operating system for thinking, deciding, creating, and executing at a higher level.
-              No learning curve. No complexity. Just results.
+              No complexity. Just results.
             </p>
           </motion.div>
         </div>
