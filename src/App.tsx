@@ -8,6 +8,9 @@ import Pricing from "./pages/Pricing";
 import HowItWorks from "./pages/HowItWorks";
 import MoneySystems from "./pages/MoneySystems";
 import WorkSystems from "./pages/WorkSystems";
+import WealthDashboard from "./pages/products/WealthDashboard";
+import CEOLifePlanner from "./pages/products/CEOLifePlanner";
+import MediaCompanySpreadsheet from "./pages/products/MediaCompanySpreadsheet";
 import PromptLibrary from "./pages/PromptLibrary";
 import NotFound from "./pages/NotFound";
 import WriteItBetter from "./pages/tools/WriteItBetter";
@@ -52,6 +55,9 @@ const App = () => (
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/money-systems" element={<MoneySystems />} />
           <Route path="/work-systems" element={<WorkSystems />} />
+          <Route path="/products/wealth-dashboard" element={<WealthDashboard />} />
+          <Route path="/products/ceo-life-planner" element={<CEOLifePlanner />} />
+          <Route path="/products/media-company-spreadsheet" element={<MediaCompanySpreadsheet />} />
           <Route path="/prompts" element={<PromptLibrary />} />
           <Route path="/advisors" element={<Advisors />} />
           <Route path="/courses/ai-accelerator" element={<AIAccelerator />} />
