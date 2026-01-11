@@ -14,6 +14,7 @@ interface Session {
   format: "Live" | "On-Demand";
   price: string;
   icon: React.ReactNode;
+  slug: string;
 }
 
 interface SessionCategory {
@@ -34,6 +35,7 @@ const sessionCategories: SessionCategory[] = [
         format: "On-Demand",
         price: "$49",
         icon: <Brain className="w-5 h-5" />,
+        slug: "ai-foundations",
       },
     ],
   },
@@ -48,6 +50,7 @@ const sessionCategories: SessionCategory[] = [
         format: "On-Demand",
         price: "$79",
         icon: <Megaphone className="w-5 h-5" />,
+        slug: "ai-content-systems",
       },
     ],
   },
@@ -62,6 +65,7 @@ const sessionCategories: SessionCategory[] = [
         format: "On-Demand",
         price: "$49",
         icon: <Zap className="w-5 h-5" />,
+        slug: "automation-zapier",
       },
     ],
   },
@@ -102,10 +106,12 @@ const SessionCard = ({ session }: { session: Session }) => (
     </CardContent>
     <CardFooter className="pt-4 border-t border-border flex items-center justify-between">
       <span className="text-2xl font-bold text-foreground">{session.price}</span>
-      <Button className="group/btn">
-        Learn More
-        <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-      </Button>
+      <Link to={`/sessions/${session.slug}`}>
+        <Button className="group/btn">
+          Learn More
+          <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+        </Button>
+      </Link>
     </CardFooter>
   </Card>
 );
