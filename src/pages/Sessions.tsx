@@ -15,6 +15,10 @@ interface Session {
   price: string;
   icon: React.ReactNode;
   slug: string;
+  complementarySystem?: {
+    name: string;
+    link: string;
+  };
 }
 
 interface SessionCategory {
@@ -51,6 +55,10 @@ const sessionCategories: SessionCategory[] = [
         price: "$79",
         icon: <Megaphone className="w-5 h-5" />,
         slug: "ai-content-systems",
+        complementarySystem: {
+          name: "Work Smart Suite",
+          link: "/work-systems",
+        },
       },
     ],
   },
@@ -66,6 +74,10 @@ const sessionCategories: SessionCategory[] = [
         price: "$49",
         icon: <Zap className="w-5 h-5" />,
         slug: "automation-zapier",
+        complementarySystem: {
+          name: "Work Smart Suite",
+          link: "/work-systems",
+        },
       },
     ],
   },
@@ -103,6 +115,24 @@ const SessionCard = ({ session }: { session: Session }) => (
           {session.duration}
         </span>
       </div>
+      
+      {/* Cross-selling section */}
+      <div className="mt-4 pt-4 border-t border-border/50 space-y-2">
+        <div className="flex items-center gap-2 text-sm">
+          <Badge variant="outline" className="text-xs bg-primary/5 border-primary/20 text-primary">
+            Included with All Access
+          </Badge>
+        </div>
+        {session.complementarySystem && (
+          <Link 
+            to={session.complementarySystem.link}
+            className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"
+          >
+            Complementary system: <span className="underline underline-offset-2">{session.complementarySystem.name}</span>
+            <ArrowRight className="w-3 h-3" />
+          </Link>
+        )}
+      </div>
     </CardContent>
     <CardFooter className="pt-4 border-t border-border flex items-center justify-between">
       <span className="text-2xl font-bold text-foreground">{session.price}</span>
@@ -134,14 +164,17 @@ const Sessions = () => {
             transition={{ duration: 0.6 }}
           >
             <Badge variant="outline" className="mb-6 px-4 py-2 text-sm">
-              Implementation Sessions
+              Live & On-Demand Sessions
             </Badge>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
               Practical AI sessions for operators who want{" "}
               <span className="text-primary">results, not theory</span>.
             </h1>
-            <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
-              60-minute implementation sessions designed to help you build, automate, and execute with AI across work and content.
+            <p className="text-lg text-muted-foreground mb-4 max-w-2xl mx-auto leading-relaxed">
+              Live & on-demand implementation experiences for operators.
+            </p>
+            <p className="text-base text-muted-foreground/80 mb-10 max-w-2xl mx-auto leading-relaxed">
+              60-minute sessions designed to help you build, automate, and execute with AI across work and content—separate from your systems, but built to complement them.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" onClick={scrollToSessions} className="text-lg px-8">
