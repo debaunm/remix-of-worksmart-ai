@@ -40,6 +40,7 @@ import ChatGPT101 from "./pages/courses/ChatGPT101";
 import MediaCompany from "./pages/courses/MediaCompany";
 import Advisors from "./pages/Advisors";
 import PurchaseSuccess from "./pages/PurchaseSuccess";
+import Sessions from "./pages/Sessions";
 
 const queryClient = new QueryClient();
 
@@ -60,6 +61,7 @@ const App = () => (
           <Route path="/products/media-company-spreadsheet" element={<MediaCompanySpreadsheet />} />
           <Route path="/prompts" element={<PromptLibrary />} />
           <Route path="/advisors" element={<Advisors />} />
+          <Route path="/sessions" element={<Sessions />} />
           <Route path="/courses/ai-accelerator" element={<AIAccelerator />} />
           <Route path="/courses/chatgpt-101" element={<ChatGPT101 />} />
           <Route path="/courses/media-company" element={<MediaCompany />} />
