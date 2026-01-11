@@ -87,7 +87,7 @@ const tiers = [
   },
   {
     name: "All Access Bundle",
-    price: "$120",
+    price: "$197",
     description: "Everything in one powerful package",
     icon: Zap,
     iconColor: "text-primary",
@@ -96,13 +96,12 @@ const tiers = [
       "All Free Tools",
       "All Executive Tools",
       "All Entrepreneur Tools",
-      "All Crossover Tools",
+      "All Systems & Templates",
       "Priority support",
       "Lifetime updates",
     ],
     cta: "Get All Access",
     popular: true,
-    savings: "Save $74",
   },
 ];
 
@@ -168,13 +167,6 @@ const Pricing = () => {
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                       <span className="bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full">
                         BEST VALUE
-                      </span>
-                    </div>
-                  )}
-                  {tier.savings && (
-                    <div className="absolute -top-3 right-4">
-                      <span className="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                        {tier.savings}
                       </span>
                     </div>
                   )}
@@ -394,7 +386,7 @@ const Pricing = () => {
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Button size="lg" variant="default">
-                Get All Access - $120
+                Get All Access - $197
               </Button>
               <Button size="lg" variant="outline">
                 Try Free Tools First
