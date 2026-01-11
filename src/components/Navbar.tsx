@@ -112,9 +112,11 @@ const Navbar = () => {
               <>
                 {user ? (
                   <>
-                    <span className="text-sm text-muted-foreground">
-                      {user.email}
-                    </span>
+                    <Link to="/dashboard">
+                      <Button variant="ghost" className={buttonGhostStyles}>
+                        Dashboard
+                      </Button>
+                    </Link>
                     <Button 
                       variant="ghost" 
                       className={buttonGhostStyles}
@@ -182,17 +184,24 @@ const Navbar = () => {
                 {!loading && (
                   <>
                     {user ? (
-                      <Button 
-                        variant="ghost" 
-                        className={`w-full ${buttonGhostStyles}`}
-                        onClick={() => {
-                          handleSignOut();
-                          setIsOpen(false);
-                        }}
-                      >
-                        <LogOut className="w-4 h-4 mr-2" />
-                        Sign Out
-                      </Button>
+                      <>
+                        <Link to="/dashboard" className="w-full" onClick={() => setIsOpen(false)}>
+                          <Button variant="ghost" className={`w-full ${buttonGhostStyles}`}>
+                            Dashboard
+                          </Button>
+                        </Link>
+                        <Button 
+                          variant="ghost" 
+                          className={`w-full ${buttonGhostStyles}`}
+                          onClick={() => {
+                            handleSignOut();
+                            setIsOpen(false);
+                          }}
+                        >
+                          <LogOut className="w-4 h-4 mr-2" />
+                          Sign Out
+                        </Button>
+                      </>
                     ) : (
                       <Link to="/auth" className="w-full" onClick={() => setIsOpen(false)}>
                         <Button variant="ghost" className={`w-full ${buttonGhostStyles}`}>
