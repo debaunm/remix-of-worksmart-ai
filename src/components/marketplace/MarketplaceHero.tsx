@@ -4,7 +4,7 @@ import { Shield, RefreshCw, Users, ArrowDown } from "lucide-react";
 
 const trustBadges = [
   { icon: Shield, label: "Curated by experts" },
-  { icon: RefreshCw, label: "Cancel anytime" },
+  { icon: RefreshCw, label: "Pay once, access forever" },
   { icon: Users, label: "Thousands of professionals" },
 ];
 
