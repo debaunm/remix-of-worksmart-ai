@@ -143,15 +143,15 @@ const WorkSystems = () => {
               </ul>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/tools/weekly-plan-builder">
+                <Link to="/products/ceo-life-planner">
                   <Button variant="hero" size="lg" className="w-full sm:w-auto">
-                    Try Weekly Planner
+                    Learn More
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </Link>
-                <Link to="/tools/life-coach-ai">
+                <Link to="/tools/weekly-plan-builder">
                   <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                    AI Life Coach
+                    Try Weekly Planner
                   </Button>
                 </Link>
               </div>
@@ -212,9 +212,9 @@ const WorkSystems = () => {
               </ul>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/courses/media-company">
+                <Link to="/products/media-company-spreadsheet">
                   <Button variant="hero" size="lg" className="w-full sm:w-auto">
-                    Start the Course
+                    Learn More
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </Link>

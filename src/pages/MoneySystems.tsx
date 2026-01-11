@@ -105,15 +105,15 @@ const MoneySystems = () => {
               </ul>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/tools/early-retirement-calculator">
+                <Link to="/products/wealth-dashboard">
                   <Button variant="hero" size="lg" className="w-full sm:w-auto">
-                    Try Free Calculator
+                    Learn More
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </Link>
-                <Link to="/pricing">
+                <Link to="/tools/early-retirement-calculator">
                   <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                    Get Full Access
+                    Try Free Calculator
                   </Button>
                 </Link>
               </div>
