@@ -1,13 +1,35 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Sparkles, Menu, X } from "lucide-react";
+import { Sparkles, Menu, X, LogOut } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, loading, signOut } = useAuth();
+  const { toast } = useToast();
+
+  const handleSignOut = async () => {
+    const { error } = await signOut();
+    if (error) {
+      toast({
+        title: "Error signing out",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Signed out",
+        description: "You've been signed out successfully.",
+      });
+      navigate("/");
+    }
+  };
   
   useEffect(() => {
     const handleScroll = () => {
@@ -86,9 +108,31 @@ const Navbar = () => {
 
           {/* CTA */}
           <div className="hidden md:flex items-center gap-3">
-            <Button variant="ghost" className={buttonGhostStyles}>
-              Sign In
-            </Button>
+            {!loading && (
+              <>
+                {user ? (
+                  <>
+                    <span className="text-sm text-muted-foreground">
+                      {user.email}
+                    </span>
+                    <Button 
+                      variant="ghost" 
+                      className={buttonGhostStyles}
+                      onClick={handleSignOut}
+                    >
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Sign Out
+                    </Button>
+                  </>
+                ) : (
+                  <Link to="/auth">
+                    <Button variant="ghost" className={buttonGhostStyles}>
+                      Sign In
+                    </Button>
+                  </Link>
+                )}
+              </>
+            )}
             <Link to="/pricing">
               <Button variant="hero">Get All Access</Button>
             </Link>
@@ -135,10 +179,30 @@ const Navbar = () => {
               
               
               <div className="flex flex-col gap-2 pt-4">
-                <Button variant="ghost" className={`w-full ${buttonGhostStyles}`}>
-                  Sign In
-                </Button>
-                <Link to="/pricing" className="w-full">
+                {!loading && (
+                  <>
+                    {user ? (
+                      <Button 
+                        variant="ghost" 
+                        className={`w-full ${buttonGhostStyles}`}
+                        onClick={() => {
+                          handleSignOut();
+                          setIsOpen(false);
+                        }}
+                      >
+                        <LogOut className="w-4 h-4 mr-2" />
+                        Sign Out
+                      </Button>
+                    ) : (
+                      <Link to="/auth" className="w-full" onClick={() => setIsOpen(false)}>
+                        <Button variant="ghost" className={`w-full ${buttonGhostStyles}`}>
+                          Sign In
+                        </Button>
+                      </Link>
+                    )}
+                  </>
+                )}
+                <Link to="/pricing" className="w-full" onClick={() => setIsOpen(false)}>
                   <Button variant="hero" className="w-full">Get All Access</Button>
                 </Link>
               </div>
