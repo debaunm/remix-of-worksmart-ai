@@ -51,7 +51,7 @@ const AIAccelerator = () => {
               className="text-center"
             >
               <Badge className="mb-4 bg-primary/20 text-primary border-primary/30">
-                Most Popular Course
+                Most Popular Session
               </Badge>
               <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-emerald-400 flex items-center justify-center mx-auto mb-6">
                 <Rocket className="w-10 h-10 text-white" />
@@ -136,7 +136,7 @@ const AIAccelerator = () => {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Course Curriculum</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Session Breakdown</h2>
               <p className="text-muted-foreground">6 comprehensive modules to master AI productivity</p>
             </motion.div>
 
@@ -186,7 +186,7 @@ const AIAccelerator = () => {
                     <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
                   ))}
                 </div>
-                <p className="text-muted-foreground mb-6">"This course completely transformed how I work. I've automated 80% of my repetitive tasks."</p>
+                <p className="text-muted-foreground mb-6">"This session completely transformed how I operate. I've automated 80% of my repetitive tasks."</p>
                 
                 <div className="mb-8">
                   <div className="text-5xl font-bold text-foreground mb-2">$297</div>

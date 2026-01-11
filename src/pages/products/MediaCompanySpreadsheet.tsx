@@ -139,9 +139,9 @@ const MediaCompanySpreadsheet = () => {
                   Get the Spreadsheet — $49
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
-                <Link to="/courses/media-company">
+                <Link to="/sessions">
                   <Button variant="outline" size="lg">
-                    Take the Free Course
+                    Explore Sessions
                   </Button>
                 </Link>
               </div>

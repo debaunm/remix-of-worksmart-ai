@@ -50,7 +50,7 @@ const ChatGPT101 = () => {
               className="text-center"
             >
               <Badge className="mb-4 bg-blue-500/20 text-blue-300 border-blue-500/30">
-                Beginner Friendly
+                Start Here
               </Badge>
               <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center mx-auto mb-6">
                 <MessageSquare className="w-10 h-10 text-white" />
@@ -103,7 +103,7 @@ const ChatGPT101 = () => {
               className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Perfect For You If...</h2>
-              <p className="text-muted-foreground">This course is designed for AI beginners</p>
+              <p className="text-muted-foreground">This session is designed for AI beginners ready to operate smarter</p>
             </motion.div>
 
             <div className="grid md:grid-cols-3 gap-6">
@@ -177,8 +177,8 @@ const ChatGPT101 = () => {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Course Curriculum</h2>
-              <p className="text-muted-foreground">5 beginner-friendly modules</p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Session Breakdown</h2>
+              <p className="text-muted-foreground">5 actionable modules</p>
             </motion.div>
 
             <div className="space-y-4">
@@ -227,7 +227,7 @@ const ChatGPT101 = () => {
                     <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
                   ))}
                 </div>
-                <p className="text-muted-foreground mb-6">"Finally, I understand how to talk to AI! This course made everything click."</p>
+                <p className="text-muted-foreground mb-6">"Finally, I understand how to talk to AI! This session made everything click."</p>
                 
                 <div className="mb-8">
                   <div className="text-5xl font-bold text-foreground mb-2">$97</div>
@@ -250,7 +250,7 @@ const ChatGPT101 = () => {
                 </div>
 
                 <Button size="lg" className="text-lg px-12 bg-blue-500 hover:bg-blue-600">
-                  Start Learning Today
+                  Start Operating Smarter
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </CardContent>
