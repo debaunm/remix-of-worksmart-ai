@@ -1,9 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Shield, RefreshCw, Users, MessageSquareText, ArrowRight } from "lucide-react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Shield, RefreshCw, Users, ArrowDown } from "lucide-react";
 
 const trustBadges = [
   { icon: Shield, label: "Curated by experts" },
@@ -12,22 +9,18 @@ const trustBadges = [
 ];
 
 const MarketplaceHero = () => {
-  const [email, setEmail] = useState("");
-  const navigate = useNavigate();
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Email submitted:", email);
+  const scrollToSystems = () => {
+    document.getElementById("flagship-systems")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <section className="pt-32 pb-20 bg-background">
+    <section className="pt-32 pb-16 bg-background">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-3xl mx-auto text-center"
+          className="max-w-4xl mx-auto text-center"
         >
           {/* Badge */}
           <motion.div
@@ -36,68 +29,39 @@ const MarketplaceHero = () => {
             transition={{ duration: 0.4 }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-8"
           >
-            The AI Operating System
+            Your Personal Operating System
           </motion.div>
 
           {/* Headline */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight tracking-tight">
-            Get AI-powered systems at{" "}
-            <span className="text-primary">ridiculously good value</span>
+            Build your personal operating system for{" "}
+            <span className="text-primary">money</span> and{" "}
+            <span className="text-primary">work</span>
           </h1>
 
           {/* Subheadline */}
-          <p className="text-lg md:text-xl text-muted-foreground mb-6 max-w-2xl mx-auto leading-relaxed">
-            Professional AI tools you can buy individually for $14.99 or unlock entire suites at a discount.
+          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
+            Purchase individual AI-powered tools for $14.99 each, or unlock the complete Work Smart suite with an All-Access pass and save 50%+.
           </p>
-          
-          {/* Pricing highlight */}
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-10 text-sm">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-medium">
-              Individual tools: $14.99 each
-            </span>
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted text-muted-foreground font-medium">
-              Suites from $97 (save 50%+)
-            </span>
-          </div>
 
-          {/* Email Capture Form */}
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-12">
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 h-14 px-5 text-base rounded-xl border-2 border-border focus:border-primary"
-              required
-            />
-            <Button type="submit" size="lg" className="h-14 px-8 font-semibold rounded-xl text-base">
-              Get started
-            </Button>
-          </form>
-
-          {/* Featured Prompt Library Card */}
+          {/* CTA Button */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            onClick={() => navigate("/prompts")}
-            className="max-w-md mx-auto mb-12 p-4 rounded-2xl bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 border border-primary/20 cursor-pointer hover:border-primary/40 hover:shadow-lg transition-all group"
+            className="mb-12"
           >
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center shrink-0">
-                <MessageSquareText className="w-6 h-6 text-primary" />
-              </div>
-              <div className="flex-1 text-left">
-                <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                  Prompt Library
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  50+ ready-to-use AI prompts • $9.99 per pack
-                </p>
-              </div>
-              <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
-            </div>
+            <Button 
+              onClick={scrollToSystems} 
+              size="lg" 
+              className="h-14 px-10 font-semibold rounded-xl text-base gap-2"
+            >
+              Explore Systems
+              <ArrowDown className="w-4 h-4" />
+            </Button>
           </motion.div>
+
+          {/* Trust Badges */}
           <div className="flex flex-wrap items-center justify-center gap-8">
             {trustBadges.map((badge, index) => {
               const Icon = badge.icon;
