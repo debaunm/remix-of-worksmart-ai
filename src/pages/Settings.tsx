@@ -21,7 +21,8 @@ import {
   Save,
   ArrowLeft,
   Mail,
-  KeyRound
+  KeyRound,
+  Loader2
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -34,6 +35,33 @@ const Settings = () => {
   const [saving, setSaving] = useState(false);
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [marketingEmails, setMarketingEmails] = useState(false);
+  const [sendingReset, setSendingReset] = useState(false);
+
+  const handlePasswordReset = async () => {
+    if (!user?.email) return;
+    
+    setSendingReset(true);
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(user.email, {
+        redirectTo: `${window.location.origin}/auth?type=recovery`,
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Password reset email sent",
+        description: "Check your inbox for a link to reset your password.",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Failed to send reset email",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setSendingReset(false);
+    }
+  };
 
   useEffect(() => {
     if (!loading && !user) {
@@ -264,11 +292,19 @@ const Settings = () => {
                       </div>
                       <div>
                         <p className="font-medium text-foreground">Password</p>
-                        <p className="text-sm text-muted-foreground">Last changed: Never</p>
+                        <p className="text-sm text-muted-foreground">
+                          Reset your password via email
+                        </p>
                       </div>
                     </div>
-                    <Button variant="outline" size="sm">
-                      Change Password
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={handlePasswordReset}
+                      disabled={sendingReset}
+                    >
+                      {sendingReset && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+                      {sendingReset ? "Sending..." : "Reset Password"}
                     </Button>
                   </div>
                 </CardContent>
