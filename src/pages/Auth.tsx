@@ -14,6 +14,8 @@ import { supabase } from "@/integrations/supabase/client";
 const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRecoveryMode, setIsRecoveryMode] = useState(false);
+  const [isForgotPasswordMode, setIsForgotPasswordMode] = useState(false);
+  const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const { signIn, signUp } = useAuth();
@@ -128,6 +130,96 @@ const Auth = () => {
     
     setIsLoading(false);
   };
+
+  const handleForgotPassword = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const { error } = await supabase.auth.resetPasswordForEmail(forgotPasswordEmail, {
+      redirectTo: `${window.location.origin}/auth?type=recovery`,
+    });
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Check your email",
+        description: "We've sent you a password reset link.",
+      });
+      setIsForgotPasswordMode(false);
+      setForgotPasswordEmail("");
+    }
+
+    setIsLoading(false);
+  };
+
+  // Forgot Password Mode UI
+  if (isForgotPasswordMode) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center px-4 py-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-full max-w-md"
+        >
+          {/* Logo */}
+          <Link to="/" className="flex items-center justify-center gap-2 mb-8">
+            <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
+              <Sparkles className="w-5 h-5 text-primary-foreground" />
+            </div>
+            <span className="text-xl font-bold text-foreground">
+              Worksmart <span className="text-primary">Advisor</span>
+            </span>
+          </Link>
+
+          <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+            <CardHeader className="text-center">
+              <CardTitle className="text-2xl">Forgot Password</CardTitle>
+              <CardDescription>
+                Enter your email and we'll send you a reset link
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleForgotPassword} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="forgot-email">Email</Label>
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      id="forgot-email"
+                      type="email"
+                      placeholder="you@example.com"
+                      className="pl-10"
+                      value={forgotPasswordEmail}
+                      onChange={(e) => setForgotPasswordEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? "Sending..." : "Send Reset Link"}
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="w-full"
+                  onClick={() => setIsForgotPasswordMode(false)}
+                >
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  Back to Sign In
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </div>
+    );
+  }
 
   // Password Recovery Mode UI
   if (isRecoveryMode) {
@@ -278,6 +370,13 @@ const Auth = () => {
                   <Button type="submit" className="w-full" disabled={isLoading}>
                     {isLoading ? "Signing in..." : "Sign In"}
                   </Button>
+                  <button
+                    type="button"
+                    onClick={() => setIsForgotPasswordMode(true)}
+                    className="w-full text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    Forgot your password?
+                  </button>
                 </form>
               </TabsContent>
 
