@@ -46,6 +46,7 @@ import AIContentSystems from "./pages/sessions/AIContentSystems";
 import AutomationZapier from "./pages/sessions/AutomationZapier";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
+import Settings from "./pages/Settings";
 
 const queryClient = new QueryClient();
 
@@ -98,6 +99,7 @@ const App = () => (
           <Route path="/purchase-success" element={<PurchaseSuccess />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/settings" element={<Settings />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

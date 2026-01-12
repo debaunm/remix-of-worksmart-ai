@@ -207,6 +207,13 @@ const Dashboard = () => {
                     </Button>
                   </Link>
 
+                  <Link to="/settings" className="block">
+                    <Button variant="outline" className="w-full">
+                      <Settings className="w-4 h-4 mr-2" />
+                      Account Settings
+                    </Button>
+                  </Link>
+
                   <div className="pt-4 border-t border-border">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <Clock className="w-4 h-4" />
