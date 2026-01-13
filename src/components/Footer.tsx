@@ -35,8 +35,6 @@ const Footer = () => {
             <h4 className="font-semibold mb-4 text-white">Product</h4>
             <ul className="space-y-2 text-sm text-white/50">
               <li><Link to="/how-it-works" className="hover:text-white transition-colors">About Worksmart</Link></li>
-              <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
             </ul>
           </div>
 
@@ -44,9 +42,8 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4 text-white">Account</h4>
             <ul className="space-y-2 text-sm text-white/50">
-              <li><a href="#" className="hover:text-white transition-colors">Profile</a></li>
+              <li><Link to="/settings" className="hover:text-white transition-colors">Profile</Link></li>
               <li><Link to="/pricing" className="hover:text-white transition-colors">Join Pro</Link></li>
-              <li><a href="#" className="hover:text-white transition-colors">Terms & Privacy</a></li>
             </ul>
           </div>
 
