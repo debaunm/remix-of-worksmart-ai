@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Package, Crown, Briefcase, Sparkles, Check, ArrowRight } from "lucide-react";
+import { Package, Crown, Briefcase, Check, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
@@ -25,18 +25,6 @@ const bundles = [
     originalPrice: "$197",
     iconBg: "bg-primary/10",
     iconColor: "text-primary",
-  },
-  {
-    id: "all-access",
-    name: "All Access Bundle",
-    icon: Sparkles,
-    description: "Everything Worksmart has to offer",
-    tools: ["All Executive Tools", "All Entrepreneur Tools", "All Systems", "Priority Support"],
-    price: "$197",
-    originalPrice: "$297",
-    iconBg: "bg-accent/10",
-    iconColor: "text-accent",
-    featured: true,
   },
 ];
 
@@ -73,15 +61,8 @@ const BundlesSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
-                className={`relative bg-card rounded-2xl border p-6 flex flex-col h-full hover:shadow-lg transition-all duration-300 ${
-                  bundle.featured ? "border-primary ring-2 ring-primary/20" : "border-border"
-                }`}
+                className="relative bg-card rounded-2xl border border-border p-6 flex flex-col h-full hover:shadow-lg transition-all duration-300"
               >
-                {bundle.featured && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-primary-foreground text-xs font-semibold rounded-full">
-                    Most Popular
-                  </div>
-                )}
 
                 <div className="flex items-center gap-4 mb-5">
                   <div className={`w-14 h-14 rounded-2xl ${bundle.iconBg} flex items-center justify-center`}>
@@ -115,7 +96,7 @@ const BundlesSection = () => {
                   <Link to="/pricing">
                     <Button 
                       className="w-full gap-2 rounded-xl h-12" 
-                      variant={bundle.featured ? "default" : "outline"}
+                      variant="outline"
                     >
                       View bundle
                       <ArrowRight className="w-4 h-4" />
