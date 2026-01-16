@@ -51,7 +51,7 @@ const BundlesSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {bundles.map((bundle, index) => {
             const Icon = bundle.icon;
             return (
