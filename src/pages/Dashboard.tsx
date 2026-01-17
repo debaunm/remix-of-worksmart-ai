@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/hooks/useAuth";
+import { usePurchases } from "@/hooks/usePurchases";
 import { 
   User, 
   Play,
@@ -24,15 +25,10 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-// Mock purchased products - in production this would come from database
-type PurchasedProduct = 'money_systems' | 'work_systems' | 'both' | 'none';
-
 const Dashboard = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
-  
-  // In production, fetch from database based on user purchases
-  const [purchasedProduct] = useState<PurchasedProduct>('both');
+  const { hasMoneyAccess, hasWorkAccess, hasBothAccess, isLoading: purchasesLoading } = usePurchases();
 
   useEffect(() => {
     if (!loading && !user) {
@@ -40,7 +36,7 @@ const Dashboard = () => {
     }
   }, [user, loading, navigate]);
 
-  if (loading) {
+  if (loading || purchasesLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
@@ -51,9 +47,6 @@ const Dashboard = () => {
   if (!user) {
     return null;
   }
-
-  const hasMoneyAccess = purchasedProduct === 'money_systems' || purchasedProduct === 'both';
-  const hasWorkAccess = purchasedProduct === 'work_systems' || purchasedProduct === 'both';
 
   const moneySessions = [
     {
@@ -333,9 +326,9 @@ const Dashboard = () => {
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">Plan</span>
                   <Badge variant="secondary">
-                    {purchasedProduct === 'both' ? 'Full Access' : 
-                     purchasedProduct === 'none' ? 'Free' : 
-                     purchasedProduct === 'money_systems' ? 'Money Systems' : 'Work Systems'}
+                    {hasBothAccess ? 'Full Access' : 
+                     hasMoneyAccess ? 'Money Systems' : 
+                     hasWorkAccess ? 'Work Systems' : 'Free'}
                   </Badge>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
