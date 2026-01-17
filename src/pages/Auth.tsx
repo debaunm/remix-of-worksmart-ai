@@ -18,10 +18,17 @@ const Auth = () => {
   const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { signIn, signUp } = useAuth();
+  const { user, loading, signIn, signUp } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+
+  // Redirect authenticated users to dashboard
+  useEffect(() => {
+    if (!loading && user) {
+      navigate("/dashboard");
+    }
+  }, [user, loading, navigate]);
 
   useEffect(() => {
     // Check if this is a password recovery flow
@@ -97,7 +104,7 @@ const Auth = () => {
         title: "Welcome back!",
         description: "You've successfully signed in.",
       });
-      navigate("/");
+      navigate("/dashboard");
     }
     
     setIsLoading(false);
@@ -125,7 +132,7 @@ const Auth = () => {
         title: "Account created!",
         description: "Welcome to Worksmart Advisor.",
       });
-      navigate("/");
+      navigate("/dashboard");
     }
     
     setIsLoading(false);
