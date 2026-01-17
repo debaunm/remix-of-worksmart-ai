@@ -1,4 +1,4 @@
-import { Check, X, Sparkles, Crown, Briefcase, Zap, ShoppingCart } from "lucide-react";
+import { Check, X, Sparkles, Crown, Briefcase, ShoppingCart } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -85,24 +85,6 @@ const tiers = [
     cta: "Get Entrepreneur Suite",
     popular: false,
   },
-  {
-    name: "All Access Bundle",
-    price: "$197",
-    description: "Everything in one powerful package",
-    icon: Zap,
-    iconColor: "text-primary",
-    bgColor: "bg-primary/10",
-    features: [
-      "All Free Tools",
-      "All Executive Tools",
-      "All Entrepreneur Tools",
-      "All Systems & Templates",
-      "Priority support",
-      "Lifetime updates",
-    ],
-    cta: "Get All Access",
-    popular: true,
-  },
 ];
 
 const Pricing = () => {
@@ -148,7 +130,7 @@ const Pricing = () => {
       {/* Pricing Cards */}
       <section className="pb-16 px-4">
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {tiers.map((tier, index) => (
               <motion.div
                 key={tier.name}
@@ -338,8 +320,8 @@ const Pricing = () => {
                 a: "One-time payment for everything—suites and individual tools. Pay once, use forever with lifetime updates.",
               },
               {
-                q: "What's included in the All Access Bundle?",
-                a: "Everything! All Executive tools, all Entrepreneur tools, all Crossover tools, and all Free tools. It's the complete WorkSmart.ai toolkit.",
+                q: "What's the difference between Executive and Entrepreneur suites?",
+                a: "Executive Suite includes tools for corporate leaders (C-Level statements, delegation frameworks, LinkedIn optimization). Entrepreneur Suite focuses on founder tools (pitch decks, press releases, revenue planning). Both include crossover tools.",
               },
               {
                 q: "Can I upgrade later?",
@@ -386,7 +368,7 @@ const Pricing = () => {
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Button size="lg" variant="default">
-                Get All Access - $197
+                Get Executive Suite - $97
               </Button>
               <Button size="lg" variant="outline">
                 Try Free Tools First
