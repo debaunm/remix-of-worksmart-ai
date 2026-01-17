@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Award, Building2, Users } from "lucide-react";
+import morganHeadshot from "@/assets/morgan-debaun.jpeg";
 
 const credentials = [
   { icon: Award, text: 'Author of "Rewrite Your Rules"' },
@@ -19,7 +20,7 @@ const GuideSection = () => {
           className="max-w-4xl mx-auto"
         >
           <div className="grid md:grid-cols-5 gap-10 items-center">
-            {/* Image placeholder */}
+            {/* Image */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -27,13 +28,12 @@ const GuideSection = () => {
               transition={{ duration: 0.5 }}
               className="md:col-span-2"
             >
-              <div className="aspect-[3/4] rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 border border-border flex items-center justify-center">
-                <div className="text-center p-6">
-                  <div className="w-24 h-24 rounded-full bg-primary/10 mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-4xl font-bold text-primary">MD</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground">Morgan DeBaun</p>
-                </div>
+              <div className="aspect-[3/4] rounded-2xl overflow-hidden border border-border shadow-lg">
+                <img 
+                  src={morganHeadshot} 
+                  alt="Morgan DeBaun - CEO of Blavity Inc. & AfroTech" 
+                  className="w-full h-full object-cover object-center"
+                />
               </div>
             </motion.div>
 
