@@ -1,35 +1,22 @@
-import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import MarketplaceHero from "@/components/marketplace/MarketplaceHero";
-import FlagshipProducts from "@/components/marketplace/FlagshipProducts";
-import CategoryNav from "@/components/marketplace/CategoryNav";
+import SimpleHero from "@/components/marketplace/SimpleHero";
+import LearningPathsSection from "@/components/marketplace/LearningPathsSection";
 import TopToolsGrid from "@/components/marketplace/TopToolsGrid";
-import PromoBanner from "@/components/marketplace/PromoBanner";
-import StaffPicksSection from "@/components/marketplace/StaffPicksSection";
-import BundlesSection from "@/components/marketplace/BundlesSection";
 import NewsletterCTA from "@/components/marketplace/NewsletterCTA";
 
 const Index = () => {
-  const [activeCategory, setActiveCategory] = useState("all");
-
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <MarketplaceHero />
-      <FlagshipProducts />
-      <CategoryNav 
-        activeCategory={activeCategory} 
-        onCategoryChange={setActiveCategory} 
+      <SimpleHero />
+      <div id="learning-paths">
+        <LearningPathsSection />
+      </div>
+      <TopToolsGrid
+        title="Free AI Tools"
+        subtitle="Start using these tools right now—no signup required."
       />
-      <TopToolsGrid 
-        category={activeCategory}
-        title="All Tools"
-        subtitle="Browse our complete collection of AI-powered tools."
-      />
-      <PromoBanner />
-      <StaffPicksSection />
-      <BundlesSection />
       <NewsletterCTA />
       <Footer />
     </div>
