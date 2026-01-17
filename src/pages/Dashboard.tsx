@@ -50,43 +50,43 @@ const Dashboard = () => {
 
   const moneySessions = [
     {
+      id: "understanding-financial-picture",
       title: "Understanding Your Financial Picture",
       duration: "45 min",
       description: "Learn to read and interpret your complete financial dashboard",
-      videoUrl: "#",
     },
     {
+      id: "wealth-tracking-system",
       title: "Building Your Wealth Tracking System",
       duration: "60 min",
       description: "Set up automated tracking for net worth, cash flow, and goals",
-      videoUrl: "#",
     },
     {
+      id: "investment-portfolio-strategy",
       title: "Investment Portfolio Strategy",
       duration: "55 min",
       description: "Create a diversified portfolio aligned with your timeline",
-      videoUrl: "#",
     },
   ];
 
   const workSessions = [
     {
+      id: "ceo-weekly-planning",
       title: "CEO Weekly Planning System",
       duration: "50 min",
       description: "Structure your week for maximum impact and energy",
-      videoUrl: "#",
     },
     {
+      id: "decision-frameworks",
       title: "Decision Frameworks for Leaders",
       duration: "45 min",
       description: "Make confident decisions with proven executive frameworks",
-      videoUrl: "#",
     },
     {
+      id: "content-engine",
       title: "Building Your Content Engine",
       duration: "65 min",
       description: "Create a repeatable system for consistent content creation",
-      videoUrl: "#",
     },
   ];
 
@@ -103,7 +103,7 @@ const Dashboard = () => {
     { name: "LinkedIn 21-Day Plan", href: "/tools/linkedin-21-day-content-plan", icon: Wrench },
   ];
 
-  const SessionCard = ({ session, locked }: { session: typeof moneySessions[0], locked: boolean }) => (
+  const SessionCard = ({ session, locked, systemId }: { session: typeof moneySessions[0], locked: boolean, systemId: string }) => (
     <div className={`p-4 rounded-xl border ${locked ? 'border-border bg-muted/50' : 'border-border bg-card hover:border-primary/50'} transition-all`}>
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1">
@@ -121,10 +121,12 @@ const Dashboard = () => {
           <p className="text-sm text-muted-foreground">{session.description}</p>
         </div>
         {!locked && (
-          <Button size="sm" variant="outline" className="shrink-0">
-            <Video className="w-4 h-4 mr-1" />
-            Watch
-          </Button>
+          <Link to={`/content/${systemId}/${session.id}`}>
+            <Button size="sm" variant="outline" className="shrink-0">
+              <Video className="w-4 h-4 mr-1" />
+              Watch
+            </Button>
+          </Link>
         )}
       </div>
     </div>
@@ -195,7 +197,7 @@ const Dashboard = () => {
                     </CardHeader>
                     <CardContent className="space-y-4">
                       {workSessions.map((session, index) => (
-                        <SessionCard key={index} session={session} locked={!hasWorkAccess} />
+                        <SessionCard key={index} session={session} locked={!hasWorkAccess} systemId="work-systems" />
                       ))}
                       {!hasWorkAccess && (
                         <Link to="/work-systems" className="block mt-4">
@@ -263,7 +265,7 @@ const Dashboard = () => {
                     </CardHeader>
                     <CardContent className="space-y-4">
                       {moneySessions.map((session, index) => (
-                        <SessionCard key={index} session={session} locked={!hasMoneyAccess} />
+                        <SessionCard key={index} session={session} locked={!hasMoneyAccess} systemId="money-systems" />
                       ))}
                       {!hasMoneyAccess && (
                         <Link to="/money-systems" className="block mt-4">
