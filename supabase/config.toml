@@ -1,10 +1,1 @@
-project_id = "bgdbjpmduyfpdwjmfshq"
-
-[functions.ai-workflow]
-verify_jwt = false
-
-[functions.life-coach-chat]
-verify_jwt = false
-
-[functions.add-activecampaign-contact]
-verify_jwt = false
+project_id = "jdrrzhydmnrkajgufodf"
