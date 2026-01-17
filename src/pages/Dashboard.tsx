@@ -1,27 +1,38 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/hooks/useAuth";
 import { 
   User, 
-  Sparkles, 
-  Wrench, 
-  BookOpen, 
+  Play,
   TrendingUp,
+  Briefcase,
   Clock,
   ArrowRight,
-  Settings
+  Settings,
+  Lock,
+  CheckCircle,
+  Video,
+  FileText,
+  Wrench
 } from "lucide-react";
 import { Link } from "react-router-dom";
+
+// Mock purchased products - in production this would come from database
+type PurchasedProduct = 'money_systems' | 'work_systems' | 'both' | 'none';
 
 const Dashboard = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
+  
+  // In production, fetch from database based on user purchases
+  const [purchasedProduct] = useState<PurchasedProduct>('both');
 
   useEffect(() => {
     if (!loading && !user) {
@@ -41,42 +52,90 @@ const Dashboard = () => {
     return null;
   }
 
-  const quickActions = [
+  const hasMoneyAccess = purchasedProduct === 'money_systems' || purchasedProduct === 'both';
+  const hasWorkAccess = purchasedProduct === 'work_systems' || purchasedProduct === 'both';
+
+  const moneySessions = [
     {
-      title: "AI Tools",
-      description: "Access your AI-powered productivity tools",
-      icon: Wrench,
-      href: "/advisors",
-      color: "bg-primary/10 text-primary"
+      title: "Understanding Your Financial Picture",
+      duration: "45 min",
+      description: "Learn to read and interpret your complete financial dashboard",
+      videoUrl: "#",
     },
     {
-      title: "Deep-Dive Sessions",
-      description: "Continue your operator training",
-      icon: BookOpen,
-      href: "/sessions",
-      color: "bg-emerald-500/10 text-emerald-500"
+      title: "Building Your Wealth Tracking System",
+      duration: "60 min",
+      description: "Set up automated tracking for net worth, cash flow, and goals",
+      videoUrl: "#",
     },
     {
-      title: "Money Systems",
-      description: "Build wealth like a CFO",
-      icon: TrendingUp,
-      href: "/money-systems",
-      color: "bg-amber-500/10 text-amber-500"
+      title: "Investment Portfolio Strategy",
+      duration: "55 min",
+      description: "Create a diversified portfolio aligned with your timeline",
+      videoUrl: "#",
     },
-    {
-      title: "Work Systems",
-      description: "Run your business like a CEO",
-      icon: Settings,
-      href: "/work-systems",
-      color: "bg-blue-500/10 text-blue-500"
-    }
   ];
 
-  const recentTools = [
-    { name: "Decision Helper", href: "/tools/decision-helper" },
-    { name: "Weekly Plan Builder", href: "/tools/weekly-plan-builder" },
-    { name: "Brand Voice Generator", href: "/tools/brand-voice-generator" },
+  const workSessions = [
+    {
+      title: "CEO Weekly Planning System",
+      duration: "50 min",
+      description: "Structure your week for maximum impact and energy",
+      videoUrl: "#",
+    },
+    {
+      title: "Decision Frameworks for Leaders",
+      duration: "45 min",
+      description: "Make confident decisions with proven executive frameworks",
+      videoUrl: "#",
+    },
+    {
+      title: "Building Your Content Engine",
+      duration: "65 min",
+      description: "Create a repeatable system for consistent content creation",
+      videoUrl: "#",
+    },
   ];
+
+  const moneyTools = [
+    { name: "Early Retirement Calculator", href: "/tools/early-retirement-calculator", icon: TrendingUp },
+    { name: "Budget Builder Prompts", href: "/tools/budget-builder-prompts", icon: FileText },
+    { name: "Service Pricing Workbook", href: "/tools/service-pricing-workbook", icon: Wrench },
+  ];
+
+  const workTools = [
+    { name: "Weekly Plan Builder", href: "/tools/weekly-plan-builder", icon: Wrench },
+    { name: "Decision Helper", href: "/tools/decision-helper", icon: Wrench },
+    { name: "Brand Voice Generator", href: "/tools/brand-voice-generator", icon: Wrench },
+    { name: "LinkedIn 21-Day Plan", href: "/tools/linkedin-21-day-content-plan", icon: Wrench },
+  ];
+
+  const SessionCard = ({ session, locked }: { session: typeof moneySessions[0], locked: boolean }) => (
+    <div className={`p-4 rounded-xl border ${locked ? 'border-border bg-muted/50' : 'border-border bg-card hover:border-primary/50'} transition-all`}>
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex-1">
+          <div className="flex items-center gap-2 mb-2">
+            {locked ? (
+              <Lock className="w-4 h-4 text-muted-foreground" />
+            ) : (
+              <Play className="w-4 h-4 text-primary" />
+            )}
+            <span className="text-xs text-muted-foreground">{session.duration}</span>
+          </div>
+          <h4 className={`font-medium ${locked ? 'text-muted-foreground' : 'text-foreground'} mb-1`}>
+            {session.title}
+          </h4>
+          <p className="text-sm text-muted-foreground">{session.description}</p>
+        </div>
+        {!locked && (
+          <Button size="sm" variant="outline" className="shrink-0">
+            <Video className="w-4 h-4 mr-1" />
+            Watch
+          </Button>
+        )}
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-background">
@@ -89,141 +148,209 @@ const Dashboard = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-12"
+            className="mb-8"
           >
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
-                <User className="w-8 h-8 text-primary" />
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center">
+                <User className="w-7 h-7 text-primary" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-foreground">
+                <h1 className="text-2xl font-bold text-foreground">
                   Welcome back{user.user_metadata?.display_name ? `, ${user.user_metadata.display_name}` : ''}
                 </h1>
-                <p className="text-muted-foreground">{user.email}</p>
+                <p className="text-sm text-muted-foreground">{user.email}</p>
               </div>
             </div>
           </motion.div>
 
-          {/* Quick Actions */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="mb-12"
-          >
-            <h2 className="text-xl font-semibold text-foreground mb-6">Quick Actions</h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {quickActions.map((action, index) => (
-                <Link key={action.title} to={action.href}>
-                  <Card className="h-full hover:border-primary/50 transition-all cursor-pointer group">
-                    <CardContent className="p-6">
-                      <div className={`w-12 h-12 rounded-xl ${action.color} flex items-center justify-center mb-4`}>
-                        <action.icon className="w-6 h-6" />
-                      </div>
-                      <h3 className="font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
-                        {action.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">{action.description}</p>
+          {/* Main Content */}
+          <Tabs defaultValue={hasWorkAccess ? "work" : "money"} className="w-full">
+            <TabsList className="grid w-full max-w-md grid-cols-2 mb-8">
+              <TabsTrigger value="work" className="flex items-center gap-2">
+                <Briefcase className="w-4 h-4" />
+                Work Systems
+                {!hasWorkAccess && <Lock className="w-3 h-3" />}
+              </TabsTrigger>
+              <TabsTrigger value="money" className="flex items-center gap-2">
+                <TrendingUp className="w-4 h-4" />
+                Money Systems
+                {!hasMoneyAccess && <Lock className="w-3 h-3" />}
+              </TabsTrigger>
+            </TabsList>
+
+            {/* Work Systems Tab */}
+            <TabsContent value="work">
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="grid lg:grid-cols-3 gap-8"
+              >
+                {/* Sessions */}
+                <div className="lg:col-span-2">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Video className="w-5 h-5 text-primary" />
+                        Training Sessions
+                      </CardTitle>
+                      <CardDescription>
+                        {hasWorkAccess 
+                          ? "Watch these sessions to master your work systems"
+                          : "Unlock these sessions by purchasing Work Systems"
+                        }
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      {workSessions.map((session, index) => (
+                        <SessionCard key={index} session={session} locked={!hasWorkAccess} />
+                      ))}
+                      {!hasWorkAccess && (
+                        <Link to="/work-systems" className="block mt-4">
+                          <Button variant="hero" className="w-full">
+                            Unlock Work Systems
+                            <ArrowRight className="w-4 h-4 ml-2" />
+                          </Button>
+                        </Link>
+                      )}
                     </CardContent>
                   </Card>
-                </Link>
-              ))}
-            </div>
-          </motion.div>
+                </div>
 
-          {/* Main Content Grid */}
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Popular Tools */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="lg:col-span-2"
-            >
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Sparkles className="w-5 h-5 text-primary" />
-                    Popular Tools
-                  </CardTitle>
-                  <CardDescription>
-                    Jump back into your most-used AI tools
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    {recentTools.map((tool) => (
-                      <Link key={tool.name} to={tool.href}>
-                        <div className="flex items-center justify-between p-4 rounded-lg border border-border hover:border-primary/50 hover:bg-accent/50 transition-all group">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                              <Wrench className="w-5 h-5 text-primary" />
-                            </div>
-                            <span className="font-medium text-foreground group-hover:text-primary transition-colors">
+                {/* Tools */}
+                <div>
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Wrench className="w-5 h-5 text-primary" />
+                        Your Tools
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      {workTools.map((tool, index) => (
+                        <Link key={index} to={hasWorkAccess ? tool.href : "#"}>
+                          <div className={`flex items-center gap-3 p-3 rounded-lg border border-border ${hasWorkAccess ? 'hover:border-primary/50 hover:bg-accent/50' : 'opacity-50'} transition-all`}>
+                            {hasWorkAccess ? (
+                              <CheckCircle className="w-4 h-4 text-primary" />
+                            ) : (
+                              <Lock className="w-4 h-4 text-muted-foreground" />
+                            )}
+                            <span className={`text-sm ${hasWorkAccess ? 'text-foreground' : 'text-muted-foreground'}`}>
                               {tool.name}
                             </span>
                           </div>
-                          <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                  <Link to="/advisors" className="block mt-4">
-                    <Button variant="outline" className="w-full">
-                      View All Tools
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            </motion.div>
+                        </Link>
+                      ))}
+                    </CardContent>
+                  </Card>
+                </div>
+              </motion.div>
+            </TabsContent>
 
-            {/* Account Info */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <User className="w-5 h-5 text-primary" />
-                    Your Account
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="p-4 rounded-lg bg-accent/50 border border-border">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm text-muted-foreground">Plan</span>
-                      <Badge variant="secondary">Free</Badge>
-                    </div>
-                    <p className="text-sm text-muted-foreground">
-                      Upgrade to All Access for unlimited tools and systems.
-                    </p>
-                  </div>
-                  
-                  <Link to="/pricing" className="block">
-                    <Button variant="hero" className="w-full">
-                      Upgrade to All Access
-                    </Button>
-                  </Link>
+            {/* Money Systems Tab */}
+            <TabsContent value="money">
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="grid lg:grid-cols-3 gap-8"
+              >
+                {/* Sessions */}
+                <div className="lg:col-span-2">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Video className="w-5 h-5 text-primary" />
+                        Training Sessions
+                      </CardTitle>
+                      <CardDescription>
+                        {hasMoneyAccess 
+                          ? "Watch these sessions to master your money systems"
+                          : "Unlock these sessions by purchasing Money Systems"
+                        }
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      {moneySessions.map((session, index) => (
+                        <SessionCard key={index} session={session} locked={!hasMoneyAccess} />
+                      ))}
+                      {!hasMoneyAccess && (
+                        <Link to="/money-systems" className="block mt-4">
+                          <Button variant="hero" className="w-full">
+                            Unlock Money Systems
+                            <ArrowRight className="w-4 h-4 ml-2" />
+                          </Button>
+                        </Link>
+                      )}
+                    </CardContent>
+                  </Card>
+                </div>
 
-                  <Link to="/settings" className="block">
-                    <Button variant="outline" className="w-full">
-                      <Settings className="w-4 h-4 mr-2" />
-                      Account Settings
-                    </Button>
-                  </Link>
+                {/* Tools */}
+                <div>
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Wrench className="w-5 h-5 text-primary" />
+                        Your Tools
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      {moneyTools.map((tool, index) => (
+                        <Link key={index} to={hasMoneyAccess ? tool.href : "#"}>
+                          <div className={`flex items-center gap-3 p-3 rounded-lg border border-border ${hasMoneyAccess ? 'hover:border-primary/50 hover:bg-accent/50' : 'opacity-50'} transition-all`}>
+                            {hasMoneyAccess ? (
+                              <CheckCircle className="w-4 h-4 text-primary" />
+                            ) : (
+                              <Lock className="w-4 h-4 text-muted-foreground" />
+                            )}
+                            <span className={`text-sm ${hasMoneyAccess ? 'text-foreground' : 'text-muted-foreground'}`}>
+                              {tool.name}
+                            </span>
+                          </div>
+                        </Link>
+                      ))}
+                    </CardContent>
+                  </Card>
+                </div>
+              </motion.div>
+            </TabsContent>
+          </Tabs>
 
-                  <div className="pt-4 border-t border-border">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Clock className="w-4 h-4" />
-                      <span>Member since {new Date(user.created_at).toLocaleDateString()}</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </div>
+          {/* Account Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-8"
+          >
+            <Card className="max-w-sm">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base flex items-center gap-2">
+                  <User className="w-4 h-4 text-primary" />
+                  Account
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Plan</span>
+                  <Badge variant="secondary">
+                    {purchasedProduct === 'both' ? 'Full Access' : 
+                     purchasedProduct === 'none' ? 'Free' : 
+                     purchasedProduct === 'money_systems' ? 'Money Systems' : 'Work Systems'}
+                  </Badge>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <Clock className="w-3 h-3" />
+                  <span>Member since {new Date(user.created_at).toLocaleDateString()}</span>
+                </div>
+                <Link to="/settings" className="block">
+                  <Button variant="outline" size="sm" className="w-full">
+                    <Settings className="w-4 h-4 mr-2" />
+                    Settings
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </motion.div>
         </div>
       </main>
 
