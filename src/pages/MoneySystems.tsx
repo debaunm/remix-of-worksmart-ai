@@ -11,36 +11,56 @@ import {
   LineChart,
   ArrowRight,
   CheckCircle,
-  Star
+  Star,
+  Play,
+  FileText,
+  DollarSign
 } from "lucide-react";
 
-const flagshipFeatures = [
-  "Net worth tracking & visualization",
-  "Cash flow projections",
-  "Investment portfolio overview",
-  "Goal-based savings tracking",
-  "Retirement timeline calculator",
-  "Monthly budget automation"
+const bundleIncludes = [
+  "3-Part Video Workshop Series",
+  "Wealth Code Assessment Tool",
+  "Net Worth Tracking Dashboard",
+  "FIRE Calculator & Projections",
+  "Passive Income Strategy Guide",
+  "Investment Portfolio Templates",
+  "Monthly Budget Automation System",
+  "Private Community Access"
 ];
 
-const upcomingTools = [
+const sessions = [
+  {
+    number: "01",
+    title: "Money Mindset Reset",
+    description: "Uncover your money blocks and rewrite your wealth story. Learn to think like a wealthy person.",
+    duration: "45 min"
+  },
+  {
+    number: "02", 
+    title: "Build Your Wealth System",
+    description: "Create automated money flows that grow your wealth while you sleep. Set up your financial infrastructure.",
+    duration: "60 min"
+  },
+  {
+    number: "03",
+    title: "FIRE Path Planning",
+    description: "Map your path to financial independence. Calculate your number and build your exit strategy.",
+    duration: "50 min"
+  }
+];
+
+const freeTools = [
   { 
     icon: Calculator, 
-    name: "Tax Optimization Calculator", 
-    description: "Maximize deductions and minimize tax burden",
-    status: "Coming Soon"
+    name: "Early Retirement Calculator", 
+    href: "/tools/early-retirement-calculator",
+    description: "Calculate your path to financial independence with our Coast FIRE calculator."
   },
   { 
     icon: LineChart, 
-    name: "Investment Tracker", 
-    description: "Monitor portfolio performance in real-time",
-    status: "Coming Soon"
-  },
-  { 
-    icon: PiggyBank, 
-    name: "Emergency Fund Planner", 
-    description: "Build your safety net strategically",
-    status: "Coming Soon"
+    name: "Budget Builder Prompts", 
+    href: "/tools/budget-builder-prompts",
+    description: "AI prompts to help you create and stick to a personalized budget."
   }
 ];
 
@@ -60,71 +80,104 @@ const MoneySystems = () => {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
               <Wallet className="w-4 h-4" />
-              Financial Systems
+              Wealth Building Sessions
             </div>
             <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
-              Build Wealth on <span className="text-primary">Autopilot</span>
+              Master Your Money with <span className="text-primary">Joy</span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Transform your finances with AI-powered tools designed for busy professionals. 
-              Track, plan, and grow your wealth with clarity and confidence.
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+              Learn FIRE principles, passive income strategies, and how to design multiple income streams 
+              that work while you sleep—without deprivation.
             </p>
+            <div className="inline-flex items-center gap-3 bg-accent/50 border border-border rounded-full px-6 py-3">
+              <DollarSign className="w-5 h-5 text-primary" />
+              <span className="text-lg font-semibold">Complete Bundle: <span className="text-primary">$397</span></span>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Flagship Product - Wealth Dashboard */}
+      {/* Session Bundle Section */}
       <section className="py-16 px-6 bg-muted/30">
         <div className="container mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="grid lg:grid-cols-2 gap-12 items-center"
           >
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent text-accent-foreground text-xs font-semibold mb-4">
-                <Star className="w-3 h-3" />
-                FLAGSHIP PRODUCT
+            <div className="grid lg:grid-cols-2 gap-12 items-start">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent text-accent-foreground text-xs font-semibold mb-4">
+                  <Star className="w-3 h-3" />
+                  WEALTH CODE SESSIONS
+                </div>
+                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                  3-Part Video Workshop Series
+                </h2>
+                <p className="text-lg text-muted-foreground mb-8">
+                  Go from financial anxiety to financial freedom with our comprehensive video workshop series. 
+                  Each session builds on the last, giving you a complete wealth-building system.
+                </p>
+                
+                {/* Sessions List */}
+                <div className="space-y-4 mb-8">
+                  {sessions.map((session, index) => (
+                    <div 
+                      key={index}
+                      className="p-5 rounded-xl border border-border bg-card hover:border-primary/30 transition-colors"
+                    >
+                      <div className="flex items-start gap-4">
+                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                          <Play className="w-5 h-5 text-primary" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="text-xs font-medium text-primary">SESSION {session.number}</span>
+                            <span className="text-xs text-muted-foreground">{session.duration}</span>
+                          </div>
+                          <h3 className="font-semibold text-foreground mb-1">{session.title}</h3>
+                          <p className="text-sm text-muted-foreground">{session.description}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <Button variant="hero" size="lg" className="w-full sm:w-auto">
+                  Get Wealth Code Sessions - $397
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Wealth Dashboard
-              </h2>
-              <p className="text-lg text-muted-foreground mb-6">
-                Your complete financial command center. See your entire financial picture at a glance—net worth, 
-                cash flow, investments, and goals—all in one beautiful, actionable dashboard.
-              </p>
               
-              <ul className="space-y-3 mb-8">
-                {flagshipFeatures.map((feature, index) => (
-                  <li key={index} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-primary shrink-0" />
-                    <span className="text-foreground">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-              
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/products/wealth-dashboard">
-                  <Button variant="hero" size="lg" className="w-full sm:w-auto">
-                    Learn More
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </Link>
-                <Link to="/tools/early-retirement-calculator">
-                  <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                    Try Free Calculator
-                  </Button>
-                </Link>
-              </div>
-            </div>
-            
-            <div className="relative">
-              <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-primary/20 via-accent/10 to-primary/5 border border-primary/20 flex items-center justify-center">
-                <div className="text-center p-8">
-                  <TrendingUp className="w-16 h-16 text-primary mx-auto mb-4" />
-                  <p className="text-lg font-medium text-foreground">Wealth Dashboard Preview</p>
-                  <p className="text-sm text-muted-foreground">Coming with full release</p>
+              {/* What's Included */}
+              <div className="lg:sticky lg:top-32">
+                <div className="p-8 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 via-background to-accent/5">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                      <FileText className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-foreground">What's Included</h3>
+                      <p className="text-sm text-muted-foreground">Everything you need to build wealth</p>
+                    </div>
+                  </div>
+                  
+                  <ul className="space-y-3 mb-8">
+                    {bundleIncludes.map((item, index) => (
+                      <li key={index} className="flex items-center gap-3">
+                        <CheckCircle className="w-5 h-5 text-primary shrink-0" />
+                        <span className="text-foreground">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  
+                  <div className="p-4 rounded-xl bg-primary/10 border border-primary/20">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-foreground">One-Time Investment</span>
+                      <span className="text-2xl font-bold text-primary">$397</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">Lifetime access • Instant download • Updates included</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -132,7 +185,7 @@ const MoneySystems = () => {
         </div>
       </section>
 
-      {/* Available Tools */}
+      {/* Free Tools Section */}
       <section className="py-16 px-6">
         <div className="container mx-auto max-w-6xl">
           <motion.div
@@ -141,95 +194,29 @@ const MoneySystems = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-4">
-              Available Money Tools
+              Try Our Free Money Tools
             </h2>
             <p className="text-muted-foreground text-center mb-12 max-w-xl mx-auto">
-              Start building your financial foundation today with these ready-to-use tools.
+              Get a taste of what's possible with these free tools.
             </p>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Link to="/tools/early-retirement-calculator" className="group">
-                <div className="p-6 rounded-2xl border border-border bg-card hover:border-primary/50 hover:shadow-lg transition-all h-full">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                    <Calculator className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                    Early Retirement Calculator
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Calculate your path to financial independence with our Coast FIRE calculator.
-                  </p>
-                </div>
-              </Link>
-              
-              <Link to="/tools/budget-builder-prompts" className="group">
-                <div className="p-6 rounded-2xl border border-border bg-card hover:border-primary/50 hover:shadow-lg transition-all h-full">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                    <Wallet className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                    Budget Builder Prompts
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    AI prompts to help you create and stick to a personalized budget.
-                  </p>
-                </div>
-              </Link>
-              
-              <Link to="/tools/service-pricing-workbook" className="group">
-                <div className="p-6 rounded-2xl border border-border bg-card hover:border-primary/50 hover:shadow-lg transition-all h-full">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                    <PiggyBank className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                    Service Pricing Workbook
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Price your services confidently with data-driven calculations.
-                  </p>
-                </div>
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Upcoming Tools */}
-      <section className="py-16 px-6 bg-muted/30">
-        <div className="container mx-auto max-w-6xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-4">
-              Coming Soon
-            </h2>
-            <p className="text-muted-foreground text-center mb-12 max-w-xl mx-auto">
-              More powerful money tools are on the way. Get early access by joining All Access.
-            </p>
-            
-            <div className="grid md:grid-cols-3 gap-6">
-              {upcomingTools.map((tool, index) => {
+            <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+              {freeTools.map((tool, index) => {
                 const Icon = tool.icon;
                 return (
-                  <div 
-                    key={index}
-                    className="p-6 rounded-2xl border border-dashed border-border bg-card/50"
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center mb-4">
-                      <Icon className="w-6 h-6 text-muted-foreground" />
+                  <Link key={index} to={tool.href} className="group">
+                    <div className="p-6 rounded-2xl border border-border bg-card hover:border-primary/50 hover:shadow-lg transition-all h-full">
+                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                        <Icon className="w-6 h-6 text-primary" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                        {tool.name}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        {tool.description}
+                      </p>
                     </div>
-                    <div className="inline-block px-2 py-1 rounded-md bg-muted text-xs font-medium text-muted-foreground mb-2">
-                      {tool.status}
-                    </div>
-                    <h3 className="text-lg font-semibold text-foreground mb-2">
-                      {tool.name}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      {tool.description}
-                    </p>
-                  </div>
+                  </Link>
                 );
               })}
             </div>
@@ -238,25 +225,23 @@ const MoneySystems = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 bg-muted/30">
         <div className="container mx-auto max-w-4xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Ready to take control of your finances?
+              Ready to Build Wealth on Your Terms?
             </h2>
             <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto">
-              Get instant access to all money tools plus our complete library of productivity systems.
+              Join thousands who've transformed their relationship with money using the Wealth Code framework.
             </p>
-            <Link to="/pricing">
-              <Button variant="hero" size="lg">
-                Get All Access
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
+            <Button variant="hero" size="lg">
+              Get Started for $397
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
           </motion.div>
         </div>
       </section>
