@@ -1,1 +1,16 @@
 project_id = "jdrrzhydmnrkajgufodf"
+
+[functions.create-checkout]
+verify_jwt = false
+
+[functions.stripe-webhook]
+verify_jwt = false
+
+[functions.ai-workflow]
+verify_jwt = false
+
+[functions.life-coach-chat]
+verify_jwt = false
+
+[functions.add-activecampaign-contact]
+verify_jwt = false
