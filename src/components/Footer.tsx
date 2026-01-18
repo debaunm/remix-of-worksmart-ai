@@ -1,9 +1,7 @@
 import { Sparkles, Twitter, Linkedin, Mail, Shield, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
-
 const Footer = () => {
-  return (
-    <footer className="section-dark">
+  return <footer className="section-dark">
       <div className="container mx-auto px-6 py-16">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
           {/* Brand */}
@@ -14,9 +12,7 @@ const Footer = () => {
               </div>
               <span className="text-lg font-bold text-white">Worksmart</span>
             </Link>
-            <p className="text-sm text-white/50 mb-4">
-              The AI operating system for modern professionals and founders.
-            </p>
+            <p className="text-sm text-white/50 mb-4">The Tech and accountability operating system for modern professionals and founders.</p>
             <div className="flex items-center gap-3">
               <a href="#" className="text-white/50 hover:text-white transition-colors">
                 <Twitter className="w-5 h-5" />
@@ -32,7 +28,7 @@ const Footer = () => {
 
           {/* Product */}
           <div>
-            <h4 className="font-semibold mb-4 text-white">Product</h4>
+            <h4 className="font-semibold mb-4 text-white">About</h4>
             <ul className="space-y-2 text-sm text-white/50">
               <li><Link to="/how-it-works" className="hover:text-white transition-colors">About Worksmart</Link></li>
             </ul>
@@ -43,7 +39,7 @@ const Footer = () => {
             <h4 className="font-semibold mb-4 text-white">Account</h4>
             <ul className="space-y-2 text-sm text-white/50">
               <li><Link to="/settings" className="hover:text-white transition-colors">Profile</Link></li>
-              <li><Link to="/pricing" className="hover:text-white transition-colors">Join Pro</Link></li>
+              
             </ul>
           </div>
 
@@ -94,8 +90,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
