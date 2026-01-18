@@ -441,7 +441,7 @@ const MediaCompanySpreadsheet = () => {
               </Button>
               <Link to="/pricing">
                 <Button variant="outline" size="lg">
-                  Get All Access Bundle
+                  View Pricing
                 </Button>
               </Link>
             </div>

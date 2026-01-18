@@ -21,7 +21,7 @@ const steps = [
   {
     number: "03",
     title: "Upgrade to Premium Tools",
-    description: "Unlock Executive ($97) or Entrepreneur ($97) tool suites — or get All Access ($120) for multi-step frameworks and premium features.",
+    description: "Unlock Executive ($97) or Entrepreneur ($97) tool suites for multi-step frameworks and premium features.",
     icon: Target,
   },
   {

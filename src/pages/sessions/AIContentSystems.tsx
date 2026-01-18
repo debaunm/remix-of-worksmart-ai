@@ -98,7 +98,7 @@ const AIContentSystems = () => {
                 </Button>
                 <Link to="/pricing">
                   <Button size="lg" variant="outline" className="text-lg px-8 w-full sm:w-auto">
-                    Get with All Access
+                    View Pricing
                   </Button>
                 </Link>
               </div>
@@ -237,7 +237,7 @@ const AIContentSystems = () => {
               </Button>
               <Link to="/pricing">
                 <Button size="lg" variant="outline" className="text-lg px-8">
-                  Get with All Access
+                  View Pricing
                 </Button>
               </Link>
             </div>
