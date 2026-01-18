@@ -17,8 +17,11 @@ import {
   Play,
   FileText,
   Cpu,
-  Sparkles
+  Sparkles,
+  Loader2
 } from "lucide-react";
+import { useCheckout } from "@/hooks/useCheckout";
+import { usePurchases } from "@/hooks/usePurchases";
 
 const bundleIncludes = [
   "3-Part AI Mastery Video Series",
@@ -74,6 +77,13 @@ const freeTools = [
 ];
 
 const WorkSystems = () => {
+  const { checkout, isLoading } = useCheckout();
+  const { hasWorkAccess } = usePurchases();
+
+  const handlePurchase = () => {
+    checkout("work_systems");
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -152,10 +162,34 @@ const WorkSystems = () => {
                   ))}
                 </div>
 
-                <Button variant="hero" size="lg" className="w-full sm:w-auto">
-                  Get AI Mastery Sessions - $397
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
+                {hasWorkAccess ? (
+                  <Link to="/dashboard">
+                    <Button variant="hero" size="lg" className="w-full sm:w-auto">
+                      <CheckCircle className="w-4 h-4 mr-2" />
+                      Go to Dashboard
+                    </Button>
+                  </Link>
+                ) : (
+                  <Button 
+                    variant="hero" 
+                    size="lg" 
+                    className="w-full sm:w-auto"
+                    onClick={handlePurchase}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Processing...
+                      </>
+                    ) : (
+                      <>
+                        Get AI Mastery Sessions - $397
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </>
+                    )}
+                  </Button>
+                )}
               </div>
               
               {/* What's Included */}
@@ -247,10 +281,33 @@ const WorkSystems = () => {
             <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto">
               Join thousands who've transformed their productivity with AI-powered systems.
             </p>
-            <Button variant="hero" size="lg">
-              Get Started for $397
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
+            {hasWorkAccess ? (
+              <Link to="/dashboard">
+                <Button variant="hero" size="lg">
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  Access Your Content
+                </Button>
+              </Link>
+            ) : (
+              <Button 
+                variant="hero" 
+                size="lg"
+                onClick={handlePurchase}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    Get Started for $397
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </>
+                )}
+              </Button>
+            )}
           </motion.div>
         </div>
       </section>

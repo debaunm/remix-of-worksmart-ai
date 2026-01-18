@@ -1,29 +1,72 @@
 import { useEffect, useState } from "react";
-import { useSearchParams, Link } from "react-router-dom";
-import { CheckCircle, ArrowRight, Sparkles } from "lucide-react";
+import { useSearchParams, Link, useNavigate } from "react-router-dom";
+import { CheckCircle, ArrowRight, Sparkles, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
+import { useAuth } from "@/hooks/useAuth";
+import { usePurchases } from "@/hooks/usePurchases";
+import { useQueryClient } from "@tanstack/react-query";
 
 const PurchaseSuccess = () => {
   const [searchParams] = useSearchParams();
-  const toolName = searchParams.get("tool") || "Your Tool";
-  const toolSlug = searchParams.get("slug") || "";
-  const [isUnlocked, setIsUnlocked] = useState(false);
+  const sessionId = searchParams.get("session_id");
+  const { user, loading: authLoading } = useAuth();
+  const { hasMoneyAccess, hasWorkAccess, isLoading: purchasesLoading } = usePurchases();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const [isRefreshing, setIsRefreshing] = useState(true);
 
   useEffect(() => {
-    // Store the purchased tool in localStorage to unlock it
-    if (toolSlug) {
-      const purchasedTools = JSON.parse(localStorage.getItem("purchasedTools") || "[]");
-      if (!purchasedTools.includes(toolSlug)) {
-        purchasedTools.push(toolSlug);
-        localStorage.setItem("purchasedTools", JSON.stringify(purchasedTools));
-      }
-      setIsUnlocked(true);
+    if (!authLoading && !user) {
+      navigate("/auth");
+      return;
     }
-  }, [toolSlug]);
+  }, [user, authLoading, navigate]);
+
+  // Refresh purchases data after a short delay to allow webhook to process
+  useEffect(() => {
+    if (sessionId && user) {
+      const refreshPurchases = async () => {
+        setIsRefreshing(true);
+        // Wait a moment for webhook to process
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        await queryClient.invalidateQueries({ queryKey: ['purchases', user.id] });
+        setIsRefreshing(false);
+      };
+      refreshPurchases();
+    } else {
+      setIsRefreshing(false);
+    }
+  }, [sessionId, user, queryClient]);
+
+  const isLoading = authLoading || purchasesLoading || isRefreshing;
+
+  // Determine what was purchased based on current access
+  const purchasedProduct = hasMoneyAccess && hasWorkAccess 
+    ? "Money Systems & Work Systems" 
+    : hasMoneyAccess 
+    ? "Money Systems" 
+    : hasWorkAccess 
+    ? "Work Systems" 
+    : "Your Purchase";
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <main className="container mx-auto px-4 py-16 md:py-24">
+          <div className="max-w-2xl mx-auto text-center">
+            <Loader2 className="w-12 h-12 animate-spin text-primary mx-auto mb-4" />
+            <p className="text-muted-foreground">Processing your purchase...</p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -58,14 +101,14 @@ const PurchaseSuccess = () => {
             <CardContent className="p-8">
               <div className="flex items-center justify-center gap-2 mb-4">
                 <Sparkles className="w-5 h-5 text-primary" />
-                <span className="text-sm font-medium text-primary">Tool Unlocked</span>
+                <span className="text-sm font-medium text-primary">Content Unlocked</span>
               </div>
               
               <h2 className="text-2xl font-semibold text-foreground mb-2">
-                {toolName}
+                {purchasedProduct}
               </h2>
               <p className="text-muted-foreground mb-6">
-                You now have lifetime access to this tool. Start using it right away!
+                You now have lifetime access to all sessions and resources. Start learning right away!
               </p>
 
               <div className="bg-muted/50 rounded-lg p-4 mb-6">
@@ -73,20 +116,19 @@ const PurchaseSuccess = () => {
                   <strong className="text-foreground">What's included:</strong>
                 </p>
                 <ul className="text-sm text-muted-foreground mt-2 space-y-1">
-                  <li>✓ Lifetime access to {toolName}</li>
-                  <li>✓ All future updates included</li>
+                  <li>✓ Full video workshop series</li>
+                  <li>✓ All downloadable resources & templates</li>
+                  <li>✓ Lifetime access with future updates</li>
                   <li>✓ No recurring fees</li>
                 </ul>
               </div>
 
-              {toolSlug && (
-                <Link to={`/tools/${toolSlug}`}>
-                  <Button className="w-full gap-2" size="lg">
-                    Start Using {toolName}
-                    <ArrowRight className="w-4 h-4" />
-                  </Button>
-                </Link>
-              )}
+              <Link to="/dashboard">
+                <Button className="w-full gap-2" size="lg">
+                  Go to Your Dashboard
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              </Link>
             </CardContent>
           </Card>
 
@@ -103,7 +145,7 @@ const PurchaseSuccess = () => {
               </Link>
               <Link to="/pricing">
                 <Button variant="ghost">
-                  Explore More Tools
+                  Explore More
                 </Button>
               </Link>
             </div>
