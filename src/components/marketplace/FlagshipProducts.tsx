@@ -58,7 +58,7 @@ const FlagshipProducts = () => {
             Assets, Sessions, or Both
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Buy the tools you need, book a session to implement them, or get everything with All Access.
+            Buy the tools you need or book a session to implement them.
           </p>
         </motion.div>
 
@@ -119,21 +119,6 @@ const FlagshipProducts = () => {
           })}
         </div>
 
-        {/* All Access callout */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-10 text-center"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
-            <Zap className="w-4 h-4 text-primary" />
-            <span className="text-sm text-foreground">
-              Want it all? <Link to="/pricing" className="font-semibold text-primary hover:underline">Get All Access</Link> and unlock every system + session.
-            </span>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

@@ -85,13 +85,12 @@ const ToolCard = ({ tool, index }: ToolCardProps) => {
   );
 };
 
-type TabKey = "executive" | "free" | "entrepreneur" | "all";
+type TabKey = "executive" | "free" | "entrepreneur";
 
 const tabs: { key: TabKey; label: string; icon: React.ComponentType<{ className?: string }>; price?: string }[] = [
   { key: "executive", label: "Executive Suite", icon: Crown, price: "$97" },
   { key: "free", label: "Free Tools", icon: Zap },
   { key: "entrepreneur", label: "Entrepreneur Suite", icon: Briefcase, price: "$97" },
-  { key: "all", label: "All Access", icon: Sparkles, price: "$120" },
 ];
 
 const ToolsByTier = () => {
@@ -110,7 +109,7 @@ const ToolsByTier = () => {
     (tool) => tool.tier === "paid_entrepreneur" || tool.tier === "paid_crossover"
   ) || [];
 
-  const allTools = tools || [];
+  
 
   const getToolsForTab = (tab: TabKey): Tool[] => {
     switch (tab) {
@@ -120,8 +119,6 @@ const ToolsByTier = () => {
         return executiveTools;
       case "entrepreneur":
         return entrepreneurTools;
-      case "all":
-        return allTools;
       default:
         return [];
     }
@@ -227,12 +224,6 @@ const ToolsByTier = () => {
                   Growth-focused tools for founders and business owners
                 </p>
               )}
-              {activeTab === "all" && (
-                <p className="text-muted-foreground">
-                  <Sparkles className="inline w-4 h-4 mr-1 text-primary" />
-                  Complete access to all {allTools.length} tools - save $74 with the bundle
-                </p>
-              )}
             </div>
 
             {/* Tools Grid */}
@@ -254,12 +245,7 @@ const ToolsByTier = () => {
               >
                 <Link to="/pricing">
                   <Button size="lg" className="gap-2">
-                    {activeTab === "all" ? (
-                      <>
-                        <Sparkles className="w-4 h-4" />
-                        Get All Access - $120
-                      </>
-                    ) : activeTab === "executive" ? (
+                    {activeTab === "executive" ? (
                       <>
                         <Crown className="w-4 h-4" />
                         Get Executive Suite - $97
