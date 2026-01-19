@@ -41,7 +41,7 @@ const HeroSection = () => {
               </Button>
             </Link>
             <Button variant="outline" size="lg" className="h-14 px-10 font-semibold rounded-xl text-base gap-2" asChild>
-              <a href="https://amazon.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.amazon.com/Rewrite-Your-Rules-Achieve-Freedom/dp/0593725050/" target="_blank" rel="noopener noreferrer">
                 <BookOpen className="w-4 h-4" />
                 Get the Book
               </a>
