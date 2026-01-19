@@ -169,7 +169,7 @@ const LifeCoachAI = () => {
                   consider sharing your experience. Your review helps other ambitious individuals find the tools they need.
                 </p>
                 <a
-                  href="https://www.amazon.com/Rewrite-Your-Rules-Journey-Success/dp/0593725059"
+                  href="https://www.amazon.com/Rewrite-Your-Rules-Achieve-Freedom/dp/0593725050/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-6 inline-block"
