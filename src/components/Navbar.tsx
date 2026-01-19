@@ -54,7 +54,7 @@ const Navbar = () => {
   const navItems = [
     { label: "Money Systems", href: "/money-systems" },
     { label: "Work Systems", href: "/work-systems" },
-    { label: "Sessions", href: "/sessions" },
+    { label: "On Demand", href: "/sessions" },
   ];
 
   return (
