@@ -7,10 +7,10 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-// Price IDs for each product - REPLACE THESE with your actual Stripe price IDs
+// Price IDs for each product
 const PRICE_IDS = {
-  money_systems: "price_REPLACE_WITH_MONEY_SYSTEMS_PRICE_ID",
-  work_systems: "price_REPLACE_WITH_WORK_SYSTEMS_PRICE_ID",
+  money_systems: "price_1Sr82jIv0OChZxQ1H1YeOwP7",
+  work_systems: "price_1Sr82NIv0OChZxQ1IWjFzMYp",
 };
 
 const logStep = (step: string, details?: any) => {
