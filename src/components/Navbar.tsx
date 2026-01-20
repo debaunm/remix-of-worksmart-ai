@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Sparkles, Menu, X, LogOut } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
@@ -13,6 +13,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { user, loading, signOut } = useAuth();
   const { toast } = useToast();
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleSignOut = async () => {
     const { error } = await signOut();
@@ -31,6 +33,12 @@ const Navbar = () => {
     }
   };
   
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
+
+  // Handle scroll for navbar background
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -38,6 +46,26 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Handle Escape key to close mobile menu
+  const handleKeyDown = useCallback((event: KeyboardEvent) => {
+    if (event.key === "Escape" && isOpen) {
+      setIsOpen(false);
+      menuButtonRef.current?.focus();
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener("keydown", handleKeyDown);
+      // Focus first focusable element in menu
+      const firstFocusable = mobileMenuRef.current?.querySelector<HTMLElement>(
+        'a, button'
+      );
+      firstFocusable?.focus();
+    }
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, handleKeyDown]);
 
   const isHomepage = location.pathname === "/";
   const useDarkText = scrolled || !isHomepage;
@@ -71,10 +99,14 @@ const Navbar = () => {
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
+          <Link 
+            to="/" 
+            className="flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
+            aria-label="Worksmart Advisor - Go to homepage"
+          >
             <div className="relative">
               <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-primary-foreground" />
+                <Sparkles className="w-5 h-5 text-primary-foreground" aria-hidden="true" />
               </div>
             </div>
             <span className={`text-xl font-bold transition-colors ${logoTextStyles}`}>
@@ -83,13 +115,13 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-6">
+          <nav className="hidden md:flex items-center gap-6" aria-label="Main navigation">
             {navItems.map((item) => (
               item.href.startsWith("/#") ? (
                 <a 
                   key={item.label}
                   href={item.href} 
-                  className={`transition-colors text-sm ${navLinkStyles}`}
+                  className={`transition-colors text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded px-1 ${navLinkStyles}`}
                 >
                   {item.label}
                 </a>
@@ -97,38 +129,38 @@ const Navbar = () => {
                 <Link 
                   key={item.label}
                   to={item.href} 
-                  className={`transition-colors text-sm font-medium ${navLinkStyles}`}
+                  className={`transition-colors text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded px-1 ${navLinkStyles}`}
+                  aria-current={location.pathname === item.href ? "page" : undefined}
                 >
                   {item.label}
                 </Link>
               )
             ))}
-            
-          </div>
+          </nav>
 
           {/* CTA */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-3" role="group" aria-label="Account actions">
             {!loading && (
               <>
                 {user ? (
                   <>
                     <Link to="/dashboard">
-                      <Button variant="ghost" className={buttonGhostStyles}>
+                      <Button variant="ghost" className={`focus-visible:ring-2 focus-visible:ring-primary ${buttonGhostStyles}`}>
                         Dashboard
                       </Button>
                     </Link>
                     <Button 
                       variant="ghost" 
-                      className={buttonGhostStyles}
+                      className={`focus-visible:ring-2 focus-visible:ring-primary ${buttonGhostStyles}`}
                       onClick={handleSignOut}
                     >
-                      <LogOut className="w-4 h-4 mr-2" />
+                      <LogOut className="w-4 h-4 mr-2" aria-hidden="true" />
                       Sign Out
                     </Button>
                   </>
                 ) : (
                   <Link to="/auth">
-                    <Button variant="ghost" className={buttonGhostStyles}>
+                    <Button variant="ghost" className={`focus-visible:ring-2 focus-visible:ring-primary ${buttonGhostStyles}`}>
                       Sign In
                     </Button>
                   </Link>
@@ -136,33 +168,42 @@ const Navbar = () => {
               </>
             )}
             <Link to="/pricing">
-              <Button variant="hero">View Pricing</Button>
+              <Button variant="hero" className="focus-visible:ring-2 focus-visible:ring-primary">View Pricing</Button>
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <button 
+            ref={menuButtonRef}
             onClick={() => setIsOpen(!isOpen)} 
-            className={`md:hidden p-2 transition-colors ${navLinkStyles}`}
+            className={`md:hidden p-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg ${navLinkStyles}`}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
+            aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
           </button>
         </div>
 
         {/* Mobile Menu */}
         {isOpen && (
           <motion.div
+            ref={mobileMenuRef}
+            id="mobile-menu"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             className={`md:hidden pt-6 pb-4 border-t ${mobileMenuBorderStyles} mt-4`}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation menu"
           >
-            <div className="flex flex-col gap-4">
+            <nav className="flex flex-col gap-4" aria-label="Mobile navigation">
               {navItems.map((item) => (
                 item.href.startsWith("/#") ? (
                   <a 
                     key={item.label}
                     href={item.href} 
-                    className={`transition-colors py-2 ${navLinkStyles}`}
+                    className={`transition-colors py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded px-2 ${navLinkStyles}`}
                     onClick={() => setIsOpen(false)}
                   >
                     {item.label}
@@ -171,40 +212,40 @@ const Navbar = () => {
                   <Link 
                     key={item.label}
                     to={item.href} 
-                    className={`transition-colors py-2 ${navLinkStyles}`}
+                    className={`transition-colors py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded px-2 ${navLinkStyles}`}
                     onClick={() => setIsOpen(false)}
+                    aria-current={location.pathname === item.href ? "page" : undefined}
                   >
                     {item.label}
                   </Link>
                 )
               ))}
               
-              
-              <div className="flex flex-col gap-2 pt-4">
+              <div className="flex flex-col gap-2 pt-4" role="group" aria-label="Account actions">
                 {!loading && (
                   <>
                     {user ? (
                       <>
                         <Link to="/dashboard" className="w-full" onClick={() => setIsOpen(false)}>
-                          <Button variant="ghost" className={`w-full ${buttonGhostStyles}`}>
+                          <Button variant="ghost" className={`w-full focus-visible:ring-2 focus-visible:ring-primary ${buttonGhostStyles}`}>
                             Dashboard
                           </Button>
                         </Link>
                         <Button 
                           variant="ghost" 
-                          className={`w-full ${buttonGhostStyles}`}
+                          className={`w-full focus-visible:ring-2 focus-visible:ring-primary ${buttonGhostStyles}`}
                           onClick={() => {
                             handleSignOut();
                             setIsOpen(false);
                           }}
                         >
-                          <LogOut className="w-4 h-4 mr-2" />
+                          <LogOut className="w-4 h-4 mr-2" aria-hidden="true" />
                           Sign Out
                         </Button>
                       </>
                     ) : (
                       <Link to="/auth" className="w-full" onClick={() => setIsOpen(false)}>
-                        <Button variant="ghost" className={`w-full ${buttonGhostStyles}`}>
+                        <Button variant="ghost" className={`w-full focus-visible:ring-2 focus-visible:ring-primary ${buttonGhostStyles}`}>
                           Sign In
                         </Button>
                       </Link>
@@ -212,10 +253,10 @@ const Navbar = () => {
                   </>
                 )}
                 <Link to="/pricing" className="w-full" onClick={() => setIsOpen(false)}>
-                  <Button variant="hero" className="w-full">View Pricing</Button>
+                  <Button variant="hero" className="w-full focus-visible:ring-2 focus-visible:ring-primary">View Pricing</Button>
                 </Link>
               </div>
-            </div>
+            </nav>
           </motion.div>
         )}
       </div>
