@@ -47,8 +47,8 @@ function calculateEffectiveTaxRate(annualIncome: number): number {
   return annualIncome > 0 ? totalTax / annualIncome : 0;
 }
 
-// Business reinvestment buffer (10-15% of gross to reinvest in growth)
-const REINVESTMENT_BUFFER = 0.15; // 15%
+// Business reinvestment buffer for growth
+const REINVESTMENT_BUFFER = 0.08; // 8%
 
 // Calculation functions based on spec
 function calculateFreedomNumber(monthlyExpenses: number): { 
