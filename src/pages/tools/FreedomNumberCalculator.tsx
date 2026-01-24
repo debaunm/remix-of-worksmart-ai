@@ -47,8 +47,8 @@ function calculateEffectiveTaxRate(annualIncome: number): number {
   return annualIncome > 0 ? totalTax / annualIncome : 0;
 }
 
-// Business reinvestment buffer (10-15% of gross to reinvest in growth)
-const REINVESTMENT_BUFFER = 0.15; // 15%
+// Business reinvestment buffer (8% of gross to reinvest in growth)
+const REINVESTMENT_BUFFER = 0.08; // 8%
 
 // Calculation functions based on spec
 function calculateFreedomNumber(monthlyExpenses: number): { 
@@ -485,7 +485,7 @@ const FreedomNumberCalculator = () => {
                       <p className="text-lg font-semibold text-destructive">{formatCurrency(results.freedomCalc.taxAmount)}</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-xs text-muted-foreground mb-1">Reinvestment (15%)</p>
+                      <p className="text-xs text-muted-foreground mb-1">Reinvestment (8%)</p>
                       <p className="text-lg font-semibold text-primary">{formatCurrency(results.freedomCalc.reinvestmentAmount)}</p>
                     </div>
                   </div>
