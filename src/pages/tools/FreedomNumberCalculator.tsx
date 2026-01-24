@@ -1,12 +1,10 @@
 import { useState, useMemo } from "react";
-import { ArrowLeft, DollarSign, Loader2, TrendingUp, Target, Sparkles, ChevronDown, Share2 } from "lucide-react";
+import { ArrowLeft, DollarSign, Loader2, TrendingUp, Target, Sparkles, Share2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
@@ -96,27 +94,6 @@ function calculateProgress(currentPassiveIncome: number, freedomNumber: number):
   return Math.min(100, (currentPassiveIncome / freedomNumber) * 100);
 }
 
-function calculateTimeToFreedom(gap: number, monthlySavings: number, annualReturn: number): { months: number; years: number; remainingMonths: number } | null {
-  if (monthlySavings <= 0 || gap <= 0) return null;
-  
-  const monthlyReturn = annualReturn / 100 / 12;
-  const targetAmount = gap * 12 * 25; // 4% withdrawal rate assumption
-  
-  let months = 0;
-  let accumulated = 0;
-  
-  while (accumulated < targetAmount && months < 600) {
-    accumulated = accumulated * (1 + monthlyReturn) + monthlySavings;
-    months++;
-  }
-  
-  return {
-    months: months,
-    years: Math.floor(months / 12),
-    remainingMonths: months % 12
-  };
-}
-
 function getProgressMilestone(progressPercent: number): { level: string; label: string; description: string } {
   if (progressPercent >= 100) return { level: 'freedom', label: 'OPTIONS', description: 'Work becomes optional' };
   if (progressPercent >= 75) return { level: 'almost', label: 'Almost There', description: 'Could take a pay cut' };
@@ -159,9 +136,6 @@ function getProgressColor(progressPercent: number): string {
 const FreedomNumberCalculator = () => {
   const [monthlyExpenses, setMonthlyExpenses] = useState("");
   const [currentPassiveIncome, setCurrentPassiveIncome] = useState("");
-  const [monthlySavings, setMonthlySavings] = useState("");
-  const [expectedReturn, setExpectedReturn] = useState("7");
-  const [showAdvanced, setShowAdvanced] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [isCalculating, setIsCalculating] = useState(false);
 
@@ -178,8 +152,6 @@ const FreedomNumberCalculator = () => {
     
     const expenses = parseFloat(monthlyExpenses) || 0;
     const passive = parseFloat(currentPassiveIncome) || 0;
-    const savings = parseFloat(monthlySavings) || 0;
-    const returnRate = parseFloat(expectedReturn) || 7;
     
     const freedomCalc = calculateFreedomNumber(expenses);
     const gap = calculateGap(freedomCalc.grossMonthly, passive);
@@ -187,21 +159,14 @@ const FreedomNumberCalculator = () => {
     const milestone = getProgressMilestone(progress);
     const interpretation = getInterpretation(gap, freedomCalc.grossMonthly, progress);
     
-    const timeConservative = calculateTimeToFreedom(gap, savings, 4);
-    const timeModerate = calculateTimeToFreedom(gap, savings, returnRate);
-    const timeAggressive = calculateTimeToFreedom(gap, savings, 10);
-    
     return {
       freedomCalc,
       gap,
       progress,
       milestone,
       interpretation,
-      timeConservative,
-      timeModerate,
-      timeAggressive,
     };
-  }, [showResults, monthlyExpenses, currentPassiveIncome, monthlySavings, expectedReturn]);
+  }, [showResults, monthlyExpenses, currentPassiveIncome]);
 
   const validateInputs = (): boolean => {
     const expenses = parseFloat(monthlyExpenses);
@@ -222,12 +187,6 @@ const FreedomNumberCalculator = () => {
     }
     if (passive > 100000) {
       toast.error("If you're making $100K+ in passive income, you probably don't need this calculator! 🎉");
-      return false;
-    }
-    
-    const savings = parseFloat(monthlySavings);
-    if (savings > 20000) {
-      toast.error("That's an impressive savings rate! Please double-check this number.");
       return false;
     }
     
@@ -367,60 +326,6 @@ const FreedomNumberCalculator = () => {
                   <p className="text-xs text-muted-foreground">Don't worry if this is $0—that's where most people start!</p>
                 </div>
 
-                {/* Monthly Savings */}
-                <div className="space-y-2">
-                  <Label htmlFor="monthlySavings" className="text-base font-semibold">
-                    How much can you invest monthly toward building income streams?
-                  </Label>
-                  <p className="text-sm text-muted-foreground">
-                    This helps us estimate your timeline
-                  </p>
-                  <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">$</span>
-                    <Input
-                      id="monthlySavings"
-                      type="number"
-                      className="pl-8 h-12 text-lg"
-                      placeholder="500"
-                      value={monthlySavings}
-                      onChange={(e) => setMonthlySavings(e.target.value)}
-                      min="0"
-                      max="20000"
-                    />
-                  </div>
-                </div>
-
-                {/* Advanced Options */}
-                <Collapsible open={showAdvanced} onOpenChange={setShowAdvanced}>
-                  <CollapsibleTrigger asChild>
-                    <Button variant="ghost" className="w-full justify-between px-0 hover:bg-transparent">
-                      <span className="text-sm text-muted-foreground">Advanced Options</span>
-                      <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${showAdvanced ? 'rotate-180' : ''}`} />
-                    </Button>
-                  </CollapsibleTrigger>
-                  <CollapsibleContent className="pt-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="expectedReturn" className="text-base font-semibold">
-                        Expected annual return on investments
-                      </Label>
-                      <div className="flex gap-2">
-                        {[4, 6, 7, 8, 10, 12].map((rate) => (
-                          <Button
-                            key={rate}
-                            type="button"
-                            variant={expectedReturn === String(rate) ? "default" : "outline"}
-                            size="sm"
-                            onClick={() => setExpectedReturn(String(rate))}
-                          >
-                            {rate}%
-                          </Button>
-                        ))}
-                      </div>
-                      <p className="text-xs text-muted-foreground">7% is the historical stock market average</p>
-                    </div>
-                  </CollapsibleContent>
-                </Collapsible>
-
                 <Button 
                   type="submit" 
                   disabled={isCalculating} 
@@ -535,38 +440,6 @@ const FreedomNumberCalculator = () => {
                     </div>
                   </div>
 
-                  {/* Time to Freedom */}
-                  {results.timeModerate && (
-                    <div className="p-6 rounded-xl bg-card border border-border mb-8">
-                      <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">
-                        Estimated Time to Freedom
-                      </p>
-                      <div className="grid grid-cols-3 gap-4 text-center">
-                        {results.timeConservative && (
-                          <div>
-                            <p className="text-sm text-muted-foreground mb-1">Conservative (4%)</p>
-                            <p className="text-xl font-bold text-foreground">
-                              {results.timeConservative.years}y {results.timeConservative.remainingMonths}m
-                            </p>
-                          </div>
-                        )}
-                        <div className="border-l border-r border-border px-4">
-                          <p className="text-sm text-muted-foreground mb-1">Moderate ({expectedReturn}%)</p>
-                          <p className="text-xl font-bold text-primary">
-                            {results.timeModerate.years}y {results.timeModerate.remainingMonths}m
-                          </p>
-                        </div>
-                        {results.timeAggressive && (
-                          <div>
-                            <p className="text-sm text-muted-foreground mb-1">Aggressive (10%)</p>
-                            <p className="text-xl font-bold text-foreground">
-                              {results.timeAggressive.years}y {results.timeAggressive.remainingMonths}m
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  )}
 
                   {/* Interpretation */}
                   <div className="p-6 rounded-xl bg-accent/30 border border-border">
