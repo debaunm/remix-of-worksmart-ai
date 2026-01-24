@@ -60,6 +60,12 @@ const freeTools = [
     description: "Calculate your path to financial independence with our Coast FIRE calculator."
   },
   { 
+    icon: TrendingUp, 
+    name: "Freedom Number Calculator", 
+    href: "/tools/freedom-number-calculator",
+    description: "Find out exactly when you can quit and make work optional."
+  },
+  { 
     icon: LineChart, 
     name: "Budget Builder Prompts", 
     href: "/tools/budget-builder-prompts",

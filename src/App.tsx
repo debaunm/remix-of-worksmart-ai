@@ -35,6 +35,7 @@ import LifeSimplifier from "./pages/tools/LifeSimplifier";
 import LinkedIn21DayContentPlan from "./pages/tools/LinkedIn21DayContentPlan";
 import LifeCoachAI from "./pages/tools/LifeCoachAI";
 import ServicePricingWorkbook from "./pages/tools/ServicePricingWorkbook";
+import FreedomNumberCalculator from "./pages/tools/FreedomNumberCalculator";
 import AIAccelerator from "./pages/courses/AIAccelerator";
 import ChatGPT101 from "./pages/courses/ChatGPT101";
 import MediaCompany from "./pages/courses/MediaCompany";
@@ -97,6 +98,7 @@ const App = () => (
           <Route path="/tools/linkedin-21-day-content-plan" element={<LinkedIn21DayContentPlan />} />
           <Route path="/tools/life-coach-ai" element={<LifeCoachAI />} />
           <Route path="/tools/service-pricing-workbook" element={<ServicePricingWorkbook />} />
+          <Route path="/tools/freedom-number-calculator" element={<FreedomNumberCalculator />} />
           <Route path="/purchase-success" element={<PurchaseSuccess />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/dashboard" element={<Dashboard />} />
