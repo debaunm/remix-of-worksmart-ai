@@ -1,93 +1,87 @@
-import { Check, X, Sparkles, Crown, Briefcase, ShoppingCart } from "lucide-react";
+import { Check, DollarSign, Briefcase, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useCheckout } from "@/hooks/useCheckout";
+import { usePurchases } from "@/hooks/usePurchases";
 
-const features = [
-  { name: "Social Bio Builder", free: true, executive: true, entrepreneur: true },
-  { name: "Fix My Content (Lite)", free: true, executive: true, entrepreneur: true },
-  { name: "Write It Better", free: true, executive: true, entrepreneur: true },
-  { name: "Early Retirement Calculator", free: true, executive: true, entrepreneur: true },
-  { name: "C-Level Statement Builder", free: false, executive: true, entrepreneur: false },
-  { name: "Roles & Responsibilities Creator", free: false, executive: true, entrepreneur: false },
-  { name: "Budget Builder Prompts", free: false, executive: true, entrepreneur: false },
-  { name: "LinkedIn Audit Tool (Exec)", free: false, executive: true, entrepreneur: false },
-  { name: "Decision Helper", free: false, executive: true, entrepreneur: false },
-  { name: "Meeting → Action Plan", free: false, executive: true, entrepreneur: false },
-  { name: "Weekly Plan Builder", free: false, executive: true, entrepreneur: false },
-  { name: "Personal AI Assistant Setup", free: false, executive: true, entrepreneur: false },
-  { name: "Idea-to-Revenue Converter", free: false, executive: false, entrepreneur: true },
-  { name: "Pitch Deck Reviewer", free: false, executive: false, entrepreneur: true },
-  { name: "Press Release Generator", free: false, executive: false, entrepreneur: true },
-  { name: "Brand Voice Generator", free: false, executive: true, entrepreneur: true },
-  { name: "21-Day LinkedIn Content Plan", free: false, executive: true, entrepreneur: true },
-  { name: "Life Simplifier", free: false, executive: true, entrepreneur: true },
-  { name: "Rewrite Message", free: false, executive: true, entrepreneur: true },
-];
-
-const tiers = [
+const systems = [
   {
-    name: "Free",
-    price: "$0",
-    description: "Get started with essential AI tools",
-    icon: Sparkles,
+    id: "money_systems",
+    name: "Money Systems",
+    price: "$397",
+    description: "Master your money and build lasting wealth",
+    icon: DollarSign,
+    iconColor: "text-success-green",
+    bgColor: "bg-success-green/10",
+    route: "/money-systems",
+    features: [
+      "3-Part Video Workshop Series",
+      "Wealth Dashboard Spreadsheet",
+      "Coast FIRE Calculator",
+      "Freedom Number Calculator",
+      "Lifetime access & updates",
+    ],
+  },
+  {
+    id: "work_systems",
+    name: "Work Systems",
+    price: "$397",
+    description: "10x your productivity with AI-powered workflows",
+    icon: Briefcase,
     iconColor: "text-primary",
     bgColor: "bg-primary/10",
+    route: "/work-systems",
     features: [
-      "4 Free AI Tools",
-      "Basic output formatting",
-      "Community support",
+      "AI Mastery Course (6+ hours)",
+      "AI Content Systems Session",
+      "Automation with Zapier Session",
+      "Premium AI Tools Access",
+      "Lifetime access & updates",
     ],
-    cta: "Get Started Free",
-    popular: false,
+  },
+];
+
+const faqs = [
+  {
+    q: "Is this a one-time payment or subscription?",
+    a: "One-time payment. Pay once, access forever with lifetime updates included.",
   },
   {
-    name: "Executive Suite",
-    price: "$97",
-    description: "Advanced tools for corporate leaders",
-    icon: Crown,
-    iconColor: "text-purple-500",
-    bgColor: "bg-purple-500/10",
-    features: [
-      "All Free Tools",
-      "8 Executive-Only Tools",
-      "4 Crossover Tools",
-      "Priority support",
-      "Structured frameworks",
-    ],
-    cta: "Get Executive Suite",
-    popular: false,
+    q: "What's the difference between Money Systems and Work Systems?",
+    a: "Money Systems focuses on personal finance, wealth building, and achieving financial freedom. Work Systems focuses on AI productivity, automation, and growing your career or business.",
   },
   {
-    name: "Entrepreneur Suite",
-    price: "$97",
-    description: "Growth tools for founders & creators",
-    icon: Briefcase,
-    iconColor: "text-amber-500",
-    bgColor: "bg-amber-500/10",
-    features: [
-      "All Free Tools",
-      "3 Entrepreneur-Only Tools",
-      "4 Crossover Tools",
-      "Priority support",
-      "Revenue frameworks",
-    ],
-    cta: "Get Entrepreneur Suite",
-    popular: false,
+    q: "Can I buy both systems?",
+    a: "Absolutely! Many of our customers get both to master their money AND their productivity. Each system is purchased separately.",
+  },
+  {
+    q: "Do I get access immediately?",
+    a: "Yes! After purchase, you'll get instant access to all courses, tools, and resources in your dashboard.",
+  },
+  {
+    q: "Is there a refund policy?",
+    a: "We offer a 30-day money-back guarantee. If you're not satisfied, contact us for a full refund.",
   },
 ];
 
 const Pricing = () => {
+  const { checkout, isLoading } = useCheckout();
+  const { hasMoneyAccess, hasWorkAccess } = usePurchases();
+
+  const handlePurchase = (productType: string) => {
+    checkout(productType as "money_systems" | "work_systems");
+  };
+
+  const hasAccess = (systemId: string) => {
+    if (systemId === "money_systems") return hasMoneyAccess;
+    if (systemId === "work_systems") return hasWorkAccess;
+    return false;
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -101,85 +95,68 @@ const Pricing = () => {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Simple, Transparent{" "}
-              <span className="gradient-text">Pricing</span>
+              Choose Your{" "}
+              <span className="gradient-text">System</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-              The AI operating system for modern professionals and founders. Choose a suite or buy individual tools.
+              Comprehensive courses and tools to transform your finances or supercharge your productivity.
             </p>
-          </motion.div>
-
-          {/* Single Tool Purchase Highlight */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-8"
-          >
-            <div className="inline-flex items-center gap-3 bg-accent/50 border border-border rounded-full px-6 py-3">
-              <ShoppingCart className="w-5 h-5 text-primary" />
-              <span className="text-sm md:text-base">
-                <span className="font-semibold">New:</span> Buy any paid tool individually for{" "}
-                <span className="font-bold text-primary">$14.99</span>
-              </span>
-            </div>
           </motion.div>
         </div>
       </section>
 
       {/* Pricing Cards */}
-      <section className="pb-16 px-4">
+      <section className="pb-20 px-4">
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {tiers.map((tier, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {systems.map((system, index) => (
               <motion.div
-                key={tier.name}
+                key={system.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <Card 
-                  className={`relative h-full flex flex-col ${
-                    tier.popular 
-                      ? "border-primary shadow-lg shadow-primary/20" 
-                      : "border-border"
-                  }`}
-                >
-                  {tier.popular && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                      <span className="bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full">
-                        BEST VALUE
-                      </span>
-                    </div>
-                  )}
+                <Card className="relative h-full flex flex-col border-border hover:border-primary/50 transition-colors">
                   <CardHeader className="text-center pb-2">
-                    <div className={`w-12 h-12 mx-auto mb-4 rounded-xl ${tier.bgColor} flex items-center justify-center`}>
-                      <tier.icon className={`w-6 h-6 ${tier.iconColor}`} />
+                    <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl ${system.bgColor} flex items-center justify-center`}>
+                      <system.icon className={`w-8 h-8 ${system.iconColor}`} />
                     </div>
-                    <CardTitle className="text-xl">{tier.name}</CardTitle>
-                    <CardDescription>{tier.description}</CardDescription>
+                    <CardTitle className="text-2xl">{system.name}</CardTitle>
+                    <CardDescription className="text-base">{system.description}</CardDescription>
                   </CardHeader>
                   <CardContent className="flex-1 flex flex-col">
                     <div className="text-center mb-6">
-                      <span className="text-4xl font-bold">{tier.price}</span>
-                      {tier.price !== "$0" && (
-                        <span className="text-muted-foreground ml-1">one-time</span>
-                      )}
+                      <span className="text-5xl font-bold">{system.price}</span>
+                      <span className="text-muted-foreground ml-2">one-time</span>
                     </div>
-                    <ul className="space-y-3 mb-6 flex-1">
-                      {tier.features.map((feature) => (
-                        <li key={feature} className="flex items-center gap-2 text-sm">
-                          <Check className="w-4 h-4 text-primary flex-shrink-0" />
+                    <ul className="space-y-3 mb-8 flex-1">
+                      {system.features.map((feature) => (
+                        <li key={feature} className="flex items-center gap-3 text-sm">
+                          <div className="w-5 h-5 rounded-full bg-success-green/10 flex items-center justify-center flex-shrink-0">
+                            <Check className="w-3 h-3 text-success-green" />
+                          </div>
                           <span>{feature}</span>
                         </li>
                       ))}
                     </ul>
-                    <Button 
-                      className="w-full" 
-                      variant={tier.popular ? "default" : "outline"}
-                    >
-                      {tier.cta}
-                    </Button>
+                    {hasAccess(system.id) ? (
+                      <Link to="/dashboard">
+                        <Button className="w-full gap-2" variant="outline">
+                          Go to Dashboard
+                          <ArrowRight className="w-4 h-4" />
+                        </Button>
+                      </Link>
+                    ) : (
+                      <Button 
+                        className="w-full gap-2" 
+                        variant="hero"
+                        onClick={() => handlePurchase(system.id)}
+                        disabled={isLoading}
+                      >
+                        {isLoading ? "Loading..." : `Get ${system.name}`}
+                        <ArrowRight className="w-4 h-4" />
+                      </Button>
+                    )}
                   </CardContent>
                 </Card>
               </motion.div>
@@ -188,114 +165,8 @@ const Pricing = () => {
         </div>
       </section>
 
-      {/* Feature Comparison Table */}
-      <section className="py-16 px-4 bg-muted/30">
-        <div className="container mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Complete Feature Comparison
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              See exactly what's included in each tier
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="max-w-5xl mx-auto"
-          >
-            <Card>
-              <CardContent className="p-0">
-                <div className="overflow-x-auto">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead className="w-[300px]">Tool</TableHead>
-                        <TableHead className="text-center">
-                          <div className="flex flex-col items-center gap-1">
-                            <Sparkles className="w-4 h-4 text-primary" />
-                            <span>Free</span>
-                          </div>
-                        </TableHead>
-                        <TableHead className="text-center">
-                          <div className="flex flex-col items-center gap-1">
-                            <Crown className="w-4 h-4 text-purple-500" />
-                            <span>Executive</span>
-                            <span className="text-xs text-muted-foreground">$97</span>
-                          </div>
-                        </TableHead>
-                        <TableHead className="text-center">
-                          <div className="flex flex-col items-center gap-1">
-                            <Briefcase className="w-4 h-4 text-amber-500" />
-                            <span>Entrepreneur</span>
-                            <span className="text-xs text-muted-foreground">$97</span>
-                          </div>
-                        </TableHead>
-                        <TableHead className="text-center">
-                          <div className="flex flex-col items-center gap-1">
-                            <ShoppingCart className="w-4 h-4 text-emerald-500" />
-                            <span>Single Tool</span>
-                            <span className="text-xs text-muted-foreground">$14.99 each</span>
-                          </div>
-                        </TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {features.map((feature) => (
-                        <TableRow key={feature.name}>
-                          <TableCell className="font-medium">{feature.name}</TableCell>
-                          <TableCell className="text-center">
-                            {feature.free ? (
-                              <Check className="w-5 h-5 text-primary mx-auto" />
-                            ) : (
-                              <X className="w-5 h-5 text-muted-foreground/40 mx-auto" />
-                            )}
-                          </TableCell>
-                          <TableCell className="text-center">
-                            {feature.executive ? (
-                              <Check className="w-5 h-5 text-purple-500 mx-auto" />
-                            ) : (
-                              <X className="w-5 h-5 text-muted-foreground/40 mx-auto" />
-                            )}
-                          </TableCell>
-                          <TableCell className="text-center">
-                            {feature.entrepreneur ? (
-                              <Check className="w-5 h-5 text-amber-500 mx-auto" />
-                            ) : (
-                              <X className="w-5 h-5 text-muted-foreground/40 mx-auto" />
-                            )}
-                          </TableCell>
-                          <TableCell className="text-center">
-                            {!feature.free ? (
-                              <span className="text-xs font-medium text-emerald-600 bg-emerald-500/10 px-2 py-1 rounded">
-                                $14.99
-                              </span>
-                            ) : (
-                              <span className="text-xs text-muted-foreground">Free</span>
-                            )}
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </div>
-      </section>
-
       {/* FAQ Section */}
-      <section className="py-16 px-4">
+      <section className="py-16 px-4 bg-muted/30">
         <div className="container mx-auto max-w-3xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -309,29 +180,8 @@ const Pricing = () => {
             </h2>
           </motion.div>
 
-          <div className="space-y-6">
-            {[
-              {
-                q: "Can I buy just one tool instead of a suite?",
-                a: "Absolutely! Any paid tool can be purchased individually for $14.99. Perfect if you only need one specific tool. If you later decide to get a suite, we'll credit your single-tool purchases.",
-              },
-              {
-                q: "Is this a one-time payment or subscription?",
-                a: "One-time payment for everything—suites and individual tools. Pay once, use forever with lifetime updates.",
-              },
-              {
-                q: "What's the difference between Executive and Entrepreneur suites?",
-                a: "Executive Suite includes tools for corporate leaders (C-Level statements, delegation frameworks, LinkedIn optimization). Entrepreneur Suite focuses on founder tools (pitch decks, press releases, revenue planning). Both include crossover tools.",
-              },
-              {
-                q: "Can I upgrade later?",
-                a: "Yes! If you start with individual tools or one suite, you can upgrade anytime. We'll credit your previous purchases.",
-              },
-              {
-                q: "Do I need any technical skills?",
-                a: "Not at all. Each tool guides you through simple inputs and delivers professional, ready-to-use outputs.",
-              },
-            ].map((faq, index) => (
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 10 }}
@@ -352,7 +202,7 @@ const Pricing = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-4 bg-primary/5">
+      <section className="py-16 px-4">
         <div className="container mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -361,18 +211,24 @@ const Pricing = () => {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Ready to Work Smarter?
+              Ready to Transform Your Life?
             </h2>
             <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-              Join thousands of professionals using AI to save hours every week.
+              Join thousands who have mastered their money and productivity with our proven systems.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Button size="lg" variant="default">
-                Get Executive Suite - $97
-              </Button>
-              <Button size="lg" variant="outline">
-                Try Free Tools First
-              </Button>
+              <Link to="/money-systems">
+                <Button size="lg" variant="outline" className="gap-2">
+                  <DollarSign className="w-5 h-5" />
+                  Explore Money Systems
+                </Button>
+              </Link>
+              <Link to="/work-systems">
+                <Button size="lg" variant="outline" className="gap-2">
+                  <Briefcase className="w-5 h-5" />
+                  Explore Work Systems
+                </Button>
+              </Link>
             </div>
           </motion.div>
         </div>
