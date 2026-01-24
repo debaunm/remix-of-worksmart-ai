@@ -12,9 +12,79 @@ import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+// Tax brackets for 2024 (single filer, simplified for monthly calculation)
+function calculateEffectiveTaxRate(annualIncome: number): number {
+  // Federal tax brackets 2024
+  const brackets = [
+    { limit: 11600, rate: 0.10 },
+    { limit: 47150, rate: 0.12 },
+    { limit: 100525, rate: 0.22 },
+    { limit: 191950, rate: 0.24 },
+    { limit: 243725, rate: 0.32 },
+    { limit: 609350, rate: 0.35 },
+    { limit: Infinity, rate: 0.37 },
+  ];
+
+  let tax = 0;
+  let previousLimit = 0;
+
+  for (const bracket of brackets) {
+    if (annualIncome <= previousLimit) break;
+    const taxableInBracket = Math.min(annualIncome - previousLimit, bracket.limit - previousLimit);
+    tax += taxableInBracket * bracket.rate;
+    previousLimit = bracket.limit;
+  }
+
+  // Add estimated self-employment tax (15.3% on 92.35% of income, up to SS limit)
+  const selfEmploymentRate = 0.153 * 0.9235;
+  const ssTaxableLimit = 168600; // 2024 SS wage base
+  const selfEmploymentTax = Math.min(annualIncome, ssTaxableLimit) * selfEmploymentRate;
+  
+  // Add state tax estimate (using average of ~5%)
+  const stateTax = annualIncome * 0.05;
+
+  const totalTax = tax + selfEmploymentTax + stateTax;
+  return annualIncome > 0 ? totalTax / annualIncome : 0;
+}
+
+// Business reinvestment buffer (10-15% of gross to reinvest in growth)
+const REINVESTMENT_BUFFER = 0.15; // 15%
+
 // Calculation functions based on spec
-function calculateFreedomNumber(monthlyExpenses: number): number {
-  return monthlyExpenses;
+function calculateFreedomNumber(monthlyExpenses: number): { 
+  grossMonthly: number; 
+  netMonthly: number; 
+  taxRate: number; 
+  taxAmount: number;
+  reinvestmentAmount: number;
+} {
+  // Monthly expenses = net needed after taxes and reinvestment
+  // Gross = Net / (1 - taxRate - reinvestmentBuffer)
+  
+  // First, estimate annual income to get tax rate
+  const annualNet = monthlyExpenses * 12;
+  
+  // Iteratively solve for gross (since tax rate depends on gross)
+  let grossAnnual = annualNet / (1 - 0.25 - REINVESTMENT_BUFFER); // Initial estimate with 25% tax
+  
+  for (let i = 0; i < 10; i++) {
+    const taxRate = calculateEffectiveTaxRate(grossAnnual);
+    const newGross = annualNet / (1 - taxRate - REINVESTMENT_BUFFER);
+    if (Math.abs(newGross - grossAnnual) < 1) break;
+    grossAnnual = newGross;
+  }
+  
+  const taxRate = calculateEffectiveTaxRate(grossAnnual);
+  const taxAmount = grossAnnual * taxRate / 12;
+  const reinvestmentAmount = grossAnnual * REINVESTMENT_BUFFER / 12;
+  
+  return {
+    grossMonthly: Math.round(grossAnnual / 12),
+    netMonthly: monthlyExpenses,
+    taxRate: taxRate,
+    taxAmount: Math.round(taxAmount),
+    reinvestmentAmount: Math.round(reinvestmentAmount),
+  };
 }
 
 function calculateGap(freedomNumber: number, currentPassiveIncome: number): number {
@@ -80,10 +150,10 @@ function getInterpretation(gap: number, freedomNumber: number, progressPercent: 
 }
 
 function getProgressColor(progressPercent: number): string {
-  if (progressPercent >= 76) return "bg-emerald-500";
-  if (progressPercent >= 51) return "bg-sky-400";
-  if (progressPercent >= 26) return "bg-amber-400";
-  return "bg-orange-500";
+  if (progressPercent >= 76) return "bg-primary";
+  if (progressPercent >= 51) return "bg-primary/80";
+  if (progressPercent >= 26) return "bg-primary/60";
+  return "bg-primary/40";
 }
 
 const FreedomNumberCalculator = () => {
@@ -111,18 +181,18 @@ const FreedomNumberCalculator = () => {
     const savings = parseFloat(monthlySavings) || 0;
     const returnRate = parseFloat(expectedReturn) || 7;
     
-    const freedomNumber = calculateFreedomNumber(expenses);
-    const gap = calculateGap(freedomNumber, passive);
-    const progress = calculateProgress(passive, freedomNumber);
+    const freedomCalc = calculateFreedomNumber(expenses);
+    const gap = calculateGap(freedomCalc.grossMonthly, passive);
+    const progress = calculateProgress(passive, freedomCalc.grossMonthly);
     const milestone = getProgressMilestone(progress);
-    const interpretation = getInterpretation(gap, freedomNumber, progress);
+    const interpretation = getInterpretation(gap, freedomCalc.grossMonthly, progress);
     
     const timeConservative = calculateTimeToFreedom(gap, savings, 4);
     const timeModerate = calculateTimeToFreedom(gap, savings, returnRate);
     const timeAggressive = calculateTimeToFreedom(gap, savings, 10);
     
     return {
-      freedomNumber,
+      freedomCalc,
       gap,
       progress,
       milestone,
@@ -181,7 +251,7 @@ const FreedomNumberCalculator = () => {
   const handleShare = async () => {
     if (!results) return;
     
-    const shareText = `I just calculated my Freedom Number—I need ${formatCurrency(results.freedomNumber)}/month in passive income to make work optional. I'm currently ${Math.round(results.progress)}% of the way there. Calculate yours →`;
+    const shareText = `I just calculated my Freedom Number—I need ${formatCurrency(results.freedomCalc.grossMonthly)}/month in passive income to make work optional. I'm currently ${Math.round(results.progress)}% of the way there. Calculate yours →`;
     
     if (navigator.share) {
       try {
@@ -397,11 +467,27 @@ const FreedomNumberCalculator = () => {
                       transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
                       className="text-5xl md:text-6xl font-bold text-primary"
                     >
-                      {formatCurrency(results.freedomNumber)}<span className="text-2xl text-muted-foreground">/month</span>
+                      {formatCurrency(results.freedomCalc.grossMonthly)}<span className="text-2xl text-muted-foreground">/month</span>
                     </motion.p>
                     <p className="text-sm text-muted-foreground mt-2">
-                      This is the monthly passive income that gives you OPTIONS
+                      Gross passive income needed (including taxes & reinvestment)
                     </p>
+                  </div>
+
+                  {/* Breakdown */}
+                  <div className="grid grid-cols-3 gap-4 p-4 rounded-xl bg-secondary/30 border border-border mb-8">
+                    <div className="text-center">
+                      <p className="text-xs text-muted-foreground mb-1">Your Expenses</p>
+                      <p className="text-lg font-semibold text-foreground">{formatCurrency(results.freedomCalc.netMonthly)}</p>
+                    </div>
+                    <div className="text-center border-l border-r border-border">
+                      <p className="text-xs text-muted-foreground mb-1">Taxes (~{Math.round(results.freedomCalc.taxRate * 100)}%)</p>
+                      <p className="text-lg font-semibold text-destructive">{formatCurrency(results.freedomCalc.taxAmount)}</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-xs text-muted-foreground mb-1">Reinvestment (15%)</p>
+                      <p className="text-lg font-semibold text-primary">{formatCurrency(results.freedomCalc.reinvestmentAmount)}</p>
+                    </div>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-6 mb-8">
@@ -410,7 +496,7 @@ const FreedomNumberCalculator = () => {
                       <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2">
                         The Gap You're Closing
                       </p>
-                      <p className={`text-3xl font-bold ${results.gap > 0 ? 'text-orange-500' : 'text-emerald-500'}`}>
+                      <p className={`text-3xl font-bold ${results.gap > 0 ? 'text-destructive' : 'text-primary'}`}>
                         {results.gap > 0 ? formatCurrency(results.gap) : '🎉 Achieved!'}
                         {results.gap > 0 && <span className="text-lg text-muted-foreground">/month</span>}
                       </p>
