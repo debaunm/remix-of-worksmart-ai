@@ -1,12 +1,11 @@
 import { useState, useMemo } from "react";
-import { ArrowLeft, DollarSign, Loader2, TrendingUp, Target, Sparkles, ChevronDown, Share2 } from "lucide-react";
+import { ArrowLeft, DollarSign, Loader2, TrendingUp, Target, Sparkles, Share2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
@@ -160,8 +159,7 @@ const FreedomNumberCalculator = () => {
   const [monthlyExpenses, setMonthlyExpenses] = useState("");
   const [currentPassiveIncome, setCurrentPassiveIncome] = useState("");
   const [monthlySavings, setMonthlySavings] = useState("");
-  const [expectedReturn, setExpectedReturn] = useState("7");
-  const [showAdvanced, setShowAdvanced] = useState(false);
+  const expectedReturn = 7; // Fixed 7% historical average
   const [showResults, setShowResults] = useState(false);
   const [isCalculating, setIsCalculating] = useState(false);
 
@@ -179,7 +177,7 @@ const FreedomNumberCalculator = () => {
     const expenses = parseFloat(monthlyExpenses) || 0;
     const passive = parseFloat(currentPassiveIncome) || 0;
     const savings = parseFloat(monthlySavings) || 0;
-    const returnRate = parseFloat(expectedReturn) || 7;
+    const returnRate = expectedReturn;
     
     const freedomCalc = calculateFreedomNumber(expenses);
     const gap = calculateGap(freedomCalc.grossMonthly, passive);
@@ -201,7 +199,7 @@ const FreedomNumberCalculator = () => {
       timeModerate,
       timeAggressive,
     };
-  }, [showResults, monthlyExpenses, currentPassiveIncome, monthlySavings, expectedReturn]);
+  }, [showResults, monthlyExpenses, currentPassiveIncome, monthlySavings]);
 
   const validateInputs = (): boolean => {
     const expenses = parseFloat(monthlyExpenses);
@@ -389,37 +387,6 @@ const FreedomNumberCalculator = () => {
                     />
                   </div>
                 </div>
-
-                {/* Advanced Options */}
-                <Collapsible open={showAdvanced} onOpenChange={setShowAdvanced}>
-                  <CollapsibleTrigger asChild>
-                    <Button variant="ghost" className="w-full justify-between px-0 hover:bg-transparent">
-                      <span className="text-sm text-muted-foreground">Advanced Options</span>
-                      <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${showAdvanced ? 'rotate-180' : ''}`} />
-                    </Button>
-                  </CollapsibleTrigger>
-                  <CollapsibleContent className="pt-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="expectedReturn" className="text-base font-semibold">
-                        Expected annual return on investments
-                      </Label>
-                      <div className="flex gap-2">
-                        {[4, 6, 7, 8, 10, 12].map((rate) => (
-                          <Button
-                            key={rate}
-                            type="button"
-                            variant={expectedReturn === String(rate) ? "default" : "outline"}
-                            size="sm"
-                            onClick={() => setExpectedReturn(String(rate))}
-                          >
-                            {rate}%
-                          </Button>
-                        ))}
-                      </div>
-                      <p className="text-xs text-muted-foreground">7% is the historical stock market average</p>
-                    </div>
-                  </CollapsibleContent>
-                </Collapsible>
 
                 <Button 
                   type="submit" 
