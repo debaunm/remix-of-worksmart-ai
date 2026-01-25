@@ -91,12 +91,11 @@ const Dashboard = () => {
   ];
 
   const moneyTools = [
-    { name: "Wealthy Life Budget", href: "#", external: true, icon: FileText },
-    { name: "Wealthy Life Dashboard", href: "#", external: true, icon: TrendingUp },
-    { name: "The Passive Income Vault", href: "#", external: true, icon: FileText },
-    { name: "Speaker Pricing Formula", href: "#", external: true, icon: FileText },
-    { name: "Brand Deal Pricing Formula", href: "#", external: true, icon: FileText },
-    { name: "Services Pricing Formula", href: "#", external: true, icon: FileText },
+    { name: "Wealthy Life Budget & Dashboard", href: "https://docs.google.com/spreadsheets/d/1pRoVM2qe16wUiL4AlX85x6gLDBK1DLjs/copy", external: true, icon: TrendingUp },
+    { name: "The Passive Income Vault", href: "https://docs.google.com/spreadsheets/d/1I2cZZZoBQ29XX_kPfMATAwDIv9GyLAEE/copy", external: true, icon: FileText },
+    { name: "Speaker Pricing Formula", href: "https://docs.google.com/spreadsheets/d/1tGodvWyDjglJ-FhUxa4Mrw7iwsq7pEfU/copy", external: true, icon: FileText },
+    { name: "Brand Deal Pricing Formula", href: "https://docs.google.com/spreadsheets/d/1Vfp-fkNuOW9rSX1YzBN_ZAxC0iJqzK7M/copy", external: true, icon: FileText },
+    { name: "Services Pricing Formula", href: "https://docs.google.com/spreadsheets/d/1-l60Sl1zhq8PfjbV6OKfxvqCblq_1YjK/copy", external: true, icon: FileText },
     { name: "Shopmy Tutorial", href: "#", external: true, icon: Video },
   ];
 
