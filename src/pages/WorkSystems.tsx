@@ -27,7 +27,7 @@ const bundleIncludes = [
   "3-Part AI Mastery Video Series",
   "Personal AI Assistant Setup Guide",
   "Automation Workflow Templates",
-  "ChatGPT Prompt Library (50+ Prompts)",
+  "AI Prompt Library (50+ Prompts)",
   "Tech Stack Recommendations",
   "Weekly Planning System",
   "Delegation Frameworks",
