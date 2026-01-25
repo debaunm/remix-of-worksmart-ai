@@ -1,46 +1,85 @@
 
-# Update ContentViewer with New Money Systems Content
+
+# Embed Money Systems Videos Directly on Dashboard
 
 ## Overview
-Synchronize the ContentViewer page with the updated Money Systems sessions from the Dashboard. When users click "Watch" on a session, they will be taken to the correct content with matching titles, descriptions, and learnings.
+Replace the current "Watch" button + separate ContentViewer page flow with expandable video cards directly on the Dashboard. Users click a session to expand and watch the video inline without navigating away.
 
-## What Will Be Updated
+## User Experience
 
-### Session 01: Rich vs Wealthy Money Mindset Reset
-- **ID**: `rich-vs-wealthy-mindset`
-- **Duration**: 10 min
-- **Description**: Focused on designing your money goals intentionally rather than following a restrictive budget
-- **Key learnings**: Mindset shift from "rich" to "wealthy", money by design principles, goal identification
+### Before (Current)
+1. User sees session card on Dashboard
+2. Clicks "Watch" button
+3. Navigates to `/content/money-systems/{session-id}`
+4. Watches video with sidebar resources
 
-### Session 02: Build Your Wealth System
-- **ID**: `build-wealth-system`
-- **Duration**: 10 min
-- **Description**: Creating automated money flows and financial infrastructure
-- **Key learnings**: Automation strategies, wealth-building infrastructure, passive growth systems
+### After (New)
+1. User sees session card on Dashboard
+2. Clicks session card to expand it
+3. Video appears inline with resources below
+4. Can collapse and switch between sessions easily
 
-### Session 03: Optimize Your Income Streams
-- **ID**: `optimize-income-streams`
-- **Duration**: 10 min
-- **Description**: Using skills and positioning to accelerate income and wealth strategy
-- **Key learnings**: Income optimization, skill positioning, wealth acceleration
+## Visual Layout
 
-## Downloads & Resources
-Each session will include relevant downloadable resources linked to the spreadsheet tools:
-- Wealthy Life Budget & Dashboard spreadsheet link
-- The Passive Income Vault spreadsheet link
-- Pricing formula spreadsheets where relevant
+```text
++--------------------------------------------------+
+| Training Sessions                                |
++--------------------------------------------------+
+| ▼ Session 1: Rich vs Wealthy Mindset    [10 min] |
+| +----------------------------------------------+ |
+| |                                              | |
+| |           [VIDEO EMBED - 16:9]               | |
+| |                                              | |
+| +----------------------------------------------+ |
+| What You'll Learn:                               |
+| ✓ The mindset shift from "rich" to "wealthy"   |
+| ✓ Money by design principles                   |
+|                                                  |
+| Resources:                                       |
+| 📄 Wealthy Life Budget & Dashboard [Open ↗]    |
++--------------------------------------------------+
+| ▶ Session 2: Build Your Wealth System  [10 min] |
+|   Create automated money flows...                |
++--------------------------------------------------+
+| ▶ Session 3: Optimize Your Income      [10 min] |
+|   Identify how to use your skills...             |
++--------------------------------------------------+
+```
+
+## What Will Be Modified
+
+### Dashboard.tsx Changes
+1. Add video URLs to the `moneySessions` array (matching ContentViewer data)
+2. Add learnings and downloads to each session object
+3. Replace the `SessionCard` component with an expandable `ExpandableSessionCard` component
+4. Use Radix Accordion or Collapsible for the expand/collapse behavior
+5. Embed video iframe when expanded
+6. Show learnings list and resource download links below video
+
+### ContentViewer Remains
+Keep ContentViewer for Work Systems (longer videos with more detailed content) - or we can apply the same pattern there later if desired.
 
 ## Technical Details
 
-### File to Modify
-`src/pages/ContentViewer.tsx`
+### New Session Data Structure
+Each session will include:
+- `id`, `title`, `duration`, `description` (existing)
+- `videoUrl` - embed URL for the video
+- `learnings` - array of bullet points
+- `downloads` - array of resource links
 
-### Changes Required
-1. Replace the `money-systems` content array (lines 42-108) with three new session objects
-2. Update all IDs to match Dashboard: `rich-vs-wealthy-mindset`, `build-wealth-system`, `optimize-income-streams`
-3. Update titles, descriptions, durations (10 min each), and learnings
-4. Add the real spreadsheet URLs to the downloads array
-5. Keep video URL as placeholder until you provide actual video links
+### Components Used
+- `Collapsible` from Radix UI (already installed)
+- `iframe` for video embed (responsive 16:9 aspect ratio)
+- Existing `CheckCircle`, `Download` icons from lucide-react
 
-### Placeholder Note
-Video URLs will use placeholder embeds until you provide actual Loom, YouTube, or Vimeo links for each session.
+### Responsive Behavior
+- On mobile: Full-width accordion cards
+- On desktop: Cards in the 2-column layout within the existing grid
+
+## Files to Modify
+- `src/pages/Dashboard.tsx` - Primary changes to add expandable video cards
+
+## Optional: Remove Money Systems from ContentViewer
+If you want to fully consolidate, we can remove the money-systems routes from ContentViewer. However, keeping it provides a fallback if you ever want a dedicated page view.
+
