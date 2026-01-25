@@ -91,9 +91,13 @@ const Dashboard = () => {
   ];
 
   const moneyTools = [
-    { name: "Early Retirement Calculator", href: "/tools/early-retirement-calculator", icon: TrendingUp },
-    { name: "Budget Builder Prompts", href: "/tools/budget-builder-prompts", icon: FileText },
-    { name: "Service Pricing Workbook", href: "/tools/service-pricing-workbook", icon: Wrench },
+    { name: "Wealthy Life Budget", href: "#", external: true, icon: FileText },
+    { name: "Wealthy Life Dashboard", href: "#", external: true, icon: TrendingUp },
+    { name: "The Passive Income Vault", href: "#", external: true, icon: FileText },
+    { name: "Speaker Pricing Formula", href: "#", external: true, icon: FileText },
+    { name: "Brand Deal Pricing Formula", href: "#", external: true, icon: FileText },
+    { name: "Services Pricing Formula", href: "#", external: true, icon: FileText },
+    { name: "Shopmy Tutorial", href: "#", external: true, icon: Video },
   ];
 
   const workTools = [
@@ -289,8 +293,8 @@ const Dashboard = () => {
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-3">
-                      {moneyTools.map((tool, index) => (
-                        <Link key={index} to={hasMoneyAccess ? tool.href : "#"}>
+                      {moneyTools.map((tool, index) => {
+                        const content = (
                           <div className={`flex items-center gap-3 p-3 rounded-lg border border-border ${hasMoneyAccess ? 'hover:border-primary/50 hover:bg-accent/50' : 'opacity-50'} transition-all`}>
                             {hasMoneyAccess ? (
                               <CheckCircle className="w-4 h-4 text-primary" />
@@ -301,8 +305,21 @@ const Dashboard = () => {
                               {tool.name}
                             </span>
                           </div>
-                        </Link>
-                      ))}
+                        );
+                        
+                        if (tool.external) {
+                          return (
+                            <a key={index} href={hasMoneyAccess ? tool.href : "#"} target="_blank" rel="noopener noreferrer">
+                              {content}
+                            </a>
+                          );
+                        }
+                        return (
+                          <Link key={index} to={hasMoneyAccess ? tool.href : "#"}>
+                            {content}
+                          </Link>
+                        );
+                      })}
                     </CardContent>
                   </Card>
                 </div>
