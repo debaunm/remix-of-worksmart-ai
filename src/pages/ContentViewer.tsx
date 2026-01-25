@@ -44,65 +44,61 @@ const contentData: ContentData = {
     systemType: 'money_systems',
     content: [
       {
-        id: 'understanding-financial-picture',
-        title: 'Understanding Your Financial Picture',
-        duration: '45 min',
-        description: 'Learn to read and interpret your complete financial dashboard',
-        fullDescription: `In this comprehensive session, you'll learn how to take a complete inventory of your financial life. We cover everything from organizing your accounts, understanding your cash flow patterns, to identifying the key metrics that matter for your wealth-building journey.
+        id: 'rich-vs-wealthy-mindset',
+        title: 'Rich vs Wealthy Money Mindset Reset',
+        duration: '10 min',
+        description: 'Design your money goals intentionally, not with a restrictive budget',
+        fullDescription: `This session is about shifting your mindset from "rich" to "wealthy" — understanding the difference between chasing income and building lasting financial freedom.
 
-You'll walk away with a clear understanding of where you stand financially and a framework for tracking your progress over time.`,
-        videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+You'll learn to design your money goals intentionally rather than following a restrictive budget. We focus on identifying what truly matters to you financially and creating a money philosophy that guides all your decisions.`,
+        videoUrl: 'https://www.youtube.com/embed/placeholder',
         downloads: [
-          { name: 'Financial Picture Worksheet', url: '#', type: 'PDF' },
-          { name: 'Account Inventory Template', url: '#', type: 'Excel' },
+          { name: 'Wealthy Life Budget & Dashboard', url: 'https://docs.google.com/spreadsheets/d/1TbIBClAKLkeixJALoXaWsLDKrZSsUNvEwPx98eG5eg8/copy', type: 'Spreadsheet' },
         ],
         learnings: [
-          'How to organize all your financial accounts in one place',
-          'Understanding your true cash flow (income vs. expenses)',
-          'Key metrics to track for wealth building',
-          'Setting up your personal financial dashboard',
+          'The mindset shift from "rich" to "wealthy"',
+          'Money by design principles for intentional goal-setting',
+          'How to identify your true financial priorities',
+          'Creating a money philosophy that guides your decisions',
         ],
       },
       {
-        id: 'wealth-tracking-system',
-        title: 'Building Your Wealth Tracking System',
-        duration: '60 min',
-        description: 'Set up automated tracking for net worth, cash flow, and goals',
-        fullDescription: `This session dives deep into building a sustainable system for tracking your wealth. You'll learn how to set up automated tracking that takes minutes per month instead of hours.
+        id: 'build-wealth-system',
+        title: 'Build Your Wealth System',
+        duration: '10 min',
+        description: 'Create automated money flows and financial infrastructure',
+        fullDescription: `In this session, you'll learn how to create automated money flows that work for you 24/7. We cover building the financial infrastructure that supports passive wealth growth.
 
-We'll cover the tools and techniques that make wealth tracking effortless, including how to connect your accounts, set up alerts, and create visualizations that keep you motivated.`,
-        videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+You'll discover automation strategies that eliminate the need for constant money management, allowing your wealth to grow systematically while you focus on what matters most.`,
+        videoUrl: 'https://www.youtube.com/embed/placeholder',
         downloads: [
-          { name: 'Wealth Tracking Setup Guide', url: '#', type: 'PDF' },
-          { name: 'Net Worth Calculator Spreadsheet', url: '#', type: 'Excel' },
-          { name: 'Monthly Check-in Template', url: '#', type: 'PDF' },
+          { name: 'Wealthy Life Budget & Dashboard', url: 'https://docs.google.com/spreadsheets/d/1TbIBClAKLkeixJALoXaWsLDKrZSsUNvEwPx98eG5eg8/copy', type: 'Spreadsheet' },
+          { name: 'The Passive Income Vault', url: 'https://docs.google.com/spreadsheets/d/1Bb_nYSgkiZMf-Bp1PA7Z-sP2dJWeqt0P-dEAs2PdYnM/copy', type: 'Spreadsheet' },
         ],
         learnings: [
-          'Setting up automated account connections',
-          'Creating a net worth tracking system',
-          'Building monthly financial check-in rituals',
-          'Visualization techniques for motivation',
+          'Automation strategies for hands-off money management',
+          'Building wealth infrastructure that works while you sleep',
+          'Setting up passive growth systems',
+          'Creating money flows that compound automatically',
         ],
       },
       {
-        id: 'investment-portfolio-strategy',
-        title: 'Investment Portfolio Strategy',
-        duration: '55 min',
-        description: 'Create a diversified portfolio aligned with your timeline',
-        fullDescription: `Learn the fundamentals of building an investment portfolio that matches your goals, risk tolerance, and timeline. This session covers asset allocation, diversification strategies, and how to think about investments for the long term.
+        id: 'optimize-income-streams',
+        title: 'Optimize Your Income Streams',
+        duration: '10 min',
+        description: 'Use skills and positioning to accelerate your wealth strategy',
+        fullDescription: `This session focuses on optimizing your income potential through strategic skill positioning. You'll learn how to leverage what you already know to accelerate your wealth-building journey.
 
-Whether you're just starting or looking to optimize your existing portfolio, this session provides actionable frameworks you can implement immediately.`,
-        videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+We cover income optimization techniques, skill positioning strategies, and how to create multiple income streams that align with your wealth goals.`,
+        videoUrl: 'https://www.youtube.com/embed/placeholder',
         downloads: [
-          { name: 'Portfolio Allocation Guide', url: '#', type: 'PDF' },
-          { name: 'Risk Tolerance Assessment', url: '#', type: 'PDF' },
-          { name: 'Investment Checklist', url: '#', type: 'PDF' },
+          { name: 'The Passive Income Vault', url: 'https://docs.google.com/spreadsheets/d/1Bb_nYSgkiZMf-Bp1PA7Z-sP2dJWeqt0P-dEAs2PdYnM/copy', type: 'Spreadsheet' },
         ],
         learnings: [
-          'Understanding asset allocation principles',
-          'How to diversify across asset classes',
-          'Matching investments to your timeline',
-          'Rebalancing strategies and frequency',
+          'Income optimization techniques for faster growth',
+          'Strategic skill positioning in your market',
+          'Creating multiple aligned income streams',
+          'Wealth acceleration through leverage',
         ],
       },
     ],
