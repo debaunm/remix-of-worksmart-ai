@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { Wallet, TrendingUp, Calculator, PiggyBank, LineChart, ArrowRight, CheckCircle, Star, Play, FileText, DollarSign, Loader2 } from "lucide-react";
 import { useCheckout } from "@/hooks/useCheckout";
 import { usePurchases } from "@/hooks/usePurchases";
-const bundleIncludes = ["3 Workshop Sessions", "Wealthy Life Budget", "Wealthy Life Dashboard", "The Passive Income Vault", "Speaker Pricing Formula", "Brand Deal Pricing Formula", "Services Pricing Formula", "Shopmy Tutorial"];
+const bundleIncludes = ["3 Workshop Sessions", "Wealthy Life Budget & Dashboard", "The Passive Income Vault", "Speaker Pricing Formula", "Brand Deal Pricing Formula", "Services Pricing Formula", "Shopmy Tutorial"];
 const sessions = [{
   number: "01",
   title: "Rich vs Wealthy Money Mindset Reset",
