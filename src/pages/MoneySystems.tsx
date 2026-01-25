@@ -10,7 +10,7 @@ const bundleIncludes = ["3-Part Video Workshop Series", "Wealth Code Assessment 
 const sessions = [{
   number: "01",
   title: "Rich vs Wealthy Money Mindset Reset",
-  description: "Uncover your money blocks and rewrite your wealth story. Learn to think like a wealthy person.",
+  description: "Identify your goals and how you want to spend your money by design not a budget.",
   duration: "45 min"
 }, {
   number: "02",
