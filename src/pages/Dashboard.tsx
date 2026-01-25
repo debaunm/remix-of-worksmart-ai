@@ -23,6 +23,7 @@ import {
   FileText,
   Wrench
 } from "lucide-react";
+import ExpandableSessionCard, { SessionData } from "@/components/dashboard/ExpandableSessionCard";
 import { Link } from "react-router-dom";
 
 const Dashboard = () => {
@@ -48,24 +49,54 @@ const Dashboard = () => {
     return null;
   }
 
-  const moneySessions = [
+  const moneySessions: SessionData[] = [
     {
       id: "rich-vs-wealthy-mindset",
       title: "Rich vs Wealthy Money Mindset Reset",
       duration: "10 min",
       description: "Identify your goals and how you want to spend your money by design not a budget.",
+      videoUrl: "https://www.youtube.com/embed/placeholder",
+      learnings: [
+        "The mindset shift from 'rich' to 'wealthy'",
+        "How to design your money goals intentionally",
+        "Why budgets fail and what to do instead",
+      ],
+      downloads: [
+        { title: "Wealthy Life Budget & Dashboard", url: "https://docs.google.com/spreadsheets/d/1pRoVM2qe16wUiL4AlX85x6gLDBK1DLjs/copy" },
+      ],
     },
     {
       id: "build-wealth-system",
       title: "Build Your Wealth System",
       duration: "10 min",
       description: "Create automated money flows that grow your wealth while you sleep. Set up your financial infrastructure.",
+      videoUrl: "https://www.youtube.com/embed/placeholder",
+      learnings: [
+        "How to automate your money flows",
+        "Setting up your financial infrastructure",
+        "Creating systems that build wealth passively",
+      ],
+      downloads: [
+        { title: "Wealthy Life Budget & Dashboard", url: "https://docs.google.com/spreadsheets/d/1pRoVM2qe16wUiL4AlX85x6gLDBK1DLjs/copy" },
+        { title: "The Passive Income Vault", url: "https://docs.google.com/spreadsheets/d/1I2cZZZoBQ29XX_kPfMATAwDIv9GyLAEE/copy" },
+      ],
     },
     {
       id: "optimize-income-streams",
       title: "Optimize Your Income Streams",
       duration: "10 min",
       description: "Identify how to use your skills and unique positioning to drive more income to accelerate your wealth strategy.",
+      videoUrl: "https://www.youtube.com/embed/placeholder",
+      learnings: [
+        "How to identify your unique income opportunities",
+        "Positioning yourself for higher earnings",
+        "Strategies to accelerate your wealth building",
+      ],
+      downloads: [
+        { title: "Speaker Pricing Formula", url: "https://docs.google.com/spreadsheets/d/1tGodvWyDjglJ-FhUxa4Mrw7iwsq7pEfU/copy" },
+        { title: "Brand Deal Pricing Formula", url: "https://docs.google.com/spreadsheets/d/1Vfp-fkNuOW9rSX1YzBN_ZAxC0iJqzK7M/copy" },
+        { title: "Services Pricing Formula", url: "https://docs.google.com/spreadsheets/d/1-l60Sl1zhq8PfjbV6OKfxvqCblq_1YjK/copy" },
+      ],
     },
   ];
 
@@ -106,7 +137,7 @@ const Dashboard = () => {
     { name: "LinkedIn 21-Day Plan", href: "/tools/linkedin-21-day-content-plan", icon: Wrench },
   ];
 
-  const SessionCard = ({ session, locked, systemId }: { session: typeof moneySessions[0], locked: boolean, systemId: string }) => (
+  const WorkSessionCard = ({ session, locked, systemId }: { session: typeof workSessions[0], locked: boolean, systemId: string }) => (
     <div className={`p-4 rounded-xl border ${locked ? 'border-border bg-muted/50' : 'border-border bg-card hover:border-primary/50'} transition-all`}>
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1">
@@ -200,7 +231,7 @@ const Dashboard = () => {
                     </CardHeader>
                     <CardContent className="space-y-4">
                       {workSessions.map((session, index) => (
-                        <SessionCard key={index} session={session} locked={!hasWorkAccess} systemId="work-systems" />
+                        <WorkSessionCard key={index} session={session} locked={!hasWorkAccess} systemId="work-systems" />
                       ))}
                       {!hasWorkAccess && (
                         <Link to="/work-systems" className="block mt-4">
@@ -268,7 +299,7 @@ const Dashboard = () => {
                     </CardHeader>
                     <CardContent className="space-y-4">
                       {moneySessions.map((session, index) => (
-                        <SessionCard key={index} session={session} locked={!hasMoneyAccess} systemId="money-systems" />
+                        <ExpandableSessionCard key={index} session={session} locked={!hasMoneyAccess} />
                       ))}
                       {!hasMoneyAccess && (
                         <Link to="/money-systems" className="block mt-4">
