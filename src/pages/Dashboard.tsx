@@ -100,24 +100,45 @@ const Dashboard = () => {
     },
   ];
 
-  const workSessions = [
+  const workSessions: SessionData[] = [
     {
       id: "ceo-weekly-planning",
       title: "CEO Weekly Planning System",
       duration: "50 min",
       description: "Structure your week for maximum impact and energy",
+      videoUrl: "https://www.youtube.com/embed/placeholder",
+      learnings: [
+        "How to structure your week like a CEO",
+        "Energy management for peak performance",
+        "Prioritization frameworks that work",
+      ],
+      downloads: [],
     },
     {
       id: "decision-frameworks",
       title: "Decision Frameworks for Leaders",
       duration: "45 min",
       description: "Make confident decisions with proven executive frameworks",
+      videoUrl: "https://www.youtube.com/embed/placeholder",
+      learnings: [
+        "Proven executive decision-making frameworks",
+        "How to make confident choices under pressure",
+        "Avoiding decision fatigue",
+      ],
+      downloads: [],
     },
     {
       id: "content-engine",
       title: "Building Your Content Engine",
       duration: "65 min",
       description: "Create a repeatable system for consistent content creation",
+      videoUrl: "https://www.youtube.com/embed/placeholder",
+      learnings: [
+        "Creating a repeatable content system",
+        "Batch creation strategies",
+        "Building consistency without burnout",
+      ],
+      downloads: [],
     },
   ];
 
@@ -137,34 +158,6 @@ const Dashboard = () => {
     { name: "LinkedIn 21-Day Plan", href: "/tools/linkedin-21-day-content-plan", icon: Wrench },
   ];
 
-  const WorkSessionCard = ({ session, locked, systemId }: { session: typeof workSessions[0], locked: boolean, systemId: string }) => (
-    <div className={`p-4 rounded-xl border ${locked ? 'border-border bg-muted/50' : 'border-border bg-card hover:border-primary/50'} transition-all`}>
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex-1">
-          <div className="flex items-center gap-2 mb-2">
-            {locked ? (
-              <Lock className="w-4 h-4 text-muted-foreground" />
-            ) : (
-              <Play className="w-4 h-4 text-primary" />
-            )}
-            <span className="text-xs text-muted-foreground">{session.duration}</span>
-          </div>
-          <h4 className={`font-medium ${locked ? 'text-muted-foreground' : 'text-foreground'} mb-1`}>
-            {session.title}
-          </h4>
-          <p className="text-sm text-muted-foreground">{session.description}</p>
-        </div>
-        {!locked && (
-          <Link to={`/content/${systemId}/${session.id}`}>
-            <Button size="sm" variant="outline" className="shrink-0">
-              <Video className="w-4 h-4 mr-1" />
-              Watch
-            </Button>
-          </Link>
-        )}
-      </div>
-    </div>
-  );
 
   return (
     <div className="min-h-screen bg-background">
@@ -231,7 +224,7 @@ const Dashboard = () => {
                     </CardHeader>
                     <CardContent className="space-y-4">
                       {workSessions.map((session, index) => (
-                        <WorkSessionCard key={index} session={session} locked={!hasWorkAccess} systemId="work-systems" />
+                        <ExpandableSessionCard key={index} session={session} locked={!hasWorkAccess} />
                       ))}
                       {!hasWorkAccess && (
                         <Link to="/work-systems" className="block mt-4">
