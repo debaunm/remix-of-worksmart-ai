@@ -19,7 +19,7 @@ const sessions = [{
   duration: "60 min"
 }, {
   number: "03",
-  title: "FIRE Path Planning",
+  title: "Optimize Your Income Streams",
   description: "Map your path to financial independence. Calculate your number and build your exit strategy.",
   duration: "50 min"
 }];
