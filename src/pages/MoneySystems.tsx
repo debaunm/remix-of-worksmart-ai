@@ -9,7 +9,7 @@ import { usePurchases } from "@/hooks/usePurchases";
 const bundleIncludes = ["3-Part Video Workshop Series", "Wealth Code Assessment Tool", "Net Worth Tracking Dashboard", "FIRE Calculator & Projections", "Passive Income Strategy Guide", "Investment Portfolio Templates", "Monthly Budget Automation System", "Private Community Access"];
 const sessions = [{
   number: "01",
-  title: "Money Mindset Reset",
+  title: "Rich vs Wealthy Money Mindset Reset",
   description: "Uncover your money blocks and rewrite your wealth story. Learn to think like a wealthy person.",
   duration: "45 min"
 }, {
