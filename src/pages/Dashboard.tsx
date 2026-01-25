@@ -102,43 +102,52 @@ const Dashboard = () => {
 
   const workSessions: SessionData[] = [
     {
-      id: "ceo-weekly-planning",
-      title: "CEO Weekly Planning System",
-      duration: "50 min",
-      description: "Structure your week for maximum impact and energy",
-      videoUrl: "https://www.youtube.com/embed/placeholder",
-      learnings: [
-        "How to structure your week like a CEO",
-        "Energy management for peak performance",
-        "Prioritization frameworks that work",
-      ],
-      downloads: [],
-    },
-    {
-      id: "decision-frameworks",
-      title: "Decision Frameworks for Leaders",
+      id: "ai-strategic-clarity",
+      title: "Module 1: From AI Confusion to Strategic Clarity",
       duration: "45 min",
-      description: "Make confident decisions with proven executive frameworks",
+      description: "Move from 'trying everything' to 'knowing exactly what to use when.' Build your personalized AI implementation roadmap based on your highest-leverage activities.",
       videoUrl: "https://www.youtube.com/embed/placeholder",
       learnings: [
-        "Proven executive decision-making frameworks",
-        "How to make confident choices under pressure",
-        "Avoiding decision fatigue",
+        "AI capability mapping for ChatGPT vs Claude",
+        "The CEO/Operator AI matrix for strategic delegation",
+        "Prompt engineering fundamentals",
+        "Your custom 30-day AI implementation roadmap",
       ],
-      downloads: [],
+      downloads: [
+        { title: "Module 1 Slides", url: "#" },
+      ],
     },
     {
-      id: "content-engine",
-      title: "Building Your Content Engine",
-      duration: "65 min",
-      description: "Create a repeatable system for consistent content creation",
+      id: "ai-automation-engine",
+      title: "Module 2: Building Your AI Automation Engine",
+      duration: "50 min",
+      description: "Turn AI from a toy into business infrastructure. Build automated workflows that run 24/7 and reclaim 5-10 hours per week immediately.",
       videoUrl: "https://www.youtube.com/embed/placeholder",
       learnings: [
-        "Creating a repeatable content system",
-        "Batch creation strategies",
-        "Building consistency without burnout",
+        "Automation opportunity mapping",
+        "Trigger-action workflow design with Zapier",
+        "The 80/20 automation matrix",
+        "Fail-safe system architecture for reliable operations",
       ],
-      downloads: [],
+      downloads: [
+        { title: "Module 2 Slides", url: "#" },
+      ],
+    },
+    {
+      id: "ai-content-revenue-pipeline",
+      title: "Module 3: The AI Content-to-Revenue Pipeline",
+      duration: "60 min",
+      description: "Master the complete content operation system: ideate, create, design, edit, and distribute content that drives revenue—cutting creation time by 70%.",
+      videoUrl: "https://www.youtube.com/embed/placeholder",
+      learnings: [
+        "The content-to-product pipeline",
+        "AI voice calibration (so outputs sound like you)",
+        "Omnichannel distribution strategy",
+        "The revenue-focused content matrix",
+      ],
+      downloads: [
+        { title: "Module 3 Slides", url: "#" },
+      ],
     },
   ];
 
