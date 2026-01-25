@@ -105,7 +105,7 @@ const Dashboard = () => {
       id: "ai-strategic-clarity",
       title: "Module 1: From AI Confusion to Strategic Clarity",
       duration: "45 min",
-      description: "Move from 'trying everything' to 'knowing exactly what to use when.' Build your personalized AI implementation roadmap based on your highest-leverage activities.",
+      description: "This is your strategic foundation. You'll move from 'trying everything' to 'knowing exactly what to use when.' Learn the critical differences between ChatGPT and Claude, identify which AI handles which CEO tasks vs. operator tasks, and build your personalized AI implementation roadmap.",
       videoUrl: "https://www.youtube.com/embed/placeholder",
       learnings: [
         "AI capability mapping for ChatGPT vs Claude",
@@ -121,7 +121,7 @@ const Dashboard = () => {
       id: "ai-automation-engine",
       title: "Module 2: Building Your AI Automation Engine",
       duration: "50 min",
-      description: "Turn AI from a toy into business infrastructure. Build automated workflows that run 24/7 and reclaim 5-10 hours per week immediately.",
+      description: "This is where AI stops being a toy and becomes your business infrastructure. You'll learn to identify the repetitive tasks stealing your time, build automated workflows that run 24/7, and create systems that compound your productivity.",
       videoUrl: "https://www.youtube.com/embed/placeholder",
       learnings: [
         "Automation opportunity mapping",
@@ -137,7 +137,7 @@ const Dashboard = () => {
       id: "ai-content-revenue-pipeline",
       title: "Module 3: The AI Content-to-Revenue Pipeline",
       duration: "60 min",
-      description: "Master the complete content operation system: ideate, create, design, edit, and distribute content that drives revenue—cutting creation time by 70%.",
+      description: "This is your complete content operation system. Learn the exact workflow to ideate, create, design, edit, and distribute content that drives revenue—not just engagement. Master the full pipeline from writing to visuals to distribution.",
       videoUrl: "https://www.youtube.com/embed/placeholder",
       learnings: [
         "The content-to-product pipeline",
