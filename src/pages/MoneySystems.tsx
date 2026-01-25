@@ -20,7 +20,7 @@ const sessions = [{
 }, {
   number: "03",
   title: "Optimize Your Income Streams",
-  description: "Map your path to financial independence. Calculate your number and build your exit strategy.",
+  description: "Identify how to use your skills and unique positioning to drive more income to accelerate your wealth strategy.",
   duration: "50 min"
 }];
 const freeTools = [{
