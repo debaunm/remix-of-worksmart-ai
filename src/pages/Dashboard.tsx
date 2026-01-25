@@ -50,22 +50,22 @@ const Dashboard = () => {
 
   const moneySessions = [
     {
-      id: "understanding-financial-picture",
-      title: "Understanding Your Financial Picture",
-      duration: "45 min",
-      description: "Learn to read and interpret your complete financial dashboard",
+      id: "rich-vs-wealthy-mindset",
+      title: "Rich vs Wealthy Money Mindset Reset",
+      duration: "10 min",
+      description: "Identify your goals and how you want to spend your money by design not a budget.",
     },
     {
-      id: "wealth-tracking-system",
-      title: "Building Your Wealth Tracking System",
-      duration: "60 min",
-      description: "Set up automated tracking for net worth, cash flow, and goals",
+      id: "build-wealth-system",
+      title: "Build Your Wealth System",
+      duration: "10 min",
+      description: "Create automated money flows that grow your wealth while you sleep. Set up your financial infrastructure.",
     },
     {
-      id: "investment-portfolio-strategy",
-      title: "Investment Portfolio Strategy",
-      duration: "55 min",
-      description: "Create a diversified portfolio aligned with your timeline",
+      id: "optimize-income-streams",
+      title: "Optimize Your Income Streams",
+      duration: "10 min",
+      description: "Identify how to use your skills and unique positioning to drive more income to accelerate your wealth strategy.",
     },
   ];
 
