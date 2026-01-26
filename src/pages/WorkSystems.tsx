@@ -26,12 +26,9 @@ import { usePurchases } from "@/hooks/usePurchases";
 const bundleIncludes = [
   "3-Part AI Mastery Video Series",
   "Personal AI Assistant Setup Guide",
-  "Automation Workflow Templates",
   "AI Prompt Library (50+ Prompts)",
   "Tech Stack Recommendations",
-  "Weekly Planning System",
-  "Delegation Frameworks",
-  "Private Community Access"
+  "Delegation Frameworks"
 ];
 
 const sessions = [
