@@ -59,11 +59,11 @@ const Dashboard = () => {
 
   const moneySessions: SessionData[] = [
     {
-      id: "rich-vs-wealthy-mindset",
-      title: "Rich vs Wealthy Money Mindset Reset",
+      id: "wealth-introduction",
+      title: "Wealth Introduction",
       duration: "10 min",
       description: "Identify your goals and how you want to spend your money by design not a budget.",
-      videoUrl: "https://www.youtube.com/embed/placeholder",
+      videoUrl: "https://player.vimeo.com/video/1160318721",
       learnings: [
         "The mindset shift from 'rich' to 'wealthy'",
         "How to design your money goals intentionally",
@@ -74,27 +74,26 @@ const Dashboard = () => {
       ],
     },
     {
-      id: "build-wealth-system",
-      title: "Build Your Wealth System",
-      duration: "10 min",
-      description: "Create automated money flows that grow your wealth while you sleep. Set up your financial infrastructure.",
-      videoUrl: "https://www.youtube.com/embed/placeholder",
+      id: "explore-your-options",
+      title: "Explore Your Options",
+      duration: "7 min",
+      description: "Discover the different paths to building wealth and find the one that fits your lifestyle.",
+      videoUrl: "https://player.vimeo.com/video/1160318713",
       learnings: [
-        "How to automate your money flows",
-        "Setting up your financial infrastructure",
-        "Creating systems that build wealth passively",
+        "Understanding different wealth-building strategies",
+        "Identifying opportunities that match your skills",
+        "Evaluating risk vs reward for each option",
       ],
       downloads: [
-        { title: "Wealthy Life Budget & Dashboard", url: "https://docs.google.com/spreadsheets/d/1pRoVM2qe16wUiL4AlX85x6gLDBK1DLjs/copy" },
         { title: "The Passive Income Vault", url: "https://docs.google.com/spreadsheets/d/1I2cZZZoBQ29XX_kPfMATAwDIv9GyLAEE/copy" },
       ],
     },
     {
-      id: "optimize-income-streams",
-      title: "Optimize Your Income Streams",
+      id: "choose-your-stream",
+      title: "Choose Your Stream",
       duration: "10 min",
-      description: "Identify how to use your skills and unique positioning to drive more income to accelerate your wealth strategy.",
-      videoUrl: "https://www.youtube.com/embed/placeholder",
+      description: "Select and set up your primary income stream based on your unique positioning.",
+      videoUrl: "https://player.vimeo.com/video/1160318757",
       learnings: [
         "How to identify your unique income opportunities",
         "Positioning yourself for higher earnings",
@@ -104,6 +103,21 @@ const Dashboard = () => {
         { title: "Speaker Pricing Formula", url: "https://docs.google.com/spreadsheets/d/1tGodvWyDjglJ-FhUxa4Mrw7iwsq7pEfU/copy" },
         { title: "Brand Deal Pricing Formula", url: "https://docs.google.com/spreadsheets/d/1Vfp-fkNuOW9rSX1YzBN_ZAxC0iJqzK7M/copy" },
         { title: "Services Pricing Formula", url: "https://docs.google.com/spreadsheets/d/1-l60Sl1zhq8PfjbV6OKfxvqCblq_1YjK/copy" },
+      ],
+    },
+    {
+      id: "what-to-do-with-cash-flow",
+      title: "What to Do with Cash Flow",
+      duration: "6 min",
+      description: "Learn how to manage and allocate your income for maximum wealth growth.",
+      videoUrl: "https://player.vimeo.com/video/1160318745",
+      learnings: [
+        "How to automate your money flows",
+        "Setting up your financial infrastructure",
+        "Creating systems that build wealth passively",
+      ],
+      downloads: [
+        { title: "Wealthy Life Budget & Dashboard", url: "https://docs.google.com/spreadsheets/d/1pRoVM2qe16wUiL4AlX85x6gLDBK1DLjs/copy" },
       ],
     },
   ];
