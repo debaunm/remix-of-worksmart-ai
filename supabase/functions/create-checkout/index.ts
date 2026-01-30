@@ -7,10 +7,12 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-// Price IDs for each product ($197 each)
+// Price IDs for each product
 const PRICE_IDS = {
-  money_systems: "price_1SvNmOIv0OChZxQ1Y6fzKlbY",
-  work_systems: "price_1SvNlhIv0OChZxQ1MoyY65zD",
+  money_systems: "price_1SvNmOIv0OChZxQ1Y6fzKlbY", // $197
+  work_systems: "price_1SvNlhIv0OChZxQ1MoyY65zD", // $197
+  ai_agent_101: "price_1SsC5GIv0OChZxQ1WdgfK6z4", // $29.99
+  lovable_101: "price_1SvOJ2Iv0OChZxQ1oHAptpwj", // $29.99 (using existing $9.99 price - update in Stripe)
 };
 
 const logStep = (step: string, details?: any) => {
@@ -35,9 +37,9 @@ serve(async (req) => {
     const { productType } = await req.json();
     logStep("Received request", { productType });
 
-    if (!productType || !["money_systems", "work_systems"].includes(productType)) {
-      throw new Error("Invalid product type. Must be 'money_systems' or 'work_systems'");
-    }
+  if (!productType || !["money_systems", "work_systems", "ai_agent_101", "lovable_101"].includes(productType)) {
+    throw new Error("Invalid product type. Must be 'money_systems', 'work_systems', 'ai_agent_101', or 'lovable_101'");
+  }
 
     const priceId = PRICE_IDS[productType as keyof typeof PRICE_IDS];
     if (priceId.includes("REPLACE")) {
@@ -75,6 +77,12 @@ serve(async (req) => {
     const origin = req.headers.get("origin") || "http://localhost:3000";
 
     // Create a one-time payment session
+    const cancelUrlMap: Record<string, string> = {
+      money_systems: "/money-systems",
+      work_systems: "/work-systems",
+      ai_agent_101: "/sessions/ai-agent-101",
+      lovable_101: "/sessions/lovable-101",
+    };
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
       customer_email: customerId ? undefined : user.email,
@@ -87,7 +95,7 @@ serve(async (req) => {
       ],
       mode: "payment",
       success_url: `${origin}/purchase-success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/${productType === "money_systems" ? "money-systems" : "work-systems"}`,
+      cancel_url: `${origin}${cancelUrlMap[productType] || "/"}`,
       metadata: {
         user_id: user.id,
         product_type: productType,
