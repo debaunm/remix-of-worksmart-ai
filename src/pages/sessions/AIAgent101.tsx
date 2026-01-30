@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Clock, Play, CheckCircle, ArrowLeft, Bot, Sparkles, Target, Lightbulb } from "lucide-react";
+import { Clock, Play, CheckCircle, ArrowLeft, Bot, Sparkles, Target, Lightbulb, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -7,7 +7,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { useCheckout } from "@/hooks/useCheckout";
+import { usePurchases } from "@/hooks/usePurchases";
 
+const VIDEO_URL = "https://player.vimeo.com/video/1160317660?badge=0&autopause=0&player_id=0&app_id=58479";
 const outcomes = [
   "Understand what AI agents are and how they differ from chatbots",
   "Know when to use AI agents vs. traditional AI assistants",
@@ -42,7 +44,9 @@ const sessionModules = [
 
 const AIAgent101 = () => {
   const { checkout, isLoading } = useCheckout();
-
+  const { purchases, isLoading: purchasesLoading } = usePurchases();
+  
+  const hasAccess = purchases?.some(p => p.product_type === 'ai_agent_101') ?? false;
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -112,23 +116,39 @@ const AIAgent101 = () => {
               </div>
             </motion.div>
 
-            {/* Right Column - Video Preview */}
+            {/* Right Column - Video Player or Preview */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <Card className="overflow-hidden border-border">
-                <div className="aspect-video bg-gradient-to-br from-primary/20 via-primary/10 to-background flex items-center justify-center relative group cursor-pointer">
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
-                  <div className="relative z-10 p-6 rounded-full bg-primary/90 group-hover:bg-primary transition-colors group-hover:scale-110 duration-300">
-                    <Play className="w-12 h-12 text-primary-foreground fill-current" />
+                {hasAccess ? (
+                  <div className="aspect-video">
+                    <iframe
+                      src={VIDEO_URL}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                      allowFullScreen
+                      title="AI Agent 101"
+                    />
                   </div>
-                  <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white/80 text-sm">
-                    <span>Preview available</span>
-                    <span>2:15</span>
+                ) : (
+                  <div className="aspect-video bg-gradient-to-br from-primary/20 via-primary/10 to-background flex items-center justify-center relative group cursor-pointer">
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
+                    <div className="relative z-10 flex flex-col items-center gap-3">
+                      <div className="p-6 rounded-full bg-primary/90 group-hover:bg-primary transition-colors group-hover:scale-110 duration-300">
+                        <Lock className="w-12 h-12 text-primary-foreground" />
+                      </div>
+                      <span className="text-white/80 text-sm font-medium">Purchase to unlock</span>
+                    </div>
+                    <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white/80 text-sm">
+                      <span>60 min session</span>
+                      <span>$29.99</span>
+                    </div>
                   </div>
-                </div>
+                )}
               </Card>
             </motion.div>
           </div>
