@@ -37,12 +37,14 @@ const categoryColors: Record<string, { bg: string; text: string; border: string 
 
 const PromptLibrary = () => {
   const { data: packs, isLoading } = useAllPromptsGrouped();
+  // Filter out Content Creation - only available with Media Company course
+  const filteredPacks = packs?.filter(p => p.slug !== "content-creation");
   const [previewDialogOpen, setPreviewDialogOpen] = useState(false);
   const [selectedPackId, setSelectedPackId] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const { toast } = useToast();
 
-  const getSelectedPack = () => packs?.find(p => p.id === selectedPackId);
+  const getSelectedPack = () => filteredPacks?.find(p => p.id === selectedPackId);
 
   const handlePreviewClick = (packId: string) => {
     setSelectedPackId(packId);
@@ -94,11 +96,11 @@ const PromptLibrary = () => {
             <div className="flex justify-center gap-8 text-sm text-muted-foreground mb-8">
               <div className="flex items-center gap-2">
                 <Sparkles className="h-4 w-4 text-primary" />
-                <span>{packs?.reduce((acc, p) => acc + (p.prompts?.length || 0), 0) || 0} prompts</span>
+                <span>{filteredPacks?.reduce((acc, p) => acc + (p.prompts?.length || 0), 0) || 0} prompts</span>
               </div>
               <div className="flex items-center gap-2">
                 <TrendingUp className="h-4 w-4 text-primary" />
-                <span>{packs?.length || 0} bundles</span>
+                <span>{filteredPacks?.length || 0} bundles</span>
               </div>
             </div>
 
@@ -144,7 +146,7 @@ const PromptLibrary = () => {
                 </Card>
               ))
             ) : (
-              packs?.map((pack, index) => {
+              filteredPacks?.map((pack, index) => {
                 const Icon = iconMap[pack.icon || "Sparkles"] || Sparkles;
                 const colors = categoryColors[pack.category || "life"] || categoryColors.life;
                 const promptCount = pack.prompts?.length || 0;
