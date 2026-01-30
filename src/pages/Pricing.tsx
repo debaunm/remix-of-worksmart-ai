@@ -12,7 +12,7 @@ const systems = [
   {
     id: "money_systems",
     name: "Money Systems",
-    price: "$397",
+    price: "$197",
     description: "Master your money and build lasting wealth",
     icon: DollarSign,
     iconColor: "text-success-green",
@@ -29,7 +29,7 @@ const systems = [
   {
     id: "work_systems",
     name: "Work Systems",
-    price: "$397",
+    price: "$197",
     description: "10x your productivity with AI-powered workflows",
     icon: Briefcase,
     iconColor: "text-primary",
