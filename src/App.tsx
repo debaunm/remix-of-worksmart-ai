@@ -45,6 +45,8 @@ import Sessions from "./pages/Sessions";
 import AIFoundations from "./pages/sessions/AIFoundations";
 import AIContentSystems from "./pages/sessions/AIContentSystems";
 import AutomationZapier from "./pages/sessions/AutomationZapier";
+import AIAgent101 from "./pages/sessions/AIAgent101";
+import Lovable101 from "./pages/sessions/Lovable101";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
@@ -73,6 +75,8 @@ const App = () => (
           <Route path="/sessions/ai-foundations" element={<AIFoundations />} />
           <Route path="/sessions/ai-content-systems" element={<AIContentSystems />} />
           <Route path="/sessions/automation-zapier" element={<AutomationZapier />} />
+          <Route path="/sessions/ai-agent-101" element={<AIAgent101 />} />
+          <Route path="/sessions/lovable-101" element={<Lovable101 />} />
           <Route path="/courses/ai-accelerator" element={<AIAccelerator />} />
           <Route path="/courses/chatgpt-101" element={<ChatGPT101 />} />
           <Route path="/courses/media-company" element={<MediaCompany />} />
