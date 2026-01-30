@@ -7,10 +7,10 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-// Price IDs for each product
+// Price IDs for each product ($197 each)
 const PRICE_IDS = {
-  money_systems: "price_1Sr82jIv0OChZxQ1H1YeOwP7",
-  work_systems: "price_1Sr82NIv0OChZxQ1IWjFzMYp",
+  money_systems: "price_1SvNmOIv0OChZxQ1Y6fzKlbY",
+  work_systems: "price_1SvNlhIv0OChZxQ1MoyY65zD",
 };
 
 const logStep = (step: string, details?: any) => {

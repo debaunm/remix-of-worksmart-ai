@@ -107,7 +107,7 @@ const WorkSystems = () => {
             </p>
             <div className="inline-flex items-center gap-3 bg-accent/50 border border-border rounded-full px-6 py-3">
               <Sparkles className="w-5 h-5 text-primary" />
-              <span className="text-lg font-semibold">Complete Bundle: <span className="text-primary">$397</span></span>
+              <span className="text-lg font-semibold">Complete Bundle: <span className="text-primary">$197</span></span>
             </div>
           </motion.div>
         </div>
@@ -181,7 +181,7 @@ const WorkSystems = () => {
                       </>
                     ) : (
                       <>
-                        Get AI Mastery Sessions - $397
+                        Get AI Mastery Sessions - $197
                         <ArrowRight className="w-4 h-4 ml-2" />
                       </>
                     )}
@@ -214,7 +214,7 @@ const WorkSystems = () => {
                   <div className="p-4 rounded-xl bg-primary/10 border border-primary/20">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm font-medium text-foreground">One-Time Investment</span>
-                      <span className="text-2xl font-bold text-primary">$397</span>
+                      <span className="text-2xl font-bold text-primary">$197</span>
                     </div>
                     <p className="text-xs text-muted-foreground">Lifetime access • Instant download • Updates included</p>
                   </div>
@@ -299,7 +299,7 @@ const WorkSystems = () => {
                   </>
                 ) : (
                   <>
-                    Get Started for $397
+                    Get Started for $197
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </>
                 )}
