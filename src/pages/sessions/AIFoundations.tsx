@@ -21,21 +21,25 @@ const sessionModules = [
     title: "Understanding Modern AI",
     description: "How large language models actually work and why it matters for getting better results.",
     duration: "15 min",
+    videoUrl: "https://player.vimeo.com/video/1160315732?badge=0&autopause=0&player_id=0&app_id=58479",
   },
   {
     title: "The AI Toolkit Breakdown",
     description: "Deep dive into ChatGPT, Claude, and Gemini—strengths, weaknesses, and optimal use cases.",
     duration: "20 min",
+    videoUrl: "https://player.vimeo.com/video/1160316129?badge=0&autopause=0&player_id=0&app_id=58479",
   },
   {
-    title: "Prompting That Works",
-    description: "Practical frameworks for writing prompts that get you 80% of the way there on the first try.",
-    duration: "15 min",
+    title: "Multi-Step Flows & AI Tech Stack",
+    description: "Build automated workflows that run 24/7 and create systems that compound your productivity.",
+    duration: "35 min",
+    videoUrl: "https://player.vimeo.com/video/1160318487?badge=0&autopause=0&player_id=0&app_id=58479",
   },
   {
-    title: "Building Your AI Workflow",
-    description: "How to integrate AI tools into your daily work without creating chaos.",
-    duration: "10 min",
+    title: "Content Creation & Brand Building",
+    description: "Learn the exact workflow to ideate, create, design, edit, and distribute content that drives revenue.",
+    duration: "45 min",
+    videoUrl: "https://player.vimeo.com/video/1160318495?badge=0&autopause=0&player_id=0&app_id=58479",
   },
 ];
 
