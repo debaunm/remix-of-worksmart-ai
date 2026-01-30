@@ -167,6 +167,8 @@ const SessionCard = ({ session }: { session: Session }) => (
 
 const Sessions = () => {
   const { data: packs, isLoading: packsLoading } = useAllPromptsGrouped();
+  // Filter out Content Creation - only available with Media Company course
+  const filteredPacks = packs?.filter(p => p.slug !== "content-creation");
   const [emailDialogOpen, setEmailDialogOpen] = useState(false);
   const [previewDialogOpen, setPreviewDialogOpen] = useState(false);
   const [selectedPackId, setSelectedPackId] = useState<string | null>(null);
@@ -177,7 +179,7 @@ const Sessions = () => {
 
   const isUnlocked = localStorage.getItem("prompt_library_unlocked") === "true";
 
-  const getSelectedPack = () => packs?.find(p => p.id === selectedPackId);
+  const getSelectedPack = () => filteredPacks?.find(p => p.id === selectedPackId);
 
   const handleBuyClick = (packId: string) => {
     setSelectedPackId(packId);
@@ -315,7 +317,7 @@ const Sessions = () => {
                     </Card>
                   ))
                 ) : (
-                  packs?.map((pack, index) => {
+                  filteredPacks?.map((pack, index) => {
                     const Icon = iconMap[pack.icon || "Sparkles"] || Sparkles;
                     const colors = categoryColors[pack.category || "life"] || categoryColors.life;
                     const packPrice = pack.price || 14.99;
