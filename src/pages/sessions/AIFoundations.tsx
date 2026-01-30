@@ -88,7 +88,7 @@ const AIFoundations = () => {
               <div className="flex items-center gap-6 mb-8 text-muted-foreground">
                 <span className="flex items-center gap-2">
                   <Clock className="w-5 h-5" />
-                  60 minutes
+                  115 minutes
                 </span>
                 <span className="flex items-center gap-2">
                   <Target className="w-5 h-5" />
