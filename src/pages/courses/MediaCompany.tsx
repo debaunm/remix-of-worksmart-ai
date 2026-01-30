@@ -43,7 +43,7 @@ const MediaCompany = () => {
       <Navbar />
       
       {/* Hero */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-slate-900 via-purple-900 to-pink-900">
+      <section className="pt-32 pb-20 bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-800">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <motion.div
@@ -52,10 +52,10 @@ const MediaCompany = () => {
               transition={{ duration: 0.5 }}
               className="text-center"
             >
-              <Badge className="mb-4 bg-purple-500/20 text-purple-300 border-purple-500/30">
+              <Badge className="mb-4 bg-primary/20 text-primary border-primary/30">
                 For Creators
               </Badge>
-              <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-400 flex items-center justify-center mx-auto mb-6">
+              <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-red-600 flex items-center justify-center mx-auto mb-6">
                 <User className="w-10 h-10 text-white" />
               </div>
               <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
@@ -81,7 +81,7 @@ const MediaCompany = () => {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="text-lg px-8 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+                <Button size="lg" className="text-lg px-8 bg-gradient-to-r from-primary to-red-600 hover:from-primary/90 hover:to-red-700">
                   Enroll Now - $397
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
@@ -126,8 +126,8 @@ const MediaCompany = () => {
                 >
                   <Card className="h-full text-center border-border/50">
                     <CardContent className="p-6">
-                      <div className="w-14 h-14 rounded-xl bg-purple-500/10 flex items-center justify-center mx-auto mb-4">
-                        <item.icon className="w-7 h-7 text-purple-500" />
+                      <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                        <item.icon className="w-7 h-7 text-primary" />
                       </div>
                       <h3 className="font-semibold mb-2">{item.title}</h3>
                       <p className="text-sm text-muted-foreground">{item.desc}</p>
@@ -164,7 +164,7 @@ const MediaCompany = () => {
                   transition={{ delay: index * 0.1 }}
                   className="flex items-start gap-3 p-4 rounded-lg bg-background"
                 >
-                  <CheckCircle className="w-6 h-6 text-purple-500 flex-shrink-0 mt-0.5" />
+                  <CheckCircle className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
                   <span className="text-foreground">{outcome}</span>
                 </motion.div>
               ))}
@@ -196,10 +196,10 @@ const MediaCompany = () => {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Card className="border-border/50 hover:border-purple-500/30 transition-colors">
+                  <Card className="border-border/50 hover:border-primary/30 transition-colors">
                     <CardContent className="p-6 flex items-center justify-between">
                       <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-500 font-bold">
+                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
                           {index + 1}
                         </div>
                         <div>
@@ -226,7 +226,7 @@ const MediaCompany = () => {
             viewport={{ once: true }}
             className="max-w-3xl mx-auto text-center"
           >
-            <Card className="border-purple-500/20 bg-gradient-to-br from-purple-500/5 to-pink-500/5">
+            <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-red-600/5">
               <CardContent className="p-8 md:p-12">
                 <div className="flex items-center justify-center gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (
@@ -242,20 +242,20 @@ const MediaCompany = () => {
 
                 <div className="flex flex-col gap-3 mb-6">
                   <div className="flex items-center justify-center gap-2 text-sm">
-                    <PenTool className="w-4 h-4 text-purple-500" />
+                    <PenTool className="w-4 h-4 text-primary" />
                     <span>Complete content system templates</span>
                   </div>
                   <div className="flex items-center justify-center gap-2 text-sm">
-                    <TrendingUp className="w-4 h-4 text-purple-500" />
+                    <TrendingUp className="w-4 h-4 text-primary" />
                     <span>AI automation workflows included</span>
                   </div>
                   <div className="flex items-center justify-center gap-2 text-sm">
-                    <DollarSign className="w-4 h-4 text-purple-500" />
+                    <DollarSign className="w-4 h-4 text-primary" />
                     <span>Monetization strategy blueprints</span>
                   </div>
                 </div>
 
-                <Button size="lg" className="text-lg px-12 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+                <Button size="lg" className="text-lg px-12 bg-gradient-to-r from-primary to-red-600 hover:from-primary/90 hover:to-red-700">
                   Build Your Media Empire
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
