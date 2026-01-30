@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/hooks/useAuth";
 import { usePurchases } from "@/hooks/usePurchases";
+import { usePromptPackWithPrompts, Prompt } from "@/hooks/usePromptPacks";
 import { 
   User, 
   Play,
@@ -21,15 +22,22 @@ import {
   CheckCircle,
   Video,
   FileText,
-  Wrench
+  Wrench,
+  Sparkles,
+  Copy,
+  Check
 } from "lucide-react";
 import ExpandableSessionCard, { SessionData } from "@/components/dashboard/ExpandableSessionCard";
 import { Link } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 const Dashboard = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
-  const { hasMoneyAccess, hasWorkAccess, hasBothAccess, isLoading: purchasesLoading } = usePurchases();
+  const { hasMoneyAccess, hasWorkAccess, hasMediaCompanyAccess, hasBothAccess, isLoading: purchasesLoading } = usePurchases();
+  const { data: contentCreationPack } = usePromptPackWithPrompts("content-creation");
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const { toast } = useToast();
 
   useEffect(() => {
     if (!loading && !user) {
@@ -166,6 +174,23 @@ const Dashboard = () => {
     { name: "Brand Voice Generator", href: "/tools/brand-voice-generator", icon: Wrench },
     { name: "LinkedIn 21-Day Plan", href: "/tools/linkedin-21-day-content-plan", icon: Wrench },
   ];
+  const copyPromptToClipboard = async (prompt: Prompt) => {
+    try {
+      await navigator.clipboard.writeText(prompt.prompt_text);
+      setCopiedId(prompt.id);
+      toast({
+        title: "Copied!",
+        description: "Prompt copied to clipboard",
+      });
+      setTimeout(() => setCopiedId(null), 2000);
+    } catch {
+      toast({
+        title: "Error",
+        description: "Failed to copy prompt",
+        variant: "destructive",
+      });
+    }
+  };
 
 
   return (
@@ -195,17 +220,22 @@ const Dashboard = () => {
           </motion.div>
 
           {/* Main Content */}
-          <Tabs defaultValue={hasWorkAccess ? "work" : "money"} className="w-full">
-            <TabsList className="grid w-full max-w-md grid-cols-2 mb-8">
+          <Tabs defaultValue={hasMediaCompanyAccess ? "media" : hasWorkAccess ? "work" : "money"} className="w-full">
+            <TabsList className="grid w-full max-w-lg grid-cols-3 mb-8">
               <TabsTrigger value="work" className="flex items-center gap-2">
                 <Briefcase className="w-4 h-4" />
-                Work Systems
+                Work
                 {!hasWorkAccess && <Lock className="w-3 h-3" />}
               </TabsTrigger>
               <TabsTrigger value="money" className="flex items-center gap-2">
                 <TrendingUp className="w-4 h-4" />
-                Money Systems
+                Money
                 {!hasMoneyAccess && <Lock className="w-3 h-3" />}
+              </TabsTrigger>
+              <TabsTrigger value="media" className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4" />
+                Media Co
+                {!hasMediaCompanyAccess && <Lock className="w-3 h-3" />}
               </TabsTrigger>
             </TabsList>
 
@@ -357,6 +387,120 @@ const Dashboard = () => {
                 </div>
               </motion.div>
             </TabsContent>
+
+            {/* Media Company Tab */}
+            <TabsContent value="media">
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="grid lg:grid-cols-3 gap-8"
+              >
+                {/* Content Creation Prompts */}
+                <div className="lg:col-span-2">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Sparkles className="w-5 h-5 text-primary" />
+                        Content Creation Prompts
+                      </CardTitle>
+                      <CardDescription>
+                        {hasMediaCompanyAccess 
+                          ? "Copy and paste these prompts to create compelling content"
+                          : "Unlock these prompts by purchasing the Media Company course"
+                        }
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      {contentCreationPack?.prompts?.map((prompt) => (
+                        <div 
+                          key={prompt.id}
+                          className={`p-4 rounded-lg border border-border ${hasMediaCompanyAccess ? 'hover:border-primary/50' : 'opacity-50'} transition-all`}
+                        >
+                          <div className="flex items-start justify-between gap-3">
+                            <div className="flex-1 min-w-0">
+                              <h4 className="font-semibold text-sm mb-1">{prompt.title}</h4>
+                              {prompt.use_case && (
+                                <p className="text-xs text-muted-foreground mb-2">{prompt.use_case}</p>
+                              )}
+                              {hasMediaCompanyAccess ? (
+                                <p className="text-xs text-foreground/80 font-mono bg-muted/50 p-2 rounded border border-border/30 line-clamp-3">
+                                  {prompt.prompt_text}
+                                </p>
+                              ) : (
+                                <div className="relative">
+                                  <p className="text-xs text-foreground/80 font-mono bg-muted/50 p-2 rounded border border-border/30 line-clamp-2 blur-sm">
+                                    {prompt.prompt_text.slice(0, 100)}...
+                                  </p>
+                                  <div className="absolute inset-0 flex items-center justify-center">
+                                    <Lock className="w-4 h-4 text-muted-foreground" />
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                            {hasMediaCompanyAccess && (
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => copyPromptToClipboard(prompt)}
+                                className="shrink-0 h-8 w-8 p-0"
+                              >
+                                {copiedId === prompt.id ? (
+                                  <Check className="h-4 w-4 text-green-500" />
+                                ) : (
+                                  <Copy className="h-4 w-4" />
+                                )}
+                              </Button>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                      {!hasMediaCompanyAccess && (
+                        <Link to="/courses/media-company" className="block mt-4">
+                          <Button variant="hero" className="w-full">
+                            Unlock Media Company Course
+                            <ArrowRight className="w-4 h-4 ml-2" />
+                          </Button>
+                        </Link>
+                      )}
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Course Info */}
+                <div>
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Video className="w-5 h-5 text-primary" />
+                        Course Access
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      <div className={`flex items-center gap-3 p-3 rounded-lg border border-border ${hasMediaCompanyAccess ? 'hover:border-primary/50 hover:bg-accent/50' : 'opacity-50'} transition-all`}>
+                        {hasMediaCompanyAccess ? (
+                          <CheckCircle className="w-4 h-4 text-primary" />
+                        ) : (
+                          <Lock className="w-4 h-4 text-muted-foreground" />
+                        )}
+                        <span className={`text-sm ${hasMediaCompanyAccess ? 'text-foreground' : 'text-muted-foreground'}`}>
+                          1 Person Media Company Course
+                        </span>
+                      </div>
+                      <div className={`flex items-center gap-3 p-3 rounded-lg border border-border ${hasMediaCompanyAccess ? 'hover:border-primary/50 hover:bg-accent/50' : 'opacity-50'} transition-all`}>
+                        {hasMediaCompanyAccess ? (
+                          <CheckCircle className="w-4 h-4 text-primary" />
+                        ) : (
+                          <Lock className="w-4 h-4 text-muted-foreground" />
+                        )}
+                        <span className={`text-sm ${hasMediaCompanyAccess ? 'text-foreground' : 'text-muted-foreground'}`}>
+                          Content Creation Prompts ({contentCreationPack?.prompts?.length || 0})
+                        </span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </motion.div>
+            </TabsContent>
           </Tabs>
 
           {/* Account Card */}
@@ -377,7 +521,9 @@ const Dashboard = () => {
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">Plan</span>
                   <Badge variant="secondary">
-                    {hasBothAccess ? 'Full Access' : 
+                    {hasBothAccess && hasMediaCompanyAccess ? 'Full Access' :
+                     hasMediaCompanyAccess ? 'Media Company' :
+                     hasBothAccess ? 'Both Systems' : 
                      hasMoneyAccess ? 'Money Systems' : 
                      hasWorkAccess ? 'Work Systems' : 'Free'}
                   </Badge>
