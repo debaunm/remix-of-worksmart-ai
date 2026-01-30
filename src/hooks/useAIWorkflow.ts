@@ -3,9 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
 export type WorkflowId = 
-  | "rewrite_message" 
   | "meeting_to_action_plan" 
-  | "decision_helper" 
   | "weekly_plan_builder" 
   | "personal_ai_assistant_setup"
   | "fix_my_content"

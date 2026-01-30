@@ -13,10 +13,7 @@ import CEOLifePlanner from "./pages/products/CEOLifePlanner";
 import MediaCompanySpreadsheet from "./pages/products/MediaCompanySpreadsheet";
 import PromptLibrary from "./pages/PromptLibrary";
 import NotFound from "./pages/NotFound";
-import WriteItBetter from "./pages/tools/WriteItBetter";
-import RewriteMessage from "./pages/tools/RewriteMessage";
 import MeetingToActionPlan from "./pages/tools/MeetingToActionPlan";
-import DecisionHelper from "./pages/tools/DecisionHelper";
 import WeeklyPlanBuilder from "./pages/tools/WeeklyPlanBuilder";
 import PersonalAIAssistantSetup from "./pages/tools/PersonalAIAssistantSetup";
 import FixMyContent from "./pages/tools/FixMyContent";
@@ -80,10 +77,7 @@ const App = () => (
           <Route path="/courses/ai-accelerator" element={<AIAccelerator />} />
           <Route path="/courses/chatgpt-101" element={<ChatGPT101 />} />
           <Route path="/courses/media-company" element={<MediaCompany />} />
-          <Route path="/tools/write-it-better" element={<WriteItBetter />} />
-          <Route path="/tools/rewrite-message" element={<RewriteMessage />} />
           <Route path="/tools/meeting-to-action-plan" element={<MeetingToActionPlan />} />
-          <Route path="/tools/decision-helper" element={<DecisionHelper />} />
           <Route path="/tools/weekly-plan-builder" element={<WeeklyPlanBuilder />} />
           <Route path="/tools/personal-ai-assistant-setup" element={<PersonalAIAssistantSetup />} />
           <Route path="/tools/fix-my-content" element={<FixMyContent />} />
