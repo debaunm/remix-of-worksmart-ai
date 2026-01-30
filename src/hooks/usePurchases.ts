@@ -2,12 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "./useAuth";
 
-export type ProductType = 'money_systems' | 'work_systems';
+export type ProductType = 'money_systems' | 'work_systems' | 'media_company';
 
 export interface Purchase {
   id: string;
   user_id: string;
-  product_type: ProductType;
+  product_type: string;
   purchased_at: string;
   stripe_session_id: string | null;
 }
@@ -33,6 +33,7 @@ export const usePurchases = () => {
 
   const hasMoneyAccess = purchases?.some(p => p.product_type === 'money_systems') ?? false;
   const hasWorkAccess = purchases?.some(p => p.product_type === 'work_systems') ?? false;
+  const hasMediaCompanyAccess = purchases?.some(p => p.product_type === 'media_company') ?? false;
   const hasBothAccess = hasMoneyAccess && hasWorkAccess;
 
   return {
@@ -41,6 +42,7 @@ export const usePurchases = () => {
     error,
     hasMoneyAccess,
     hasWorkAccess,
+    hasMediaCompanyAccess,
     hasBothAccess,
   };
 };

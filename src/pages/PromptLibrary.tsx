@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Copy, Check, Lock, Mail, Users, Rocket, Sparkles, Compass, TrendingUp, ShoppingCart, Eye } from "lucide-react";
+import { Copy, Check, Lock, Mail, Users, Rocket, Sparkles, Compass, TrendingUp, Eye } from "lucide-react";
 import { LucideIcon } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -9,9 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 import {
   Dialog,
   DialogContent,
@@ -20,6 +18,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Link } from "react-router-dom";
 
 const iconMap: Record<string, LucideIcon> = {
   Mail,
@@ -38,22 +37,12 @@ const categoryColors: Record<string, { bg: string; text: string; border: string 
 
 const PromptLibrary = () => {
   const { data: packs, isLoading } = useAllPromptsGrouped();
-  const [emailDialogOpen, setEmailDialogOpen] = useState(false);
   const [previewDialogOpen, setPreviewDialogOpen] = useState(false);
   const [selectedPackId, setSelectedPackId] = useState<string | null>(null);
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const { toast } = useToast();
 
-  const isUnlocked = localStorage.getItem("prompt_library_unlocked") === "true";
-
   const getSelectedPack = () => packs?.find(p => p.id === selectedPackId);
-
-  const handleBuyClick = (packId: string) => {
-    setSelectedPackId(packId);
-    setEmailDialogOpen(true);
-  };
 
   const handlePreviewClick = (packId: string) => {
     setSelectedPackId(packId);
@@ -78,37 +67,6 @@ const PromptLibrary = () => {
     }
   };
 
-  const handleEmailSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email.trim()) return;
-
-    setIsSubmitting(true);
-    try {
-      await supabase.functions.invoke("add-activecampaign-contact", {
-        body: {
-          email: email.trim(),
-          toolName: "Prompt Library",
-          agreedToMarketing: true,
-        },
-      });
-
-      localStorage.setItem("prompt_library_unlocked", "true");
-      setEmailDialogOpen(false);
-
-      toast({
-        title: "Unlocked!",
-        description: "You now have access to all prompts",
-      });
-    } catch (error) {
-      console.error("Error submitting email:", error);
-      localStorage.setItem("prompt_library_unlocked", "true");
-      setEmailDialogOpen(false);
-    } finally {
-      setIsSubmitting(false);
-      setEmail("");
-    }
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -122,26 +80,40 @@ const PromptLibrary = () => {
             transition={{ duration: 0.5 }}
           >
             <Badge className="mb-4 bg-primary/10 text-primary border-primary/20 text-sm px-4 py-1">
-              Copy & Paste AI Prompts
+              Included with Your Purchase
             </Badge>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
               Prompt Library
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
               Expert-crafted prompts for executives, founders, and high performers. 
-              One-time purchase, lifetime access.
+              Access these prompts through your course or system purchase.
             </p>
             
             {/* Quick Stats */}
-            <div className="flex justify-center gap-8 text-sm text-muted-foreground">
+            <div className="flex justify-center gap-8 text-sm text-muted-foreground mb-8">
               <div className="flex items-center gap-2">
                 <Sparkles className="h-4 w-4 text-primary" />
                 <span>{packs?.reduce((acc, p) => acc + (p.prompts?.length || 0), 0) || 0} prompts</span>
               </div>
               <div className="flex items-center gap-2">
-                <ShoppingCart className="h-4 w-4 text-primary" />
+                <TrendingUp className="h-4 w-4 text-primary" />
                 <span>{packs?.length || 0} bundles</span>
               </div>
+            </div>
+
+            {/* Access CTA */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/dashboard">
+                <Button variant="hero" size="lg">
+                  Access in Dashboard
+                </Button>
+              </Link>
+              <Link to="/work-systems">
+                <Button variant="outline" size="lg">
+                  View Work Systems
+                </Button>
+              </Link>
             </div>
           </motion.div>
         </div>
@@ -150,9 +122,16 @@ const PromptLibrary = () => {
       {/* Pack Cards Grid */}
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-6xl">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold mb-2">Available Prompt Bundles</h2>
+            <p className="text-muted-foreground">
+              Preview what's included with your purchase
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
             {isLoading ? (
-              Array.from({ length: 6 }).map((_, i) => (
+              Array.from({ length: 4 }).map((_, i) => (
                 <Card key={i} className="border-border/50">
                   <CardHeader>
                     <Skeleton className="h-12 w-12 rounded-xl mb-4" />
@@ -168,7 +147,6 @@ const PromptLibrary = () => {
               packs?.map((pack, index) => {
                 const Icon = iconMap[pack.icon || "Sparkles"] || Sparkles;
                 const colors = categoryColors[pack.category || "life"] || categoryColors.life;
-                const packPrice = pack.price || 14.99;
                 const promptCount = pack.prompts?.length || 0;
                 
                 return (
@@ -202,49 +180,59 @@ const PromptLibrary = () => {
                           <span className="text-muted-foreground">
                             {promptCount} ready-to-use prompts
                           </span>
-                          <span className="font-bold text-2xl text-foreground">
-                            ${packPrice.toFixed(0)}
-                          </span>
+                          <Badge variant="secondary" className="bg-primary/10 text-primary">
+                            Included
+                          </Badge>
                         </div>
                         
-                        {/* Action Buttons */}
-                        <div className="flex gap-2">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handlePreviewClick(pack.id)}
-                            className="flex-1"
-                          >
-                            <Eye className="h-4 w-4 mr-1" />
-                            Preview
-                          </Button>
-                          {isUnlocked ? (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => handlePreviewClick(pack.id)}
-                              className="flex-1"
-                            >
-                              <Copy className="h-4 w-4 mr-1" />
-                              View All
-                            </Button>
-                          ) : (
-                            <Button
-                              size="sm"
-                              onClick={() => handleBuyClick(pack.id)}
-                              className="flex-1 bg-primary hover:bg-primary/90"
-                            >
-                              <ShoppingCart className="h-4 w-4 mr-1" />
-                              Buy Now
-                            </Button>
-                          )}
-                        </div>
+                        {/* Action Button */}
+                        <Button
+                          variant="outline"
+                          onClick={() => handlePreviewClick(pack.id)}
+                          className="w-full"
+                        >
+                          <Eye className="h-4 w-4 mr-2" />
+                          Preview Prompts
+                        </Button>
                       </CardContent>
                     </Card>
                   </motion.div>
                 );
               })
             )}
+          </div>
+        </div>
+      </section>
+
+      {/* How to Access Section */}
+      <section className="py-12 px-4 bg-muted/30">
+        <div className="container mx-auto max-w-4xl text-center">
+          <h2 className="text-2xl font-bold mb-4">How to Access Your Prompts</h2>
+          <p className="text-muted-foreground mb-8">
+            Prompt bundles are included with your system or course purchase
+          </p>
+          <div className="grid md:grid-cols-3 gap-6">
+            <Card className="p-6">
+              <div className="text-3xl font-bold text-primary mb-2">1</div>
+              <h3 className="font-semibold mb-2">Purchase a System</h3>
+              <p className="text-sm text-muted-foreground">
+                Get Work Systems, Money Systems, or the Media Company course
+              </p>
+            </Card>
+            <Card className="p-6">
+              <div className="text-3xl font-bold text-primary mb-2">2</div>
+              <h3 className="font-semibold mb-2">Access Dashboard</h3>
+              <p className="text-sm text-muted-foreground">
+                Log in and go to your dashboard to see included prompts
+              </p>
+            </Card>
+            <Card className="p-6">
+              <div className="text-3xl font-bold text-primary mb-2">3</div>
+              <h3 className="font-semibold mb-2">Copy & Use</h3>
+              <p className="text-sm text-muted-foreground">
+                Click any prompt to copy it and paste into your AI tool
+              </p>
+            </Card>
           </div>
         </div>
       </section>
@@ -258,7 +246,6 @@ const PromptLibrary = () => {
             
             const Icon = iconMap[selectedPack.icon || "Sparkles"] || Sparkles;
             const colors = categoryColors[selectedPack.category || "life"] || categoryColors.life;
-            const packPrice = selectedPack.price || 14.99;
             
             return (
               <>
@@ -270,7 +257,7 @@ const PromptLibrary = () => {
                     <div>
                       <DialogTitle>{selectedPack.name}</DialogTitle>
                       <DialogDescription className="mt-1">
-                        {selectedPack.prompts?.length || 0} prompts • ${packPrice.toFixed(2)}
+                        {selectedPack.prompts?.length || 0} prompts • Preview only
                       </DialogDescription>
                     </div>
                   </div>
@@ -298,113 +285,29 @@ const PromptLibrary = () => {
                             )}
                             <div className="relative">
                               <p className="text-xs text-foreground/80 font-mono bg-background/50 p-2 rounded border border-border/30 line-clamp-3">
-                                {isUnlocked 
-                                  ? prompt.prompt_text 
-                                  : prompt.prompt_text.slice(0, 80) + "..."}
+                                {prompt.prompt_text.slice(0, 100) + "..."}
                               </p>
-                              {!isUnlocked && (
-                                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent flex items-end justify-center pb-1">
-                                  <Lock className="h-3 w-3 text-muted-foreground" />
-                                </div>
-                              )}
+                              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent flex items-end justify-center pb-1">
+                                <Lock className="h-3 w-3 text-muted-foreground" />
+                              </div>
                             </div>
                           </div>
-                          {isUnlocked && (
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              onClick={() => copyToClipboard(prompt)}
-                              className="shrink-0 h-8 w-8 p-0"
-                            >
-                              {copiedId === prompt.id ? (
-                                <Check className="h-4 w-4 text-green-500" />
-                              ) : (
-                                <Copy className="h-4 w-4" />
-                              )}
-                            </Button>
-                          )}
                         </div>
                       </div>
                     ))}
                   </div>
                 </ScrollArea>
                 
-                {!isUnlocked && (
-                  <div className="pt-4 border-t border-border/50">
-                    <Button 
-                      className="w-full" 
-                      size="lg"
-                      onClick={() => {
-                        setPreviewDialogOpen(false);
-                        setEmailDialogOpen(true);
-                      }}
-                    >
-                      <ShoppingCart className="h-4 w-4 mr-2" />
-                      Unlock All for ${packPrice.toFixed(2)}
+                <div className="pt-4 border-t border-border/50">
+                  <Link to="/work-systems" className="block">
+                    <Button className="w-full" size="lg">
+                      Get Full Access
                     </Button>
-                  </div>
-                )}
-              </>
-            );
-          })()}
-        </DialogContent>
-      </Dialog>
-
-      {/* Purchase Dialog */}
-      <Dialog open={emailDialogOpen} onOpenChange={setEmailDialogOpen}>
-        <DialogContent className="sm:max-w-md">
-          {(() => {
-            const selectedPack = getSelectedPack();
-            const packPrice = selectedPack?.price || 14.99;
-            const Icon = iconMap[selectedPack?.icon || "Sparkles"] || Sparkles;
-            
-            return (
-              <>
-                <DialogHeader className="text-center">
-                  <div className="mx-auto mb-4 p-4 rounded-full bg-primary/10 w-fit">
-                    <Icon className="h-8 w-8 text-primary" />
-                  </div>
-                  <DialogTitle className="text-xl">
-                    {selectedPack?.name || "Prompt Bundle"}
-                  </DialogTitle>
-                  <DialogDescription className="space-y-2">
-                    <span className="block">
-                      {selectedPack?.prompts?.length || 0} expert-crafted prompts
-                    </span>
-                    <span className="block text-3xl font-bold text-foreground">
-                      ${packPrice.toFixed(2)}
-                    </span>
-                    <span className="block text-xs">
-                      One-time payment • Lifetime access
-                    </span>
-                  </DialogDescription>
-                </DialogHeader>
-                
-                <form onSubmit={handleEmailSubmit} className="space-y-4 mt-4">
-                  <div>
-                    <Input
-                      type="email"
-                      placeholder="Enter your email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      disabled={isSubmitting}
-                      className="text-center"
-                    />
-                  </div>
-                  <Button 
-                    type="submit" 
-                    className="w-full" 
-                    size="lg"
-                    disabled={isSubmitting || !email.trim()}
-                  >
-                    {isSubmitting ? "Processing..." : "Complete Purchase"}
-                  </Button>
-                  <p className="text-xs text-center text-muted-foreground flex items-center justify-center gap-2">
-                    <Lock className="h-3 w-3" />
-                    Secure payment via Stripe
+                  </Link>
+                  <p className="text-xs text-center text-muted-foreground mt-2">
+                    Included with Work Systems, Money Systems, or Media Company course
                   </p>
-                </form>
+                </div>
               </>
             );
           })()}
