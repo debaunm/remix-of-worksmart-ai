@@ -107,66 +107,79 @@ We cover income optimization techniques, skill positioning strategies, and how t
     systemType: 'work_systems',
     content: [
       {
-        id: 'ceo-weekly-planning',
-        title: 'CEO Weekly Planning System',
-        duration: '50 min',
-        description: 'Structure your week for maximum impact and energy',
-        fullDescription: `Discover how top executives structure their weeks for maximum impact. This session reveals the weekly planning system that helps you focus on what matters most while protecting your energy.
+        id: 'understanding-modern-ai',
+        title: 'Understanding Modern AI',
+        duration: '15 min',
+        description: 'How large language models actually work and why it matters for getting better results.',
+        fullDescription: `This session covers how large language models actually work and why understanding this matters for getting better results in your daily work.
 
-You'll learn how to batch similar tasks, protect deep work time, and create a rhythm that sustains high performance without burnout.`,
-        videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+You'll learn the fundamentals of modern AI systems and how to leverage this knowledge to improve your interactions with AI tools.`,
+        videoUrl: 'https://player.vimeo.com/video/1160315732?badge=0&autopause=0&player_id=0&app_id=58479',
         downloads: [
-          { name: 'CEO Weekly Planning Template', url: '#', type: 'PDF' },
-          { name: 'Time Blocking Guide', url: '#', type: 'PDF' },
-          { name: 'Weekly Review Checklist', url: '#', type: 'PDF' },
+          { name: 'Module 1 Slides', url: '#', type: 'PDF' },
         ],
         learnings: [
-          'The CEO weekly planning framework',
-          'How to protect your deep work time',
-          'Energy management throughout the week',
-          'Weekly review and adjustment process',
+          'How large language models actually work',
+          'Why understanding AI matters for better results',
+          'The fundamentals of modern AI systems',
+          'Practical applications for your workflow',
         ],
       },
       {
-        id: 'decision-frameworks',
-        title: 'Decision Frameworks for Leaders',
+        id: 'ai-toolkit-breakdown',
+        title: 'The AI Toolkit Breakdown',
+        duration: '20 min',
+        description: 'Deep dive into ChatGPT, Claude, and Gemini—strengths, weaknesses, and optimal use cases.',
+        fullDescription: `A comprehensive comparison of the major AI tools available today. You'll learn when to use ChatGPT vs Claude vs Gemini for different tasks.
+
+This session helps you build a strategic toolkit approach rather than using AI randomly.`,
+        videoUrl: 'https://player.vimeo.com/video/1160316129?badge=0&autopause=0&player_id=0&app_id=58479',
+        downloads: [
+          { name: 'Module 2 Slides', url: '#', type: 'PDF' },
+        ],
+        learnings: [
+          'ChatGPT vs Claude vs Gemini comparison',
+          'Strengths and weaknesses of each AI tool',
+          'Optimal use cases for each platform',
+          'Building your personal AI toolkit',
+        ],
+      },
+      {
+        id: 'multi-step-flows-tech-stack',
+        title: 'Multi-Step Flows & AI Tech Stack',
+        duration: '35 min',
+        description: 'Build automated workflows that run 24/7 and create systems that compound your productivity.',
+        fullDescription: `Learn to build automated multi-step workflows using AI. This session covers creating your AI tech stack and automation strategies.
+
+You'll discover how to create systems that compound your productivity and run 24/7.`,
+        videoUrl: 'https://player.vimeo.com/video/1160318487?badge=0&autopause=0&player_id=0&app_id=58479',
+        downloads: [
+          { name: 'Module 3 Slides', url: '#', type: 'PDF' },
+        ],
+        learnings: [
+          'Building multi-step AI workflows',
+          'Creating your AI tech stack',
+          'Automation strategies for productivity',
+          'Systems that compound your output',
+        ],
+      },
+      {
+        id: 'content-creation-brand-building',
+        title: 'Content Creation & Brand Building',
         duration: '45 min',
-        description: 'Make confident decisions with proven executive frameworks',
-        fullDescription: `Learn the decision-making frameworks used by successful executives. This session covers how to evaluate options, manage decision fatigue, and make confident choices even with incomplete information.
+        description: 'Learn the exact workflow to ideate, create, design, edit, and distribute content that drives revenue.',
+        fullDescription: `This is your complete content operation system. Learn the exact workflow to ideate, create, design, edit, and distribute content that drives revenue—not just engagement.
 
-You'll develop a personal decision-making toolkit that you can apply to everything from daily choices to major life decisions.`,
-        videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+Master the full pipeline from writing to visuals to distribution.`,
+        videoUrl: 'https://player.vimeo.com/video/1160318495?badge=0&autopause=0&player_id=0&app_id=58479',
         downloads: [
-          { name: 'Decision Matrix Template', url: '#', type: 'PDF' },
-          { name: 'Reversible vs Irreversible Decisions Guide', url: '#', type: 'PDF' },
+          { name: 'Module 4 Slides', url: '#', type: 'PDF' },
         ],
         learnings: [
-          'The 10-10-10 decision framework',
-          'How to identify reversible decisions',
-          'Managing decision fatigue',
-          'Building confidence in your choices',
-        ],
-      },
-      {
-        id: 'content-engine',
-        title: 'Building Your Content Engine',
-        duration: '65 min',
-        description: 'Create a repeatable system for consistent content creation',
-        fullDescription: `Build a content creation system that produces consistent, high-quality content without the stress. This session covers ideation, batching, repurposing, and scheduling strategies that save hours every week.
-
-You'll leave with a complete content workflow you can implement immediately for any platform.`,
-        videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-        downloads: [
-          { name: 'Content Calendar Template', url: '#', type: 'Excel' },
-          { name: 'Content Repurposing Guide', url: '#', type: 'PDF' },
-          { name: 'Batch Creation Workflow', url: '#', type: 'PDF' },
-          { name: 'Platform-Specific Checklists', url: '#', type: 'PDF' },
-        ],
-        learnings: [
-          'Content batching strategies',
-          'Repurposing content across platforms',
-          'Building a content calendar system',
-          'Automating content distribution',
+          'The content-to-product pipeline',
+          'AI voice calibration for authentic outputs',
+          'Omnichannel distribution strategy',
+          'Revenue-focused content creation',
         ],
       },
     ],
