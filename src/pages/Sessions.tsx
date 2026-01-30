@@ -39,55 +39,26 @@ interface SessionCategory {
 
 const sessionCategories: SessionCategory[] = [
   {
-    title: "AI Foundations",
+    title: "AI Essentials",
     icon: <Brain className="w-6 h-6" />,
     sessions: [
       {
-        title: "AI Foundations Session: ChatGPT, Claude & Gemini",
-        description: "Understand how modern AI tools actually work, when to use each one, and how to avoid common mistakes.",
+        title: "AI Agent 101",
+        description: "Master the fundamentals of AI agents—how they work, when to use them, and how to leverage them to automate tasks and boost your productivity.",
         duration: "60 minutes",
         format: "On-Demand",
         price: "$49",
         icon: <Brain className="w-5 h-5" />,
-        slug: "ai-foundations",
+        slug: "ai-agent-101",
       },
-    ],
-  },
-  {
-    title: "AI for Execution",
-    icon: <Megaphone className="w-6 h-6" />,
-    sessions: [
       {
-        title: "AI Content Systems Session",
-        description: "Build a repeatable content engine using AI that sounds just like you and grows your personal and professional brand—without having to be chronically online.",
-        duration: "60 minutes",
-        format: "On-Demand",
-        price: "$79",
-        icon: <Megaphone className="w-5 h-5" />,
-        slug: "ai-content-systems",
-        complementarySystem: {
-          name: "Work Smart Suite",
-          link: "/work-systems",
-        },
-      },
-    ],
-  },
-  {
-    title: "Automation",
-    icon: <Zap className="w-6 h-6" />,
-    sessions: [
-      {
-        title: "Automation with Zapier Session",
-        description: "Learn how to automate repetitive workflows and connect your tools without writing code.",
+        title: "Lovable 101",
+        description: "Learn how to build web applications with Lovable—from idea to deployed product. No coding experience required.",
         duration: "60 minutes",
         format: "On-Demand",
         price: "$49",
-        icon: <Zap className="w-5 h-5" />,
-        slug: "automation-zapier",
-        complementarySystem: {
-          name: "Work Smart Suite",
-          link: "/work-systems",
-        },
+        icon: <Rocket className="w-5 h-5" />,
+        slug: "lovable-101",
       },
     ],
   },
