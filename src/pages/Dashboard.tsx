@@ -345,7 +345,7 @@ const Dashboard = () => {
                     </CardHeader>
                     <CardContent className="space-y-4">
                       {moneySessions.map((session, index) => (
-                        <ExpandableSessionCard key={index} session={session} locked={!hasMoneyAccess} />
+                        <ExpandableSessionCard key={index} session={session} locked={false} />
                       ))}
                       {!hasMoneyAccess && (
                         <Link to="/money-systems" className="block mt-4">
