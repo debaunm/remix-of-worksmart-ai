@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
+import { useCheckout } from "@/hooks/useCheckout";
 
 const outcomes = [
   "Build and deploy a complete web application from scratch",
@@ -40,6 +41,8 @@ const sessionModules = [
 ];
 
 const Lovable101 = () => {
+  const { checkout, isLoading } = useCheckout();
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -93,8 +96,13 @@ const Lovable101 = () => {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="text-lg px-8">
-                  Purchase Session — $49
+                <Button 
+                  size="lg" 
+                  className="text-lg px-8"
+                  onClick={() => checkout("lovable_101")}
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Loading..." : "Purchase Session — $29.99"}
                 </Button>
                 <Link to="/pricing">
                   <Button size="lg" variant="outline" className="text-lg px-8 w-full sm:w-auto">
@@ -232,8 +240,13 @@ const Lovable101 = () => {
               Go from idea to live product in hours, not months. No coding required.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="text-lg px-8">
-                Purchase Session — $49
+              <Button 
+                size="lg" 
+                className="text-lg px-8"
+                onClick={() => checkout("lovable_101")}
+                disabled={isLoading}
+              >
+                {isLoading ? "Loading..." : "Purchase Session — $29.99"}
               </Button>
               <Link to="/pricing">
                 <Button size="lg" variant="outline" className="text-lg px-8">
