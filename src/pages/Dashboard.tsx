@@ -289,7 +289,7 @@ const Dashboard = () => {
                     </CardHeader>
                     <CardContent className="space-y-4">
                       {workSessions.map((session, index) => (
-                        <ExpandableSessionCard key={index} session={session} locked={!hasWorkAccess} />
+                        <ExpandableSessionCard key={index} session={session} locked={false} />
                       ))}
                       {!hasWorkAccess && (
                         <Link to="/work-systems" className="block mt-4">
