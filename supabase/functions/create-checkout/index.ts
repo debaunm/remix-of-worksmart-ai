@@ -103,9 +103,8 @@ serve(async (req) => {
       cancelUrl = `${origin}/tools/${toolSlug}`;
       metadata = {
         user_id: user.id,
-        product_type: "tool",
+        product_type: `tool:${toolSlug}`,
         tool_name: toolName,
-        tool_slug: toolSlug,
       };
     } else {
       // Existing product checkout
