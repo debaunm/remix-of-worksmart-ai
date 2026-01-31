@@ -4,16 +4,19 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
 // Price IDs for each product
-const PRICE_IDS = {
+const PRICE_IDS: Record<string, string> = {
   money_systems: "price_1SvNmOIv0OChZxQ1Y6fzKlbY", // $197
   work_systems: "price_1SvNlhIv0OChZxQ1MoyY65zD", // $197
   ai_agent_101: "price_1SsC5GIv0OChZxQ1WdgfK6z4", // $29.99
-  lovable_101: "price_1SvOJ2Iv0OChZxQ1oHAptpwj", // $29.99 (using existing $9.99 price - update in Stripe)
+  lovable_101: "price_1SvPgpIv0OChZxQ11qx1Trgy", // $29.99
 };
+
+// For individual tool purchases, we use dynamic pricing via Stripe
+const TOOL_PRICE_CENTS = 1499; // $14.99
 
 const logStep = (step: string, details?: any) => {
   const detailsStr = details ? ` - ${JSON.stringify(details)}` : '';
@@ -34,16 +37,15 @@ serve(async (req) => {
   try {
     logStep("Function started");
 
-    const { productType } = await req.json();
-    logStep("Received request", { productType });
+    const body = await req.json();
+    const { productType, toolName, toolSlug } = body;
+    logStep("Received request", { productType, toolName, toolSlug });
 
-  if (!productType || !["money_systems", "work_systems", "ai_agent_101", "lovable_101"].includes(productType)) {
-    throw new Error("Invalid product type. Must be 'money_systems', 'work_systems', 'ai_agent_101', or 'lovable_101'");
-  }
+    const isToolPurchase = productType === "tool" && toolName && toolSlug;
+    const validProductTypes = ["money_systems", "work_systems", "ai_agent_101", "lovable_101", "tool"];
 
-    const priceId = PRICE_IDS[productType as keyof typeof PRICE_IDS];
-    if (priceId.includes("REPLACE")) {
-      throw new Error("Stripe price IDs not configured. Please set up products in Stripe Dashboard.");
+    if (!productType || !validProductTypes.includes(productType)) {
+      throw new Error("Invalid product type");
     }
 
     // Retrieve authenticated user
@@ -76,30 +78,67 @@ serve(async (req) => {
 
     const origin = req.headers.get("origin") || "http://localhost:3000";
 
-    // Create a one-time payment session
-    const cancelUrlMap: Record<string, string> = {
-      money_systems: "/money-systems",
-      work_systems: "/work-systems",
-      ai_agent_101: "/sessions/ai-agent-101",
-      lovable_101: "/sessions/lovable-101",
-    };
+    // Build line items based on product type
+    let lineItems;
+    let successUrl: string;
+    let cancelUrl: string;
+    let metadata: Record<string, string>;
+
+    if (isToolPurchase) {
+      // Dynamic pricing for individual tools
+      lineItems = [
+        {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: toolName,
+              description: "AI-powered productivity tool",
+            },
+            unit_amount: TOOL_PRICE_CENTS,
+          },
+          quantity: 1,
+        },
+      ];
+      successUrl = `${origin}/purchase-success?tool=${encodeURIComponent(toolName)}&slug=${encodeURIComponent(toolSlug)}&session_id={CHECKOUT_SESSION_ID}`;
+      cancelUrl = `${origin}/tools/${toolSlug}`;
+      metadata = {
+        user_id: user.id,
+        product_type: "tool",
+        tool_name: toolName,
+        tool_slug: toolSlug,
+      };
+    } else {
+      // Existing product checkout
+      const priceId = PRICE_IDS[productType];
+      if (!priceId) {
+        throw new Error("Price not configured for this product");
+      }
+      lineItems = [{ price: priceId, quantity: 1 }];
+      
+      const cancelUrlMap: Record<string, string> = {
+        money_systems: "/money-systems",
+        work_systems: "/work-systems",
+        ai_agent_101: "/sessions/ai-agent-101",
+        lovable_101: "/sessions/lovable-101",
+      };
+      successUrl = `${origin}/purchase-success?session_id={CHECKOUT_SESSION_ID}`;
+      cancelUrl = `${origin}${cancelUrlMap[productType] || "/"}`;
+      metadata = {
+        user_id: user.id,
+        product_type: productType,
+      };
+    }
+
+    // Create checkout session
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
       customer_email: customerId ? undefined : user.email,
       client_reference_id: user.id,
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1,
-        },
-      ],
+      line_items: lineItems,
       mode: "payment",
-      success_url: `${origin}/purchase-success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}${cancelUrlMap[productType] || "/"}`,
-      metadata: {
-        user_id: user.id,
-        product_type: productType,
-      },
+      success_url: successUrl,
+      cancel_url: cancelUrl,
+      metadata,
     });
 
     logStep("Checkout session created", { sessionId: session.id, url: session.url });
