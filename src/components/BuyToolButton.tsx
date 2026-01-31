@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { ShoppingCart, Loader2 } from "lucide-react";
+import { ShoppingCart, Loader2, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { usePurchases } from "@/hooks/usePurchases";
 import { useToast } from "@/hooks/use-toast";
 
 interface BuyToolButtonProps {
@@ -15,10 +17,14 @@ interface BuyToolButtonProps {
 const BuyToolButton = ({ toolName, toolSlug, className = "" }: BuyToolButtonProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useAuth();
+  const { purchases } = usePurchases();
   const navigate = useNavigate();
   const { toast } = useToast();
   
   const slug = toolSlug || toolName.toLowerCase().replace(/\s+/g, "-");
+  
+  // Check if user owns this specific tool
+  const ownsThisTool = purchases?.some(p => p.product_type === `tool:${slug}`) ?? false;
 
   const handlePurchase = async () => {
     if (!user) {
@@ -44,7 +50,6 @@ const BuyToolButton = ({ toolName, toolSlug, className = "" }: BuyToolButtonProp
       if (error) throw error;
       if (!data?.url) throw new Error("No checkout URL returned");
 
-      // Open Stripe checkout in new tab
       window.open(data.url, "_blank");
     } catch (error) {
       console.error("Checkout error:", error);
@@ -57,6 +62,18 @@ const BuyToolButton = ({ toolName, toolSlug, className = "" }: BuyToolButtonProp
       setIsLoading(false);
     }
   };
+
+  // Show owned badge if user has purchased this tool
+  if (ownsThisTool) {
+    return (
+      <Badge 
+        className={`gap-1.5 px-3 py-1.5 bg-primary/10 text-primary border-primary/20 hover:bg-primary/10 ${className}`}
+      >
+        <CheckCircle className="w-4 h-4" />
+        You Own This Tool
+      </Badge>
+    );
+  }
   
   return (
     <Button 
