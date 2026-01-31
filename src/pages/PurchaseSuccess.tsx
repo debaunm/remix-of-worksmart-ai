@@ -13,11 +13,16 @@ import { useQueryClient } from "@tanstack/react-query";
 const PurchaseSuccess = () => {
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id");
+  const toolName = searchParams.get("tool");
+  const toolSlug = searchParams.get("slug");
   const { user, loading: authLoading } = useAuth();
   const { hasMoneyAccess, hasWorkAccess, isLoading: purchasesLoading } = usePurchases();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [isRefreshing, setIsRefreshing] = useState(true);
+
+  // Determine if this is a simple tool purchase vs a bundle
+  const isToolPurchase = Boolean(toolName && toolSlug);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -31,7 +36,6 @@ const PurchaseSuccess = () => {
     if (sessionId && user) {
       const refreshPurchases = async () => {
         setIsRefreshing(true);
-        // Wait a moment for webhook to process
         await new Promise(resolve => setTimeout(resolve, 2000));
         await queryClient.invalidateQueries({ queryKey: ['purchases', user.id] });
         setIsRefreshing(false);
@@ -44,8 +48,10 @@ const PurchaseSuccess = () => {
 
   const isLoading = authLoading || purchasesLoading || isRefreshing;
 
-  // Determine what was purchased based on current access
-  const purchasedProduct = hasMoneyAccess && hasWorkAccess 
+  // Determine what was purchased
+  const purchasedProduct = isToolPurchase
+    ? toolName
+    : hasMoneyAccess && hasWorkAccess 
     ? "Money Systems & Work Systems" 
     : hasMoneyAccess 
     ? "Money Systems" 
@@ -101,31 +107,38 @@ const PurchaseSuccess = () => {
             <CardContent className="p-8">
               <div className="flex items-center justify-center gap-2 mb-4">
                 <Sparkles className="w-5 h-5 text-primary" />
-                <span className="text-sm font-medium text-primary">Content Unlocked</span>
+                <span className="text-sm font-medium text-primary">
+                  {isToolPurchase ? "Tool Unlocked" : "Content Unlocked"}
+                </span>
               </div>
               
               <h2 className="text-2xl font-semibold text-foreground mb-2">
                 {purchasedProduct}
               </h2>
               <p className="text-muted-foreground mb-6">
-                You now have lifetime access to all sessions and resources. Start learning right away!
+                {isToolPurchase 
+                  ? "You now have access to this tool. Start using it right away!"
+                  : "You now have lifetime access to all sessions and resources. Start learning right away!"
+                }
               </p>
 
-              <div className="bg-muted/50 rounded-lg p-4 mb-6">
-                <p className="text-sm text-muted-foreground">
-                  <strong className="text-foreground">What's included:</strong>
-                </p>
-                <ul className="text-sm text-muted-foreground mt-2 space-y-1">
-                  <li>✓ Full video workshop series</li>
-                  <li>✓ All downloadable resources & templates</li>
-                  <li>✓ Lifetime access with future updates</li>
-                  <li>✓ No recurring fees</li>
-                </ul>
-              </div>
+              {!isToolPurchase && (
+                <div className="bg-muted/50 rounded-lg p-4 mb-6">
+                  <p className="text-sm text-muted-foreground">
+                    <strong className="text-foreground">What's included:</strong>
+                  </p>
+                  <ul className="text-sm text-muted-foreground mt-2 space-y-1">
+                    <li>✓ Full video workshop series</li>
+                    <li>✓ All downloadable resources & templates</li>
+                    <li>✓ Lifetime access with future updates</li>
+                    <li>✓ No recurring fees</li>
+                  </ul>
+                </div>
+              )}
 
-              <Link to="/dashboard">
+              <Link to={isToolPurchase ? `/tools/${toolSlug}` : "/dashboard"}>
                 <Button className="w-full gap-2" size="lg">
-                  Go to Your Dashboard
+                  {isToolPurchase ? "Use Your Tool" : "Go to Your Dashboard"}
                   <ArrowRight className="w-4 h-4" />
                 </Button>
               </Link>
