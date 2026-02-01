@@ -208,22 +208,104 @@ TARGET ROLES: ${inputs.target_roles || 'Not specified'}
 
 Return structured JSON with audit_summary, rewritten_about, headline_options, authority_gaps, content_plan_30_days.`;
 
-    case 'early_retirement_calculator':
-      return `Calculate my Coast FIRE plan with the following inputs.
+    case 'early_retirement_calculator': {
+      // Do the math deterministically instead of relying on AI
+      const currentAge = parseFloat(inputs.current_age) || 35;
+      const retirementAge = parseFloat(inputs.retirement_age) || 65;
+      const annualSpending = parseFloat(inputs.annual_spending) || 60000;
+      const currentAssets = parseFloat(inputs.current_assets) || 0;
+      const monthlyContributions = parseFloat(inputs.monthly_contributions) || 0;
+      const growthRate = parseFloat(inputs.growth_rate) || 7;
+      const inflationRate = parseFloat(inputs.inflation_rate) || 3;
+      const withdrawalRate = parseFloat(inputs.withdrawal_rate) || 4;
+      const investmentFees = parseFloat(inputs.investment_fees) || 0.5;
+      
+      const yearsToRetirement = retirementAge - currentAge;
+      const realReturnRate = (growthRate - inflationRate - investmentFees) / 100;
+      const nominalReturnRate = (growthRate - investmentFees) / 100;
+      
+      // FIRE Number = Annual spending / withdrawal rate (this is what you need at retirement)
+      const fireNumber = annualSpending / (withdrawalRate / 100);
+      
+      // Coast FIRE Number = What you need TODAY so that compound growth alone reaches FIRE Number by retirement
+      // Formula: CoastFIRE = FIRE Number / (1 + realReturnRate)^yearsToRetirement
+      const coastFireNumber = fireNumber / Math.pow(1 + realReturnRate, yearsToRetirement);
+      
+      // Project current assets forward with contributions
+      const annualContributions = monthlyContributions * 12;
+      let projectedAssets = currentAssets;
+      for (let year = 0; year < yearsToRetirement; year++) {
+        projectedAssets = projectedAssets * (1 + realReturnRate) + annualContributions;
+      }
+      
+      // Already coasting if current assets >= coast fire number
+      const alreadyCoasting = currentAssets >= coastFireNumber;
+      
+      // Gap to close
+      const gap = Math.max(0, coastFireNumber - currentAssets);
+      
+      // Calculate years to coast (with current contributions)
+      let yearsToCoast = 0;
+      if (!alreadyCoasting && gap > 0) {
+        let assets = currentAssets;
+        while (assets < coastFireNumber && yearsToCoast < 100) {
+          assets = assets * (1 + realReturnRate) + annualContributions;
+          yearsToCoast++;
+        }
+        if (yearsToCoast >= 100) yearsToCoast = -1; // Never reaches
+      }
+      
+      const timeline = alreadyCoasting 
+        ? "Already Coasting!" 
+        : yearsToCoast === -1 
+          ? "Not achievable with current savings rate"
+          : `${yearsToCoast} years`;
+      
+      const projectedRetirementIncome = projectedAssets * (withdrawalRate / 100);
+      
+      // Format currency for display
+      const formatCurrency = (val: number) => {
+        if (val >= 1000000) return `$${(val / 1000000).toFixed(2)}M`;
+        if (val >= 1000) return `$${Math.round(val / 1000).toLocaleString()}K`;
+        return `$${Math.round(val).toLocaleString()}`;
+      };
+      
+      return `Provide actionable advice for my Coast FIRE plan. I've already calculated the numbers - focus on creating the paths and habits.
 
-CURRENT AGE: ${inputs.current_age}
-RETIREMENT AGE: ${inputs.retirement_age}
-ANNUAL SPENDING IN RETIREMENT: $${inputs.annual_spending}
-CURRENT INVESTED ASSETS: $${inputs.current_assets}
-MONTHLY CONTRIBUTIONS: $${inputs.monthly_contributions}
-EXPECTED ANNUAL GROWTH RATE: ${inputs.growth_rate}%
-EXPECTED INFLATION RATE: ${inputs.inflation_rate}%
-SAFE WITHDRAWAL RATE: ${inputs.withdrawal_rate}%
-INVESTMENT FEES: ${inputs.investment_fees}%
+MY CALCULATED NUMBERS (do NOT recalculate these - use them as given):
+- FIRE Number (retirement target): ${formatCurrency(fireNumber)}
+- Coast FIRE Number (what I need today): ${formatCurrency(coastFireNumber)}
+- Current Assets: ${formatCurrency(currentAssets)}
+- Gap to Coast FIRE: ${formatCurrency(gap)}
+- Already Coasting: ${alreadyCoasting ? 'YES' : 'NO'}
+- Timeline to Coast FIRE: ${timeline}
+- Projected Retirement Income: ${formatCurrency(projectedRetirementIncome)}/year
 
-Calculate my Coast FIRE number and determine if I've already reached it. If not, tell me how many years until I reach Coast FIRE. Provide three paths (aggressive, moderate, conservative) with specific monthly savings targets. Include projected retirement income based on my FIRE number and withdrawal rate.
+MY INPUTS:
+- Current Age: ${currentAge}
+- Retirement Age: ${retirementAge}
+- Years to Retirement: ${yearsToRetirement}
+- Annual Spending: $${annualSpending.toLocaleString()}
+- Monthly Contributions: $${monthlyContributions.toLocaleString()}
+- Expected Return: ${growthRate}% (${realReturnRate * 100}% real after inflation/fees)
+- Safe Withdrawal Rate: ${withdrawalRate}%
 
-Return structured JSON with fire_number (formatted as currency string like "$1,500,000"), coast_fire_number, timeline (years or "Already Coasting"), gap (formatted as currency), already_coasting (boolean), projected_retirement_income, paths{aggressive[], moderate[], conservative[]}, monthly_habits[].`;
+Based on these EXACT numbers, provide:
+1. Three paths (aggressive, moderate, conservative) with specific monthly savings targets to reach Coast FIRE faster
+2. 3-5 monthly habits to build wealth
+
+IMPORTANT: Use the exact fire_number, coast_fire_number, timeline, and gap values I provided above. Do not recalculate them.
+
+Return structured JSON with:
+- fire_number: "${formatCurrency(fireNumber)}"
+- coast_fire_number: "${formatCurrency(coastFireNumber)}"  
+- timeline: "${timeline}"
+- gap: "${formatCurrency(gap)}"
+- already_coasting: ${alreadyCoasting}
+- projected_retirement_income: "${formatCurrency(projectedRetirementIncome)}/year"
+- paths{aggressive[], moderate[], conservative[]} with specific monthly savings targets
+- monthly_habits[]`
+    }
 
     case 'press_release_generator':
       return `Create a complete press release package.
