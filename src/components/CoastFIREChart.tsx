@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronUp, BarChart3 } from "lucide-react";
@@ -267,6 +267,19 @@ const CoastFIREChart = ({
                   dot={{ r: 3, fill: '#FBBF24' }}
                   activeDot={{ r: 5 }}
                 />
+                <ReferenceLine
+                  x={`Age ${retirementAge}`}
+                  stroke="hsl(var(--primary))"
+                  strokeWidth={2}
+                  strokeDasharray="8 4"
+                  label={{
+                    value: 'Retirement',
+                    position: 'top',
+                    fill: 'hsl(var(--primary))',
+                    fontSize: 11,
+                    fontWeight: 600,
+                  }}
+                />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -309,10 +322,10 @@ const CoastFIREChart = ({
                   <thead>
                     <tr className="border-b border-border">
                       <th className="text-left py-3 px-2 font-semibold text-muted-foreground">Age</th>
-                      <th className="text-right py-3 px-2 font-semibold text-muted-foreground">Total Wealth</th>
-                      <th className="text-right py-3 px-2 font-semibold text-muted-foreground">Real Value</th>
-                      <th className="text-right py-3 px-2 font-semibold text-muted-foreground">Growth</th>
+                      <th className="text-right py-3 px-2 font-semibold text-muted-foreground">Keep Contributing</th>
+                      <th className="text-right py-3 px-2 font-semibold text-muted-foreground">Stop Contributing</th>
                       <th className="text-right py-3 px-2 font-semibold text-muted-foreground">Withdrawals</th>
+                      <th className="text-right py-3 px-2 font-semibold text-muted-foreground">Part-Time Income</th>
                       <th className="text-left py-3 px-2 font-semibold text-muted-foreground">Phase</th>
                     </tr>
                   </thead>
@@ -334,14 +347,14 @@ const CoastFIREChart = ({
                           <td className="text-right py-2 px-2" style={{ color: '#4F7DF3' }}>
                             {formatCurrencyFull(row.totalWealth)}
                           </td>
-                          <td className="text-right py-2 px-2" style={{ color: '#4ADE80' }}>
-                            {formatCurrencyFull(row.realValue)}
-                          </td>
-                          <td className="text-right py-2 px-2" style={{ color: '#A78BFA' }}>
-                            {formatCurrencyFull(row.growth)}
+                          <td className="text-right py-2 px-2" style={{ color: '#F97316' }}>
+                            {formatCurrencyFull(row.totalWealthCoast)}
                           </td>
                           <td className="text-right py-2 px-2" style={{ color: '#F87171' }}>
                             {row.withdrawals > 0 ? formatCurrencyFull(row.withdrawals) : '—'}
+                          </td>
+                          <td className="text-right py-2 px-2" style={{ color: '#FBBF24' }}>
+                            {row.partTimeIncome > 0 ? formatCurrencyFull(row.partTimeIncome) : '—'}
                           </td>
                           <td className="py-2 px-2">
                             <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
