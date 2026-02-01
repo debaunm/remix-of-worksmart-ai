@@ -19,6 +19,7 @@ const EarlyRetirementCalculator = () => {
   const [annualSpending, setAnnualSpending] = useState("60000");
   const [currentAssets, setCurrentAssets] = useState("75000");
   const [monthlyContributions, setMonthlyContributions] = useState("0");
+  const [retirementIncome, setRetirementIncome] = useState("0");
   const [growthRate, setGrowthRate] = useState("10");
   const [inflationRate, setInflationRate] = useState("3");
   const [withdrawalRate, setWithdrawalRate] = useState("4");
@@ -52,6 +53,7 @@ const EarlyRetirementCalculator = () => {
       annual_spending: annualSpending,
       current_assets: currentAssets,
       monthly_contributions: monthlyContributions,
+      retirement_income: retirementIncome,
       growth_rate: growthRate,
       inflation_rate: inflationRate,
       withdrawal_rate: withdrawalRate,
@@ -170,15 +172,28 @@ const EarlyRetirementCalculator = () => {
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="monthlyContributions">Monthly Contributions</Label>
-                  <CurrencyInput
-                    id="monthlyContributions"
-                    showDollarSign
-                    value={monthlyContributions}
-                    onChange={setMonthlyContributions}
-                  />
-                  <p className="text-xs text-muted-foreground">Use $0 to check if you're already at Coast</p>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="monthlyContributions">Monthly Contributions</Label>
+                    <CurrencyInput
+                      id="monthlyContributions"
+                      showDollarSign
+                      value={monthlyContributions}
+                      onChange={setMonthlyContributions}
+                    />
+                    <p className="text-xs text-muted-foreground">Use $0 to check if you're already at Coast</p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="retirementIncome">Part-Time Retirement Income</Label>
+                    <CurrencyInput
+                      id="retirementIncome"
+                      showDollarSign
+                      value={retirementIncome}
+                      onChange={setRetirementIncome}
+                    />
+                    <p className="text-xs text-muted-foreground">Annual income you expect in retirement</p>
+                  </div>
                 </div>
 
                 <div className="grid gap-4 sm:grid-cols-2">
