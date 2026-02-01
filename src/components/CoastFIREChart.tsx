@@ -26,6 +26,7 @@ interface ChartDataPoint {
   realValue: number;
   growth: number;
   withdrawals: number;
+  partTimeIncome: number;
 }
 
 const formatCurrency = (value: number) => {
@@ -92,6 +93,9 @@ const CoastFIREChart = ({
       // Calculate withdrawals (only during retirement, only what's needed)
       const yearlyWithdrawals = isRetired ? requiredWithdrawal : 0;
       
+      // Part-time income (only during retirement)
+      const yearlyPartTimeIncome = isRetired ? currentRetirementIncome : 0;
+      
       data.push({
         age,
         ageLabel: `Age ${age}`,
@@ -99,6 +103,7 @@ const CoastFIREChart = ({
         realValue: Math.max(0, Math.round(realValue)),
         growth: Math.max(0, Math.round(yearlyGrowth)),
         withdrawals: Math.round(yearlyWithdrawals),
+        partTimeIncome: Math.round(yearlyPartTimeIncome),
       });
       
       // Update for next year
@@ -153,7 +158,11 @@ const CoastFIREChart = ({
       </div>
       <div className="flex items-center gap-2">
         <div className="w-4 h-1 rounded" style={{ backgroundColor: '#F87171' }} />
-        <span className="text-muted-foreground">Withdrawals (Spending − Part-Time Income)</span>
+        <span className="text-muted-foreground">Portfolio Withdrawals</span>
+      </div>
+      <div className="flex items-center gap-2">
+        <div className="w-4 h-1 rounded" style={{ backgroundColor: '#FBBF24' }} />
+        <span className="text-muted-foreground">Part-Time Income</span>
       </div>
     </div>
   );
@@ -221,15 +230,28 @@ const CoastFIREChart = ({
                 <Line
                   type="monotone"
                   dataKey="withdrawals"
-                  name="Withdrawals"
+                  name="Portfolio Withdrawals"
                   stroke="#F87171"
                   strokeWidth={2}
                   dot={{ r: 3, fill: '#F87171' }}
                   activeDot={{ r: 5 }}
                 />
+                <Line
+                  type="monotone"
+                  dataKey="partTimeIncome"
+                  name="Part-Time Income"
+                  stroke="#FBBF24"
+                  strokeWidth={2}
+                  dot={{ r: 3, fill: '#FBBF24' }}
+                  activeDot={{ r: 5 }}
+                />
               </LineChart>
             </ResponsiveContainer>
           </div>
+          <p className="text-xs text-muted-foreground text-center mt-4 px-4">
+            <strong>Note:</strong> Portfolio Withdrawals represent what you need to take from your investments (Spending − Part-Time Income). 
+            Your total spending is covered by both withdrawals and part-time income combined.
+          </p>
         </CardContent>
       </Card>
 
