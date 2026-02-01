@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { CurrencyInput } from "@/components/ui/currency-input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useAIWorkflow } from "@/hooks/useAIWorkflow";
 import { toast } from "sonner";
@@ -150,45 +151,33 @@ const EarlyRetirementCalculator = () => {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-2">
                     <Label htmlFor="annualSpending">Annual Spending</Label>
-                    <div className="relative">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
-                      <Input
-                        id="annualSpending"
-                        type="number"
-                        className="pl-7"
-                        value={annualSpending}
-                        onChange={(e) => setAnnualSpending(e.target.value)}
-                      />
-                    </div>
+                    <CurrencyInput
+                      id="annualSpending"
+                      showDollarSign
+                      value={annualSpending}
+                      onChange={setAnnualSpending}
+                    />
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="currentAssets">Current Invested Assets</Label>
-                    <div className="relative">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
-                      <Input
-                        id="currentAssets"
-                        type="number"
-                        className="pl-7"
-                        value={currentAssets}
-                        onChange={(e) => setCurrentAssets(e.target.value)}
-                      />
-                    </div>
+                    <CurrencyInput
+                      id="currentAssets"
+                      showDollarSign
+                      value={currentAssets}
+                      onChange={setCurrentAssets}
+                    />
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="monthlyContributions">Monthly Contributions</Label>
-                  <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
-                    <Input
-                      id="monthlyContributions"
-                      type="number"
-                      className="pl-7"
-                      value={monthlyContributions}
-                      onChange={(e) => setMonthlyContributions(e.target.value)}
-                    />
-                  </div>
+                  <CurrencyInput
+                    id="monthlyContributions"
+                    showDollarSign
+                    value={monthlyContributions}
+                    onChange={setMonthlyContributions}
+                  />
                   <p className="text-xs text-muted-foreground">Use $0 to check if you're already at Coast</p>
                 </div>
 
