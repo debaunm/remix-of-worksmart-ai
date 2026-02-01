@@ -215,6 +215,7 @@ Return structured JSON with audit_summary, rewritten_about, headline_options, au
       const annualSpending = parseFloat(inputs.annual_spending) || 60000;
       const currentAssets = parseFloat(inputs.current_assets) || 0;
       const monthlyContributions = parseFloat(inputs.monthly_contributions) || 0;
+      const retirementIncome = parseFloat(inputs.retirement_income) || 0;
       const growthRate = parseFloat(inputs.growth_rate) || 7;
       const inflationRate = parseFloat(inputs.inflation_rate) || 3;
       const withdrawalRate = parseFloat(inputs.withdrawal_rate) || 4;
@@ -224,8 +225,11 @@ Return structured JSON with audit_summary, rewritten_about, headline_options, au
       const realReturnRate = (growthRate - inflationRate - investmentFees) / 100;
       const nominalReturnRate = (growthRate - investmentFees) / 100;
       
-      // FIRE Number = Annual spending / withdrawal rate (this is what you need at retirement)
-      const fireNumber = annualSpending / (withdrawalRate / 100);
+      // Net spending = Annual spending minus retirement income (part-time work, etc.)
+      const netSpendingFromPortfolio = Math.max(0, annualSpending - retirementIncome);
+      
+      // FIRE Number = Net spending needed from portfolio / withdrawal rate
+      const fireNumber = netSpendingFromPortfolio / (withdrawalRate / 100);
       
       // Coast FIRE Number = What you need TODAY so that compound growth alone reaches FIRE Number by retirement
       // Formula: CoastFIRE = FIRE Number / (1 + realReturnRate)^yearsToRetirement
@@ -261,7 +265,7 @@ Return structured JSON with audit_summary, rewritten_about, headline_options, au
           ? "Not achievable with current savings rate"
           : `${yearsToCoast} years`;
       
-      const projectedRetirementIncome = projectedAssets * (withdrawalRate / 100);
+      const projectedRetirementIncome = (projectedAssets * (withdrawalRate / 100)) + retirementIncome;
       
       // Format currency for display
       const formatCurrency = (val: number) => {
@@ -279,15 +283,17 @@ MY CALCULATED NUMBERS (do NOT recalculate these - use them as given):
 - Gap to Coast FIRE: ${formatCurrency(gap)}
 - Already Coasting: ${alreadyCoasting ? 'YES' : 'NO'}
 - Timeline to Coast FIRE: ${timeline}
-- Projected Retirement Income: ${formatCurrency(projectedRetirementIncome)}/year
+- Projected Retirement Income: ${formatCurrency(projectedRetirementIncome)}/year (includes ${formatCurrency(retirementIncome)} from part-time work)
 
 MY INPUTS:
 - Current Age: ${currentAge}
 - Retirement Age: ${retirementAge}
 - Years to Retirement: ${yearsToRetirement}
 - Annual Spending: $${annualSpending.toLocaleString()}
+- Part-Time Retirement Income: $${retirementIncome.toLocaleString()}
+- Net Spending from Portfolio: $${netSpendingFromPortfolio.toLocaleString()}
 - Monthly Contributions: $${monthlyContributions.toLocaleString()}
-- Expected Return: ${growthRate}% (${realReturnRate * 100}% real after inflation/fees)
+- Expected Return: ${growthRate}% (${(realReturnRate * 100).toFixed(1)}% real after inflation/fees)
 - Safe Withdrawal Rate: ${withdrawalRate}%
 
 Based on these EXACT numbers, provide:
