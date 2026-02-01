@@ -276,11 +276,27 @@ const EarlyRetirementCalculator = () => {
                 ) : (
                   <div className="space-y-6">
                     <div className="grid gap-4">
+                      {/* Coast FIRE Number - What you need TODAY */}
                       <div className="p-4 rounded-xl bg-primary/10 border border-primary/20">
                         <p className="text-sm text-muted-foreground mb-1">Coast FIRE Number</p>
-                        <p className="text-3xl font-bold text-primary">{String(data.fire_number)}</p>
-                        <p className="text-xs text-muted-foreground mt-1">Target invested assets needed</p>
+                        <p className="text-3xl font-bold text-primary">{String(data.coast_fire_number || data.fire_number)}</p>
+                        <p className="text-xs text-muted-foreground mt-1">What you need TODAY to coast to retirement</p>
                       </div>
+                      
+                      {/* Status indicator */}
+                      {data.already_coasting !== undefined && (
+                        <div className={`p-4 rounded-xl border ${data.already_coasting ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-amber-500/10 border-amber-500/30'}`}>
+                          <p className="text-sm text-muted-foreground mb-1">Status</p>
+                          <p className={`text-xl font-bold ${data.already_coasting ? 'text-emerald-500' : 'text-amber-500'}`}>
+                            {data.already_coasting ? '🎉 You\'re Coasting!' : '📈 Keep Building'}
+                          </p>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            {data.already_coasting 
+                              ? 'Your investments can carry you to retirement!' 
+                              : 'You have a gap to close before reaching Coast FIRE'}
+                          </p>
+                        </div>
+                      )}
                       
                       <div className="grid grid-cols-2 gap-4">
                         <div className="p-4 rounded-xl bg-card border border-border/50">
@@ -292,6 +308,20 @@ const EarlyRetirementCalculator = () => {
                           <p className="text-sm text-muted-foreground mb-1">Gap to Close</p>
                           <p className="text-2xl font-bold text-foreground">{String(data.gap)}</p>
                           <p className="text-xs text-muted-foreground">Remaining to invest</p>
+                        </div>
+                      </div>
+                      
+                      {/* FIRE Number - What you need at retirement */}
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="p-4 rounded-xl bg-card border border-border/50">
+                          <p className="text-sm text-muted-foreground mb-1">FIRE Number</p>
+                          <p className="text-xl font-bold text-foreground">{String(data.fire_number)}</p>
+                          <p className="text-xs text-muted-foreground">Target at retirement</p>
+                        </div>
+                        <div className="p-4 rounded-xl bg-card border border-border/50">
+                          <p className="text-sm text-muted-foreground mb-1">Retirement Income</p>
+                          <p className="text-xl font-bold text-foreground">{String(data.projected_retirement_income || 'N/A')}</p>
+                          <p className="text-xs text-muted-foreground">Projected annual</p>
                         </div>
                       </div>
                     </div>
