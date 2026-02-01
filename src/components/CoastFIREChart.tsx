@@ -153,7 +153,7 @@ const CoastFIREChart = ({
       </div>
       <div className="flex items-center gap-2">
         <div className="w-4 h-1 rounded" style={{ backgroundColor: '#F87171' }} />
-        <span className="text-muted-foreground">Withdrawals</span>
+        <span className="text-muted-foreground">Withdrawals (Spending − Part-Time Income)</span>
       </div>
     </div>
   );
