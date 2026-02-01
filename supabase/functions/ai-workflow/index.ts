@@ -265,7 +265,8 @@ Return structured JSON with audit_summary, rewritten_about, headline_options, au
           ? "Not achievable with current savings rate"
           : `${yearsToCoast} years`;
       
-      const projectedRetirementIncome = (projectedAssets * (withdrawalRate / 100)) + retirementIncome;
+      const portfolioWithdrawal = projectedAssets * (withdrawalRate / 100);
+      const projectedRetirementIncome = portfolioWithdrawal + retirementIncome;
       
       // Format currency for display
       const formatCurrency = (val: number) => {
@@ -277,13 +278,15 @@ Return structured JSON with audit_summary, rewritten_about, headline_options, au
       return `Provide actionable advice for my Coast FIRE plan. I've already calculated the numbers - focus on creating the paths and habits.
 
 MY CALCULATED NUMBERS (do NOT recalculate these - use them as given):
-- FIRE Number (retirement target): ${formatCurrency(fireNumber)}
+- FIRE Number (portfolio needed at retirement): ${formatCurrency(fireNumber)}
 - Coast FIRE Number (what I need today): ${formatCurrency(coastFireNumber)}
 - Current Assets: ${formatCurrency(currentAssets)}
 - Gap to Coast FIRE: ${formatCurrency(gap)}
 - Already Coasting: ${alreadyCoasting ? 'YES' : 'NO'}
 - Timeline to Coast FIRE: ${timeline}
-- Projected Retirement Income: ${formatCurrency(projectedRetirementIncome)}/year (includes ${formatCurrency(retirementIncome)} from part-time work)
+- Portfolio Withdrawal (${withdrawalRate}% of projected): ${formatCurrency(portfolioWithdrawal)}/year
+- Part-Time Retirement Income: ${formatCurrency(retirementIncome)}/year
+- Total Retirement Income: ${formatCurrency(projectedRetirementIncome)}/year
 
 MY INPUTS:
 - Current Age: ${currentAge}
@@ -308,6 +311,7 @@ Return structured JSON with:
 - timeline: "${timeline}"
 - gap: "${formatCurrency(gap)}"
 - already_coasting: ${alreadyCoasting}
+- portfolio_withdrawal: "${formatCurrency(portfolioWithdrawal)}/year"
 - projected_retirement_income: "${formatCurrency(projectedRetirementIncome)}/year"
 - paths{aggressive[], moderate[], conservative[]} with specific monthly savings targets
 - monthly_habits[]`
