@@ -16,6 +16,7 @@ interface CoastFIREChartProps {
   fireNumber: number;
   annualSpending?: number;
   withdrawalRate?: number;
+  retirementIncome?: number;
 }
 
 interface ChartDataPoint {
@@ -57,6 +58,7 @@ const CoastFIREChart = ({
   fireNumber,
   annualSpending = 60000,
   withdrawalRate = 4,
+  retirementIncome = 0,
 }: CoastFIREChartProps) => {
   const [showTable, setShowTable] = useState(false);
 
@@ -77,14 +79,18 @@ const CoastFIREChart = ({
     for (let age = currentAge; age <= endAge; age++) {
       const isRetired = age >= retirementAge;
       
-      // Calculate inflation-adjusted spending for this year
+      // Calculate inflation-adjusted spending and income for this year
       const currentSpending = annualSpending * cumulativeInflation;
+      const currentRetirementIncome = retirementIncome * cumulativeInflation;
+      
+      // Required withdrawal = spending minus part-time income (only need to withdraw what's not covered)
+      const requiredWithdrawal = Math.max(0, currentSpending - currentRetirementIncome);
       
       // Calculate this year's growth
       const yearlyGrowth = totalWealth * nominalGrowthRate;
       
-      // Calculate withdrawals (only during retirement)
-      const yearlyWithdrawals = isRetired ? currentSpending : 0;
+      // Calculate withdrawals (only during retirement, only what's needed)
+      const yearlyWithdrawals = isRetired ? requiredWithdrawal : 0;
       
       data.push({
         age,
@@ -101,9 +107,10 @@ const CoastFIREChart = ({
         totalWealth = totalWealth * (1 + nominalGrowthRate) + annualContribution;
         realValue = realValue * (1 + realGrowthRate) + annualContribution;
       } else {
-        // Retirement phase: subtract withdrawals, add growth
-        totalWealth = Math.max(0, totalWealth * (1 + nominalGrowthRate) - currentSpending);
-        realValue = Math.max(0, realValue * (1 + realGrowthRate) - annualSpending);
+        // Retirement phase: subtract only required withdrawal (spending - part-time income), add growth
+        const realRequiredWithdrawal = Math.max(0, annualSpending - retirementIncome);
+        totalWealth = Math.max(0, totalWealth * (1 + nominalGrowthRate) - requiredWithdrawal);
+        realValue = Math.max(0, realValue * (1 + realGrowthRate) - realRequiredWithdrawal);
       }
       
       // Update cumulative inflation
@@ -111,7 +118,7 @@ const CoastFIREChart = ({
     }
     
     return data;
-  }, [currentAge, retirementAge, currentAssets, monthlyContributions, growthRate, inflationRate, investmentFees, annualSpending, withdrawalRate]);
+  }, [currentAge, retirementAge, currentAssets, monthlyContributions, growthRate, inflationRate, investmentFees, annualSpending, withdrawalRate, retirementIncome]);
 
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
