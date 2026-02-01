@@ -80,12 +80,15 @@ const CoastFIREChart = ({
     for (let age = currentAge; age <= endAge; age++) {
       const isRetired = age >= retirementAge;
       
-      // Calculate inflation-adjusted spending and income for this year
+      // Calculate inflation-adjusted spending for this year
       const currentSpending = annualSpending * cumulativeInflation;
-      const currentRetirementIncome = retirementIncome * cumulativeInflation;
+      
+      // Part-time income stays FLAT (nominal value as entered, not inflation-adjusted)
+      // This means over time, inflation erodes its purchasing power and portfolio withdrawals must increase
+      const flatRetirementIncome = retirementIncome;
       
       // Required withdrawal = spending minus part-time income (only need to withdraw what's not covered)
-      const requiredWithdrawal = Math.max(0, currentSpending - currentRetirementIncome);
+      const requiredWithdrawal = Math.max(0, currentSpending - flatRetirementIncome);
       
       // Calculate this year's growth
       const yearlyGrowth = totalWealth * nominalGrowthRate;
@@ -93,8 +96,8 @@ const CoastFIREChart = ({
       // Calculate withdrawals (only during retirement, only what's needed)
       const yearlyWithdrawals = isRetired ? requiredWithdrawal : 0;
       
-      // Part-time income (only during retirement)
-      const yearlyPartTimeIncome = isRetired ? currentRetirementIncome : 0;
+      // Part-time income (only during retirement, flat nominal value)
+      const yearlyPartTimeIncome = isRetired ? flatRetirementIncome : 0;
       
       data.push({
         age,
