@@ -326,19 +326,44 @@ const EarlyRetirementCalculator = () => {
                         </div>
                       </div>
                       
-                      {/* FIRE Number - What you need at retirement */}
+                      {/* FIRE Number & Income Breakdown */}
                       <div className="grid grid-cols-2 gap-4">
                         <div className="p-4 rounded-xl bg-card border border-border/50">
                           <p className="text-sm text-muted-foreground mb-1">FIRE Number</p>
                           <p className="text-xl font-bold text-foreground">{String(data.fire_number)}</p>
-                          <p className="text-xs text-muted-foreground">Target at retirement</p>
+                          <p className="text-xs text-muted-foreground">Portfolio needed at retirement</p>
                         </div>
                         <div className="p-4 rounded-xl bg-card border border-border/50">
-                          <p className="text-sm text-muted-foreground mb-1">Retirement Income</p>
-                          <p className="text-xl font-bold text-foreground">{String(data.projected_retirement_income || 'N/A')}</p>
-                          <p className="text-xs text-muted-foreground">Projected annual</p>
+                          <p className="text-sm text-muted-foreground mb-1">Portfolio Withdrawal</p>
+                          <p className="text-xl font-bold text-foreground">{String(data.portfolio_withdrawal || data.projected_retirement_income || 'N/A')}</p>
+                          <p className="text-xs text-muted-foreground">{withdrawalRate}% of projected portfolio</p>
                         </div>
                       </div>
+                      
+                      {/* Total Income vs Spending */}
+                      {parseFloat(retirementIncome) > 0 && (
+                        <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
+                          <p className="text-sm text-muted-foreground mb-2">Retirement Income Breakdown</p>
+                          <div className="space-y-1 text-sm">
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Portfolio withdrawal ({withdrawalRate}%):</span>
+                              <span className="font-medium">{String(data.portfolio_withdrawal || 'Calculating...')}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Part-time income:</span>
+                              <span className="font-medium">${parseInt(retirementIncome).toLocaleString()}/year</span>
+                            </div>
+                            <div className="flex justify-between border-t border-border/50 pt-1 mt-1">
+                              <span className="font-medium">Total retirement income:</span>
+                              <span className="font-bold text-emerald-500">{String(data.projected_retirement_income)}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-muted-foreground">Annual spending:</span>
+                              <span className="font-medium">${parseInt(annualSpending).toLocaleString()}/year</span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
 
                     {paths && (
