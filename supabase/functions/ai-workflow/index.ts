@@ -265,8 +265,16 @@ Return structured JSON with audit_summary, rewritten_about, headline_options, au
           ? "Not achievable with current savings rate"
           : `${yearsToCoast} years`;
       
-      const portfolioWithdrawal = projectedAssets * (withdrawalRate / 100);
-      const projectedRetirementIncome = portfolioWithdrawal + retirementIncome;
+      // Required withdrawal = what you actually need from portfolio (net spending)
+      const requiredWithdrawal = netSpendingFromPortfolio;
+      
+      // Available withdrawal = what 4% of projected assets gives you
+      const availableWithdrawal = projectedAssets * (withdrawalRate / 100);
+      
+      // Surplus = available minus required (positive = buffer, negative = shortfall)
+      const surplus = availableWithdrawal - requiredWithdrawal;
+      
+      const projectedRetirementIncome = availableWithdrawal + retirementIncome;
       
       // Format currency for display
       const formatCurrency = (val: number) => {
@@ -284,7 +292,9 @@ MY CALCULATED NUMBERS (do NOT recalculate these - use them as given):
 - Gap to Coast FIRE: ${formatCurrency(gap)}
 - Already Coasting: ${alreadyCoasting ? 'YES' : 'NO'}
 - Timeline to Coast FIRE: ${timeline}
-- Portfolio Withdrawal (${withdrawalRate}% of projected): ${formatCurrency(portfolioWithdrawal)}/year
+- Required Withdrawal (what you need from portfolio): ${formatCurrency(requiredWithdrawal)}/year
+- Available Withdrawal (${withdrawalRate}% of projected assets): ${formatCurrency(availableWithdrawal)}/year
+- Surplus/Buffer: ${surplus >= 0 ? '+' : ''}${formatCurrency(surplus)}/year
 - Part-Time Retirement Income: ${formatCurrency(retirementIncome)}/year
 - Total Retirement Income: ${formatCurrency(projectedRetirementIncome)}/year
 
@@ -311,7 +321,9 @@ Return structured JSON with:
 - timeline: "${timeline}"
 - gap: "${formatCurrency(gap)}"
 - already_coasting: ${alreadyCoasting}
-- portfolio_withdrawal: "${formatCurrency(portfolioWithdrawal)}/year"
+- required_withdrawal: "${formatCurrency(requiredWithdrawal)}/year"
+- available_withdrawal: "${formatCurrency(availableWithdrawal)}/year"
+- surplus: "${surplus >= 0 ? '+' : ''}${formatCurrency(surplus)}/year"
 - projected_retirement_income: "${formatCurrency(projectedRetirementIncome)}/year"
 - paths{aggressive[], moderate[], conservative[]} with specific monthly savings targets
 - monthly_habits[]`

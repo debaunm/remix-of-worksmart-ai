@@ -326,35 +326,70 @@ const EarlyRetirementCalculator = () => {
                         </div>
                       </div>
                       
-                      {/* FIRE Number & Income Breakdown */}
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="p-4 rounded-xl bg-card border border-border/50">
-                          <p className="text-sm text-muted-foreground mb-1">FIRE Number</p>
-                          <p className="text-xl font-bold text-foreground">{String(data.fire_number)}</p>
-                          <p className="text-xs text-muted-foreground">Portfolio needed at retirement</p>
-                        </div>
-                        <div className="p-4 rounded-xl bg-card border border-border/50">
-                          <p className="text-sm text-muted-foreground mb-1">Portfolio Withdrawal</p>
-                          <p className="text-xl font-bold text-foreground">{String(data.portfolio_withdrawal || data.projected_retirement_income || 'N/A')}</p>
-                          <p className="text-xs text-muted-foreground">{withdrawalRate}% of projected portfolio</p>
-                        </div>
+                      {/* FIRE Number */}
+                      <div className="p-4 rounded-xl bg-card border border-border/50">
+                        <p className="text-sm text-muted-foreground mb-1">FIRE Number</p>
+                        <p className="text-xl font-bold text-foreground">{String(data.fire_number)}</p>
+                        <p className="text-xs text-muted-foreground">Portfolio needed at retirement</p>
                       </div>
                       
-                      {/* Total Income vs Spending */}
+                      {/* Required vs Available Withdrawal */}
+                      <div className="p-4 rounded-xl bg-card border border-border/50 space-y-3">
+                        <p className="text-sm font-medium text-foreground">Withdrawal Breakdown</p>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <p className="text-xs text-muted-foreground mb-1">Required Withdrawal</p>
+                            <p className="text-lg font-bold text-foreground">{String(data.required_withdrawal || 'N/A')}</p>
+                            <p className="text-xs text-muted-foreground">What you need from portfolio</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground mb-1">Available Withdrawal</p>
+                            <p className="text-lg font-bold text-foreground">{String(data.available_withdrawal || 'N/A')}</p>
+                            <p className="text-xs text-muted-foreground">{withdrawalRate}% of projected assets</p>
+                          </div>
+                        </div>
+                        
+                        {/* Surplus indicator */}
+                        {data.surplus && (
+                          <div className={`p-3 rounded-lg border ${
+                            String(data.surplus).startsWith('+') 
+                              ? 'bg-emerald-500/10 border-emerald-500/30' 
+                              : 'bg-amber-500/10 border-amber-500/30'
+                          }`}>
+                            <div className="flex items-center justify-between">
+                              <span className="text-sm font-medium">
+                                {String(data.surplus).startsWith('+') ? '✓ Surplus/Buffer' : '⚠ Shortfall'}
+                              </span>
+                              <span className={`text-lg font-bold ${
+                                String(data.surplus).startsWith('+') ? 'text-emerald-500' : 'text-amber-500'
+                              }`}>
+                                {String(data.surplus)}
+                              </span>
+                            </div>
+                            <p className="text-xs text-muted-foreground mt-1">
+                              {String(data.surplus).startsWith('+') 
+                                ? 'Extra cushion beyond your spending needs' 
+                                : 'You may need to adjust spending or savings'}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      
+                      {/* Total Retirement Income Summary */}
                       {parseFloat(retirementIncome) > 0 && (
                         <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
-                          <p className="text-sm text-muted-foreground mb-2">Retirement Income Breakdown</p>
+                          <p className="text-sm text-muted-foreground mb-2">Retirement Income Sources</p>
                           <div className="space-y-1 text-sm">
                             <div className="flex justify-between">
-                              <span className="text-muted-foreground">Portfolio withdrawal ({withdrawalRate}%):</span>
-                              <span className="font-medium">{String(data.portfolio_withdrawal || 'Calculating...')}</span>
+                              <span className="text-muted-foreground">Available withdrawal ({withdrawalRate}%):</span>
+                              <span className="font-medium">{String(data.available_withdrawal || 'N/A')}</span>
                             </div>
                             <div className="flex justify-between">
                               <span className="text-muted-foreground">Part-time income:</span>
                               <span className="font-medium">${parseInt(retirementIncome).toLocaleString()}/year</span>
                             </div>
                             <div className="flex justify-between border-t border-border/50 pt-1 mt-1">
-                              <span className="font-medium">Total retirement income:</span>
+                              <span className="font-medium">Total available:</span>
                               <span className="font-bold text-emerald-500">{String(data.projected_retirement_income)}</span>
                             </div>
                             <div className="flex justify-between">
