@@ -1,9 +1,11 @@
 import { useMemo, useState } from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronUp, BarChart3 } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 interface CoastFIREChartProps {
   currentAge: number;
@@ -23,6 +25,7 @@ interface ChartDataPoint {
   age: number;
   ageLabel: string;
   totalWealth: number;
+  totalWealthCoast: number; // "Stop Contributing" scenario
   realValue: number;
   growth: number;
   withdrawals: number;
@@ -62,6 +65,7 @@ const CoastFIREChart = ({
   retirementIncome = 0,
 }: CoastFIREChartProps) => {
   const [showTable, setShowTable] = useState(false);
+  const [showCoastScenario, setShowCoastScenario] = useState(true);
 
   const chartData = useMemo(() => {
     const data: ChartDataPoint[] = [];
@@ -70,10 +74,12 @@ const CoastFIREChart = ({
     const inflationRateDecimal = inflationRate / 100;
     const annualContribution = monthlyContributions * 12;
     
-    // Calculate through age 75 or 10 years past retirement
+    // Calculate through age 75 or 20 years past retirement
     const endAge = Math.max(retirementAge + 20, 75);
     
-    let totalWealth = currentAssets;
+    // Track both scenarios
+    let totalWealth = currentAssets; // Keep Contributing
+    let totalWealthCoast = currentAssets; // Stop Contributing Today
     let realValue = currentAssets;
     let cumulativeInflation = 1;
     
@@ -84,13 +90,12 @@ const CoastFIREChart = ({
       const currentSpending = annualSpending * cumulativeInflation;
       
       // Part-time income stays FLAT (nominal value as entered, not inflation-adjusted)
-      // This means over time, inflation erodes its purchasing power and portfolio withdrawals must increase
       const flatRetirementIncome = retirementIncome;
       
-      // Required withdrawal = spending minus part-time income (only need to withdraw what's not covered)
+      // Required withdrawal = spending minus part-time income
       const requiredWithdrawal = Math.max(0, currentSpending - flatRetirementIncome);
       
-      // Calculate this year's growth
+      // Calculate this year's growth for both scenarios
       const yearlyGrowth = totalWealth * nominalGrowthRate;
       
       // Calculate withdrawals (only during retirement, only what's needed)
@@ -103,22 +108,32 @@ const CoastFIREChart = ({
         age,
         ageLabel: `Age ${age}`,
         totalWealth: Math.max(0, Math.round(totalWealth)),
+        totalWealthCoast: Math.max(0, Math.round(totalWealthCoast)),
         realValue: Math.max(0, Math.round(realValue)),
         growth: Math.max(0, Math.round(yearlyGrowth)),
         withdrawals: Math.round(yearlyWithdrawals),
         partTimeIncome: Math.round(yearlyPartTimeIncome),
       });
       
-      // Update for next year
+      // Update for next year - "Keep Contributing" scenario
       if (!isRetired) {
         // Accumulation phase: add contributions and growth
         totalWealth = totalWealth * (1 + nominalGrowthRate) + annualContribution;
         realValue = realValue * (1 + realGrowthRate) + annualContribution;
       } else {
-        // Retirement phase: subtract only required withdrawal (spending - part-time income), add growth
+        // Retirement phase: subtract required withdrawal, add growth
         const realRequiredWithdrawal = Math.max(0, annualSpending - retirementIncome);
         totalWealth = Math.max(0, totalWealth * (1 + nominalGrowthRate) - requiredWithdrawal);
         realValue = Math.max(0, realValue * (1 + realGrowthRate) - realRequiredWithdrawal);
+      }
+      
+      // Update for next year - "Stop Contributing" scenario (coast)
+      if (!isRetired) {
+        // Accumulation phase: NO contributions, only growth
+        totalWealthCoast = totalWealthCoast * (1 + nominalGrowthRate);
+      } else {
+        // Retirement phase: subtract required withdrawal, add growth
+        totalWealthCoast = Math.max(0, totalWealthCoast * (1 + nominalGrowthRate) - requiredWithdrawal);
       }
       
       // Update cumulative inflation
@@ -149,16 +164,14 @@ const CoastFIREChart = ({
     <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-4 text-sm">
       <div className="flex items-center gap-2">
         <div className="w-4 h-1 rounded" style={{ backgroundColor: '#4F7DF3' }} />
-        <span className="text-muted-foreground">Total Wealth</span>
+        <span className="text-muted-foreground">Keep Contributing</span>
       </div>
-      <div className="flex items-center gap-2">
-        <div className="w-4 h-1 rounded" style={{ backgroundColor: '#4ADE80' }} />
-        <span className="text-muted-foreground">Real Value (Today's Money)</span>
-      </div>
-      <div className="flex items-center gap-2">
-        <div className="w-4 h-1 rounded" style={{ backgroundColor: '#A78BFA' }} />
-        <span className="text-muted-foreground">Growth</span>
-      </div>
+      {showCoastScenario && (
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-1 rounded" style={{ backgroundColor: '#F97316' }} />
+          <span className="text-muted-foreground">Stop Contributing Today</span>
+        </div>
+      )}
       <div className="flex items-center gap-2">
         <div className="w-4 h-1 rounded" style={{ backgroundColor: '#F87171' }} />
         <span className="text-muted-foreground">Portfolio Withdrawals</span>
@@ -174,7 +187,19 @@ const CoastFIREChart = ({
     <div className="space-y-4">
       <Card className="border-border/50">
         <CardHeader className="pb-2">
-          <CardTitle className="text-lg">Yearly Overview with Inflation</CardTitle>
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            <CardTitle className="text-lg">Yearly Overview with Inflation</CardTitle>
+            <div className="flex items-center gap-2">
+              <Switch
+                id="coast-toggle"
+                checked={showCoastScenario}
+                onCheckedChange={setShowCoastScenario}
+              />
+              <Label htmlFor="coast-toggle" className="text-sm text-muted-foreground cursor-pointer">
+                Compare "Stop Contributing"
+              </Label>
+            </div>
+          </div>
         </CardHeader>
         <CardContent>
           {renderLegend()}
@@ -206,30 +231,24 @@ const CoastFIREChart = ({
                 <Line
                   type="monotone"
                   dataKey="totalWealth"
-                  name="Total Wealth"
+                  name="Keep Contributing"
                   stroke="#4F7DF3"
                   strokeWidth={2}
                   dot={{ r: 3, fill: '#4F7DF3' }}
                   activeDot={{ r: 5 }}
                 />
-                <Line
-                  type="monotone"
-                  dataKey="realValue"
-                  name="Real Value (Today's Money)"
-                  stroke="#4ADE80"
-                  strokeWidth={2}
-                  dot={{ r: 3, fill: '#4ADE80' }}
-                  activeDot={{ r: 5 }}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="growth"
-                  name="Growth"
-                  stroke="#A78BFA"
-                  strokeWidth={2}
-                  dot={{ r: 3, fill: '#A78BFA' }}
-                  activeDot={{ r: 5 }}
-                />
+                {showCoastScenario && (
+                  <Line
+                    type="monotone"
+                    dataKey="totalWealthCoast"
+                    name="Stop Contributing Today"
+                    stroke="#F97316"
+                    strokeWidth={2}
+                    strokeDasharray="5 5"
+                    dot={{ r: 3, fill: '#F97316' }}
+                    activeDot={{ r: 5 }}
+                  />
+                )}
                 <Line
                   type="monotone"
                   dataKey="withdrawals"
