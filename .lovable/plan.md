@@ -1,174 +1,145 @@
 
 
-# Google Calendar Integration Plan
+# Calendar Sync Dashboard UI (Mock Data Preview)
 
 ## Overview
 
-This plan adds a **View Upcoming Events** feature that lets users connect their Google Calendar and see what's coming up. The integration will appear in two places:
-1. A dedicated Calendar page (new route: `/calendar`)
-2. Inside the Weekly Plan Builder tool as a helpful context panel
+This plan creates a complete Calendar Sync Dashboard UI with mock data so you can preview the design before adding Google Calendar credentials. The feature will appear in two locations as originally planned.
 
 ---
 
-## How It Works
+## What Gets Built
 
-When users connect their Google Calendar:
-1. They click "Connect Google Calendar" 
-2. Google's OAuth flow opens in a popup
-3. After approval, their upcoming events display automatically
-4. Events sync each time they visit the calendar page or Weekly Plan Builder
+### 1. Dedicated Calendar Page (`/calendar`)
+
+A new page with:
+- Connection status banner showing "Connected to Google Calendar" (mock state)
+- 7-day event timeline grouped by date
+- Event cards showing:
+  - Time (with duration indicator)
+  - Event title
+  - Location (if any)
+  - Calendar color coding
+- Disconnect button (non-functional, just UI)
+- Empty state design for when no events exist
+- Toggle to switch between "Connected" and "Not Connected" views (for design preview)
+
+### 2. Weekly Plan Builder Calendar Sidebar
+
+A collapsible panel inside the Weekly Plan Builder showing:
+- "Your Calendar" header with connection status
+- Today's and tomorrow's events
+- Helps visualize conflicts when planning
+- "Connect Calendar" button (when not connected)
 
 ---
 
-## What You'll Get
+## Mock Data
 
-### 1. Calendar Page (`/calendar`)
-- Clean list of upcoming events for the next 7 days
-- Event details: title, date/time, location (if any)
-- Easy-to-scan timeline view grouped by day
-- Disconnect button to remove calendar access
+Realistic calendar events for the next 7 days:
 
-### 2. Weekly Plan Builder Enhancement
-- "Import from Calendar" sidebar showing existing commitments
-- Helps users see conflicts when planning their week
-- Optional: auto-populate the "Constraints" field with existing meetings
+| Day | Events |
+|-----|--------|
+| Today | "Team Standup" 9:00 AM, "Client Call - Acme Corp" 2:00 PM, "Deep Work Block" 4:00 PM |
+| Tomorrow | "Weekly Review" 10:00 AM, "Lunch with Sarah" 12:30 PM |
+| Day 3 | "Board Meeting" 9:00 AM (3 hrs), "Investor Pitch Prep" 3:00 PM |
+| Day 4 | "Content Recording" 11:00 AM, "Podcast Interview" 2:00 PM |
+| Day 5 | "Team All-Hands" 10:00 AM, "1:1 with Designer" 4:00 PM |
+| Day 6 | "Focus Time" 9:00 AM (blocked), "Gym" 5:00 PM |
+| Day 7 | "Family Brunch" 10:00 AM |
 
 ---
 
-## Technical Implementation
+## UI Components
 
-### Step 1: Database Setup
-Create a table to store Google Calendar tokens securely:
+### CalendarConnection Component
+- Shows connection status with green checkmark or gray disconnected icon
+- "Connect Google Calendar" button with Google logo
+- "Disconnect" option when connected
+- Animated transition between states
 
-```text
-+---------------------------+
-|  user_calendar_tokens     |
-+---------------------------+
-| id (uuid)                 |
-| user_id (text)            |
-| provider (text)           |
-| access_token (text)       |
-| refresh_token (text)      |
-| token_expires_at (timestamptz) |
-| created_at (timestamptz)  |
-| updated_at (timestamptz)  |
-+---------------------------+
+### UpcomingEvents Component
+- Groups events by day with date headers
+- Each event shows:
+  - Color-coded left border (based on calendar)
+  - Time range and duration badge
+  - Title in semibold
+  - Location with map pin icon (optional)
+- Smooth scroll for long lists
+- "No events" empty state
+
+### CalendarPage Component
+- Hero section with calendar icon
+- Toggle switch to preview connected vs disconnected states
+- Full 7-day view with all mock events
+- Responsive: stacks on mobile, multi-column on desktop
+
+### CalendarSidebar (for Weekly Plan Builder)
+- Collapsible panel using existing Collapsible component
+- Shows today + tomorrow only (compact view)
+- "View Full Calendar" link to `/calendar` page
+
+---
+
+## Design Tokens
+
+Following existing patterns:
+- Cards: `bg-card border border-border/50 rounded-2xl`
+- Headers: `font-semibold` with icon
+- Colors: Primary coral for accents, warm background
+- Motion: Framer Motion for enter animations
+- Calendar colors:
+  - Work events: Blue border
+  - Personal: Green border
+  - Focus blocks: Purple border
+
+---
+
+## Files to Create
+
+| File | Purpose |
+|------|---------|
+| `src/pages/Calendar.tsx` | Main calendar page |
+| `src/components/calendar/CalendarConnection.tsx` | Connection status & button |
+| `src/components/calendar/UpcomingEvents.tsx` | Event list component |
+| `src/components/calendar/CalendarSidebar.tsx` | Compact sidebar for tools |
+| `src/components/calendar/mockCalendarData.ts` | Mock event data |
+| `src/hooks/useGoogleCalendar.ts` | Hook (returns mock data for now) |
+
+## Files to Modify
+
+| File | Change |
+|------|--------|
+| `src/App.tsx` | Add `/calendar` route |
+| `src/pages/tools/WeeklyPlanBuilder.tsx` | Add CalendarSidebar |
+| `src/components/Navbar.tsx` | Add Calendar link (optional) |
+
+---
+
+## Future-Proofing
+
+The mock data hook will have the same interface as the real implementation:
+
+```typescript
+const { 
+  isConnected,      // boolean
+  isLoading,        // boolean
+  events,           // CalendarEvent[]
+  connect,          // () => void
+  disconnect,       // () => void
+  refetch           // () => void
+} = useGoogleCalendar();
 ```
 
-Row Level Security ensures users can only access their own tokens.
-
-### Step 2: Backend Functions
-
-**google-calendar-auth** - Handles the OAuth flow:
-- Generates authorization URL
-- Exchanges auth code for tokens
-- Stores tokens in database
-- Returns success/failure
-
-**google-calendar-events** - Fetches events:
-- Retrieves stored tokens for the user
-- Refreshes expired tokens automatically
-- Calls Google Calendar API
-- Returns formatted event list
-
-### Step 3: Frontend Components
-
-**CalendarConnection** - Connection button component:
-- Shows "Connect" or "Connected" state
-- Handles OAuth popup flow
-- Manages connection status
-
-**UpcomingEvents** - Event display component:
-- Groups events by day
-- Shows time, title, location
-- Loading and empty states
-
-**CalendarPage** - Dedicated page at `/calendar`:
-- Connection management
-- Full 7-day event view
-- Disconnect option
-
-### Step 4: Weekly Plan Builder Integration
-- Add collapsible "Your Calendar" sidebar
-- Show today's and tomorrow's events
-- Help users see conflicts before planning
+When you add real credentials later, only the hook internals change - all UI components stay the same.
 
 ---
 
-## User Experience Flow
+## Preview Mode Toggle
 
-```text
-User visits Calendar page
-         |
-         v
-  [Not Connected?] ---> Show "Connect Google Calendar" button
-         |                         |
-         |                         v
-         |               User clicks, OAuth popup opens
-         |                         |
-         |                         v
-         |               User approves in Google
-         |                         |
-         v                         v
-  [Connected!] <------- Tokens saved, popup closes
-         |
-         v
-   Fetch & display upcoming events
-         |
-         v
-   Show 7-day event timeline
-```
+A special toggle on the Calendar page lets you switch between:
+- **Connected view**: Shows mock events
+- **Disconnected view**: Shows "Connect your calendar" CTA
 
----
-
-## Required Google Cloud Setup
-
-Before this works, you'll need to set up a Google Cloud project:
-
-1. Create a project at console.cloud.google.com
-2. Enable the Google Calendar API
-3. Configure OAuth consent screen
-4. Create OAuth 2.0 credentials (Web application)
-5. Add redirect URI pointing to your domain
-6. Add the Client ID and Client Secret as secrets
-
-The system will need these secrets:
-- `GOOGLE_CALENDAR_CLIENT_ID`
-- `GOOGLE_CALENDAR_CLIENT_SECRET`
-
----
-
-## Files to Create/Modify
-
-| Action | File | Purpose |
-|--------|------|---------|
-| Create | `supabase/functions/google-calendar-auth/index.ts` | OAuth flow handling |
-| Create | `supabase/functions/google-calendar-events/index.ts` | Fetch calendar events |
-| Create | `src/pages/Calendar.tsx` | Dedicated calendar page |
-| Create | `src/components/calendar/CalendarConnection.tsx` | Connect/disconnect button |
-| Create | `src/components/calendar/UpcomingEvents.tsx` | Event display list |
-| Create | `src/hooks/useGoogleCalendar.ts` | Calendar data hook |
-| Modify | `src/pages/tools/WeeklyPlanBuilder.tsx` | Add calendar sidebar |
-| Modify | `src/App.tsx` | Add `/calendar` route |
-| Modify | `supabase/config.toml` | Register new functions |
-
----
-
-## Security Considerations
-
-- Tokens are stored server-side only (never exposed to browser)
-- Row Level Security restricts access to own tokens
-- Refresh tokens allow long-term access without re-auth
-- Users can disconnect anytime, which deletes tokens
-
----
-
-## Scope Notes
-
-This implementation focuses on **viewing events only**. It does not:
-- Create new calendar events
-- Modify existing events  
-- Sync task deadlines to calendar
-
-These features could be added in a future iteration.
+This helps you review both states of the design.
 
