@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import { useAIWorkflow } from "@/hooks/useAIWorkflow";
 import BuyToolButton from "@/components/BuyToolButton";
+import CalendarSidebar from "@/components/calendar/CalendarSidebar";
 
 interface TimeBlock {
   time_window: string;
@@ -99,6 +100,9 @@ const WeeklyPlanBuilder = () => {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="space-y-8">
+            {/* Calendar Sidebar */}
+            <CalendarSidebar />
+
             {/* Input Section */}
             <div className="rounded-2xl bg-card border border-border/50 p-6 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
