@@ -49,6 +49,7 @@ import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
 import ContentViewer from "./pages/ContentViewer";
+import Calendar from "./pages/Calendar";
 
 const queryClient = new QueryClient();
 
@@ -104,6 +105,7 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/content/:systemId/:contentId" element={<ContentViewer />} />
+          <Route path="/calendar" element={<Calendar />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
