@@ -42,13 +42,11 @@ interface OnboardingData {
 
 const defaultTasks = [
   { id: "strategy", label: "Strategy & Vision", icon: Target, defaultCEO: true },
-  { id: "partnerships", label: "Key Partnerships", icon: Users, defaultCEO: true },
-  { id: "fundraising", label: "Fundraising & Investors", icon: BarChart3, defaultCEO: true },
-  { id: "hiring", label: "Hiring & Culture", icon: Users, defaultCEO: true },
-  { id: "email", label: "Email Management", icon: Mail, defaultCEO: false },
-  { id: "meetings", label: "Scheduling Meetings", icon: Calendar, defaultCEO: false },
-  { id: "reports", label: "Reports & Admin", icon: FileText, defaultCEO: false },
-  { id: "calls", label: "Routine Calls", icon: Phone, defaultCEO: false },
+  { id: "content", label: "Content Creation", icon: FileText, defaultCEO: true },
+  { id: "bizdev", label: "Business Development", icon: BarChart3, defaultCEO: true },
+  { id: "client-calls", label: "Client Calls", icon: Phone, defaultCEO: false },
+  { id: "admin", label: "Admin & Invoicing", icon: Mail, defaultCEO: false },
+  { id: "team", label: "Team Management", icon: Users, defaultCEO: false },
 ];
 
 const availableTools = [
