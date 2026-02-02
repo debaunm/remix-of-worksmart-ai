@@ -225,6 +225,51 @@ export type Database = {
           },
         ]
       }
+      user_onboarding: {
+        Row: {
+          ceo_percentage: number | null
+          ceo_tasks: Json | null
+          connected_tools: Json | null
+          created_at: string
+          id: string
+          milestones: Json | null
+          onboarding_completed_at: string | null
+          operating_tasks: Json | null
+          quarterly_goal: string | null
+          updated_at: string
+          user_id: string
+          weekly_hours: number | null
+        }
+        Insert: {
+          ceo_percentage?: number | null
+          ceo_tasks?: Json | null
+          connected_tools?: Json | null
+          created_at?: string
+          id?: string
+          milestones?: Json | null
+          onboarding_completed_at?: string | null
+          operating_tasks?: Json | null
+          quarterly_goal?: string | null
+          updated_at?: string
+          user_id: string
+          weekly_hours?: number | null
+        }
+        Update: {
+          ceo_percentage?: number | null
+          ceo_tasks?: Json | null
+          connected_tools?: Json | null
+          created_at?: string
+          id?: string
+          milestones?: Json | null
+          onboarding_completed_at?: string | null
+          operating_tasks?: Json | null
+          quarterly_goal?: string | null
+          updated_at?: string
+          user_id?: string
+          weekly_hours?: number | null
+        }
+        Relationships: []
+      }
       user_purchases: {
         Row: {
           created_at: string
