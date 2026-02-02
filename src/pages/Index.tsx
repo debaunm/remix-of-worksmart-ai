@@ -7,6 +7,7 @@ import PlanSection from "@/components/homepage/PlanSection";
 import TwoPathsSection from "@/components/homepage/TwoPathsSection";
 import SuccessSection from "@/components/homepage/SuccessSection";
 import StakesSection from "@/components/homepage/StakesSection";
+import NewsletterSection from "@/components/homepage/NewsletterSection";
 import FinalCTASection from "@/components/homepage/FinalCTASection";
 
 const Index = () => {
@@ -20,6 +21,7 @@ const Index = () => {
       <TwoPathsSection />
       <SuccessSection />
       <StakesSection />
+      <NewsletterSection />
       <FinalCTASection />
       <Footer />
     </div>
