@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Sparkles, Menu, X, LogOut } from "lucide-react";
+import { Menu, X, LogOut } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
+import worksmartLogo from "@/assets/worksmart-logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -101,17 +102,14 @@ const Navbar = () => {
           {/* Logo */}
           <Link 
             to="/" 
-            className="flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
-            aria-label="Worksmart Advisor - Go to homepage"
+            className="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
+            aria-label="WorkSmart - Go to homepage"
           >
-            <div className="relative">
-              <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-primary-foreground" aria-hidden="true" />
-              </div>
-            </div>
-            <span className={`text-xl font-bold transition-colors ${logoTextStyles}`}>
-              Worksmart <span className="text-primary">Advisor</span>
-            </span>
+            <img 
+              src={worksmartLogo} 
+              alt="WorkSmart" 
+              className="h-8 w-auto"
+            />
           </Link>
 
           {/* Desktop Nav */}
