@@ -128,7 +128,7 @@ const SocialMediaAnalytics = () => {
   const aggregateStats = getAggregateStats(mockSocialPlatforms);
 
   return (
-    <Card className="mt-8">
+    <Card className="h-full">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <BarChart3 className="w-5 h-5 text-primary" />
