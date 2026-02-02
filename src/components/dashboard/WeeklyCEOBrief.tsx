@@ -23,9 +23,9 @@ interface WeeklyBriefData {
   focusAreas: {
     title: string;
     description: string;
-    priority: "high" | "medium" | "low";
   }[];
   weeklyQuote: string;
+  quoteAuthor: string;
 }
 
 const mockBriefData: WeeklyBriefData = {
@@ -42,28 +42,20 @@ const mockBriefData: WeeklyBriefData = {
   ],
   focusAreas: [
     {
-      title: "Revenue Growth",
-      description: "Follow up with new client onboarding",
-      priority: "high",
+      title: "Finalize Q1 Strategy",
+      description: "Complete quarterly planning and goal-setting",
     },
     {
-      title: "Content Strategy",
-      description: "Double down on LinkedIn video content",
-      priority: "high",
+      title: "Record 3 Podcast Episodes",
+      description: "Batch record for next month's content",
     },
     {
-      title: "Newsletter Optimization",
-      description: "Monitor rebrand engagement metrics",
-      priority: "medium",
+      title: "Delegate Invoicing to VA",
+      description: "Hand off recurring admin tasks",
     },
   ],
-  weeklyQuote: "The goal isn't to be busy—it's to be effective.",
-};
-
-const priorityColors = {
-  high: "bg-destructive/10 text-destructive border-destructive/30",
-  medium: "bg-amber-500/10 text-amber-600 border-amber-500/30",
-  low: "bg-muted text-muted-foreground border-border",
+  weeklyQuote: "The goal isn't to be busy. It's to be effective.",
+  quoteAuthor: "Morgan DeBaun",
 };
 
 const WeeklyCEOBrief = () => {
@@ -128,80 +120,72 @@ const WeeklyCEOBrief = () => {
       <CardContent className="space-y-6">
         {/* Wins & Insights */}
         <div className="grid md:grid-cols-2 gap-4">
-          {/* Wins */}
+          {/* Wins - Kelly Green */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="p-4 rounded-xl bg-accent/5 border border-accent/20"
+            className="p-4 rounded-xl bg-[hsl(var(--success-green))]/5 border border-[hsl(var(--success-green))]/20"
           >
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center">
-                <TrendingUp className="w-4 h-4 text-accent" />
+              <div className="w-8 h-8 rounded-lg bg-[hsl(var(--success-green))]/10 flex items-center justify-center">
+                <TrendingUp className="w-4 h-4 text-[hsl(var(--success-green))]" />
               </div>
               <h4 className="font-semibold text-sm">This Week's Wins</h4>
             </div>
             <ul className="space-y-2">
               {briefData.wins.map((win, index) => (
                 <li key={index} className="flex items-start gap-2 text-sm">
-                  <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                  <span className="text-muted-foreground">{win}</span>
+                  <CheckCircle2 className="w-4 h-4 text-[hsl(var(--success-green))] mt-0.5 flex-shrink-0" />
+                  <span className="text-foreground">{win}</span>
                 </li>
               ))}
             </ul>
           </motion.div>
 
-          {/* Insights */}
+          {/* Insights - Gold */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="p-4 rounded-xl bg-primary/5 border border-primary/20"
+            className="p-4 rounded-xl bg-[hsl(var(--tier-executive))]/5 border border-[hsl(var(--tier-executive))]/20"
           >
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Lightbulb className="w-4 h-4 text-primary" />
+              <div className="w-8 h-8 rounded-lg bg-[hsl(var(--tier-executive))]/10 flex items-center justify-center">
+                <Lightbulb className="w-4 h-4 text-[hsl(var(--tier-executive))]" />
               </div>
               <h4 className="font-semibold text-sm">Key Insights</h4>
             </div>
             <ul className="space-y-2">
               {briefData.insights.map((insight, index) => (
                 <li key={index} className="flex items-start gap-2 text-sm">
-                  <Sparkles className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-muted-foreground">{insight}</span>
+                  <Sparkles className="w-4 h-4 text-[hsl(var(--tier-executive))] mt-0.5 flex-shrink-0" />
+                  <span className="text-foreground">{insight}</span>
                 </li>
               ))}
             </ul>
           </motion.div>
         </div>
 
-        {/* Focus Areas */}
+        {/* Focus Areas - Fire/Coral (Primary) */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="p-4 rounded-xl bg-card border border-border/50"
+          className="p-4 rounded-xl bg-primary/5 border border-primary/20"
         >
           <div className="flex items-center gap-2 mb-4">
             <Target className="w-5 h-5 text-primary" />
-            <h4 className="font-semibold">Priority Focus Areas</h4>
+            <h4 className="font-semibold">This Week's Focus</h4>
           </div>
           <div className="grid sm:grid-cols-3 gap-3">
             {briefData.focusAreas.map((area, index) => (
               <div
                 key={index}
-                className={`p-3 rounded-lg border ${priorityColors[area.priority]}`}
+                className="p-3 rounded-lg bg-primary/5 border border-primary/20 hover:border-primary/40 transition-colors"
               >
-                <div className="flex items-center gap-2 mb-1">
-                  <Badge 
-                    variant="outline" 
-                    className={`text-xs capitalize ${priorityColors[area.priority]}`}
-                  >
-                    {area.priority}
-                  </Badge>
-                </div>
-                <p className="font-medium text-sm mb-1">{area.title}</p>
-                <p className="text-xs text-muted-foreground">{area.description}</p>
+                <p className="font-medium text-sm text-foreground">{area.title}</p>
+                <p className="text-xs text-muted-foreground mt-1">{area.description}</p>
               </div>
             ))}
           </div>
@@ -212,10 +196,13 @@ const WeeklyCEOBrief = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="p-4 rounded-xl bg-secondary border border-border/50"
+          className="p-5 rounded-xl bg-[hsl(var(--dark-bg))] border border-[hsl(var(--dark-border))]"
         >
-          <p className="text-sm font-medium text-center italic text-foreground">
+          <p className="text-base font-medium text-center italic text-white/90 mb-2">
             "{briefData.weeklyQuote}"
+          </p>
+          <p className="text-xs text-center text-white/60">
+            — {briefData.quoteAuthor}
           </p>
         </motion.div>
       </CardContent>
