@@ -28,6 +28,7 @@ import {
   Check
 } from "lucide-react";
 import ExpandableSessionCard, { SessionData } from "@/components/dashboard/ExpandableSessionCard";
+import SocialMediaAnalytics from "@/components/dashboard/SocialMediaAnalytics";
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
@@ -526,6 +527,9 @@ const Dashboard = () => {
               </motion.div>
             </TabsContent>
           </Tabs>
+
+          {/* Social Media Analytics Section */}
+          <SocialMediaAnalytics />
 
           {/* Account Card */}
           <motion.div
