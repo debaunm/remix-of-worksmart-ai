@@ -1,85 +1,28 @@
 
+# Remove Decision Helper and ShopMy Tutorial from Dashboard
 
-# Embed Money Systems Videos Directly on Dashboard
+## Summary
+Remove two items from the Dashboard: the "Decision Helper" tool link (which points to a non-existent page) and the "Shopmy Tutorial" placeholder link.
 
-## Overview
-Replace the current "Watch" button + separate ContentViewer page flow with expandable video cards directly on the Dashboard. Users click a session to expand and watch the video inline without navigating away.
+---
 
-## User Experience
+## Changes
 
-### Before (Current)
-1. User sees session card on Dashboard
-2. Clicks "Watch" button
-3. Navigates to `/content/money-systems/{session-id}`
-4. Watches video with sidebar resources
+### File: `src/pages/Dashboard.tsx`
 
-### After (New)
-1. User sees session card on Dashboard
-2. Clicks session card to expand it
-3. Video appears inline with resources below
-4. Can collapse and switch between sessions easily
+**1. Remove "Shopmy Tutorial" from Money Tools (line 194)**
+- Remove the entry: `{ name: "Shopmy Tutorial", href: "#", external: true, icon: Video }`
+- This is a placeholder link with no actual content
 
-## Visual Layout
+**2. Remove "Decision Helper" from Work Tools (line 199)**  
+- Remove the entry: `{ name: "Decision Helper", href: "/tools/decision-helper", icon: Wrench }`
+- This tool was previously removed from the application but the link remained
 
-```text
-+--------------------------------------------------+
-| Training Sessions                                |
-+--------------------------------------------------+
-| ▼ Session 1: Rich vs Wealthy Mindset    [10 min] |
-| +----------------------------------------------+ |
-| |                                              | |
-| |           [VIDEO EMBED - 16:9]               | |
-| |                                              | |
-| +----------------------------------------------+ |
-| What You'll Learn:                               |
-| ✓ The mindset shift from "rich" to "wealthy"   |
-| ✓ Money by design principles                   |
-|                                                  |
-| Resources:                                       |
-| 📄 Wealthy Life Budget & Dashboard [Open ↗]    |
-+--------------------------------------------------+
-| ▶ Session 2: Build Your Wealth System  [10 min] |
-|   Create automated money flows...                |
-+--------------------------------------------------+
-| ▶ Session 3: Optimize Your Income      [10 min] |
-|   Identify how to use your skills...             |
-+--------------------------------------------------+
-```
+---
 
-## What Will Be Modified
+## Result
+After these changes:
+- **Money Tools** will have 5 items (was 6)
+- **Work Tools** will have 3 items (was 4)
 
-### Dashboard.tsx Changes
-1. Add video URLs to the `moneySessions` array (matching ContentViewer data)
-2. Add learnings and downloads to each session object
-3. Replace the `SessionCard` component with an expandable `ExpandableSessionCard` component
-4. Use Radix Accordion or Collapsible for the expand/collapse behavior
-5. Embed video iframe when expanded
-6. Show learnings list and resource download links below video
-
-### ContentViewer Remains
-Keep ContentViewer for Work Systems (longer videos with more detailed content) - or we can apply the same pattern there later if desired.
-
-## Technical Details
-
-### New Session Data Structure
-Each session will include:
-- `id`, `title`, `duration`, `description` (existing)
-- `videoUrl` - embed URL for the video
-- `learnings` - array of bullet points
-- `downloads` - array of resource links
-
-### Components Used
-- `Collapsible` from Radix UI (already installed)
-- `iframe` for video embed (responsive 16:9 aspect ratio)
-- Existing `CheckCircle`, `Download` icons from lucide-react
-
-### Responsive Behavior
-- On mobile: Full-width accordion cards
-- On desktop: Cards in the 2-column layout within the existing grid
-
-## Files to Modify
-- `src/pages/Dashboard.tsx` - Primary changes to add expandable video cards
-
-## Optional: Remove Money Systems from ContentViewer
-If you want to fully consolidate, we can remove the money-systems routes from ContentViewer. However, keeping it provides a fallback if you ever want a dedicated page view.
-
+Both arrays will only contain working links to actual content.
