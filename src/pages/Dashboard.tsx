@@ -232,16 +232,24 @@ const Dashboard = () => {
             transition={{ duration: 0.5 }}
             className="mb-8"
           >
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center">
-                <User className="w-7 h-7 text-primary" />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <User className="w-7 h-7 text-primary" />
+                </div>
+                <div>
+                  <h1 className="text-2xl font-bold text-foreground">
+                    Welcome back{user.user_metadata?.display_name ? `, ${user.user_metadata.display_name}` : ''}
+                  </h1>
+                  <p className="text-sm text-muted-foreground">{user.email}</p>
+                </div>
               </div>
-              <div>
-                <h1 className="text-2xl font-bold text-foreground">
-                  Welcome back{user.user_metadata?.display_name ? `, ${user.user_metadata.display_name}` : ''}
-                </h1>
-                <p className="text-sm text-muted-foreground">{user.email}</p>
-              </div>
+              <Link to="/onboarding">
+                <Button variant="outline" size="sm" className="gap-2">
+                  <Settings className="w-4 h-4" />
+                  Setup Wizard
+                </Button>
+              </Link>
             </div>
           </motion.div>
 
