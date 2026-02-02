@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import ExpandableSessionCard, { SessionData } from "@/components/dashboard/ExpandableSessionCard";
 import SocialMediaAnalytics from "@/components/dashboard/SocialMediaAnalytics";
+import WeeklyCEOBrief from "@/components/dashboard/WeeklyCEOBrief";
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
@@ -527,6 +528,9 @@ const Dashboard = () => {
               </motion.div>
             </TabsContent>
           </Tabs>
+
+          {/* Weekly CEO Brief Section */}
+          <WeeklyCEOBrief />
 
           {/* Social Media Analytics Section */}
           <SocialMediaAnalytics />
