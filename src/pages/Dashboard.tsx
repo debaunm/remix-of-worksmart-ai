@@ -245,7 +245,13 @@ const Dashboard = () => {
             </div>
           </motion.div>
 
-          {/* Main Content */}
+          {/* Daily Priorities - CEO Brief + Social Analytics Side by Side */}
+          <div className="grid lg:grid-cols-2 gap-6 mb-8">
+            <WeeklyCEOBrief />
+            <SocialMediaAnalytics />
+          </div>
+
+          {/* Training Content */}
           <Tabs defaultValue={hasMediaCompanyAccess ? "media" : hasWorkAccess ? "work" : "money"} className="w-full">
             <TabsList className="grid w-full max-w-lg grid-cols-3 mb-8">
               <TabsTrigger value="work" className="flex items-center gap-2">
@@ -528,12 +534,6 @@ const Dashboard = () => {
               </motion.div>
             </TabsContent>
           </Tabs>
-
-          {/* Weekly CEO Brief Section */}
-          <WeeklyCEOBrief />
-
-          {/* Social Media Analytics Section */}
-          <SocialMediaAnalytics />
 
           {/* Account Card */}
           <motion.div
