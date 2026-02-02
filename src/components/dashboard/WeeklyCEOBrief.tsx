@@ -3,14 +3,11 @@ import { motion } from "framer-motion";
 import { 
   Lightbulb, 
   TrendingUp, 
-  TrendingDown,
   Target, 
-  AlertTriangle,
   Sparkles,
   RefreshCw,
   Calendar,
   CheckCircle2,
-  ArrowRight,
   Brain
 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -22,55 +19,45 @@ interface WeeklyBriefData {
   weekOf: string;
   generatedAt: string;
   wins: string[];
-  challenges: string[];
+  insights: string[];
   focusAreas: {
     title: string;
     description: string;
     priority: "high" | "medium" | "low";
   }[];
-  keyInsight: string;
-  weeklyQuestion: string;
-  suggestedActions: string[];
+  weeklyQuote: string;
 }
 
 const mockBriefData: WeeklyBriefData = {
   weekOf: "January 27 - February 2, 2026",
   generatedAt: "Sunday, January 26",
   wins: [
-    "Completed 3 client deliverables ahead of schedule",
-    "LinkedIn engagement up 45% from content consistency",
-    "Closed new retainer worth $5k/month",
+    "Closed 2 new client deals",
+    "Hit 300K total followers",
+    "Launched newsletter rebrand",
   ],
-  challenges: [
-    "Missed 2 workout sessions this week",
-    "Email backlog reached 150+ unread",
-    "Delayed product launch prep by 3 days",
+  insights: [
+    "AI content creation saves 5+ hours/week",
+    "LinkedIn video outperforms static posts 3x",
   ],
   focusAreas: [
     {
-      title: "Revenue Pipeline",
-      description: "Follow up with 3 warm leads from networking event",
+      title: "Revenue Growth",
+      description: "Follow up with new client onboarding",
       priority: "high",
     },
     {
-      title: "Content Batching",
-      description: "Record 4 videos for next month's content calendar",
+      title: "Content Strategy",
+      description: "Double down on LinkedIn video content",
       priority: "high",
     },
     {
-      title: "Team Delegation",
-      description: "Hand off admin tasks to new VA",
+      title: "Newsletter Optimization",
+      description: "Monitor rebrand engagement metrics",
       priority: "medium",
     },
   ],
-  keyInsight: "Your highest-revenue weeks correlate with mornings blocked for deep work. Consider protecting 8-11 AM as non-negotiable creative time.",
-  weeklyQuestion: "What's the ONE thing that, if completed this week, would make everything else easier or unnecessary?",
-  suggestedActions: [
-    "Block 3 hours for Q1 planning session",
-    "Schedule follow-up calls with warm leads",
-    "Review and batch-process email backlog",
-    "Set up automation for recurring admin tasks",
-  ],
+  weeklyQuote: "The goal isn't to be busy—it's to be effective.",
 };
 
 const priorityColors = {
@@ -139,7 +126,7 @@ const WeeklyCEOBrief = () => {
         </div>
       </CardHeader>
       <CardContent className="space-y-6">
-        {/* Wins & Challenges */}
+        {/* Wins & Insights */}
         <div className="grid md:grid-cols-2 gap-4">
           {/* Wins */}
           <motion.div
@@ -164,24 +151,24 @@ const WeeklyCEOBrief = () => {
             </ul>
           </motion.div>
 
-          {/* Challenges */}
+          {/* Insights */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="p-4 rounded-xl bg-destructive/5 border border-destructive/20"
+            className="p-4 rounded-xl bg-primary/5 border border-primary/20"
           >
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 rounded-lg bg-destructive/10 flex items-center justify-center">
-                <TrendingDown className="w-4 h-4 text-destructive" />
+              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                <Lightbulb className="w-4 h-4 text-primary" />
               </div>
-              <h4 className="font-semibold text-sm">Areas to Address</h4>
+              <h4 className="font-semibold text-sm">Key Insights</h4>
             </div>
             <ul className="space-y-2">
-              {briefData.challenges.map((challenge, index) => (
+              {briefData.insights.map((insight, index) => (
                 <li key={index} className="flex items-start gap-2 text-sm">
-                  <AlertTriangle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
-                  <span className="text-muted-foreground">{challenge}</span>
+                  <Sparkles className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                  <span className="text-muted-foreground">{insight}</span>
                 </li>
               ))}
             </ul>
@@ -220,57 +207,16 @@ const WeeklyCEOBrief = () => {
           </div>
         </motion.div>
 
-        {/* Key Insight */}
+        {/* Weekly Quote */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="p-4 rounded-xl bg-primary/5 border border-primary/20"
-        >
-          <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-              <Lightbulb className="w-5 h-5 text-primary" />
-            </div>
-            <div>
-              <h4 className="font-semibold text-sm mb-1">Key Insight</h4>
-              <p className="text-sm text-muted-foreground">{briefData.keyInsight}</p>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Weekly Question */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
           className="p-4 rounded-xl bg-secondary border border-border/50"
         >
           <p className="text-sm font-medium text-center italic text-foreground">
-            "{briefData.weeklyQuestion}"
+            "{briefData.weeklyQuote}"
           </p>
-        </motion.div>
-
-        {/* Suggested Actions */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-        >
-          <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-primary" />
-            Suggested Actions for This Week
-          </h4>
-          <div className="grid sm:grid-cols-2 gap-2">
-            {briefData.suggestedActions.map((action, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-2 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors cursor-pointer group"
-              >
-                <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                <span className="text-sm">{action}</span>
-              </div>
-            ))}
-          </div>
         </motion.div>
       </CardContent>
     </Card>
