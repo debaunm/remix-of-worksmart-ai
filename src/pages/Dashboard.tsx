@@ -191,12 +191,10 @@ const Dashboard = () => {
     { name: "Speaker Pricing Formula", href: "https://docs.google.com/spreadsheets/d/1tGodvWyDjglJ-FhUxa4Mrw7iwsq7pEfU/copy", external: true, icon: FileText },
     { name: "Brand Deal Pricing Formula", href: "https://docs.google.com/spreadsheets/d/1Vfp-fkNuOW9rSX1YzBN_ZAxC0iJqzK7M/copy", external: true, icon: FileText },
     { name: "Services Pricing Formula", href: "https://docs.google.com/spreadsheets/d/1-l60Sl1zhq8PfjbV6OKfxvqCblq_1YjK/copy", external: true, icon: FileText },
-    { name: "Shopmy Tutorial", href: "#", external: true, icon: Video },
   ];
 
   const workTools = [
     { name: "Weekly Plan Builder", href: "/tools/weekly-plan-builder", icon: Wrench },
-    { name: "Decision Helper", href: "/tools/decision-helper", icon: Wrench },
     { name: "Brand Voice Generator", href: "/tools/brand-voice-generator", icon: Wrench },
     { name: "LinkedIn 21-Day Plan", href: "/tools/linkedin-21-day-content-plan", icon: Wrench },
   ];
