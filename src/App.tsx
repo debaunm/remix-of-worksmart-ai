@@ -50,6 +50,7 @@ import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
 import ContentViewer from "./pages/ContentViewer";
 import Calendar from "./pages/Calendar";
+import Onboarding from "./pages/Onboarding";
 
 const queryClient = new QueryClient();
 
@@ -106,6 +107,7 @@ const App = () => (
           <Route path="/settings" element={<Settings />} />
           <Route path="/content/:systemId/:contentId" element={<ContentViewer />} />
           <Route path="/calendar" element={<Calendar />} />
+          <Route path="/onboarding" element={<Onboarding />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
