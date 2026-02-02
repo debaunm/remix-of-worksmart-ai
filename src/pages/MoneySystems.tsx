@@ -74,9 +74,33 @@ const MoneySystems = () => {
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
               Discover what it takes to have money freedom, passive income strategies, and how to design multiple income streams that work while you sleep.
             </p>
-            <div className="inline-flex items-center gap-3 bg-accent/50 border border-border rounded-full px-6 py-3">
-              <DollarSign className="w-5 h-5 text-primary" />
-              <span className="text-lg font-semibold">Money System: <span className="text-primary">$197</span></span>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <div className="inline-flex items-center gap-3 bg-accent/50 border border-border rounded-full px-6 py-3">
+                <DollarSign className="w-5 h-5 text-primary" />
+                <span className="text-lg font-semibold">Money System: <span className="text-primary">$197</span></span>
+              </div>
+              {hasMoneyAccess ? (
+                <Link to="/dashboard">
+                  <Button variant="hero" size="lg">
+                    <CheckCircle className="w-4 h-4 mr-2" />
+                    Go to Dashboard
+                  </Button>
+                </Link>
+              ) : (
+                <Button variant="hero" size="lg" onClick={handlePurchase} disabled={isLoading}>
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      Get Started
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </>
+                  )}
+                </Button>
+              )}
             </div>
           </motion.div>
         </div>

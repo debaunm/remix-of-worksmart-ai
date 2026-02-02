@@ -105,9 +105,33 @@ const WorkSystems = () => {
               Stop falling behind on technology. Learn to think about AI differently, build systems that compound, 
               and automate the work that drains you.
             </p>
-            <div className="inline-flex items-center gap-3 bg-accent/50 border border-border rounded-full px-6 py-3">
-              <Sparkles className="w-5 h-5 text-primary" />
-              <span className="text-lg font-semibold">Complete Bundle: <span className="text-primary">$197</span></span>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <div className="inline-flex items-center gap-3 bg-accent/50 border border-border rounded-full px-6 py-3">
+                <Sparkles className="w-5 h-5 text-primary" />
+                <span className="text-lg font-semibold">Complete Bundle: <span className="text-primary">$197</span></span>
+              </div>
+              {hasWorkAccess ? (
+                <Link to="/dashboard">
+                  <Button variant="hero" size="lg">
+                    <CheckCircle className="w-4 h-4 mr-2" />
+                    Go to Dashboard
+                  </Button>
+                </Link>
+              ) : (
+                <Button variant="hero" size="lg" onClick={handlePurchase} disabled={isLoading}>
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      Get Started
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </>
+                  )}
+                </Button>
+              )}
             </div>
           </motion.div>
         </div>
