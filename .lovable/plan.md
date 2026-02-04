@@ -1,145 +1,149 @@
 
+# Community Feed Feature
 
-# Calendar Sync Dashboard UI (Mock Data Preview)
+Build a Patreon-style community updates feed where you (as admin) can post updates that appear on member dashboards, with members able to comment and engage.
 
 ## Overview
 
-This plan creates a complete Calendar Sync Dashboard UI with mock data so you can preview the design before adding Google Calendar credentials. The feature will appear in two locations as originally planned.
+This feature creates a central hub for community updates with:
+- **Admin-only posting** - Only you can create new posts
+- **Member comments** - All logged-in users can comment on posts
+- **Likes/reactions** - Members can like posts and comments
+- **Rich content** - Posts support text, images, and video embeds
+- **Dashboard integration** - Latest updates appear prominently on user dashboards
 
----
+## Database Design
 
-## What Gets Built
+### New Tables
 
-### 1. Dedicated Calendar Page (`/calendar`)
+**community_posts** - Stores your updates
+- `id`, `author_id` (your user id), `title`, `content`, `media_url`, `media_type` (image/video/none), `created_at`, `updated_at`
+- RLS: Anyone authenticated can read, only admin can insert/update/delete
 
-A new page with:
-- Connection status banner showing "Connected to Google Calendar" (mock state)
-- 7-day event timeline grouped by date
-- Event cards showing:
-  - Time (with duration indicator)
-  - Event title
-  - Location (if any)
-  - Calendar color coding
-- Disconnect button (non-functional, just UI)
-- Empty state design for when no events exist
-- Toggle to switch between "Connected" and "Not Connected" views (for design preview)
+**community_comments** - User comments on posts
+- `id`, `post_id`, `user_id`, `content`, `created_at`, `updated_at`
+- RLS: Anyone authenticated can read, users can create their own comments
 
-### 2. Weekly Plan Builder Calendar Sidebar
+**community_likes** - Likes on posts
+- `id`, `post_id`, `user_id`, `created_at`
+- Unique constraint on (post_id, user_id) to prevent duplicate likes
+- RLS: Anyone authenticated can read/insert/delete their own likes
 
-A collapsible panel inside the Weekly Plan Builder showing:
-- "Your Calendar" header with connection status
-- Today's and tomorrow's events
-- Helps visualize conflicts when planning
-- "Connect Calendar" button (when not connected)
+**user_roles** - Admin role management (security best practice)
+- `id`, `user_id`, `role` (enum: admin, user)
+- Separate table prevents privilege escalation
+- Security definer function `has_role()` for RLS checks
 
----
+### Database Diagram
 
-## Mock Data
+```text
++------------------+       +--------------------+
+|  community_posts |       | community_comments |
++------------------+       +--------------------+
+| id (PK)          |<------| post_id (FK)       |
+| author_id        |       | user_id            |
+| title            |       | content            |
+| content          |       | created_at         |
+| media_url        |       | updated_at         |
+| media_type       +----+  +--------------------+
+| created_at       |    |
+| updated_at       |    |  +------------------+
++------------------+    +--| community_likes  |
+                           +------------------+
+                           | post_id (FK)     |
+                           | user_id          |
+                           | created_at       |
+                           +------------------+
 
-Realistic calendar events for the next 7 days:
-
-| Day | Events |
-|-----|--------|
-| Today | "Team Standup" 9:00 AM, "Client Call - Acme Corp" 2:00 PM, "Deep Work Block" 4:00 PM |
-| Tomorrow | "Weekly Review" 10:00 AM, "Lunch with Sarah" 12:30 PM |
-| Day 3 | "Board Meeting" 9:00 AM (3 hrs), "Investor Pitch Prep" 3:00 PM |
-| Day 4 | "Content Recording" 11:00 AM, "Podcast Interview" 2:00 PM |
-| Day 5 | "Team All-Hands" 10:00 AM, "1:1 with Designer" 4:00 PM |
-| Day 6 | "Focus Time" 9:00 AM (blocked), "Gym" 5:00 PM |
-| Day 7 | "Family Brunch" 10:00 AM |
-
----
++------------------+
+|   user_roles     |
++------------------+
+| id (PK)          |
+| user_id          |
+| role (enum)      |
++------------------+
+```
 
 ## UI Components
 
-### CalendarConnection Component
-- Shows connection status with green checkmark or gray disconnected icon
-- "Connect Google Calendar" button with Google logo
-- "Disconnect" option when connected
-- Animated transition between states
+### 1. Community Feed Page (`/community`)
+A dedicated page for the full feed:
+- Hero section with community branding
+- Post creation form (visible only to admin)
+- Scrollable feed of posts with:
+  - Author avatar and name
+  - Post timestamp (relative: "2 hours ago")
+  - Post content with rich text rendering
+  - Media display (images/video embeds)
+  - Like button with count
+  - Comment count and expandable comment section
+  - Individual comments with user avatars
 
-### UpcomingEvents Component
-- Groups events by day with date headers
-- Each event shows:
-  - Color-coded left border (based on calendar)
-  - Time range and duration badge
-  - Title in semibold
-  - Location with map pin icon (optional)
-- Smooth scroll for long lists
-- "No events" empty state
+### 2. Dashboard Widget
+Add a "Latest from Morgan" section to the Dashboard:
+- Shows 2-3 most recent posts as cards
+- Preview of content with "Read more" link
+- Like and comment counts
+- "View All Updates" link to `/community`
 
-### CalendarPage Component
-- Hero section with calendar icon
-- Toggle switch to preview connected vs disconnected states
-- Full 7-day view with all mock events
-- Responsive: stacks on mobile, multi-column on desktop
+### 3. Post Components
+- **CommunityPost** - Full post display with comments
+- **PostCard** - Compact preview for dashboard
+- **CommentSection** - Expandable comments list
+- **CommentInput** - Text area for new comments
+- **LikeButton** - Animated heart with count
 
-### CalendarSidebar (for Weekly Plan Builder)
-- Collapsible panel using existing Collapsible component
-- Shows today + tomorrow only (compact view)
-- "View Full Calendar" link to `/calendar` page
+## User Experience Flow
 
----
+1. **Viewing posts**: Members see feed on dashboard and can click through to `/community`
+2. **Engaging**: Click like button (instant optimistic update), expand comments to read/reply
+3. **Commenting**: Type in comment box, submit with Enter or button
+4. **Admin posting**: You see a composer at top of feed, can add text/images/video URLs
 
-## Design Tokens
+## Technical Details
 
-Following existing patterns:
-- Cards: `bg-card border border-border/50 rounded-2xl`
-- Headers: `font-semibold` with icon
-- Colors: Primary coral for accents, warm background
-- Motion: Framer Motion for enter animations
-- Calendar colors:
-  - Work events: Blue border
-  - Personal: Green border
-  - Focus blocks: Purple border
+### Components to Create
+- `src/pages/Community.tsx` - Main community feed page
+- `src/components/community/CommunityFeed.tsx` - Feed container
+- `src/components/community/CommunityPost.tsx` - Single post display
+- `src/components/community/PostComposer.tsx` - Admin post creation
+- `src/components/community/CommentSection.tsx` - Comments list and input
+- `src/components/community/LikeButton.tsx` - Like interaction
+- `src/components/dashboard/LatestUpdates.tsx` - Dashboard widget
 
----
+### Hooks to Create
+- `src/hooks/useCommunityPosts.ts` - Fetch posts with React Query
+- `src/hooks/useCommunityComments.ts` - Fetch/create comments
+- `src/hooks/useLikes.ts` - Handle like toggle with optimistic updates
+- `src/hooks/useUserRole.ts` - Check if current user is admin
 
-## Files to Create
+### Admin Role Setup
+You'll need to add your user ID to the `user_roles` table as an admin after the migration runs. This can be done through the Cloud View > Run SQL feature.
 
-| File | Purpose |
-|------|---------|
-| `src/pages/Calendar.tsx` | Main calendar page |
-| `src/components/calendar/CalendarConnection.tsx` | Connection status & button |
-| `src/components/calendar/UpcomingEvents.tsx` | Event list component |
-| `src/components/calendar/CalendarSidebar.tsx` | Compact sidebar for tools |
-| `src/components/calendar/mockCalendarData.ts` | Mock event data |
-| `src/hooks/useGoogleCalendar.ts` | Hook (returns mock data for now) |
+### Styling
+Following existing brand colors:
+- Coral/salmon primary for actions
+- Warm cream backgrounds
+- Dark teal/green accents
+- Cards with subtle borders and shadows
 
-## Files to Modify
+## File Changes Summary
 
 | File | Change |
 |------|--------|
-| `src/App.tsx` | Add `/calendar` route |
-| `src/pages/tools/WeeklyPlanBuilder.tsx` | Add CalendarSidebar |
-| `src/components/Navbar.tsx` | Add Calendar link (optional) |
+| Database migration | Create 4 new tables + RLS policies + role function |
+| `src/App.tsx` | Add `/community` route |
+| `src/pages/Community.tsx` | New - full feed page |
+| `src/pages/Dashboard.tsx` | Add LatestUpdates widget |
+| `src/components/community/*` | New - 6 components |
+| `src/components/dashboard/LatestUpdates.tsx` | New - dashboard widget |
+| `src/hooks/useCommunity*.ts` | New - 4 hooks |
+| `src/components/Navbar.tsx` | Add Community link |
 
----
+## Post-Implementation Steps
 
-## Future-Proofing
-
-The mock data hook will have the same interface as the real implementation:
-
-```typescript
-const { 
-  isConnected,      // boolean
-  isLoading,        // boolean
-  events,           // CalendarEvent[]
-  connect,          // () => void
-  disconnect,       // () => void
-  refetch           // () => void
-} = useGoogleCalendar();
-```
-
-When you add real credentials later, only the hook internals change - all UI components stay the same.
-
----
-
-## Preview Mode Toggle
-
-A special toggle on the Calendar page lets you switch between:
-- **Connected view**: Shows mock events
-- **Disconnected view**: Shows "Connect your calendar" CTA
-
-This helps you review both states of the design.
+1. After migration runs, add your user ID to `user_roles` table with 'admin' role
+2. Test creating a post as admin
+3. Test commenting and liking as a regular user
+4. Verify non-admins cannot access the post composer
 
