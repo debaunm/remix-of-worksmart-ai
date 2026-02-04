@@ -84,6 +84,7 @@ const Navbar = () => {
     { label: "Money Systems", href: "/money-systems" },
     { label: "Work Systems", href: "/work-systems" },
     { label: "On Demand", href: "/sessions" },
+    { label: "Community", href: "/community" },
   ];
 
   return (

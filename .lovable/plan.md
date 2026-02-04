@@ -146,4 +146,3 @@ Following existing brand colors:
 2. Test creating a post as admin
 3. Test commenting and liking as a regular user
 4. Verify non-admins cannot access the post composer
-
