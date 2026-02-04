@@ -418,6 +418,39 @@ export type Database = {
         }
         Relationships: []
       }
+      weekly_focus: {
+        Row: {
+          author_id: string
+          created_at: string
+          focus_areas: Json
+          id: string
+          quote_author: string | null
+          updated_at: string
+          week_start: string
+          weekly_quote: string | null
+        }
+        Insert: {
+          author_id: string
+          created_at?: string
+          focus_areas?: Json
+          id?: string
+          quote_author?: string | null
+          updated_at?: string
+          week_start: string
+          weekly_quote?: string | null
+        }
+        Update: {
+          author_id?: string
+          created_at?: string
+          focus_areas?: Json
+          id?: string
+          quote_author?: string | null
+          updated_at?: string
+          week_start?: string
+          weekly_quote?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

@@ -1,9 +1,12 @@
 import { useCommunityPosts } from "@/hooks/useCommunityPosts";
 import { useUserRole } from "@/hooks/useUserRole";
 import { PostComposer } from "./PostComposer";
+import { WeeklyFocusComposer } from "./WeeklyFocusComposer";
 import { CommunityPost } from "./CommunityPost";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { MessageSquare, Target } from "lucide-react";
 
 export const CommunityFeed = () => {
   const { data: posts, isLoading, error } = useCommunityPosts();
@@ -21,8 +24,27 @@ export const CommunityFeed = () => {
 
   return (
     <div className="space-y-6">
-      {/* Admin composer */}
-      {isAdmin && <PostComposer />}
+      {/* Admin composer with tabs */}
+      {isAdmin && (
+        <Tabs defaultValue="post" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 mb-4">
+            <TabsTrigger value="post" className="flex items-center gap-2">
+              <MessageSquare className="w-4 h-4" />
+              Community Post
+            </TabsTrigger>
+            <TabsTrigger value="focus" className="flex items-center gap-2">
+              <Target className="w-4 h-4" />
+              Weekly Focus
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="post">
+            <PostComposer />
+          </TabsContent>
+          <TabsContent value="focus">
+            <WeeklyFocusComposer />
+          </TabsContent>
+        </Tabs>
+      )}
 
       {/* Posts list */}
       {isLoading ? (

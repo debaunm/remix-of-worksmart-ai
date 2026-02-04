@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { 
   Target, 
@@ -11,52 +10,21 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-
-interface WeeklyBriefData {
-  weekOf: string;
-  generatedAt: string;
-  focusAreas: {
-    title: string;
-    description: string;
-  }[];
-  weeklyQuote: string;
-  quoteAuthor: string;
-}
-
-const mockBriefData: WeeklyBriefData = {
-  weekOf: "January 27 - February 2, 2026",
-  generatedAt: "Sunday, January 26",
-  focusAreas: [
-    {
-      title: "Finalize Q1 Strategy",
-      description: "Complete quarterly planning and goal-setting",
-    },
-    {
-      title: "Record 3 Podcast Episodes",
-      description: "Batch record for next month's content",
-    },
-    {
-      title: "Delegate Invoicing to VA",
-      description: "Hand off recurring admin tasks",
-    },
-  ],
-  weeklyQuote: "The goal isn't to be busy. It's to be effective.",
-  quoteAuthor: "Morgan DeBaun",
-};
+import { useCurrentWeeklyFocus } from "@/hooks/useWeeklyFocus";
+import { format, parseISO, addDays } from "date-fns";
 
 const WeeklyCEOBrief = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [briefData] = useState<WeeklyBriefData>(mockBriefData);
+  const { data: weeklyFocus, isLoading, refetch, isRefetching } = useCurrentWeeklyFocus();
 
-  const handleRegenerate = () => {
-    setIsLoading(true);
-    // Simulate regeneration
-    setTimeout(() => setIsLoading(false), 2000);
+  const formatWeekRange = (weekStart: string) => {
+    const start = parseISO(weekStart);
+    const end = addDays(start, 6);
+    return `${format(start, "MMMM d")} - ${format(end, "d, yyyy")}`;
   };
 
   if (isLoading) {
     return (
-      <Card className="mt-8">
+      <Card className="h-full">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -68,12 +36,27 @@ const WeeklyCEOBrief = () => {
           <Skeleton className="w-64 h-4 mt-2" />
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="grid md:grid-cols-2 gap-4">
-            <Skeleton className="h-40 rounded-xl" />
-            <Skeleton className="h-40 rounded-xl" />
-          </div>
-          <Skeleton className="h-32 rounded-xl" />
+          <Skeleton className="h-40 rounded-xl" />
           <Skeleton className="h-24 rounded-xl" />
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (!weeklyFocus) {
+    return (
+      <Card className="h-full">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Brain className="w-5 h-5 text-primary" />
+            Weekly CEO Brief
+          </CardTitle>
+          <CardDescription>No weekly focus has been set yet.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p className="text-muted-foreground text-sm">
+            Check back soon for your weekly focus and priorities.
+          </p>
         </CardContent>
       </Card>
     );
@@ -89,22 +72,27 @@ const WeeklyCEOBrief = () => {
               Weekly CEO Brief
               <Badge variant="outline" className="ml-2 text-xs font-normal">
                 <Sparkles className="w-3 h-3 mr-1" />
-                AI-Generated
+                Updated
               </Badge>
             </CardTitle>
             <CardDescription className="flex items-center gap-2 mt-1">
               <Calendar className="w-3 h-3" />
-              Week of {briefData.weekOf}
+              Week of {formatWeekRange(weeklyFocus.week_start)}
             </CardDescription>
           </div>
-          <Button variant="outline" size="sm" onClick={handleRegenerate}>
-            <RefreshCw className="w-4 h-4 mr-2" />
-            Regenerate
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={() => refetch()}
+            disabled={isRefetching}
+          >
+            <RefreshCw className={`w-4 h-4 mr-2 ${isRefetching ? "animate-spin" : ""}`} />
+            Refresh
           </Button>
         </div>
       </CardHeader>
       <CardContent className="space-y-6">
-        {/* Focus Areas - Fire/Coral (Primary) */}
+        {/* Focus Areas */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -116,32 +104,38 @@ const WeeklyCEOBrief = () => {
             <h4 className="font-semibold">This Week's Focus</h4>
           </div>
           <div className="grid sm:grid-cols-3 gap-3">
-            {briefData.focusAreas.map((area, index) => (
+            {weeklyFocus.focus_areas.map((area, index) => (
               <div
                 key={index}
                 className="p-3 rounded-lg bg-primary/5 border border-primary/20 hover:border-primary/40 transition-colors"
               >
                 <p className="font-medium text-sm text-foreground">{area.title}</p>
-                <p className="text-xs text-muted-foreground mt-1">{area.description}</p>
+                {area.description && (
+                  <p className="text-xs text-muted-foreground mt-1">{area.description}</p>
+                )}
               </div>
             ))}
           </div>
         </motion.div>
 
         {/* Weekly Quote */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="p-5 rounded-xl bg-[hsl(var(--dark-bg))] border border-[hsl(var(--dark-border))]"
-        >
-          <p className="text-base font-medium text-center italic text-white/90 mb-2">
-            "{briefData.weeklyQuote}"
-          </p>
-          <p className="text-xs text-center text-white/60">
-            — {briefData.quoteAuthor}
-          </p>
-        </motion.div>
+        {weeklyFocus.weekly_quote && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="p-5 rounded-xl bg-[hsl(var(--dark-bg))] border border-[hsl(var(--dark-border))]"
+          >
+            <p className="text-base font-medium text-center italic text-white/90 mb-2">
+              "{weeklyFocus.weekly_quote}"
+            </p>
+            {weeklyFocus.quote_author && (
+              <p className="text-xs text-center text-white/60">
+                — {weeklyFocus.quote_author}
+              </p>
+            )}
+          </motion.div>
+        )}
       </CardContent>
     </Card>
   );
