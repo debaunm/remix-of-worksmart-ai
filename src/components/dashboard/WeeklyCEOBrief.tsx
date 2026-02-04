@@ -1,13 +1,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { 
-  Lightbulb, 
-  TrendingUp, 
   Target, 
   Sparkles,
   RefreshCw,
   Calendar,
-  CheckCircle2,
   Brain
 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,8 +15,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 interface WeeklyBriefData {
   weekOf: string;
   generatedAt: string;
-  wins: string[];
-  insights: string[];
   focusAreas: {
     title: string;
     description: string;
@@ -31,15 +26,6 @@ interface WeeklyBriefData {
 const mockBriefData: WeeklyBriefData = {
   weekOf: "January 27 - February 2, 2026",
   generatedAt: "Sunday, January 26",
-  wins: [
-    "Closed 2 new client deals",
-    "Hit 300K total followers",
-    "Launched newsletter rebrand",
-  ],
-  insights: [
-    "AI content creation saves 5+ hours/week",
-    "LinkedIn video outperforms static posts 3x",
-  ],
   focusAreas: [
     {
       title: "Finalize Q1 Strategy",
@@ -118,55 +104,6 @@ const WeeklyCEOBrief = () => {
         </div>
       </CardHeader>
       <CardContent className="space-y-6">
-        {/* Wins & Insights */}
-        <div className="grid md:grid-cols-2 gap-4">
-          {/* Wins - Kelly Green */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="p-4 rounded-xl bg-[hsl(var(--success-green))]/5 border border-[hsl(var(--success-green))]/20"
-          >
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 rounded-lg bg-[hsl(var(--success-green))]/10 flex items-center justify-center">
-                <TrendingUp className="w-4 h-4 text-[hsl(var(--success-green))]" />
-              </div>
-              <h4 className="font-semibold text-sm">This Week's Wins</h4>
-            </div>
-            <ul className="space-y-2">
-              {briefData.wins.map((win, index) => (
-                <li key={index} className="flex items-start gap-2 text-sm">
-                  <CheckCircle2 className="w-4 h-4 text-[hsl(var(--success-green))] mt-0.5 flex-shrink-0" />
-                  <span className="text-foreground">{win}</span>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Insights - Gold */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="p-4 rounded-xl bg-[hsl(var(--tier-executive))]/5 border border-[hsl(var(--tier-executive))]/20"
-          >
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 rounded-lg bg-[hsl(var(--tier-executive))]/10 flex items-center justify-center">
-                <Lightbulb className="w-4 h-4 text-[hsl(var(--tier-executive))]" />
-              </div>
-              <h4 className="font-semibold text-sm">Key Insights</h4>
-            </div>
-            <ul className="space-y-2">
-              {briefData.insights.map((insight, index) => (
-                <li key={index} className="flex items-start gap-2 text-sm">
-                  <Sparkles className="w-4 h-4 text-[hsl(var(--tier-executive))] mt-0.5 flex-shrink-0" />
-                  <span className="text-foreground">{insight}</span>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        </div>
-
         {/* Focus Areas - Fire/Coral (Primary) */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
