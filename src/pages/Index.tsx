@@ -9,6 +9,7 @@ import SuccessSection from "@/components/homepage/SuccessSection";
 import StakesSection from "@/components/homepage/StakesSection";
 import NewsletterSection from "@/components/homepage/NewsletterSection";
 import FinalCTASection from "@/components/homepage/FinalCTASection";
+import FreeToolsSection from "@/components/homepage/FreeToolsSection";
 
 const Index = () => {
   return (
@@ -18,6 +19,7 @@ const Index = () => {
       <ProblemSection />
       <GuideSection />
       <PlanSection />
+      <FreeToolsSection />
       <TwoPathsSection />
       <SuccessSection />
       <StakesSection />
