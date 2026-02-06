@@ -28,7 +28,7 @@ import {
   Check
 } from "lucide-react";
 import ExpandableSessionCard, { SessionData } from "@/components/dashboard/ExpandableSessionCard";
-import SocialMediaAnalytics from "@/components/dashboard/SocialMediaAnalytics";
+
 import WeeklyCEOBrief from "@/components/dashboard/WeeklyCEOBrief";
 import { LatestUpdates } from "@/components/dashboard/LatestUpdates";
 import { Link } from "react-router-dom";
@@ -254,10 +254,9 @@ const Dashboard = () => {
             </div>
           </motion.div>
 
-          {/* Daily Priorities - CEO Brief + Social Analytics Side by Side */}
-          <div className="grid lg:grid-cols-2 gap-6 mb-8">
+          {/* Weekly CEO Brief */}
+          <div className="mb-8">
             <WeeklyCEOBrief />
-            <SocialMediaAnalytics />
           </div>
 
           {/* Latest Community Updates */}
