@@ -83,7 +83,7 @@ const Navbar = () => {
   const navItems = [
     { label: "Money Systems", href: "/money-systems" },
     { label: "Work Systems", href: "/work-systems" },
-    { label: "On Demand", href: "/sessions" },
+    // { label: "On Demand", href: "/sessions" }, // Hidden while building out
     { label: "Community", href: "/community" },
   ];
 
