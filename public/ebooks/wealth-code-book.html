@@ -1,0 +1,2571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>The Wealth Code - Your Blueprint to Financial Independence</title>
+ <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+ <style>
+ :root {
+ --fire: #F56640;
+ --gold: #FAAB33;
+ --kelly-green: #009470;
+ --sky: #9CCFD9;
+ --slate: #0D1726;
+ --greige: #F5F2ED;
+ --dark-greige: #DED6CC;
+ }
+
+ * {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ }
+
+ body {
+ font-family: 'Poppins', sans-serif;
+ line-height: 1.6;
+ color: var(--slate);
+ background: white;
+ }
+
+ .ebook-container {
+ max-width: 800px;
+ margin: 0 auto;
+ background: white;
+ box-shadow: 0 0 50px rgba(0,0,0,0.1);
+ }
+
+ .page {
+ min-height: 100vh;
+ padding: 60px 80px;
+ page-break-after: always;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ }
+
+ /* COVER */
+ .cover-page {
+ background: linear-gradient(135deg, var(--slate) 0%, #1a2332 100%);
+ color: white;
+ text-align: center;
+ position: relative;
+ overflow: hidden;
+ }
+
+ .cover-page::before {
+ content: '';
+ position: absolute;
+ top: -50%;
+ right: -20%;
+ width: 200%;
+ height: 200%;
+ background: radial-gradient(circle, rgba(250,171,51,0.12) 0%, transparent 70%);
+ z-index: 1;
+ }
+
+ .cover-page::after {
+ content: '';
+ position: absolute;
+ bottom: -30%;
+ left: -20%;
+ width: 150%;
+ height: 150%;
+ background: radial-gradient(circle, rgba(0,148,113,0.08) 0%, transparent 60%);
+ z-index: 1;
+ }
+
+ .cover-content {
+ position: relative;
+ z-index: 2;
+ }
+
+ .cover-badge {
+ display: inline-block;
+ font-family: 'Space Mono', monospace;
+ font-size: 0.85rem;
+ text-transform: uppercase;
+ letter-spacing: 3px;
+ color: var(--slate);
+ background: var(--gold);
+ padding: 8px 24px;
+ border-radius: 50px;
+ margin-bottom: 40px;
+ font-weight: 700;
+ }
+
+ .cover-subtitle {
+ font-family: 'Space Mono', monospace;
+ font-size: 1.1rem;
+ text-transform: uppercase;
+ letter-spacing: 3px;
+ color: var(--sky);
+ margin-bottom: 20px;
+ }
+
+ .cover-title {
+ font-family: 'Poppins', sans-serif;
+ font-weight: 800;
+ font-size: 4.2rem;
+ line-height: 1.1;
+ margin-bottom: 30px;
+ background: linear-gradient(45deg, var(--gold), var(--fire));
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
+ background-clip: text;
+ }
+
+ .cover-tagline {
+ font-size: 1.4rem;
+ margin-bottom: 50px;
+ opacity: 0.9;
+ max-width: 550px;
+ margin-left: auto;
+ margin-right: auto;
+ line-height: 1.5;
+ }
+
+ .cover-author {
+ font-family: 'Space Mono', monospace;
+ font-size: 1.1rem;
+ color: var(--sky);
+ margin-bottom: 8px;
+ }
+
+ .cover-credentials {
+ font-size: 0.9rem;
+ opacity: 0.6;
+ max-width: 400px;
+ margin: 0 auto;
+ }
+
+ .cover-divider {
+ width: 80px;
+ height: 4px;
+ background: var(--fire);
+ margin: 30px auto;
+ border-radius: 2px;
+ }
+
+ /* CHAPTER PAGES */
+ .chapter-page {
+ background: var(--kelly-green);
+ color: white;
+ text-align: center;
+ }
+
+ .chapter-page.gold-theme {
+ background: linear-gradient(135deg, var(--gold), #e69a2e);
+ color: var(--slate);
+ }
+
+ .chapter-page.fire-theme {
+ background: linear-gradient(135deg, var(--fire), #e05535);
+ }
+
+ .chapter-page.slate-theme {
+ background: linear-gradient(135deg, var(--slate), #1a2a3d);
+ }
+
+ .chapter-number {
+ font-family: 'Space Mono', monospace;
+ font-size: 1.2rem;
+ text-transform: uppercase;
+ letter-spacing: 2px;
+ margin-bottom: 30px;
+ opacity: 0.8;
+ }
+
+ .chapter-title {
+ font-weight: 800;
+ font-size: 3rem;
+ line-height: 1.2;
+ margin-bottom: 30px;
+ }
+
+ .chapter-subtitle {
+ font-size: 1.3rem;
+ opacity: 0.9;
+ max-width: 600px;
+ margin: 0 auto;
+ }
+
+ /* CONTENT PAGES */
+ .content-page {
+ background: white;
+ justify-content: flex-start;
+ padding-top: 80px;
+ }
+
+ .content-page.greige-bg {
+ background: var(--greige);
+ }
+
+ .content-page h1 {
+ font-weight: 800;
+ font-size: 2.5rem;
+ color: var(--slate);
+ margin-bottom: 40px;
+ border-bottom: 4px solid var(--fire);
+ padding-bottom: 20px;
+ }
+
+ .content-page h2 {
+ font-weight: 700;
+ font-size: 2rem;
+ color: var(--kelly-green);
+ margin: 40px 0 20px 0;
+ }
+
+ .content-page h3 {
+ font-weight: 600;
+ font-size: 1.5rem;
+ color: var(--fire);
+ margin: 30px 0 15px 0;
+ }
+
+ .content-page p {
+ font-size: 1.1rem;
+ margin-bottom: 20px;
+ line-height: 1.7;
+ }
+
+ /* HIGHLIGHT BOX */
+ .highlight-box {
+ background: var(--greige);
+ padding: 30px;
+ border-radius: 15px;
+ border-left: 5px solid var(--gold);
+ margin: 30px 0;
+ }
+
+ .highlight-box.green-border {
+ border-left-color: var(--kelly-green);
+ }
+
+ .highlight-box.fire-border {
+ border-left-color: var(--fire);
+ }
+
+ .highlight-box .icon {
+ font-size: 2rem;
+ margin-bottom: 15px;
+ display: block;
+ }
+
+ .highlight-box h4 {
+ font-weight: 700;
+ color: var(--slate);
+ margin-bottom: 15px;
+ font-size: 1.2rem;
+ }
+
+ .highlight-box p {
+ font-size: 1rem;
+ margin-bottom: 0;
+ }
+
+ /* GRID CARDS */
+ .pillar-grid {
+ display: grid;
+ grid-template-columns: repeat(2, 1fr);
+ gap: 20px;
+ margin: 30px 0;
+ }
+
+ .pillar-card {
+ background: white;
+ border: 2px solid var(--dark-greige);
+ border-radius: 15px;
+ padding: 25px;
+ transition: transform 0.3s ease, box-shadow 0.3s ease;
+ }
+
+ .pillar-card:hover {
+ transform: translateY(-5px);
+ box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+ }
+
+ .pillar-card h4 {
+ font-weight: 700;
+ color: var(--kelly-green);
+ margin-bottom: 10px;
+ font-size: 1.2rem;
+ }
+
+ .pillar-card p {
+ font-size: 1rem;
+ margin: 0;
+ }
+
+ /* QUOTE BOX */
+ .quote-box {
+ background: var(--slate);
+ color: white;
+ padding: 40px;
+ border-radius: 20px;
+ text-align: center;
+ margin: 40px 0;
+ position: relative;
+ }
+
+ .quote-box::before {
+ content: '"';
+ font-size: 6rem;
+ position: absolute;
+ top: -20px;
+ left: 30px;
+ color: var(--gold);
+ opacity: 0.3;
+ }
+
+ .quote-text {
+ font-size: 1.4rem;
+ font-style: italic;
+ margin-bottom: 20px;
+ }
+
+ /* PRINCIPLE LIST */
+ .principle-list {
+ list-style: none;
+ margin: 20px 0;
+ }
+
+ .principle-list li {
+ position: relative;
+ padding: 12px 0 12px 40px;
+ font-size: 1.1rem;
+ border-bottom: 1px solid var(--dark-greige);
+ }
+
+ .principle-list li:last-child {
+ border-bottom: none;
+ }
+
+ .principle-list li:before {
+ content: "→";
+ position: absolute;
+ left: 10px;
+ color: var(--fire);
+ font-weight: bold;
+ }
+
+ /* NUMBERED STEPS */
+ .step-item {
+ display: flex;
+ gap: 25px;
+ margin: 25px 0;
+ align-items: flex-start;
+ }
+
+ .step-number {
+ flex-shrink: 0;
+ width: 55px;
+ height: 55px;
+ background: var(--kelly-green);
+ color: white;
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-weight: 800;
+ font-size: 1.4rem;
+ }
+
+ .step-content h4 {
+ font-weight: 700;
+ font-size: 1.2rem;
+ color: var(--slate);
+ margin-bottom: 8px;
+ }
+
+ .step-content p {
+ font-size: 1rem;
+ margin: 0;
+ }
+
+ /* MATH BOX */
+ .math-box {
+ background: var(--slate);
+ color: white;
+ padding: 35px;
+ border-radius: 15px;
+ margin: 30px 0;
+ font-family: 'Space Mono', monospace;
+ }
+
+ .math-box h4 {
+ color: var(--gold);
+ font-family: 'Poppins', sans-serif;
+ font-weight: 700;
+ font-size: 1.2rem;
+ margin-bottom: 20px;
+ }
+
+ .math-row {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 12px 0;
+ border-bottom: 1px solid rgba(255,255,255,0.1);
+ font-size: 0.95rem;
+ }
+
+ .math-row:last-child {
+ border-bottom: none;
+ }
+
+ .math-label {
+ color: var(--sky);
+ }
+
+ .math-value {
+ color: var(--gold);
+ font-weight: 700;
+ font-size: 1.1rem;
+ }
+
+ .math-result {
+ background: rgba(250,171,51,0.15);
+ padding: 15px 20px;
+ border-radius: 10px;
+ margin-top: 15px;
+ text-align: center;
+ }
+
+ .math-result .big-number {
+ font-size: 2rem;
+ color: var(--gold);
+ font-weight: 700;
+ display: block;
+ }
+
+ .math-result .label {
+ font-size: 0.85rem;
+ color: var(--sky);
+ }
+
+ /* COMPARISON TABLE */
+ .compare-grid {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 25px;
+ margin: 30px 0;
+ }
+
+ .compare-card {
+ padding: 30px;
+ border-radius: 15px;
+ color: white;
+ }
+
+ .compare-card.green {
+ background: linear-gradient(135deg, var(--kelly-green), #00a378);
+ }
+
+ .compare-card.fire {
+ background: linear-gradient(135deg, var(--fire), #ff7855);
+ }
+
+ .compare-card.gold {
+ background: linear-gradient(135deg, var(--gold), #e69a2e);
+ color: var(--slate);
+ }
+
+ .compare-card.slate {
+ background: linear-gradient(135deg, var(--slate), #1a2a3d);
+ }
+
+ .compare-card h4 {
+ font-weight: 700;
+ font-size: 1.3rem;
+ margin-bottom: 15px;
+ text-align: center;
+ }
+
+ .compare-list {
+ list-style: none;
+ }
+
+ .compare-list li {
+ position: relative;
+ padding: 8px 0 8px 25px;
+ margin-bottom: 5px;
+ font-size: 0.95rem;
+ }
+
+ .compare-list li:before {
+ content: "→";
+ position: absolute;
+ left: 0;
+ font-weight: bold;
+ opacity: 0.8;
+ }
+
+ /* FUND TABLE */
+ .fund-table {
+ width: 100%;
+ border-collapse: collapse;
+ margin: 25px 0;
+ border-radius: 15px;
+ overflow: hidden;
+ }
+
+ .fund-table thead th {
+ background: var(--slate);
+ color: white;
+ padding: 15px 18px;
+ text-align: left;
+ font-weight: 700;
+ font-size: 0.9rem;
+ text-transform: uppercase;
+ letter-spacing: 0.5px;
+ }
+
+ .fund-table tbody td {
+ padding: 14px 18px;
+ border-bottom: 1px solid var(--dark-greige);
+ font-size: 0.95rem;
+ }
+
+ .fund-table tbody tr:nth-child(even) {
+ background: var(--greige);
+ }
+
+ .fund-table tbody tr:hover {
+ background: rgba(0,148,113,0.05);
+ }
+
+ .fund-category {
+ font-family: 'Space Mono', monospace;
+ font-size: 0.8rem;
+ color: var(--kelly-green);
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ }
+
+ /* TIMELINE */
+ .timeline {
+ position: relative;
+ margin: 30px 0;
+ padding-left: 40px;
+ }
+
+ .timeline::before {
+ content: '';
+ position: absolute;
+ left: 15px;
+ top: 0;
+ bottom: 0;
+ width: 3px;
+ background: linear-gradient(to bottom, var(--kelly-green), var(--gold), var(--fire));
+ border-radius: 2px;
+ }
+
+ .timeline-item {
+ position: relative;
+ margin-bottom: 30px;
+ padding-left: 25px;
+ }
+
+ .timeline-item::before {
+ content: '';
+ position: absolute;
+ left: -32px;
+ top: 8px;
+ width: 14px;
+ height: 14px;
+ background: var(--kelly-green);
+ border-radius: 50%;
+ border: 3px solid white;
+ box-shadow: 0 0 0 3px var(--kelly-green);
+ }
+
+ .timeline-item h4 {
+ font-weight: 700;
+ font-size: 1.1rem;
+ color: var(--slate);
+ margin-bottom: 5px;
+ }
+
+ .timeline-item p {
+ font-size: 0.95rem;
+ margin: 0;
+ color: #555;
+ }
+
+ /* ACTION BOX */
+ .action-box {
+ background: linear-gradient(135deg, var(--kelly-green), #00a378);
+ color: white;
+ padding: 35px;
+ border-radius: 15px;
+ margin: 30px 0;
+ }
+
+ .action-box h4 {
+ font-weight: 700;
+ font-size: 1.3rem;
+ margin-bottom: 15px;
+ }
+
+ .action-box p {
+ margin-bottom: 0;
+ font-size: 1rem;
+ opacity: 0.95;
+ }
+
+ .action-box .action-list {
+ list-style: none;
+ margin-top: 15px;
+ }
+
+ .action-box .action-list li {
+ padding: 8px 0 8px 25px;
+ position: relative;
+ font-size: 1rem;
+ }
+
+ .action-box .action-list li:before {
+ content: "☐";
+ position: absolute;
+ left: 0;
+ }
+
+ /* TOC */
+ .toc-item {
+ display: flex;
+ justify-content: space-between;
+ align-items: baseline;
+ padding: 15px 0;
+ border-bottom: 1px dashed var(--dark-greige);
+ font-size: 1.1rem;
+ }
+
+ .toc-item:last-child {
+ border-bottom: none;
+ }
+
+ .toc-chapter {
+ font-weight: 700;
+ color: var(--slate);
+ }
+
+ .toc-page {
+ font-family: 'Space Mono', monospace;
+ color: var(--fire);
+ font-size: 0.9rem;
+ }
+
+ /* BADGE */
+ .inline-badge {
+ display: inline-block;
+ font-family: 'Space Mono', monospace;
+ font-size: 0.75rem;
+ text-transform: uppercase;
+ letter-spacing: 1px;
+ padding: 4px 12px;
+ border-radius: 50px;
+ font-weight: 700;
+ }
+
+ .badge-green {
+ background: rgba(0,148,113,0.12);
+ color: var(--kelly-green);
+ }
+
+ .badge-gold {
+ background: rgba(250,171,51,0.15);
+ color: #c98a1e;
+ }
+
+ .badge-fire {
+ background: rgba(245,102,64,0.12);
+ color: var(--fire);
+ }
+
+ /* RESPONSIVE */
+ @media (max-width: 768px) {
+ .page { padding: 40px 30px; }
+ .cover-title { font-size: 2.8rem; }
+ .chapter-title { font-size: 2.2rem; }
+ .content-page h1 { font-size: 2rem; }
+ .content-page h2 { font-size: 1.6rem; }
+ .pillar-grid, .compare-grid { grid-template-columns: 1fr; }
+ .step-item { flex-direction: column; align-items: center; text-align: center; }
+ .fund-table { font-size: 0.85rem; }
+ .fund-table thead th, .fund-table tbody td { padding: 10px 12px; }
+ }
+ </style>
+</head>
+<body>
+    <div class="ebook-container">
+
+    <!-- ========== COVER ========== -->
+    <div class="page cover-page">
+        <div class="cover-content">
+            <div class="cover-badge">WorkSmart Guide</div>
+            <div class="cover-subtitle">From Rewrite Your Rules</div>
+            <h1 class="cover-title">The Wealth Code</h1>
+            <p class="cover-tagline">Your Complete Blueprint to Financial Independence, Multiple Income Streams, and Designing a Wealthy Life on Your Terms</p>
+            <div class="cover-divider"></div>
+            <p class="cover-author">Morgan DeBaun</p>
+            <p class="cover-credentials">CEO of Blavity Inc. &amp; AfroTech • Angel Investor • Bestselling Author of Rewrite Your Rules</p>
+        </div>
+    </div>
+
+    <!-- ========== TABLE OF CONTENTS ========== -->
+    <div class="page content-page greige-bg">
+        <h1>What's Inside</h1>
+        <p style="font-family: 'Space Mono', monospace; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--kelly-green); margin-bottom: 20px;">PART I — REDEFINE WEALTH</p>
+        <div class="toc-item">
+            <span class="toc-chapter">Introduction: Rich Is Not Wealthy</span>
+        </div>
+        <div class="toc-item">
+            <span class="toc-chapter">Chapter 1: Your Personal Wealth Code</span>
+        </div>
+        <div class="toc-item">
+            <span class="toc-chapter">Chapter 2: The Psychology of Money</span>
+        </div>
+        <p style="font-family: 'Space Mono', monospace; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--kelly-green); margin-top: 25px; margin-bottom: 20px;">PART II — MASTER THE FUNDAMENTALS</p>
+        <div class="toc-item">
+            <span class="toc-chapter">Chapter 3: The Magic of Compounding</span>
+        </div>
+        <div class="toc-item">
+            <span class="toc-chapter">Chapter 4: Financial Independence (FIRE) — On Your Terms</span>
+        </div>
+        <div class="toc-item">
+            <span class="toc-chapter">Chapter 5: The Investment Playbook</span>
+        </div>
+        <div class="toc-item">
+            <span class="toc-chapter">Chapter 6: The Wealth Frameworks — Buffett, Bogle &amp; Beyond</span>
+        </div>
+        <p style="font-family: 'Space Mono', monospace; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--kelly-green); margin-top: 25px; margin-bottom: 20px;">PART III — MULTIPLY YOUR INCOME</p>
+        <div class="toc-item">
+            <span class="toc-chapter">Chapter 7: The Single-Income Trap</span>
+        </div>
+        <div class="toc-item">
+            <span class="toc-chapter">Chapter 8: The Three Types of Income</span>
+        </div>
+        <div class="toc-item">
+            <span class="toc-chapter">Chapter 9: The Passive Income Playbook</span>
+        </div>
+        <div class="toc-item">
+            <span class="toc-chapter">Chapter 10: The Income Stacking Method</span>
+        </div>
+        <p style="font-family: 'Space Mono', monospace; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--kelly-green); margin-top: 25px; margin-bottom: 20px;">PART IV — PROTECT &amp; ACCELERATE</p>
+        <div class="toc-item">
+            <span class="toc-chapter">Chapter 11: The Tax Strategy Playbook</span>
+        </div>
+        <div class="toc-item">
+            <span class="toc-chapter">Chapter 12: The Six Accelerators</span>
+        </div>
+        <div class="toc-item">
+            <span class="toc-chapter">Chapter 13: Build Your Wealth Dashboard</span>
+        </div>
+        <div class="toc-item">
+            <span class="toc-chapter">Closing: Your Wealthy Life Starts Today</span>
+        </div>
+    </div>
+<!-- ========== INTRODUCTION ========== -->
+ <div class="page chapter-page slate-theme">
+ <div class="chapter-number">Introduction</div>
+ <h1 class="chapter-title">Rich Is Not Wealthy</h1>
+ <div class="chapter-subtitle">The wake-up call that changed everything about how I think about money</div>
+ </div>
+
+ <div class="page content-page">
+ <h1>Rich Is Not Wealthy</h1>
+
+ <p>At thirty years old and six years into building my business, I walked into my first meeting with my wealth manager, Adam, feeling pretty good about myself. After all, I had worked day and night for years to build a successful company. Blavity was humming, my name was on the coveted industry lists, I was making a solid salary, maintaining savings, and had secured angel investments. I was living a quintessential "wealthy" life. Or so I thought.</p>
+
+ <p>Then Adam dropped a truth bomb: <em>"You're rich and making a good income, but you're not wealthy."</em></p>
+
+ <p>Had I been drinking water, I would have done a spit take.</p>
+
+ <p>In chasing the capitalist dream of wealth and status, I had bought into the grind - keep your head down and happiness awaits on the other side of the finish line. But Adam didn't just talk about how well my investments were doing. He shifted gears and started questioning my <em>relationship</em> with money itself. "Instead of focusing on growing your income," he said, "we should think about how you can leverage your assets to live the lifestyle you want."</p>
+
+ <p>The lifestyle I wanted. Not the balance on my bank statements. Not the increase in consulting gigs. The <em>lifestyle</em>.</p>
+
+ <p>That conversation fundamentally changed how I think about wealth. And it's the reason I'm writing this guide for you.</p>
+
+ <div class="compare-grid">
+ <div class="compare-card fire">
+ <h4>Being "Rich"</h4>
+ <ul class="compare-list">
+ <li>High income from trading time</li>
+ <li>Spending keeps pace with earning</li>
+ <li>Lifestyle requires constant work</li>
+ <li>Money controls your schedule</li>
+ <li>Status-driven decisions</li>
+ </ul>
+ </div>
+ <div class="compare-card green">
+ <h4>Being "Wealthy"</h4>
+ <ul class="compare-list">
+ <li>Assets generate income while you sleep</li>
+ <li>Spending aligns with your values</li>
+ <li>Lifestyle is funded by systems</li>
+ <li>Your schedule serves your joy</li>
+ <li>Purpose-driven decisions</li>
+ </ul>
+ </div>
+ </div>
+
+ <p>This guide extends the Wealth Code from <em>Rewrite Your Rules</em> and turns philosophy into action. We're going to move from defining what wealth means to you - to building the actual financial systems that make it real. No . Just math, strategy, and the freedom that comes when your money starts working harder than you do.</p>
+
+ <div class="quote-box">
+ <div class="quote-text">Wealth is not just money. True wealth is ease, joy, and time freedom. It's having the resources to live according to your values without constant stress or compromise.</div>
+ </div>
+ </div>
+
+ <!-- ========== CHAPTER 1 ========== -->
+ <div class="page chapter-page">
+ <div class="chapter-number">Chapter 1</div>
+ <h1 class="chapter-title">Your Personal Wealth Code</h1>
+ <div class="chapter-subtitle">Define what wealth actually means for YOUR life - then build your money around it</div>
+ </div>
+
+ <div class="page content-page">
+ <h1>Your Personal Wealth Code</h1>
+
+ <p>In <em>Rewrite Your Rules</em>, I introduced the concept of your personal Wealth Code - a values-based set of guiding principles that help you make financial decisions aligned with the life you actually want. Before we talk about index funds and compound interest, we have to start here. Because the most dangerous thing you can do is build wealth toward someone else's definition of success.</p>
+
+ <h2>The Four Dimensions of True Wealth</h2>
+
+ <div class="pillar-grid">
+ <div class="pillar-card">
+ <h4>⏰ Time Wealth</h4>
+ <p>The ability to choose how you spend your hours without external pressure or financial desperation. This is the ultimate luxury.</p>
+ </div>
+ <div class="pillar-card">
+ <h4>💰 Financial Wealth</h4>
+ <p>Sufficient money to fund your values, goals, and chosen lifestyle - without anxiety about the next paycheck.</p>
+ </div>
+ <div class="pillar-card">
+ <h4>🧠 Mental Wealth</h4>
+ <p>Peace of mind, clarity of purpose, and freedom from constant worry or decision fatigue about money.</p>
+ </div>
+ <div class="pillar-card">
+ <h4>❤️ Relational Wealth</h4>
+ <p>Strong, supportive connections with people who understand and support your vision - not just your income.</p>
+ </div>
+ </div>
+
+ <h2>My Wealth Code: An Example</h2>
+
+ <p>Here's what I landed on when I built my own Wealth Code. Yours will look different - and that's the entire point.</p>
+
+ <div class="step-item">
+ <div class="step-number">1</div>
+ <div class="step-content">
+ <h4>I Live for Experiences</h4>
+ <p>I live for awe-inspiring experiences <em>now</em> instead of someday. Jungle landscapes, remote Airbnbs, eight-course tasting menus with two of my closest friends - my income funds what stirs my spirit most.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">2</div>
+ <div class="step-content">
+ <h4>I Respect My Time</h4>
+ <p>I outsource everything not in my zone of genius. Hours saved go to relationships and joy. My Wealth Code values time as the most precious asset.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">3</div>
+ <div class="step-content">
+ <h4>I Practice Conscious Spending</h4>
+ <p>I consciously spend without guilt on my carefully chosen joys, then I am frugal elsewhere. I eliminate things society tells me I should want or need.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">4</div>
+ <div class="step-content">
+ <h4>I Uplift My Community</h4>
+ <p>I prioritize generous giving, consistently allocating a portion of my income to trustworthy causes. I surprise strangers and loved ones with acts of kindness.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">5</div>
+ <div class="step-content">
+ <h4>I Fuel My Greatness</h4>
+ <p>I invest in myself without restraint - education, experiences, coaches, advisors, and personal health that grow my talent, impact, knowledge, and longevity.</p>
+ </div>
+ </div>
+
+ <div class="highlight-box">
+ <span class="icon">✍️</span>
+ <h4>The Lifestyle Design Question</h4>
+ <p>Instead of asking "How much money do I need to be rich?" ask "What does my ideal Tuesday look like?" Then reverse-engineer the financial requirements for that lifestyle. Dreams have the power to ignite our imaginations - but they can feel distant until we attach real numbers to them.</p>
+ </div>
+
+ <div class="action-box">
+ <h4>🔥 Download the Wealthy Life Dashboard</h4>
+ <p>Track your net worth, savings rate, FI percentage, and passive income all in one place. Our most popular tool - used by over 10,000+ professionals.</p>
+ <ul class="action-list">
+ <li>Write your 3-5 Wealth Code principles</li>
+ <li>Map out your ideal Tuesday in detail</li>
+ <li>Estimate the monthly cost of your wealthy life</li>
+ <li>Download the Wealthy Life Dashboard at <strong>morgandebaun.com</strong></li>
+ </ul>
+ </div>
+ </div>
+
+ 
+    <!-- ========== CHAPTER 2: PSYCHOLOGY OF MONEY ========== -->
+    <div class="page chapter-page fire-theme">
+        <div class="chapter-number">Chapter 2</div>
+        <h1 class="chapter-title">The Psychology of Money</h1>
+        <div class="chapter-subtitle">Why wealth-building is 80% behavior and 20% math — and how to rewire the patterns keeping you stuck</div>
+    </div>
+
+    <div class="page content-page">
+        <h1>The Psychology of Money</h1>
+
+        <p>Before we talk about index funds and savings rates, we need to talk about something far more powerful: the invisible scripts running in your head about money. Because here's what I've learned after advising thousands of professionals and building a $40M+ company — the biggest barrier to wealth isn't information. It's psychology.</p>
+
+        <p>You already know you should save more. You already know compound interest is powerful. You already know you should invest consistently. The question isn't <em>what</em> to do. The question is: why aren't you doing it? The answer is almost always psychological.</p>
+
+        <h2>The Money Scripts You Inherited</h2>
+
+        <p>Every family has unspoken rules about money. Maybe yours said "we don't talk about money." Maybe you heard "money doesn't grow on trees" so often that scarcity became your baseline. Maybe wealth was framed as something that happens to other people — lucky people, connected people, people who don't look like you.</p>
+
+        <p>These aren't just memories. They're operating systems. And they're running in the background of every financial decision you make — from whether you negotiate your salary to whether you feel "allowed" to invest in the stock market to whether asking for more feels greedy.</p>
+
+        <div class="highlight-box fire-border">
+            <span class="icon">🧠</span>
+            <h4>The Four Money Scripts (Dr. Brad Klontz Research)</h4>
+            <p><strong>Money Avoidance:</strong> "Money is bad" or "Rich people are greedy." Leads to self-sabotage, under-earning, and giving away money you need.<br><br>
+            <strong>Money Worship:</strong> "More money will solve everything." Leads to overspending, workaholism, and never feeling like you have enough.<br><br>
+            <strong>Money Status:</strong> "My worth equals my net worth." Leads to lifestyle inflation, keeping up appearances, and debt.<br><br>
+            <strong>Money Vigilance:</strong> "I must always be careful with money." Can be healthy, but in excess leads to anxiety, hoarding, and inability to enjoy what you've earned.</p>
+        </div>
+
+        <p>Most high-earning professionals I work with carry a toxic cocktail of Money Worship (the hustle mentality that got them here) and Money Avoidance (the deep-seated belief that wanting more is somehow wrong). This is why someone making $200K can still feel broke — and why someone making $80K with the right mindset can build a million-dollar net worth.</p>
+
+        <h2>The Millionaire Next Door Effect</h2>
+
+        <p>In their landmark study, Thomas Stanley and William Danko found something that shocked America: most millionaires don't drive luxury cars, wear designer clothes, or live in mansions. They live in middle-class neighborhoods, drive used cars, and look completely ordinary. The authors called them "prodigious accumulators of wealth" — PAWs.</p>
+
+        <p>The counterpart? "Under accumulators of wealth" — UAWs. These are the high-income earners who <em>look</em> rich but have almost nothing saved. The surgeon with a $500K income and a $600K lifestyle. The VP who leases a new BMW every two years but has $12,000 in her 401(k).</p>
+
+        <div class="compare-grid">
+            <div class="compare-card green">
+                <h4>PAW: Wealth Builder</h4>
+                <ul class="compare-list">
+                    <li>Net worth &gt; expected (income × age ÷ 10)</li>
+                    <li>Spends time planning finances</li>
+                    <li>Lives below their means by choice</li>
+                    <li>Prioritizes financial independence over status</li>
+                    <li>Multiple income sources</li>
+                    <li>Allocates time to wealth-building activities</li>
+                </ul>
+            </div>
+            <div class="compare-card fire">
+                <h4>UAW: Income Spender</h4>
+                <ul class="compare-list">
+                    <li>Net worth &lt; expected for income level</li>
+                    <li>Spending increases with every raise</li>
+                    <li>Lifestyle matches or exceeds income</li>
+                    <li>Prioritizes appearance of success</li>
+                    <li>Single income source (salary)</li>
+                    <li>No time allocated to financial planning</li>
+                </ul>
+            </div>
+        </div>
+
+        <p>Here's the Wealth Code reframe: this isn't about deprivation. I'm not asking you to live like a monk. I'm asking you to be <em>intentional</em>. My Wealth Code includes luxury experiences, beautiful living spaces, and investing in my wellness. But it does NOT include performing wealth for other people's approval. That's the difference between a PAW and a UAW — it's not how much you make, it's whose definition of "enough" you're living by.</p>
+
+        <h2>The Behavioral Biases That Destroy Wealth</h2>
+
+        <p>Morgan Housel's <em>The Psychology of Money</em> crystallized something I've been preaching for years: getting wealthy and staying wealthy require completely different skills. Getting wealthy requires risk-taking, optimism, and putting yourself out there. Staying wealthy requires humility, fear, and frugality. The people who build lasting wealth learn to hold both simultaneously.</p>
+
+        <p>Here are the behavioral biases that I see destroying wealth in my community every day:</p>
+
+        <div class="step-item">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Present Bias: "I'll Start Next Month"</h4>
+                <p>We overvalue immediate rewards and undervalue future ones. That $500 you could invest this month feels less real than the $500 dress in front of you. But remember the compounding chapter — that $500 invested today is worth $8,700 in 30 years. Every month you delay costs thousands in future wealth.</p>
+            </div>
+        </div>
+
+        <div class="step-item">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Loss Aversion: Panic-Selling in Downturns</h4>
+                <p>We feel losses roughly 2x more intensely than equivalent gains. When the market drops 20%, it FEELS like a catastrophe — so we sell. But the people who sold during the 2020 COVID crash locked in losses while those who stayed invested saw their portfolios fully recover within months and then grow to new highs. Wealth is built by those who can sit with discomfort.</p>
+            </div>
+        </div>
+
+        <div class="step-item">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Social Comparison: The Lifestyle Creep Trap</h4>
+                <p>Your coworker got a new Tesla. Your friend from college just bought a lake house. Instagram is full of people living lavishly. So you upgrade your own lifestyle to match — and your savings rate stays at 5% no matter how much you earn. This is the single most expensive bias for high earners. Remember: you're comparing your finances to someone else's <em>curated story</em>, not their balance sheet.</p>
+            </div>
+        </div>
+
+        <div class="step-item">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>Complexity Bias: "Investing Is Too Complicated"</h4>
+                <p>We assume effective strategies must be complex. So we do nothing, waiting until we "understand enough." But the most effective investment strategy fits in one sentence: buy a total market index fund every month and don't stop. Complexity is the enemy of execution.</p>
+            </div>
+        </div>
+
+        <div class="step-item">
+            <div class="step-number">5</div>
+            <div class="step-content">
+                <h4>Anchoring: "I Can't Invest Because I Have Debt"</h4>
+                <p>We anchor to one financial fact and let it paralyze everything else. Yes, pay off high-interest debt. But waiting until you're completely debt-free to invest could cost you years of compounding. A $50K student loan at 5% interest shouldn't stop you from investing in a market returning 10%. You can do both.</p>
+            </div>
+        </div>
+
+        <h2>The Wealth Code Mindset Rewire</h2>
+
+        <p>Here's how I've rewired my own relationship with money, and what I teach every WorkSmart professional:</p>
+
+        <div class="highlight-box green-border">
+            <span class="icon">🔄</span>
+            <h4>From Scarcity to Strategy</h4>
+            <p><strong>Old script:</strong> "I can't afford that."<br>
+            <strong>New script:</strong> "How can I afford that — and does it align with my Wealth Code?"<br><br>
+            <strong>Old script:</strong> "Investing is gambling."<br>
+            <strong>New script:</strong> "NOT investing is the biggest gamble — I'm betting against 100+ years of market history."<br><br>
+            <strong>Old script:</strong> "I'll save what's left over."<br>
+            <strong>New script:</strong> "I invest first, then live on the rest. My future self is not optional."<br><br>
+            <strong>Old script:</strong> "I need to make more money to start building wealth."<br>
+            <strong>New script:</strong> "I need to build systems with whatever I have now — the amount grows, the habit stays."<br><br>
+            <strong>Old script:</strong> "One income is fine as long as it's a good one."<br>
+            <strong>New script:</strong> "One income is one point of failure. I build multiple streams for resilience and acceleration."</p>
+        </div>
+
+        <h2>Charlie Munger's Mental Models for Wealth</h2>
+
+        <p>Warren Buffett's partner Charlie Munger — who built his own fortune independently — believed in something he called "mental models": frameworks from different disciplines that help you make better decisions. Three of his models are essential for wealth-building:</p>
+
+        <div class="pillar-grid">
+            <div class="pillar-card">
+                <h4>🔄 Inversion</h4>
+                <p>Instead of asking "how do I get rich?", ask "how do I guarantee I stay poor?" Then avoid those behaviors. Don't carry high-interest debt. Don't spend more than you earn. Don't keep all your money in cash. Don't rely on a single income. The path to wealth is often about avoiding stupidity, not achieving brilliance.</p>
+            </div>
+            <div class="pillar-card">
+                <h4>⚡ Compound Interest (Applied Everywhere)</h4>
+                <p>Munger applied compounding beyond money — to knowledge, relationships, reputation, and skills. A skill that improves 1% per week is 68% better in a year and 1,700% better in five. Your earning power compounds just like your investments. This is why investing in yourself is never wasted.</p>
+            </div>
+            <div class="pillar-card">
+                <h4>⭕ Circle of Competence</h4>
+                <p>Know what you know. Stay within it for critical financial decisions. You don't need to understand cryptocurrency, options trading, or venture capital to build wealth. You need to understand index funds, compound interest, and your own spending patterns. Master the basics. The basics are enough.</p>
+            </div>
+            <div class="pillar-card">
+                <h4>🎯 Opportunity Cost</h4>
+                <p>Every financial decision has an alternative. That $50K sitting in a savings account earning 4% has an opportunity cost of the 10% it could earn in an index fund. That $800/month car payment has an opportunity cost of $1.5M over 30 years if invested. Wealthy people think in opportunity costs. Everyone else thinks in sticker prices.</p>
+            </div>
+        </div>
+
+        <div class="math-box">
+            <h4>The Opportunity Cost of a $800/Month Car Payment</h4>
+            <div class="math-row">
+                <span class="math-label">Monthly payment</span>
+                <span class="math-value">$800</span>
+            </div>
+            <div class="math-row">
+                <span class="math-label">If invested instead at 10% for 30 years</span>
+                <span class="math-value">$1,808,316</span>
+            </div>
+            <div class="math-row">
+                <span class="math-label">With a $300/mo used car payment, investing the $500 difference</span>
+                <span class="math-value">$1,130,198</span>
+            </div>
+            <div class="math-result">
+                <span class="label">The luxury car "upgrade" cost you</span>
+                <span class="big-number">$1.13M in lost wealth</span>
+            </div>
+        </div>
+
+        <p>This doesn't mean never buy a nice car. It means know the true cost of every decision — and make it consciously, not by default. That's what "math removes guilt" really means. The math doesn't judge. It just shows you the trade-offs so <em>you</em> can decide what your life is worth.</p>
+
+        <div class="quote-box">
+            <div class="quote-text">The first rule of compounding: never interrupt it unnecessarily. Every financial decision either feeds the compounding machine or starves it. Your job is to feed it — consistently, patiently, and for decades.</div>
+        </div>
+    </div>
+<!-- ========== CHAPTER 2 ========== -->
+ <div class="page chapter-page gold-theme">
+ <div class="chapter-number">Chapter 3</div>
+ <h1 class="chapter-title">The Magic of Compounding</h1>
+ <div class="chapter-subtitle">Why starting today - even with a little - is the most powerful wealth move you'll ever make</div>
+ </div>
+
+ <div class="page content-page">
+ <h1>The Magic of Compounding</h1>
+
+ <p>Albert Einstein reportedly called compound interest the eighth wonder of the world. Whether or not that attribution is real, the math is very real - and it's the single most important concept separating people who accumulate wealth from people who just earn money.</p>
+
+ <p>Compounding is simple: your money earns returns, and then those returns earn returns, and then <em>those</em> returns earn returns. Over time, this creates an exponential growth curve that can turn modest, consistent investments into life-changing wealth.</p>
+
+ <h2>The Math That Removes Guilt</h2>
+
+ <p>Let's make this tangible. You'll see why I say "math removes guilt" - because once you see the numbers, the path forward becomes clear instead of overwhelming.</p>
+
+ <div class="math-box">
+ <h4>Scenario: $500/month invested at 10% average annual return</h4>
+ <div class="math-row">
+ <span class="math-label">After 10 years</span>
+ <span class="math-value">$102,422</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">After 20 years</span>
+ <span class="math-value">$382,846</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">After 30 years</span>
+ <span class="math-value">$1,130,244</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">Your total contributions</span>
+ <span class="math-value">$180,000</span>
+ </div>
+ <div class="math-result">
+ <span class="label">Growth from compounding alone (30 years)</span>
+ <span class="big-number">$950,244</span>
+ </div>
+ </div>
+
+ <p>Read that again. You put in $180,000 over 30 years. Compounding added over $950,000 on top. That's the money doing the work - not you. This is how wealth gets built while you're sleeping, traveling, painting, or spending time with the people you love.</p>
+
+ <h2>The Cost of Waiting</h2>
+
+ <p>Time is the most powerful ingredient in the compounding formula. Even a few years of delay has a massive impact. Here's the difference starting at age 25 vs. 35 - both investing $500/month until age 60:</p>
+
+ <div class="math-box">
+ <h4>The $400,000+ Cost of Waiting 10 Years</h4>
+ <div class="math-row">
+ <span class="math-label">Starting at age 25 → Age 60</span>
+ <span class="math-value">$1,130,244</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">Starting at age 35 → Age 60</span>
+ <span class="math-value">$382,846</span>
+ </div>
+ <div class="math-result">
+ <span class="label">Cost of waiting 10 years</span>
+ <span class="big-number">$747,398</span>
+ </div>
+ </div>
+
+ <p>Same monthly amount. Same investment strategy. But 10 fewer years of compounding costs you nearly three-quarters of a million dollars. This is why the best time to start is always <em>now</em> - even if "now" means $100 a month. Wherever you're starting, the point is to start.</p>
+
+ <div class="highlight-box green-border">
+ <span class="icon">🌱</span>
+ <h4>The "Snowball" Effect</h4>
+ <p>Think of compounding like rolling a snowball downhill. At first it feels painfully slow - you're watching $500 turn into $510. But the snowball is getting bigger, picking up more snow with every rotation. By year 20, each year of growth adds more than your entire first decade of contributions. That's the moment it clicks - and it's why the people who start and stay consistent win.</p>
+ </div>
+
+ <h2>The Rule of 72</h2>
+
+ <p>Here's a quick shortcut: divide 72 by your expected annual return to estimate how many years it takes to double your money. At a 10% return, your money doubles approximately every 7.2 years. At 7%, roughly every 10 years. This is why growth-oriented investments matter for long-term wealth.</p>
+
+ <div class="quote-box">
+ <div class="quote-text">You don't need to earn more to build wealth. You need to give your money more time. Compounding doesn't care about your job title - it cares about consistency.</div>
+ </div>
+ </div>
+
+ <!-- ========== CHAPTER 4: FIRE ========== -->
+ <div class="page chapter-page fire-theme">
+ <div class="chapter-number">Chapter 4</div>
+ <h1 class="chapter-title">Financial Independence - On Your Terms</h1>
+ <div class="chapter-subtitle">The FIRE movement, reimagined for ambitious professionals who want freedom without deprivation</div>
+ </div>
+
+ <div class="page content-page">
+ <h1>Financial Independence - On Your Terms</h1>
+
+ <p>The FIRE movement - Financial Independence, Retire Early - has gained huge traction, especially among millennials and Gen X. But let's be clear about something: FIRE doesn't have to mean eating beans on toast in a studio apartment until you turn 45. It means building enough assets and flexibility that work becomes a <em>choice</em>, not an obligation.</p>
+
+ <p>That's the Wealth Code version of FIRE: financial independence designed around YOUR definition of a wealthy life.</p>
+
+ <h2>What Financial Independence Actually Looks Like</h2>
+
+ <p>Financial independence means different things to different people. The FIRE community has named a few variations, and I want you to see which resonates with how you've defined your Wealth Code:</p>
+
+ <div class="pillar-grid">
+ <div class="pillar-card">
+ <h4>🔥 Traditional FIRE</h4>
+ <p>Save aggressively (often 50%+ of income), invest consistently, and accumulate enough that your portfolio sustains your lifestyle indefinitely. You stop working if you choose to.</p>
+ </div>
+ <div class="pillar-card">
+ <h4>☕ Barista FIRE</h4>
+ <p>Save enough that you can leave your stressful career and take on lighter, passion-driven work - consulting, creative projects, part-time roles - that covers day-to-day expenses while your investments grow.</p>
+ </div>
+ <div class="pillar-card">
+ <h4>🥩 Fat FIRE</h4>
+ <p>Save aggressively now so you can maintain a higher standard of living in "retirement." You're not cutting back - you're funding the premium version of your life with investment income.</p>
+ </div>
+ <div class="pillar-card">
+ <h4>🍃 Lean FIRE</h4>
+ <p>Embrace minimalism. Save aggressively and live frugally both now and after reaching independence. Your number is lower because your expenses are low by design.</p>
+ </div>
+ </div>
+
+ <h2>Your FI Number: How Much Do You Actually Need?</h2>
+
+ <p>This is where math removes guilt. Your Financial Independence number is straightforward - and it's probably more achievable than you think.</p>
+
+ <div class="math-box">
+ <h4>Calculate Your FI Number</h4>
+ <div class="math-row">
+ <span class="math-label">Step 1: Your annual expenses</span>
+ <span class="math-value">$______</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">Step 2: Multiply by 25</span>
+ <span class="math-value">$______</span>
+ </div>
+ <div class="math-result">
+ <span class="label">That's your FI Number - the invested assets needed to sustain your lifestyle</span>
+ <span class="big-number">Annual Expenses × 25</span>
+ </div>
+ </div>
+
+ <p>This is based on the widely-used 4% rule - the idea that you can withdraw 4% of your portfolio each year and, historically, your money is likely to last 30+ years. Some important nuances to keep in mind:</p>
+
+ <div class="action-box">
+ <h4>🧮 Use the WorkSmart FIRE Calculator</h4>
+ <p>Plug in your income, expenses, savings rate, and current investments - and see exactly when you could reach financial independence. Available at <strong>morgandebaun.com</strong></p>
+ </div>
+
+ <div class="highlight-box fire-border">
+ <span class="icon">⚠️</span>
+ <h4>Reality Check on the 4% Rule</h4>
+ <p>The 4% rule was designed for a standard 30-year retirement starting at 65. If you're targeting financial independence at 45 or 50, your money needs to last potentially 40-50 years. Consider using a more conservative 3.5% withdrawal rate (which means multiplying expenses by about 28-29x instead of 25x). Also, this rule doesn't account for taxes on withdrawals - your actual spending power may be lower. And it ignores Social Security, which is a conservative assumption that works in your favor.</p>
+ </div>
+
+ <h2>Real Numbers for Real People</h2>
+
+ <div class="math-box">
+ <h4>FI Numbers at Different Spending Levels</h4>
+ <div class="math-row">
+ <span class="math-label">$40,000/year spending</span>
+ <span class="math-value">$1,000,000 FI number</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">$60,000/year spending</span>
+ <span class="math-value">$1,500,000 FI number</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">$80,000/year spending</span>
+ <span class="math-value">$2,000,000 FI number</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">$100,000/year spending</span>
+ <span class="math-value">$2,500,000 FI number</span>
+ </div>
+ </div>
+
+ <p>Here's the insight most people miss: you can either increase your assets OR decrease your annual spending to hit financial independence faster. Cutting $10,000 from your annual expenses lowers your FI number by $250,000. That's not small - that's years off your timeline. And it's not about deprivation. It's about knowing what actually brings you joy (your Wealth Code) versus what you spend on out of habit or social pressure.</p>
+
+ <h2>The Savings Rate Is Your Superpower</h2>
+
+ <p>Your savings rate - the percentage of take-home pay you invest - is the single biggest lever you control. Income matters, but plenty of high earners save nothing while people earning modest salaries build serious wealth. Here's why:</p>
+
+ <div class="math-box">
+ <h4>How Savings Rate Affects Your FI Timeline</h4>
+ <div class="math-row">
+ <span class="math-label">Saving 15% of income</span>
+ <span class="math-value">~40+ years to FI</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">Saving 25% of income</span>
+ <span class="math-value">~30 years to FI</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">Saving 35% of income</span>
+ <span class="math-value">~23 years to FI</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">Saving 50% of income</span>
+ <span class="math-value">~15 years to FI</span>
+ </div>
+ </div>
+
+ <p>A higher savings rate works double duty: it increases how much you invest AND it decreases how much you need (because you're already accustomed to living on less). That's the dual power move.</p>
+
+ <div class="quote-box">
+ <div class="quote-text">Financial independence isn't about never working again. It's about never being forced to do work that doesn't align with your Wealth Code. It's work becoming a choice, not a requirement.</div>
+ </div>
+ </div>
+
+ <!-- ========== CHAPTER 5: INVESTMENT ========== -->
+ <div class="page chapter-page">
+ <div class="chapter-number">Chapter 5</div>
+ <h1 class="chapter-title">The Investment Playbook</h1>
+ <div class="chapter-subtitle">Low-cost index funds, dividend income, and the specific accounts that build real wealth</div>
+ </div>
+
+ <div class="page content-page">
+ <h1>The Investment Playbook</h1>
+
+ <p>Now we get tactical. You know your Wealth Code, you understand compounding, and you have your FI number. The question is: <em>where</em> does the money go? The answer is simpler than the finance industry wants you to believe.</p>
+
+ <h2>Why Index Funds Are the Foundation</h2>
+
+ <p>An index fund is a type of mutual fund or ETF that tracks a specific market index - like the S&P 500 (the 500 largest US companies) or the total US stock market. Instead of trying to pick individual winning stocks, you own a little slice of <em>everything</em>. Here's why this matters:</p>
+
+ <ul class="principle-list">
+ <li><strong>Historically, the S&P 500 has returned roughly 10% annually over the long term</strong> (before inflation). No stock-picking strategy consistently beats the market over decades.</li>
+ <li><strong>Fees are extremely low.</strong> Many index funds charge 0.03% to 0.10% per year. Actively managed funds often charge 1% or more - that fee difference compounds against you just like returns compound for you.</li>
+ <li><strong>Built-in diversification.</strong> You're not betting on one company. You own hundreds or thousands of companies in a single investment.</li>
+ <li><strong>Set-it-and-forget-it simplicity.</strong> No research, no stock-picking, no checking tickers every day. You invest consistently and let the market work.</li>
+ </ul>
+
+ <h2>Starter Index Funds: Schwab &amp; Fidelity</h2>
+
+ <p>Both Charles Schwab and Fidelity are excellent, beginner-friendly brokerages with no-minimum, low-fee index funds. Here are the core funds to know:</p>
+
+ <table class="fund-table">
+ <thead>
+ <tr>
+ <th>Fund</th>
+ <th>What It Tracks</th>
+ <th>Expense Ratio</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td colspan="3" class="fund-category">Total U.S. Stock Market</td>
+ </tr>
+ <tr>
+ <td><strong>SWTSX</strong> (Schwab)</td>
+ <td>Total U.S. Stock Market</td>
+ <td>0.03%</td>
+ </tr>
+ <tr>
+ <td><strong>FSKAX</strong> (Fidelity)</td>
+ <td>Total U.S. Stock Market</td>
+ <td>0.015%</td>
+ </tr>
+ <tr>
+ <td colspan="3" class="fund-category">S&P 500</td>
+ </tr>
+ <tr>
+ <td><strong>SWPPX</strong> (Schwab)</td>
+ <td>S&P 500 Index</td>
+ <td>0.02%</td>
+ </tr>
+ <tr>
+ <td><strong>FXAIX</strong> (Fidelity)</td>
+ <td>S&P 500 Index</td>
+ <td>0.015%</td>
+ </tr>
+ <tr>
+ <td colspan="3" class="fund-category">International Stock</td>
+ </tr>
+ <tr>
+ <td><strong>SWISX</strong> (Schwab)</td>
+ <td>International Developed Markets</td>
+ <td>0.06%</td>
+ </tr>
+ <tr>
+ <td><strong>FTIHX</strong> (Fidelity)</td>
+ <td>Total International Index</td>
+ <td>0.06%</td>
+ </tr>
+ <tr>
+ <td colspan="3" class="fund-category">Bond Index</td>
+ </tr>
+ <tr>
+ <td><strong>SWAGX</strong> (Schwab)</td>
+ <td>U.S. Aggregate Bond Index</td>
+ <td>0.04%</td>
+ </tr>
+ <tr>
+ <td><strong>FXNAX</strong> (Fidelity)</td>
+ <td>U.S. Bond Index</td>
+ <td>0.025%</td>
+ </tr>
+ <tr>
+ <td colspan="3" class="fund-category">Dividend / Income Funds</td>
+ </tr>
+ <tr>
+ <td><strong>SCHD</strong> (Schwab ETF)</td>
+ <td>U.S. Dividend Equity</td>
+ <td>0.06%</td>
+ </tr>
+ <tr>
+ <td><strong>FSDIX</strong> (Fidelity)</td>
+ <td>Strategic Dividend &amp; Income</td>
+ <td>0.64%</td>
+ </tr>
+ <tr>
+ <td><strong>FDVV</strong> (Fidelity ETF)</td>
+ <td>High Dividend</td>
+ <td>0.15%</td>
+ </tr>
+ </tbody>
+ </table>
+
+ <div class="highlight-box green-border">
+ <span class="icon">💡</span>
+ <h4>The Simple 3-Fund Portfolio</h4>
+ <p>Many wealth builders use a simple three-fund portfolio: a U.S. total market index fund, an international index fund, and a bond index fund. For someone in their 20s-40s with decades to invest, a common starting allocation is roughly 60-70% U.S. stocks, 20-30% international stocks, and 10% bonds. Adjust the bond allocation upward as you get closer to your FI date. This gives you global diversification with rock-bottom fees.</p>
+ </div>
+
+ <h2>Dividend Funds: Getting Paid While You Wait</h2>
+
+ <p>Dividend funds hold stocks that pay regular cash distributions to shareholders - typically quarterly. Think of them as companies sharing their profits with you as a part-owner. This creates a stream of income on top of your portfolio's growth.</p>
+
+ <p>The Schwab U.S. Dividend Equity ETF (SCHD) is one of the most popular dividend funds in the country, and for good reason. It focuses on companies with a strong track record of paying - and growing - dividends over time, while keeping expenses extremely low at 0.06%.</p>
+
+ <p>Dividend income is especially powerful for two reasons. First, when you reinvest dividends, they compound just like any other return - buying more shares, which pay more dividends, which buy even more shares. Second, as you approach financial independence, dividend income can serve as a predictable cash flow stream that reduces how much you need to sell from your portfolio.</p>
+
+ <h2>Where to Put the Money: Account Types That Matter</h2>
+
+ <p>The <em>type</em> of account you invest through is just as important as <em>what</em> you invest in. Each account type has different tax advantages - and using the right combination can save you hundreds of thousands of dollars over your lifetime.</p>
+
+ <div class="step-item">
+ <div class="step-number">1</div>
+ <div class="step-content">
+ <h4>401(k) or 403(b) - Your First Priority</h4>
+ <p>If your employer offers a match, max it out first. That's free money with an instant 50-100% return. The 2025 contribution limit is $23,500 (or $31,000 if you're 50+). Important for early retirees: the Rule of 55 allows penalty-free withdrawals from your current employer's plan if you leave at age 55 or later.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">2</div>
+ <div class="step-content">
+ <h4>Roth IRA - Tax-Free Growth</h4>
+ <p>Contributions are made with after-tax dollars, but all growth and withdrawals in retirement are completely tax-free. The 2025 limit is $7,000 ($8,000 if 50+). Your contributions (not earnings) can be withdrawn penalty-free at any time - making this a flexible tool for early FI seekers.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">3</div>
+ <div class="step-content">
+ <h4>HSA - The Triple Tax Advantage</h4>
+ <p>If you have a high-deductible health plan, an HSA offers tax-deductible contributions, tax-free growth, and tax-free withdrawals for medical expenses at any age. The 2025 limit is $4,300 individual / $8,550 family. Pay medical expenses out of pocket now, save receipts, and reimburse yourself tax-free in retirement.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">4</div>
+ <div class="step-content">
+ <h4>Taxable Brokerage Account - Your Bridge to Early FI</h4>
+ <p>Once you've maxed tax-advantaged accounts, invest in a regular brokerage account at Schwab or Fidelity. No contribution limits, no penalties for early withdrawal. Long-term capital gains are taxed at favorable rates (0%, 15%, or 20%). This is critical for funding your life before age 59½.</p>
+ </div>
+ </div>
+
+ <div class="highlight-box">
+ <span class="icon">🏗️</span>
+ <h4>The Investment Priority Order</h4>
+ <p>Follow this order for maximum tax advantage: (1) 401(k) up to employer match → (2) Max HSA → (3) Max Roth IRA → (4) Max remaining 401(k) → (5) Taxable brokerage account. This sequence gives you the best combination of tax savings, flexibility, and compounding power.</p>
+ </div>
+
+ <div class="quote-box">
+ <div class="quote-text">Investing doesn't require a finance degree. It requires consistency, low fees, and the patience to let compounding do its work. That's it. That's the whole game.</div>
+ </div>
+ </div>
+
+
+
+ <!-- ========== CHAPTER 6: WEALTH FRAMEWORKS: WEALTH FRAMEWORKS ========== -->
+ <div class="page chapter-page slate-theme">
+ <div class="chapter-number">Chapter 6</div>
+ <h1 class="chapter-title">The Wealth Frameworks</h1>
+ <div class="chapter-subtitle">Proven philosophies from Buffett, Bogle, and the world's greatest wealth builders - distilled into principles you can use today</div>
+ </div>
+
+ <div class="page content-page">
+ <h1>The Wealth Frameworks</h1>
+
+ <p>You don't need to invent a new approach to building wealth. The most successful investors in history have already mapped the playbook - and their principles are remarkably consistent. The genius isn't in the complexity. It's in the discipline.</p>
+
+ <p>Let me walk you through the frameworks that shaped how I think about money, and how each one connects to the Wealth Code philosophy. These aren't just theories - they're battle-tested by people who've built billions, and they're equally powerful whether you're working with $500 a month or $50,000.</p>
+
+ <h2>The Warren Buffett Framework: Buy Quality, Hold Forever</h2>
+
+ <p>Warren Buffett became the world's greatest investor not by trading constantly, but by buying excellent businesses at fair prices and then <em>doing nothing</em>. His approach is the antithesis of the day-trading, crypto-speculation, get-rich-quick mindset that social media pushes on us.</p>
+
+ <div class="highlight-box">
+ <span class="icon">🏛️</span>
+ <h4>Buffett's Core Principles</h4>
+ <p><strong>Invest in what you understand.</strong> Buffett calls this your "circle of competence." You don't need to understand every industry - you need to deeply understand the ones you invest in. For most of us, that means broad index funds that own the entire market rather than trying to pick individual stocks.</p>
+ </div>
+
+ <ul class="principle-list">
+ <li><strong>The market is a voting machine short-term, a weighing machine long-term.</strong> Day-to-day stock prices reflect emotion and hype. Over decades, prices reflect actual business value. This is why we don't panic-sell when the market drops.</li>
+ <li><strong>Be fearful when others are greedy, and greedy when others are fearful.</strong> Market crashes are buying opportunities, not reasons to sell. The professionals who built generational wealth during 2008, 2020, and every other downturn did so by continuing to invest when everyone else was running.</li>
+ <li><strong>The most important quality is temperament, not intellect.</strong> You don't need to be the smartest person in the room. You need the discipline to invest consistently and the patience to let compounding work for decades.</li>
+ <li><strong>Never lose money.</strong> Buffett's famous Rule #1 isn't about avoiding all risk - it's about avoiding <em>permanent</em> loss of capital. Diversified index funds protect you from the risk of any single company going to zero.</li>
+ <li><strong>Price is what you pay, value is what you get.</strong> This applies to everything from investments to your own spending. The lowest-cost index fund that gives you the entire market is the best "value" investment available to most people.</li>
+ </ul>
+
+ <div class="quote-box">
+ <div class="quote-text">Someone is sitting in the shade today because someone planted a tree a long time ago. Your investments today are the trees your future self will rest under.</div>
+ </div>
+
+ <h2>The Boglehead Philosophy: Simplicity Wins</h2>
+
+ <p>John C. Bogle founded Vanguard and created the first index fund available to ordinary investors. His philosophy - now followed by millions who call themselves "Bogleheads" - is built on a radical idea: <em>you don't need to beat the market to build wealth. You just need to own the market, keep costs low, and stay the course.</em></p>
+
+ <div class="pillar-grid">
+ <div class="pillar-card">
+ <h4>📉 Minimize Costs</h4>
+ <p>Every dollar paid in fees is a dollar that doesn't compound for you. A 1% fee difference over 30 years can cost you 25-30% of your final portfolio value. This is why we recommend funds with expense ratios below 0.10%.</p>
+ </div>
+ <div class="pillar-card">
+ <h4>🌍 Diversify Broadly</h4>
+ <p>Don't bet on one company, one sector, or one country. A simple 3-fund portfolio (U.S. stocks, international stocks, bonds) gives you exposure to thousands of companies across the entire global economy.</p>
+ </div>
+ <div class="pillar-card">
+ <h4>🧘 Stay the Course</h4>
+ <p>The biggest enemy of investment returns is investor behavior - buying high out of excitement, selling low out of fear. The Boglehead approach eliminates this by automating contributions and never trying to time the market.</p>
+ </div>
+ <div class="pillar-card">
+ <h4>📊 Keep It Simple</h4>
+ <p>You don't need 15 funds, a hedge fund, or cryptocurrency. Three low-cost index funds, consistent contributions, and time. That's the entire strategy. Complexity is the enemy of execution.</p>
+ </div>
+ </div>
+
+ <div class="math-box">
+ <h4>The Hidden Cost of Fees: $100,000 Invested Over 30 Years at 10% Return</h4>
+ <div class="math-row">
+ <span class="math-label">Index fund (0.03% fee)</span>
+ <span class="math-value">$1,720,688</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">Actively managed fund (1.0% fee)</span>
+ <span class="math-value">$1,326,768</span>
+ </div>
+ <div class="math-result">
+ <span class="label">Cost of "just 1%" in fees over 30 years</span>
+ <span class="big-number">$393,920 gone</span>
+ </div>
+ </div>
+
+ <p>Read that number again. Nearly $400,000 evaporated - not because of bad investments, but because of <em>fees</em>. This is why every fund recommendation in this book is a low-cost index fund. The math doesn't lie.</p>
+
+ <h2>The Total Return vs. Dividend Income Debate</h2>
+
+ <p>You'll encounter two schools of thought in the investing world, and understanding both will make you a smarter wealth builder:</p>
+
+ <div class="compare-grid">
+ <div class="compare-card green">
+ <h4>Total Return Approach</h4>
+ <ul class="compare-list">
+ <li>Focus on overall portfolio growth</li>
+ <li>Reinvest all dividends for maximum compounding</li>
+ <li>Sell shares as needed for income in retirement</li>
+ <li>Often produces highest long-term returns</li>
+ <li>Best for: Accumulation phase (building wealth)</li>
+ </ul>
+ </div>
+ <div class="compare-card gold">
+ <h4>Dividend Income Approach</h4>
+ <ul class="compare-list">
+ <li>Focus on cash flow from investments</li>
+ <li>Build portfolio of dividend-paying stocks/funds</li>
+ <li>Live off dividends without selling shares</li>
+ <li>Psychologically easier - never "selling" your wealth</li>
+ <li>Best for: Income phase (funding your lifestyle)</li>
+ </ul>
+ </div>
+ </div>
+
+ <p>The Wealth Code approach? Use both strategically. During your accumulation years, focus on total return through broad index funds and reinvest everything. As you approach financial independence, start building a dividend income layer with funds like SCHD (Schwab U.S. Dividend Equity ETF) that can cover a portion of your living expenses. The goal is having multiple levers you can pull.</p>
+
+ <h2>The Ray Dalio "All Weather" Concept</h2>
+
+ <p>Billionaire Ray Dalio built Bridgewater Associates, the world's largest hedge fund, around one insight: nobody can predict the future, so your portfolio should be designed to perform reasonably well in <em>any</em> economic environment - inflation, deflation, growth, or recession.</p>
+
+ <p>For everyday investors, the takeaway is asset allocation. You don't need to replicate Dalio's exact portfolio, but you should have a mix of assets that don't all move in the same direction at the same time. A portfolio of U.S. stocks, international stocks, bonds, and perhaps a small allocation to REITs (real estate investment trusts) or Treasury Inflation-Protected Securities (TIPS) provides this kind of resilience.</p>
+
+ <div class="highlight-box green-border">
+ <span class="icon">🎯</span>
+ <h4>The Wealth Code Investment Philosophy</h4>
+ <p>Combining these frameworks, here's the philosophy that guides everything in this book: Own the entire market through low-cost index funds. Minimize fees ruthlessly. Automate contributions so discipline is built into the system. Diversify across asset classes and geographies. Never try to time the market. Build dividend income as you approach FI. And above all - stay the course through every market cycle. The people who get rich are the people who stay invested.</p>
+ </div>
+
+ <h2>The Psychology of Wealth: What the Masters All Share</h2>
+
+ <p>Across Buffett, Bogle, Dalio, and every successful long-term investor, a pattern emerges. It's not about intelligence, special access, or timing. It's about mindset:</p>
+
+ <div class="step-item">
+ <div class="step-number">1</div>
+ <div class="step-content">
+ <h4>Long Time Horizons</h4>
+ <p>They think in decades, not days. They aren't checking their portfolio every morning. They're planting trees they know will take 20 years to bear fruit.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">2</div>
+ <div class="step-content">
+ <h4>Emotional Discipline</h4>
+ <p>They don't sell when markets crash. They don't chase hot stocks. They have a plan and they execute it regardless of what the news cycle says.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">3</div>
+ <div class="step-content">
+ <h4>Living Below Their Means</h4>
+ <p>Warren Buffett still lives in the house he bought in 1958. The point isn't to be cheap - it's that true wealth builders don't let lifestyle creep consume their growing income.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">4</div>
+ <div class="step-content">
+ <h4>Multiple Income Streams</h4>
+ <p>Not a single one of these wealth builders relied on a single paycheck. They all understood that diversifying income - not just investments - is the real key to financial resilience. This is so important that the entire next section is dedicated to it.</p>
+ </div>
+ </div>
+
+ <div class="quote-box">
+ <div class="quote-text">The stock market is a device for transferring money from the impatient to the patient. Your patience is your edge - and it costs nothing.</div>
+ </div>
+ </div>
+
+ <!-- ========== CHAPTER 7: SINGLE-INCOME TRAP: THE SINGLE-INCOME TRAP ========== -->
+ <div class="page chapter-page fire-theme">
+ <div class="chapter-number">Chapter 7</div>
+ <h1 class="chapter-title">The Single-Income Trap</h1>
+ <div class="chapter-subtitle">Why relying on one paycheck is the riskiest financial decision you're making - and you probably don't even realize it</div>
+ </div>
+
+ <div class="page content-page">
+ <h1>The Single-Income Trap</h1>
+
+ <p>Let me tell you about the most dangerous financial position in America. It's not credit card debt. It's not a bad investment. It's being a high-earning professional with a single source of income.</p>
+
+ <p>I know that sounds counterintuitive. You're making $100K, $150K, maybe $250K. You're maxing your 401(k). You feel secure. But here's the reality that keeps me up at night for the professionals I advise: <strong>one income stream is one disaster away from disaster.</strong></p>
+
+ <p>A layoff. A health crisis. A market shift. An industry disruption. A company restructuring. Any of these can turn your six-figure stability into six-figure anxiety overnight. And in an era of AI disruption and rapid industry change, the risk has never been higher.</p>
+
+ <h2>The Math of Single-Income Risk</h2>
+
+ <div class="math-box">
+ <h4>Single Income: The Concentration Risk</h4>
+ <div class="math-row">
+ <span class="math-label">Your income sources</span>
+ <span class="math-value">1</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">If that source disappears</span>
+ <span class="math-value">100% income loss</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">Time to replace at same level</span>
+ <span class="math-value">3-9 months (avg.)</span>
+ </div>
+ <div class="math-result">
+ <span class="label">Income at risk from a single event</span>
+ <span class="big-number">Everything.</span>
+ </div>
+ </div>
+
+ <p>No financial advisor would tell you to put 100% of your investment portfolio in a single stock. That's called concentration risk, and it's considered reckless. But that's exactly what most professionals do with their <em>income</em> - they concentrate 100% of their earning power in a single employer. And somehow nobody talks about this.</p>
+
+ <h2>What Wealthy People Actually Do</h2>
+
+ <p>When I started studying how genuinely wealthy people - not just high earners, but people with real, lasting wealth - structure their financial lives, one pattern was unmistakable: they all have multiple income streams. Not because they're greedy. Because they're <em>strategic</em>.</p>
+
+ <div class="math-box">
+ <h4>The Average Millionaire Has 7 Income Streams</h4>
+ <div class="math-row">
+ <span class="math-label">1. Earned income</span>
+ <span class="math-value">Salary or business profits</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">2. Dividend income</span>
+ <span class="math-value">From stock investments</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">3. Interest income</span>
+ <span class="math-value">From bonds, savings, lending</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">4. Rental income</span>
+ <span class="math-value">From real estate</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">5. Capital gains</span>
+ <span class="math-value">From selling appreciated assets</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">6. Royalty / licensing income</span>
+ <span class="math-value">From intellectual property</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">7. Business income</span>
+ <span class="math-value">From a side business or consulting</span>
+ </div>
+ </div>
+
+ <p>Look at that list again. Only ONE of those seven requires trading your time for money hour by hour. The other six are systems, assets, and intellectual property generating income whether you're working or sleeping or on a beach in Bali.</p>
+
+ <h2>The Speed Problem</h2>
+
+ <p>Here's the other thing nobody tells you about single-income reliance: <strong>it dramatically slows down your path to financial independence.</strong></p>
+
+ <p>When 100% of your investable money comes from one paycheck, your wealth-building speed is capped by your employer's willingness to give you raises. Annual raises average 3-5%. Inflation eats half of that. So in real terms, your income barely grows year over year - while your FI number stays the same or increases.</p>
+
+ <p>But add even one additional income stream - a side consulting practice that brings in $2,000/month, digital products earning $1,500/month, or dividend income of $1,000/month - and you've uncapped your growth. That extra income, invested consistently, can shave <em>years</em> off your FI timeline.</p>
+
+ <div class="math-box">
+ <h4>The Acceleration Effect of a Second Income Stream</h4>
+ <div class="math-row">
+ <span class="math-label">Salary-only investing: $2,000/month</span>
+ <span class="math-value">FI in ~25 years</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">Salary + side income: $3,500/month invested</span>
+ <span class="math-value">FI in ~18 years</span>
+ </div>
+ <div class="math-result">
+ <span class="label">Time saved by adding $1,500/mo in side income</span>
+ <span class="big-number">7 years of freedom</span>
+ </div>
+ </div>
+
+ <p>Seven years. That's not a rounding error. That's the difference between reaching financial independence at 52 vs. 45. Between your kids being in middle school vs. already graduated. Between having energy for your passion projects vs. being too burned out to enjoy them.</p>
+
+ <h2>The Three Types of Income</h2>
+
+ <p>Understanding these categories changes everything about how you think about money:</p>
+
+ <div class="step-item">
+ <div class="step-number">1</div>
+ <div class="step-content">
+ <h4>Active Income - You Work, You Get Paid</h4>
+ <p>This is your salary, hourly wages, consulting fees. Stop working and the income stops. It's necessary, but it should not be your only play. Think of it as the fuel that funds everything else.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">2</div>
+ <div class="step-content">
+ <h4>Portfolio Income - Your Money Works for You</h4>
+ <p>Dividends, interest, capital gains. This is the income generated by investments you've already made. It grows over time as your portfolio grows. This is the Buffett and Bogle framework in action.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">3</div>
+ <div class="step-content">
+ <h4>Passive Income - Your Systems Work for You</h4>
+ <p>Rental properties, digital products, licensing, courses, templates, affiliate revenue. These require upfront work to build but then generate income with minimal ongoing effort. This is the ultimate wealth accelerator - and it's more accessible than you think.</p>
+ </div>
+ </div>
+
+ <p>The Wealth Code strategy is to build all three layers. Your active income funds your lifestyle and investments. Your portfolio income compounds silently in the background. And your passive income accelerates everything while reducing your dependency on any single source.</p>
+
+ <div class="quote-box">
+ <div class="quote-text">The professionals who build lasting wealth are not the ones who work the hardest - they're the ones who build systems that generate income whether they are working or not.</div>
+ </div>
+ </div>
+
+ 
+    <!-- ========== CHAPTER 8: THREE TYPES OF INCOME ========== -->
+    <div class="page chapter-page gold-theme">
+        <div class="chapter-number">Chapter 8</div>
+        <h1 class="chapter-title">The Three Types of Income</h1>
+        <div class="chapter-subtitle">Understanding active, portfolio, and passive income — and why you need all three to build real wealth</div>
+    </div>
+
+    <div class="page content-page">
+        <h1>The Three Types of Income</h1>
+
+        <p>The IRS recognizes three types of income, and each one is taxed differently, scales differently, and requires a fundamentally different strategy to build. Most professionals only optimize for one of them — earned income. The wealthy optimize for all three simultaneously. Understanding this distinction is the key that unlocks everything in the rest of this book.</p>
+
+        <h2>Type 1: Earned Income — Your Time for Money</h2>
+
+        <p>This is your salary, your hourly wage, your consulting fees, your bonus. It's the income you receive in direct exchange for your time and labor. It's necessary — it's the fuel that funds everything else — but it has three fundamental limitations that make it a poor long-term wealth strategy on its own:</p>
+
+        <div class="highlight-box fire-border">
+            <span class="icon">⏰</span>
+            <h4>The Three Limits of Earned Income</h4>
+            <p><strong>Time-bounded:</strong> There are only 2,080 working hours in a year. Even at $200/hour, that's a $416K ceiling — and you'd have zero time left for life.<br><br>
+            <strong>Taxed the hardest:</strong> Earned income faces the highest effective tax rates — federal income tax + state tax + Social Security (6.2%) + Medicare (1.45-2.35%). A $200K salary might net $130K after taxes. Investment income often faces significantly lower rates.<br><br>
+            <strong>Stops when you stop:</strong> Get sick, take a sabbatical, get laid off, or retire — and earned income goes to zero instantly. No safety net built into the structure.</p>
+        </div>
+
+        <p>The Wealth Code approach to earned income: maximize it aggressively (negotiate, upskill, switch jobs strategically), but never mistake it for the whole strategy. Your salary is the engine. Portfolio and passive income are the wings.</p>
+
+        <h2>Type 2: Portfolio Income — Your Money Earning Money</h2>
+
+        <p>Portfolio income includes dividends, interest, capital gains, and any returns generated by your investment assets. This is the Buffett and Bogle territory — money that compounds and grows whether you're working, sleeping, or on vacation.</p>
+
+        <div class="math-box">
+            <h4>Portfolio Income Growth Over Time</h4>
+            <div class="math-row">
+                <span class="math-label">Year 1: $50K invested, 3.5% dividend yield</span>
+                <span class="math-value">$1,750/yr ($146/mo)</span>
+            </div>
+            <div class="math-row">
+                <span class="math-label">Year 5: $200K portfolio, 3.5% yield</span>
+                <span class="math-value">$7,000/yr ($583/mo)</span>
+            </div>
+            <div class="math-row">
+                <span class="math-label">Year 10: $500K portfolio, 3.5% yield</span>
+                <span class="math-value">$17,500/yr ($1,458/mo)</span>
+            </div>
+            <div class="math-row">
+                <span class="math-label">Year 20: $1.5M portfolio, 3.5% yield</span>
+                <span class="math-value">$52,500/yr ($4,375/mo)</span>
+            </div>
+            <div class="math-result">
+                <span class="label">At this point, your money earns more than most jobs pay</span>
+                <span class="big-number">$52,500/yr on autopilot</span>
+            </div>
+        </div>
+
+        <p>The magic of portfolio income is that it accelerates over time. The first $146/month feels insignificant. But it builds on itself — your dividends buy more shares, which pay more dividends, which buy more shares. By year 20, your portfolio is generating a middle-class salary without you lifting a finger. This is the compounding chapter brought to life.</p>
+
+        <p>Portfolio income also receives preferential tax treatment. Qualified dividends and long-term capital gains are taxed at 0%, 15%, or 20% — significantly lower than earned income rates. This tax advantage is one of the primary wealth-building mechanisms used by every high-net-worth individual.</p>
+
+        <h2>Type 3: Passive Income — Your Systems Earning Money</h2>
+
+        <p>This is the income category that changes everything. Passive income comes from systems, assets, and intellectual property that you build once and they continue generating revenue with minimal ongoing effort. Rental properties, digital courses, template shops, licensing deals, affiliate revenue, book royalties, automated businesses.</p>
+
+        <p>Here's why passive income is the ultimate wealth accelerator:</p>
+
+        <div class="step-item">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>It Breaks the Time-for-Money Equation</h4>
+                <p>A digital course that took 100 hours to create can sell 1,000 copies. That's $197,000 in revenue from 100 hours of work — an effective rate of $1,970/hour. No salary can match that kind of leverage. And the course keeps selling in month 12, month 24, month 60.</p>
+            </div>
+        </div>
+
+        <div class="step-item">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>It Provides Income Regardless of Employment</h4>
+                <p>If you lose your job tomorrow, your rental property still collects rent. Your digital products still sell. Your dividend portfolio still pays. This isn't just financial security — it's psychological freedom. You negotiate differently when you have a backup. You take risks differently when failure doesn't mean financial ruin.</p>
+            </div>
+        </div>
+
+        <div class="step-item">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>It Accelerates Your FI Timeline Dramatically</h4>
+                <p>Every dollar of passive income reduces how much your investment portfolio needs to cover. If your expenses are $5,000/month and you build $2,000/month in passive income, your FI number drops from $1.5M to $900K. You just shaved potentially 7-10 years off your timeline.</p>
+            </div>
+        </div>
+
+        <div class="step-item">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>It Compounds in Ways Salary Can't</h4>
+                <p>A salary grows 3-5% per year. But a digital product business can grow 50-200% per year by adding products, expanding audience, and optimizing funnels. Rental real estate appreciates while simultaneously producing cash flow AND paying down mortgage with tenant's rent. Passive income has compounding built into multiple dimensions.</p>
+            </div>
+        </div>
+
+        <h2>The Wealth Code Income Architecture</h2>
+
+        <p>Here's how the three income types work together in the Wealth Code framework:</p>
+
+        <div class="math-box">
+            <h4>The Three-Layer Income Stack</h4>
+            <div class="math-row">
+                <span class="math-label">Layer 1: Earned Income (salary/consulting)</span>
+                <span class="math-value">→ Funds your lifestyle + investments</span>
+            </div>
+            <div class="math-row">
+                <span class="math-label">Layer 2: Portfolio Income (dividends/gains)</span>
+                <span class="math-value">→ Compounds silently in background</span>
+            </div>
+            <div class="math-row">
+                <span class="math-label">Layer 3: Passive Income (systems/products)</span>
+                <span class="math-value">→ Accelerates everything + provides safety</span>
+            </div>
+            <div class="math-result">
+                <span class="label">Combined effect</span>
+                <span class="big-number">3 engines building wealth simultaneously</span>
+            </div>
+        </div>
+
+        <p>Most people have Layer 1 only. Smart savers add Layer 2. But the people who reach financial independence fastest — and with the most security — build all three layers. The rest of this book shows you exactly how.</p>
+
+        <div class="highlight-box green-border">
+            <span class="icon">💡</span>
+            <h4>The Passive Income Mindset Shift</h4>
+            <p>Here's what I learned building a $40M+ company: the professionals who build lasting wealth are not the ones who work the hardest — they're the ones who build systems that generate income whether they are working or not. Your earned income is the fuel. Your portfolio income is the engine. Your passive income is the turbocharger. You need all three. And the sooner you start building Layers 2 and 3, the sooner you escape the single-income trap that keeps most high earners running on a treadmill that goes nowhere.</p>
+        </div>
+
+        <div class="action-box">
+            <h4>🔥 Assess Your Income Architecture</h4>
+            <p>Right now, what percentage of your total income comes from each layer? Most people are 100% Layer 1. Your goal is to progressively shift toward a 60/20/20 split, then 40/30/30, and eventually have Layers 2 and 3 cover 100% of your expenses — that's financial independence.</p>
+            <ul class="action-list">
+                <li>Calculate your current income split across all three layers</li>
+                <li>Set a 12-month target for each layer</li>
+                <li>Identify ONE passive income stream to explore this quarter</li>
+                <li>Download the <strong>Wealthy Life Dashboard</strong> to track your income layers at morgandebaun.com</li>
+            </ul>
+        </div>
+    </div>
+<!-- ========== CHAPTER 9: PASSIVE INCOME PLAYBOOK: PASSIVE INCOME PLAYBOOK ========== -->
+ <div class="page chapter-page">
+ <div class="chapter-number">Chapter 9</div>
+ <h1 class="chapter-title">The Passive Income Playbook</h1>
+ <div class="chapter-subtitle">A framework for choosing, building, and stacking income streams that match YOUR Wealth Code</div>
+ </div>
+
+ <div class="page content-page">
+ <h1>The Passive Income Playbook</h1>
+
+ <p>Here's what I learned building a $40M+ company while raising a baby: decisions made from emotion lead to overwhelm. Decisions made from data lead to clarity. That's why I approach passive income the same way I approach everything in this book - with frameworks, math, and strategic thinking.</p>
+
+ <p>The internet is full of "50 passive income ideas!" listicles. But a list without a decision framework is just noise. What you need is a method for evaluating which income streams match your specific situation - your capital, your skills, your time, and your Wealth Code.</p>
+
+ <h2>The Passivity Spectrum</h2>
+
+ <p>First, let's kill a myth: nothing is 100% passive. Every income stream requires <em>some</em> effort. The question is how much effort relative to the income generated - and whether that effort aligns with how you want to spend your time.</p>
+
+ <div class="timeline">
+ <div class="timeline-item">
+ <h4>Score 9-10: Set &amp; Forget (~1 hr/month or less)</h4>
+ <p>High-yield savings, dividend index funds, bonds, automatic DRIP investments. You set these up once and they compound quietly. This is the foundation.</p>
+ </div>
+ <div class="timeline-item">
+ <h4>Score 7-8: Minimal Maintenance (1-4 hrs/month)</h4>
+ <p>REITs, established digital product sales, licensing deals, peer-to-peer lending. Requires occasional check-ins but runs on autopilot.</p>
+ </div>
+ <div class="timeline-item">
+ <h4>Score 5-6: Light Touch (5-10 hrs/month)</h4>
+ <p>Established online courses, templates/spreadsheets, affiliate revenue from a blog or newsletter. Requires periodic updates and marketing pushes.</p>
+ </div>
+ <div class="timeline-item">
+ <h4>Score 3-4: Active Maintenance (10-20 hrs/month)</h4>
+ <p>Rental properties (with a manager), membership communities, active content creation. Meaningful time but flexible scheduling.</p>
+ </div>
+ <div class="timeline-item">
+ <h4>Score 1-2: Semi-Active (20+ hrs/month)</h4>
+ <p>Consulting, coaching, freelancing. Still requires your presence, but often on your terms and at premium rates. Think of this as the bridge phase.</p>
+ </div>
+ </div>
+
+ <h2>The Six Categories of Passive Income</h2>
+
+ <div class="pillar-grid">
+ <div class="pillar-card">
+ <h4>💰 True Passive - Investments</h4>
+ <p>Dividend stocks, index funds, REITs, bonds, high-yield savings. Requires capital to deploy. Passivity Score: 8-10. This is where your portfolio income lives.</p>
+ </div>
+ <div class="pillar-card">
+ <h4>📦 Digital Products</h4>
+ <p>Ebooks, templates, spreadsheets, courses, printables, software tools. Build once, sell repeatedly. Passivity Score: 5-8. Perfect for experts with teachable skills.</p>
+ </div>
+ <div class="pillar-card">
+ <h4>🏠 Rental &amp; Asset Income</h4>
+ <p>Long-term rentals, short-term rentals, equipment leasing, storage units. Requires upfront capital or financing. Passivity Score: 4-7.</p>
+ </div>
+ <div class="pillar-card">
+ <h4>📱 Content &amp; Audience</h4>
+ <p>YouTube ad revenue, podcast sponsorships, newsletter monetization, blog affiliate income. Requires audience-building first. Passivity Score: 4-6.</p>
+ </div>
+ <div class="pillar-card">
+ <h4>🔑 Licensing &amp; Royalties</h4>
+ <p>Book royalties, music licensing, photography licensing, patent licensing. Create intellectual property once, earn from it for years. Passivity Score: 7-9.</p>
+ </div>
+ <div class="pillar-card">
+ <h4>💼 Productized Services</h4>
+ <p>Consulting packages, done-for-you services with a team, agency models. Your expertise systematized so others deliver. Passivity Score: 3-5.</p>
+ </div>
+ </div>
+
+ <h2>Matching Income Streams to Your Wealth Code</h2>
+
+ <p>This is where most passive income advice fails - it doesn't account for <em>you</em>. The right income stream depends on four factors:</p>
+
+ <div class="highlight-box">
+ <span class="icon">🎯</span>
+ <h4>The Four Filters</h4>
+ <p><strong>Available Capital:</strong> How much can you invest upfront? ($0-$1K, $1K-$10K, $10K-$50K, $50K+)<br>
+ <strong>Available Time:</strong> How many hours per week can you dedicate? (2, 5, 10, 20+)<br>
+ <strong>Risk Tolerance:</strong> How comfortable are you with uncertainty? (Conservative, Moderate, Aggressive)<br>
+ <strong>Skills &amp; Assets:</strong> What expertise, network, or existing assets can you leverage?</p>
+ </div>
+
+ <p>Someone with $50K in capital but only 2 hours per week should look at dividend investing and REITs. Someone with no capital but 10 hours per week and deep industry expertise should start with digital products or consulting. Someone with a large social following should explore content monetization and affiliate partnerships. There's no one-size-fits-all - which is exactly why you need a data-driven framework to decide.</p>
+
+ <h2>Real Numbers: What Passive Income Actually Looks Like</h2>
+
+ <div class="math-box">
+ <h4>Passive Income Scenarios (Monthly)</h4>
+ <div class="math-row">
+ <span class="math-label">$500K in SCHD dividend ETF (~3.5% yield)</span>
+ <span class="math-value">~$1,458/mo in dividends</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">One long-term rental property (net of mortgage/expenses)</span>
+ <span class="math-value">~$500-$1,500/mo cash flow</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">Digital course selling 20 units/month at $197</span>
+ <span class="math-value">~$3,940/mo</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">Template/spreadsheet shop (established)</span>
+ <span class="math-value">~$500-$3,000/mo</span>
+ </div>
+ <div class="math-row">
+ <span class="math-label">YouTube channel (50K subscribers, 100K views/mo)</span>
+ <span class="math-value">~$500-$2,000/mo</span>
+ </div>
+ </div>
+
+ <p>None of these numbers are life-changing on their own. But <em>stack them</em> and the picture transforms entirely. Two or three of these running simultaneously could generate $3,000-$7,000 per month in income that doesn't require you to show up at an office. That's $36,000-$84,000 per year - enough to fund most people's entire living expenses or massively accelerate their path to FI.</p>
+
+ <div class="action-box">
+ <h4>🔥 Go Deeper: The WorkSmart Passive Income Blueprint</h4>
+ <p>I've analyzed <strong>101 passive income opportunities</strong> across <strong>15+ decision factors</strong> including startup cost, monthly hours, passivity score, risk level, income range, scalability, and more. The Passive Income Blueprint spreadsheet lets you filter, compare, and choose the income streams that match YOUR specific situation. Stop guessing. Start with data.</p>
+ <ul class="action-list">
+ <li>101 income opportunities analyzed and scored</li>
+ <li>15+ decision factors per opportunity</li>
+ <li>Passivity Score system (1-10 scale)</li>
+ <li>Quick Decision Matrix to rank your top options</li>
+ <li>Available at <strong>morgandebaun.com</strong></li>
+ </ul>
+ </div>
+ </div>
+
+ <!-- ========== CHAPTER 10: INCOME STACKING: INCOME STACKING ========== -->
+ <div class="page chapter-page gold-theme">
+ <div class="chapter-number">Chapter 10</div>
+ <h1 class="chapter-title">The Income Stacking Method</h1>
+ <div class="chapter-subtitle">How to build multiple income streams strategically - without burning out or losing focus</div>
+ </div>
+
+ <div class="page content-page">
+ <h1>The Income Stacking Method</h1>
+
+ <p>The number one mistake people make with passive income? Trying to build five income streams at once. That's a recipe for doing none of them well and burning out in three months. The wealthy don't do this. They <em>stack</em> - building one stream at a time, each one reinforcing the last.</p>
+
+ <h2>The Four Wealth Principles for Income Stacking</h2>
+
+ <div class="step-item">
+ <div class="step-number">1</div>
+ <div class="step-content">
+ <h4>Time Is the Real Currency</h4>
+ <p>Money can be earned and multiplied. Time cannot. Evaluate every opportunity by time investment, not just returns. An income stream that makes $2,000/month but takes 40 hours/week is a second job, not passive income.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">2</div>
+ <div class="step-content">
+ <h4>Passivity Is a Spectrum</h4>
+ <p>Nothing is 100% passive. The goal is appropriate effort for your season of life. When you're 28 with energy and no kids, a 20-hour/week side hustle might be perfect. When you're 38 with two children, you need a 5 on the passivity scale or higher.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">3</div>
+ <div class="step-content">
+ <h4>Stack, Don't Switch</h4>
+ <p>The wealthy don't abandon income streams - they stack them. Build alongside your job, not instead of it. Your salary funds the startup costs. Your first passive stream funds the second. Each layer creates the foundation for the next.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">4</div>
+ <div class="step-content">
+ <h4>Data Over Hype</h4>
+ <p>Choose what fits YOUR life, not someone else's highlight reel. That person making $50K/month from a YouTube channel worked 60 hours a week for two years to get there. The math is real, but so is the effort. Use data to evaluate, not Instagram posts.</p>
+ </div>
+ </div>
+
+ <h2>The Income Stacking Roadmap</h2>
+
+ <p>Here's the strategic sequence that I recommend. Each phase builds on the previous one, creating compounding layers of income and security:</p>
+
+ <div class="timeline">
+ <div class="timeline-item">
+ <h4>Phase 1: Fortify Your Foundation (Months 1-6)</h4>
+ <p>Maximize your earned income - negotiate a raise, optimize your tax strategy, eliminate high-interest debt. Set up automatic investing in index funds. Build your 3-6 month emergency fund. This isn't glamorous, but it's the foundation everything else rests on.</p>
+ </div>
+ <div class="timeline-item">
+ <h4>Phase 2: Build Portfolio Income (Months 6-18)</h4>
+ <p>With your foundation solid, focus on growing your investment portfolio aggressively. Max out all tax-advantaged accounts. Start a taxable brokerage account. Begin building positions in dividend funds like SCHD alongside your growth index funds. Let compounding start its work.</p>
+ </div>
+ <div class="timeline-item">
+ <h4>Phase 3: Launch Your First Active Side Stream (Months 12-24)</h4>
+ <p>Using the skills and expertise from your career, launch a consulting practice, freelance offering, or coaching service. This is active income (passivity score 1-3) but it serves two purposes: it generates capital to invest AND it proves your market value outside your employer. Even $1,000-$3,000/month here changes everything.</p>
+ </div>
+ <div class="timeline-item">
+ <h4>Phase 4: Productize Your Expertise (Months 18-36)</h4>
+ <p>Take what you learned from consulting/freelancing and turn it into products. Create a digital course, write an ebook, build a template pack, develop a spreadsheet tool. These are the assets that earn while you sleep. Passivity score jumps from 2 to 6-8.</p>
+ </div>
+ <div class="timeline-item">
+ <h4>Phase 5: Scale and Diversify (Year 3+)</h4>
+ <p>With multiple streams flowing, reinvest profits into higher-passivity assets - more index funds, real estate, expanded product lines. Your active time decreases while your income increases. This is the compounding phase where everything accelerates.</p>
+ </div>
+ </div>
+
+ <h2>The CEO Mindset Applied to Income</h2>
+
+ <p>In <em>Rewrite Your Rules</em>, I teach the difference between CEO Tasks and Operating Tasks. The same framework applies to your income streams:</p>
+
+ <div class="compare-grid">
+ <div class="compare-card green">
+ <h4>CEO Income Decisions</h4>
+ <ul class="compare-list">
+ <li>Which income stream should I build next?</li>
+ <li>How do I allocate capital across investments?</li>
+ <li>What skills should I develop for higher earning power?</li>
+ <li>When should I automate, delegate, or eliminate?</li>
+ <li>What's my 3-year income diversification plan?</li>
+ </ul>
+ </div>
+ <div class="compare-card fire">
+ <h4>Operating Income Mistakes</h4>
+ <ul class="compare-list">
+ <li>Chasing every "hot" opportunity on social media</li>
+ <li>Starting 5 income streams simultaneously</li>
+ <li>Spending more time optimizing than building</li>
+ <li>Doing $15/hour tasks when your time is worth $150</li>
+ <li>Never evaluating ROI on your time investments</li>
+ </ul>
+ </div>
+ </div>
+
+ <h2>The 90-Day Sprint Framework</h2>
+
+ <p>Don't try to build a passive income empire overnight. Use this 90-day sprint structure for each new income stream:</p>
+
+ <div class="pillar-grid">
+ <div class="pillar-card">
+ <h4>Days 1-30: Setup &amp; Learn</h4>
+ <p>Research your chosen stream. Study people who've succeeded. Set up the infrastructure. Create a minimum viable version. Don't aim for perfection - aim for getting started.</p>
+ </div>
+ <div class="pillar-card">
+ <h4>Days 31-60: Launch &amp; Test</h4>
+ <p>Put it in the market. Get real feedback. Make your first dollar. Track what's working and what's not. Adjust based on data, not feelings.</p>
+ </div>
+ <div class="pillar-card">
+ <h4>Days 61-90: Optimize &amp; Scale</h4>
+ <p>Double down on what works. Eliminate what doesn't. Automate repetitive tasks. Set up systems so this stream can run with minimal input.</p>
+ </div>
+ <div class="pillar-card">
+ <h4>Day 91: Evaluate</h4>
+ <p>Is this stream generating income? Is the ROI on your time acceptable? Does it align with your Wealth Code? If yes, systemize it. If no, pivot or abandon - guilt-free. Data over hype.</p>
+ </div>
+ </div>
+
+ <div class="highlight-box fire-border">
+ <span class="icon">💡</span>
+ <h4>The $100 Rule</h4>
+ <p>Even $100/month in passive income is worth celebrating. Here's why: $100/month invested at 10% annual returns grows to $228,000 in 30 years. But more importantly, your first $100 proves the <em>concept</em>. It proves that money can flow to you without trading hours. Once you've proven it, scaling from $100 to $1,000 to $5,000 is a matter of execution, not belief. The mindset shift from "I trade time for money" to "I build systems that generate money" is the single most important financial breakthrough you'll ever have.</p>
+ </div>
+
+ <div class="action-box">
+ <h4>🔥 Get the Full Passive Income Blueprint</h4>
+ <p>Ready to choose your first (or next) income stream? The <strong>WorkSmart Passive Income Blueprint</strong> gives you a data-driven decision framework with 101 opportunities scored across 15+ factors. Stop scrolling listicles. Start making strategic, data-backed decisions about your income diversification.</p>
+ <ul class="action-list">
+ <li>Filter by startup cost, time commitment, risk level, and passivity score</li>
+ <li>Compare your top options side-by-side</li>
+ <li>Use the Quick Decision Matrix to rank and choose</li>
+ <li>Follow the 90-Day Sprint to launch</li>
+ <li>Get it at <strong>morgandebaun.com</strong></li>
+ </ul>
+ </div>
+
+ <div class="quote-box">
+ <div class="quote-text">The goal is not perfection. The goal is progress. One income stream at a time, built on data, stacked with intention. That's how ordinary professionals build extraordinary wealth.</div>
+ </div>
+ </div>
+
+ 
+    <!-- ========== CHAPTER 11: TAX STRATEGY ========== -->
+    <div class="page chapter-page slate-theme">
+        <div class="chapter-number">Chapter 11</div>
+        <h1 class="chapter-title">The Tax Strategy Playbook</h1>
+        <div class="chapter-subtitle">How wealthy people legally keep more of what they earn — and how you can too</div>
+    </div>
+
+    <div class="page content-page">
+        <h1>The Tax Strategy Playbook</h1>
+
+        <p>Here's a truth that nobody talks about: the wealthiest Americans often pay a lower <em>effective</em> tax rate than their middle-class employees. Not because they're cheating — because they understand the tax code and structure their income accordingly. The tax code rewards certain behaviors: investing, entrepreneurship, and long-term wealth building. Your job is to take advantage of every legal incentive available to you.</p>
+
+        <p>I'm not a tax professional and this isn't tax advice — but these are the strategies that every high-earning professional should understand and discuss with their CPA.</p>
+
+        <h2>The Tax-Advantaged Account Priority Stack</h2>
+
+        <p>The order in which you fund accounts matters enormously. Each account type offers different tax advantages, and optimizing the sequence can save you hundreds of thousands over your lifetime.</p>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <h4>Priority 1: 401(k) to Employer Match</h4>
+                <p>If your employer matches contributions, this is a guaranteed 50-100% return on your money before it even hits the market. Contribute at least enough to get the full match. Anything less is leaving free money on the table.</p>
+            </div>
+            <div class="timeline-item">
+                <h4>Priority 2: Max Your HSA ($4,300 individual / $8,550 family in 2025)</h4>
+                <p>The HSA is the only <strong>triple tax-advantaged</strong> account in existence. Contributions are tax-deductible, growth is tax-free, and withdrawals for medical expenses are tax-free. But here's the wealth hack: pay medical expenses out of pocket now, let the HSA grow invested in index funds, and withdraw tax-free decades later. After age 65, HSA funds can be used for anything (with regular income tax, like a traditional IRA).</p>
+            </div>
+            <div class="timeline-item">
+                <h4>Priority 3: Max Roth IRA ($7,000 / $8,000 if 50+ in 2025)</h4>
+                <p>Roth contributions are after-tax, but all growth and withdrawals are tax-FREE forever. If your income is too high for direct contributions, use the Backdoor Roth IRA strategy (contribute to traditional IRA, then convert). Your future self will thank you for decades of tax-free compounding.</p>
+            </div>
+            <div class="timeline-item">
+                <h4>Priority 4: Max Remaining 401(k) ($23,500 / $31,000 if 50+ in 2025)</h4>
+                <p>Fill up the rest of your 401(k) for the tax deduction. If your plan offers a Roth 401(k) option, consider splitting between traditional (tax deduction now) and Roth (tax-free later) based on whether you expect higher income in the future.</p>
+            </div>
+            <div class="timeline-item">
+                <h4>Priority 5: Mega Backdoor Roth (if available)</h4>
+                <p>Some 401(k) plans allow after-tax contributions beyond the standard limit, up to $70,000 total. These can then be converted to Roth. If your employer offers this, it's one of the most powerful wealth-building tools available to high earners.</p>
+            </div>
+            <div class="timeline-item">
+                <h4>Priority 6: Taxable Brokerage Account (no limits)</h4>
+                <p>After maxing all tax-advantaged accounts, invest in a regular brokerage account. While there's no tax break going in, long-term capital gains and qualified dividends are taxed at preferential rates (0%, 15%, or 20%). This also provides flexibility — no age restrictions on withdrawals, making it essential for early FI.</p>
+            </div>
+        </div>
+
+        <h2>Income Type Determines Tax Rate</h2>
+
+        <p>This is why the Three Types of Income chapter matters so much. Different income types are taxed at vastly different rates:</p>
+
+        <div class="math-box">
+            <h4>Tax Rates by Income Type (Example: $200K Household)</h4>
+            <div class="math-row">
+                <span class="math-label">Earned Income (salary) — federal + state + FICA</span>
+                <span class="math-value">~32-40% effective</span>
+            </div>
+            <div class="math-row">
+                <span class="math-label">Long-term Capital Gains (held 1+ year)</span>
+                <span class="math-value">15% federal</span>
+            </div>
+            <div class="math-row">
+                <span class="math-label">Qualified Dividends</span>
+                <span class="math-value">15% federal</span>
+            </div>
+            <div class="math-row">
+                <span class="math-label">Rental Income (with depreciation deductions)</span>
+                <span class="math-value">Often 0-15% effective</span>
+            </div>
+            <div class="math-row">
+                <span class="math-label">Roth IRA / Roth 401(k) withdrawals</span>
+                <span class="math-value">0% — tax-free</span>
+            </div>
+            <div class="math-result">
+                <span class="label">Shifting income from earned → portfolio → passive = massive tax savings</span>
+                <span class="big-number">This is how the wealthy pay less</span>
+            </div>
+        </div>
+
+        <p>This isn't a loophole — it's the tax code working as designed. The government wants you to invest, create businesses, and build assets. It rewards those behaviors with lower tax rates. Your job is to progressively shift your income from the highest-taxed category (earned) to lower-taxed categories (portfolio and passive) over time.</p>
+
+        <h2>Tax Strategies for Side Income &amp; Digital Products</h2>
+
+        <p>When you start building passive income streams — digital products, consulting, content creation — you become eligible for business deductions that can significantly reduce your taxable income. This is one of the hidden advantages of having income beyond your salary:</p>
+
+        <div class="pillar-grid">
+            <div class="pillar-card">
+                <h4>🏠 Home Office Deduction</h4>
+                <p>Deduct a portion of rent/mortgage, utilities, and internet based on the percentage of your home used exclusively for business. Even a dedicated desk in a bedroom can qualify.</p>
+            </div>
+            <div class="pillar-card">
+                <h4>💻 Equipment &amp; Software</h4>
+                <p>Computers, cameras, microphones, software subscriptions, courses that improve your business skills — all potentially deductible against your side income.</p>
+            </div>
+            <div class="pillar-card">
+                <h4>🏦 Solo 401(k) or SEP-IRA</h4>
+                <p>Self-employment income unlocks additional retirement account contributions — up to $69,000/year in a Solo 401(k). This is an enormous tax-sheltering opportunity that W-2 employees don't have access to.</p>
+            </div>
+            <div class="pillar-card">
+                <h4>📊 QBI Deduction (Section 199A)</h4>
+                <p>Depending on your business structure and income level, you may be able to deduct up to 20% of your qualified business income. That's a 20% discount on your tax bill from self-employment income.</p>
+            </div>
+        </div>
+
+        <p>This is one of the most powerful and least-discussed reasons to build income streams beyond your salary. When you have business income, the entire tax code opens up to you in ways that pure W-2 employees never experience. You get to deduct the costs of building your wealth — which is exactly how it should be.</p>
+
+        <div class="highlight-box green-border">
+            <span class="icon">💡</span>
+            <h4>The Wealth Code Tax Principle</h4>
+            <p>It's not about how much you earn — it's about how much you <em>keep</em>. Two people can earn $200K. The one who understands tax-advantaged accounts, income structuring, and business deductions might keep $40K-$60K more per year. Invested over 20 years at 10%, that's $2.5M-$3.8M in additional wealth. Tax strategy isn't optional — it's essential. Find a CPA who specializes in tax optimization for high earners and side income, and the fee will pay for itself 100x over.</p>
+        </div>
+    </div>
+<!-- ========== CHAPTER 9 ========== -->
+ <div class="page chapter-page gold-theme">
+ <div class="chapter-number">Chapter 12</div>
+ <h1 class="chapter-title">The Six Accelerators</h1>
+ <div class="chapter-subtitle">Practical strategies to speed up your path to financial independence</div>
+ </div>
+
+ <div class="page content-page">
+ <h1>The Six Accelerators</h1>
+
+ <p>You have the foundation: your Wealth Code, your FI number, your investment accounts, and the power of compounding working in your favor. Now let's talk about how to compress the timeline. These are the six levers you can pull to reach financial independence faster.</p>
+
+ <h2>Accelerator 1: Automate Everything</h2>
+
+ <p>The most successful wealth builders don't rely on willpower or monthly reminders. They automate their investments so the money moves before they can spend it. Set up automatic transfers from every paycheck directly into your 401(k), Roth IRA, and brokerage account. The money you never see is the money that compounds the longest.</p>
+
+ <p>When you get a raise, redirect it automatically to investments before your lifestyle adjusts upward. This single habit - avoiding lifestyle creep - is worth more than any stock tip.</p>
+
+ <h2>Accelerator 2: Optimize the Big Three</h2>
+
+ <p>Roughly 60-70% of most people's spending falls into three categories: housing, transportation, and food. These are the only line items large enough to meaningfully move your savings rate. Small optimizations here create massive results over time.</p>
+
+ <div class="compare-grid">
+ <div class="compare-card slate">
+ <h4>🏠 Housing</h4>
+ <ul class="compare-list">
+ <li>Consider house-hacking or getting a roommate</li>
+ <li>Relocate to a lower cost-of-living area if remote work allows</li>
+ <li>Refinance when rates drop</li>
+ <li>Keep housing at 25% or less of take-home pay</li>
+ </ul>
+ </div>
+ <div class="compare-card slate">
+ <h4>🚗 Transportation</h4>
+ <ul class="compare-list">
+ <li>Buy reliable used cars instead of new</li>
+ <li>Redirect a car payment you'd otherwise make to investments</li>
+ <li>Consider public transit or car-sharing where possible</li>
+ <li>Choose safety and affordability over luxury and novelty</li>
+ </ul>
+ </div>
+ </div>
+
+ <p>When I was building Blavity in my twenties, I realized car ownership had no place in my wealth story. Society screamed it was essential, but my vision knew better. I channeled those savings into central apartments near work and used commutes as self-care time with podcasts. My daily steps kept me healthier than a sedentary commute ever could. <em>Your</em> Wealth Code might include a car - and that's fine. The point is making the choice consciously, not by default.</p>
+
+ <h2>Accelerator 3: Grow Your Income</h2>
+
+ <p>Cutting expenses has a floor - you can only reduce spending so much. But income has no ceiling. The most powerful FIRE accelerator is increasing what you earn while keeping your spending steady. That gap between earnings and spending is your wealth-building engine.</p>
+
+ <ul class="principle-list">
+ <li><strong>Negotiate your salary.</strong> The average raise from negotiation is 7-10%. Over a career, that compounds to hundreds of thousands of dollars.</li>
+ <li><strong>Build a side income stream.</strong> Consulting, freelancing, digital products, content creation - even $1,000/month extra invested at 10% becomes $228,000 in 10 years.</li>
+ <li><strong>Invest in high-value skills.</strong> Technical skills, leadership capabilities, and industry expertise directly increase your earning power.</li>
+ <li><strong>Think like a CEO about your career.</strong> Every year, ask: "Is this role still the highest-leverage use of my talent?" If not, make a move.</li>
+ </ul>
+
+ <h2>Accelerator 4: Kill High-Interest Debt</h2>
+
+ <p>If you have credit card balances or other high-interest debt (above 7-8%), paying those off IS investing. No stock market return is guaranteed, but eliminating a 22% credit card balance is a guaranteed 22% return. Clear this first, then redirect those payments to investments.</p>
+
+ <h2>Accelerator 5: Create Income Streams That Don't Require Your Time</h2>
+
+ <p>This is the CEO vs. Operating mindset applied to your money. Your salary requires your time and presence. But dividend income, rental income, digital products, and business systems generate revenue whether you're working or not. Every dollar of passive income reduces how much your portfolio needs to cover - and brings your FI date closer.</p>
+
+ <h2>Accelerator 6: Build Your Wealth Community</h2>
+
+ <p>The people around you shape your financial behavior more than any spreadsheet. Surround yourself with people who are also building wealth intentionally. Share strategies. Celebrate wins. Hold each other accountable. Financial independence can feel like a lonely path - but it doesn't have to be.</p>
+
+ <div class="action-box">
+ <h4>This Week's Wealth Moves</h4>
+ <ul class="action-list">
+ <li>Set up automatic contributions to your investment accounts</li>
+ <li>Audit your Big Three expenses - can you reduce housing, transport, or food costs by even 10%?</li>
+ <li>List three ways you could earn an additional $500-$1,000/month</li>
+ <li>Calculate the interest rate on any debt and rank it by priority</li>
+ <li>Download the <strong>Wealthy Life Dashboard</strong> to track all your numbers in one place</li>
+ <li>Run your numbers through the <strong>WorkSmart FIRE Calculator</strong> at morgandebaun.com</li>
+ </ul>
+ </div>
+ </div>
+
+ <!-- ========== CHAPTER 10 ========== -->
+ <div class="page chapter-page slate-theme">
+ <div class="chapter-number">Chapter 13</div>
+ <h1 class="chapter-title">Build Your Wealth Dashboard</h1>
+ <div class="chapter-subtitle">Track your progress with the same data-driven approach you'd use to run a business</div>
+ </div>
+
+ <div class="page content-page">
+ <h1>Build Your Wealth Dashboard</h1>
+
+ <p>What gets measured gets managed. You wouldn't run a business without a dashboard - so why would you run your financial life without one? Here's how to create a simple system for tracking your progress toward financial independence.</p>
+
+ <h2>The Five Numbers That Matter</h2>
+
+ <div class="step-item">
+ <div class="step-number">1</div>
+ <div class="step-content">
+ <h4>Net Worth</h4>
+ <p>All assets (cash, investments, property) minus all liabilities (debt, loans, mortgage balance). Track this monthly. This is the single most important number in your financial life - not your income, not your credit score. Net worth is the scoreboard.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">2</div>
+ <div class="step-content">
+ <h4>Savings Rate</h4>
+ <p>What percentage of your take-home pay goes to investments? Aim for at least 20-25%. If you're serious about early FI, work toward 35-50%. This is the speedometer of your wealth journey.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">3</div>
+ <div class="step-content">
+ <h4>FI Percentage</h4>
+ <p>Your current invested assets divided by your FI number. If your FI number is $1,500,000 and you have $450,000 invested, you're at 30% FI. Watching this number climb is deeply motivating.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">4</div>
+ <div class="step-content">
+ <h4>Passive Income</h4>
+ <p>How much income do your investments generate without you working? Track dividends, interest, rental income, and digital product revenue. When this number exceeds your monthly expenses, you've reached financial independence.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">5</div>
+ <div class="step-content">
+ <h4>Estimated FI Date</h4>
+ <p>Based on your current savings rate, portfolio balance, and expected returns - when could you reach your FI number? Update this quarterly. Use an online retirement calculator to model different scenarios.</p>
+ </div>
+ </div>
+
+ <h2>Your Wealth Review Rhythm</h2>
+
+ <div class="timeline">
+ <div class="timeline-item">
+ <h4>Weekly (5 minutes)</h4>
+ <p>Quick check: did this week's spending align with your Wealth Code? Did automatic investments fire correctly?</p>
+ </div>
+ <div class="timeline-item">
+ <h4>Monthly (30 minutes)</h4>
+ <p>Update net worth. Review spending vs. budget. Confirm savings rate is on target. Celebrate wins - even small ones.</p>
+ </div>
+ <div class="timeline-item">
+ <h4>Quarterly (1-2 hours)</h4>
+ <p>Review investment performance. Rebalance if needed. Update FI percentage and estimated FI date. Adjust any strategies that aren't working.</p>
+ </div>
+ <div class="timeline-item">
+ <h4>Annually (Half day)</h4>
+ <p>Big picture review. Revisit your Wealth Code - has it evolved? Evaluate income growth. Set new targets. Max out tax-advantaged accounts for the year. This is your annual "CEO day" for your finances.</p>
+ </div>
+ </div>
+
+ <div class="highlight-box green-border">
+ <span class="icon">📊</span>
+ <h4>Download the Wealthy Life Dashboard</h4>
+ <p>We built the WorkSmart Wealthy Life Dashboard so you can track all five numbers in one beautifully designed spreadsheet. It auto-calculates your FI percentage, projects your FI date, and tracks your passive income growth over time. Pair it with the <strong>WorkSmart FIRE Calculator</strong> to model different savings rate scenarios. Both available at <strong>morgandebaun.com</strong>.</p>
+ </div>
+
+ <div class="quote-box">
+ <div class="quote-text">Math removes guilt. When you track your numbers, you replace anxiety with clarity. You stop guessing and start knowing exactly where you stand and exactly what to do next.</div>
+ </div>
+ </div>
+
+ <!-- ========== CLOSING ========== -->
+ <div class="page chapter-page">
+ <div class="chapter-number">Closing</div>
+ <h1 class="chapter-title">Your Wealthy Life Starts Today</h1>
+ <div class="chapter-subtitle">Not someday. Not when you make more. Today.</div>
+ </div>
+
+ <div class="page content-page">
+ <h1>Your Wealthy Life Starts Today</h1>
+
+ <p>I understand some of you might feel a sense of distance, thinking: "Morgan, this all sounds great, but my baseline is nowhere near yours. The cash in my pocket is already promised to a stack of past-due bills." This is a valid concern.</p>
+
+ <p>But the beauty of the Wealth Code is not about how much money you have - it's about your mindset toward it. From $50 to $500,000, this framework can help you achieve more holistic abundance. The journey to wealth starts with believing in the possibility of financial freedom, regardless of your current bank balance.</p>
+
+ <p>Remember: the professionals who build lasting wealth aren't the ones who work the hardest. They're the ones who build <em>systems</em> - investment systems that compound, income systems that diversify, and decision systems that remove guilt and replace it with clarity. You now have all three.</p>
+
+ <h2>The Wealth Code Commitments</h2>
+
+ <div class="step-item">
+ <div class="step-number">1</div>
+ <div class="step-content">
+ <h4>Define Your Wealth Code</h4>
+ <p>Write your 3-5 personal principles. Post them where you'll see them daily. Let them guide every financial decision.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">2</div>
+ <div class="step-content">
+ <h4>Know Your Numbers</h4>
+ <p>Calculate your net worth, monthly expenses, savings rate, and FI number. You cannot navigate to a destination you haven't defined.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">3</div>
+ <div class="step-content">
+ <h4>Start Investing - This Week</h4>
+ <p>Open a Roth IRA or brokerage account at Schwab or Fidelity if you don't have one. Buy a total market index fund. Set up automatic monthly contributions - even if it's $50 to start. Use the <strong>WorkSmart FIRE Calculator</strong> to see your projected FI date.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">4</div>
+ <div class="step-content">
+ <h4>Track Monthly with the Wealthy Life Dashboard</h4>
+ <p>Download the <strong>Wealthy Life Dashboard</strong> at morgandebaun.com. Update your net worth and savings rate every month. What gets measured gets managed. What gets managed grows.</p>
+ </div>
+ </div>
+
+ <div class="step-item">
+ <div class="step-number">5</div>
+ <div class="step-content">
+ <h4>Build Your Community</h4>
+ <p>Share this guide with one person who needs it. Follow @morgandebaun on Instagram, TikTok, and YouTube for weekly wealth-building content. Talk about money openly. Break the taboo. Wealth grows faster in community.</p>
+ </div>
+ </div>
+
+ <div class="quote-box">
+ <div class="quote-text">Rewrite Your Rules by defining wealth on your own terms, building systems that free your time, and letting your money work as hard as you do. Your wealthy life isn't waiting for you at some future milestone. It starts with the very next decision you make.</div>
+ </div>
+
+ <div class="highlight-box">
+ <span class="icon">🔑</span>
+ <h4>Remember</h4>
+ <p>Designing your Wealth Code means releasing society's "shoulds" in favor of YOUR happily ever after. What could you relinquish? Are there material shackles subtly weighing you down each day? Name them. Then align actions consciously to who <em>you</em> are - not the invisible script telling you what brings success. The power to define wealth on your terms starts now.</p>
+ </div>
+ </div>
+
+ <!-- ========== ABOUT THE AUTHOR ========== -->
+ <div class="page content-page greige-bg" style="text-align: center;">
+ <div style="margin-bottom: 30px;">
+ <img src="data:image/jpeg;base64,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" alt="Morgan DeBaun" style="width: 220px; height: 220px; border-radius: 50%; margin: 0 auto 25px; object-fit: cover; object-position: center top; display: block; border: 4px solid var(--kelly-green); box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+ <h1 style="border: none; text-align: center; padding: 0; margin-bottom: 10px;">About Morgan DeBaun</h1>
+ </div>
+ <p style="max-width: 600px; margin: 0 auto 20px; text-align: left;">Morgan DeBaun is an entrepreneur and trailblazing business leader who has inspired thousands of people to take control of their lives, careers, and goals. As the founder and CEO of Blavity Inc., Morgan built one of the most influential media and technology companies in the world, overseeing brands like AfroTech, Travel Noire, and 21Ninety.</p>
+ <p style="max-width: 600px; margin: 0 auto 20px; text-align: left;">Her entrepreneurial journey began at age 13 when she started investing in the stock market. She later became one of the few Black women founders to secure $1 million in venture capital at age 25, and has since grown Blavity Inc. to over $40 million in revenue reaching 100 million people monthly.</p>
+ <p style="max-width: 600px; margin: 0 auto 30px; text-align: left;">Through WorkSmart, Morgan teaches ambitious professionals how to use AI, strategic systems, and data-driven frameworks to build wealth, reclaim time, and design lives they love. She is the bestselling author of <em>Rewrite Your Rules</em>.</p>
+ 
+ <div style="display: inline-block; background: var(--fire); color: white; padding: 18px 40px; border-radius: 50px; font-weight: 700; font-size: 1.1rem; margin-bottom: 15px;">
+ 📖 Get Rewrite Your Rules → <span style="text-decoration: underline;">amzn.to/3NY4VDm</span>
+ </div>
+ <p style="font-family: 'Space Mono', monospace; font-size: 0.9rem; color: var(--kelly-green); letter-spacing: 1px;">@morgandebaun everywhere</p>
+ </div>
+
+ <!-- ========== BACK COVER ========== -->
+ <div class="page cover-page">
+ <div class="cover-content">
+ <div class="cover-badge" style="background: var(--kelly-green); color: white;">WorkSmart by Morgan DeBaun</div>
+ <h2 style="font-weight: 800; font-size: 2.5rem; margin-bottom: 30px; color: white; -webkit-text-fill-color: white;">Ready to Go Deeper?</h2>
+ <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9; max-width: 500px; margin-left: auto; margin-right: auto;">Get the full framework for rewriting the rules of your career, finances, and life in <em>Rewrite Your Rules</em> - plus access to the WorkSmart community, tools, and live workshops.</p>
+ 
+ <div style="display: flex; flex-direction: column; gap: 15px; align-items: center; margin-bottom: 40px;">
+ <div style="background: var(--fire); padding: 16px 35px; border-radius: 50px; font-weight: 700; font-size: 1rem;">📖 Get the Book → amzn.to/3NY4VDm</div>
+ <div style="background: var(--kelly-green); padding: 16px 35px; border-radius: 50px; font-weight: 700; font-size: 1rem;">📊 Download the Wealthy Life Dashboard</div>
+ <div style="background: var(--gold); color: var(--slate); padding: 16px 35px; border-radius: 50px; font-weight: 700; font-size: 1rem;">🧮 Get the FIRE Calculator</div>
+ <div style="background: white; color: var(--slate); padding: 16px 35px; border-radius: 50px; font-weight: 700; font-size: 1rem;">📋 Get the Passive Income Blueprint (101 Ideas Scored)</div>
+ </div>
+
+ <div class="cover-divider"></div>
+ <p style="font-family: 'Space Mono', monospace; font-size: 0.95rem; color: var(--gold); margin-bottom: 10px; letter-spacing: 2px; text-transform: uppercase;">Follow Morgan</p>
+ <p style="font-size: 1rem; opacity: 0.7;">@morgandebaun on Instagram, TikTok &amp; YouTube</p>
+ <p style="font-size: 1rem; opacity: 0.7; margin-top: 10px;">morgandebaun.com</p>
+ </div>
+ </div>
+
+ </div>
+</body>
+</html>

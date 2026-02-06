@@ -247,10 +247,12 @@ const MoneySystems = () => {
                   
                   <div className="flex flex-col sm:flex-row items-center gap-4">
                     {hasEbookAccess ? (
-                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 text-primary font-medium">
-                        <CheckCircle className="w-4 h-4" />
-                        You Own This
-                      </div>
+                      <Link to="/products/wealth-code-book">
+                        <Button variant="hero" size="lg">
+                          <BookOpen className="w-4 h-4 mr-2" />
+                          Read the Book
+                        </Button>
+                      </Link>
                     ) : (
                       <>
                         <Button 

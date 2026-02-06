@@ -12,6 +12,7 @@ import WorkSystems from "./pages/WorkSystems";
 import WealthDashboard from "./pages/products/WealthDashboard";
 import CEOLifePlanner from "./pages/products/CEOLifePlanner";
 import MediaCompanySpreadsheet from "./pages/products/MediaCompanySpreadsheet";
+import WealthCodeBook from "./pages/products/WealthCodeBook";
 import PromptLibrary from "./pages/PromptLibrary";
 import NotFound from "./pages/NotFound";
 import MeetingToActionPlan from "./pages/tools/MeetingToActionPlan";
@@ -71,6 +72,7 @@ const App = () => (
           <Route path="/products/wealth-dashboard" element={<WealthDashboard />} />
           <Route path="/products/ceo-life-planner" element={<CEOLifePlanner />} />
           <Route path="/products/media-company-spreadsheet" element={<MediaCompanySpreadsheet />} />
+          <Route path="/products/wealth-code-book" element={<WealthCodeBook />} />
           <Route path="/prompts" element={<PromptLibrary />} />
           <Route path="/advisors" element={<Advisors />} />
           <Route path="/sessions" element={<Sessions />} />
