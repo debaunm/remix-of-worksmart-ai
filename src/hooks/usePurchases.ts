@@ -30,7 +30,6 @@ export const usePurchases = () => {
       
       if (error) throw error;
       return (data ?? []) as unknown as Purchase[];
-      return data as Purchase[];
     },
     enabled: !!user,
   });

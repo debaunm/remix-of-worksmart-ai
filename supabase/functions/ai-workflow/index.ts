@@ -1,9 +1,17 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
+import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
+
+// Input validation schema
+const WorkflowInputSchema = z.object({
+  workflow_id: z.string().min(1).max(100),
+  inputs: z.record(z.string().max(50000)),
+});
 
 const SYSTEM_PROMPTS: Record<string, string> = {
   rewrite_message: `You are RewriteAgent_v1 inside the AI Work-For-You Starter Kit. Your job is to take a draft message and return a version that is clearer, more confident, and more effective while preserving the sender's intent. Always: 1) apply BLUF (bottom-line up front), 2) remove filler, 3) clarify decision rights (who decides, who executes, who is informed), 4) align tone with the specified audience and tone parameters, 5) produce structured JSON output matching the rewrite_message_output_v1 contract. If required inputs are missing, ask concise follow-up questions to get them before rewriting. Never change factual content. Never hallucinate details or commitments. Output only valid JSON.`,
@@ -396,10 +404,46 @@ serve(async (req) => {
   }
 
   try {
-    const { workflow_id, inputs } = await req.json();
+    // Authentication check
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader?.startsWith('Bearer ')) {
+      return new Response(JSON.stringify({ error: 'Authentication required' }), {
+        status: 401,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    const supabaseClient = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_ANON_KEY') ?? ''
+    );
+
+    const token = authHeader.replace('Bearer ', '');
+    const { data: claimsData, error: authError } = await supabaseClient.auth.getClaims(token);
+
+    if (authError || !claimsData?.claims) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+        status: 401,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    // Validate and parse input
+    const rawBody = await req.json();
+    const parseResult = WorkflowInputSchema.safeParse(rawBody);
     
-    console.log(`Processing workflow: ${workflow_id}`);
-    console.log('Inputs:', JSON.stringify(inputs));
+    if (!parseResult.success) {
+      console.error('Validation error:', parseResult.error.errors);
+      return new Response(JSON.stringify({ error: 'Invalid input format' }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    const { workflow_id, inputs } = parseResult.data;
+    
+    console.log(`Processing workflow: ${workflow_id} for user: ${claimsData.claims.sub}`);
+    console.log('Inputs received');
 
     const systemPrompt = SYSTEM_PROMPTS[workflow_id];
     if (!systemPrompt) {

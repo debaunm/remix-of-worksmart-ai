@@ -1,9 +1,21 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
+import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
+
+// Input validation schema
+const MessageSchema = z.object({
+  role: z.enum(['user', 'assistant']),
+  content: z.string().min(1).max(50000),
+});
+
+const ChatInputSchema = z.object({
+  messages: z.array(MessageSchema).min(1).max(100),
+});
 
 const SYSTEM_PROMPT = `You are the Rewrite Your Rules Advisor — a warm, sharp, and insightful life coach trained in the "Rewrite Your Rules" framework.
 
@@ -68,9 +80,45 @@ serve(async (req) => {
   }
 
   try {
-    const { messages } = await req.json();
+    // Authentication check
+    const authHeader = req.headers.get('Authorization');
+    if (!authHeader?.startsWith('Bearer ')) {
+      return new Response(JSON.stringify({ error: 'Authentication required' }), {
+        status: 401,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    const supabaseClient = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_ANON_KEY') ?? ''
+    );
+
+    const token = authHeader.replace('Bearer ', '');
+    const { data: claimsData, error: authError } = await supabaseClient.auth.getClaims(token);
+
+    if (authError || !claimsData?.claims) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+        status: 401,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    // Validate and parse input
+    const rawBody = await req.json();
+    const parseResult = ChatInputSchema.safeParse(rawBody);
     
-    console.log('Life Coach Chat - Messages count:', messages?.length);
+    if (!parseResult.success) {
+      console.error('Validation error:', parseResult.error.errors);
+      return new Response(JSON.stringify({ error: 'Invalid input format' }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    const { messages } = parseResult.data;
+    
+    console.log(`Life Coach Chat - Messages count: ${messages.length} for user: ${claimsData.claims.sub}`);
 
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
     
