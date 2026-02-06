@@ -453,7 +453,33 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      user_purchases_safe: {
+        Row: {
+          created_at: string | null
+          id: string | null
+          product_type: string | null
+          purchased_at: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string | null
+          product_type?: string | null
+          purchased_at?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string | null
+          product_type?: string | null
+          purchased_at?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       has_role: {
