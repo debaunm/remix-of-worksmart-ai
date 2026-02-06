@@ -9,6 +9,8 @@ import { CommentSection } from "./CommentSection";
 import { useUserRole } from "@/hooks/useUserRole";
 import { useDeletePost, type CommunityPost as CommunityPostType } from "@/hooks/useCommunityPosts";
 import { useToast } from "@/hooks/use-toast";
+import { useSignedUrl } from "@/hooks/useSignedUrl";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface CommunityPostProps {
   post: CommunityPostType;
@@ -18,6 +20,12 @@ export const CommunityPost = ({ post }: CommunityPostProps) => {
   const { isAdmin } = useUserRole();
   const { mutate: deletePost, isPending: isDeleting } = useDeletePost();
   const { toast } = useToast();
+  
+  // Get signed URL for private bucket images
+  const { signedUrl, isLoading: isLoadingImage } = useSignedUrl(
+    "community-images",
+    post.media_type === "image" ? post.media_url : null
+  );
 
   const handleDelete = () => {
     if (!confirm("Are you sure you want to delete this post?")) return;
@@ -43,10 +51,20 @@ export const CommunityPost = ({ post }: CommunityPostProps) => {
     if (post.media_type === "none" || !post.media_url) return null;
 
     if (post.media_type === "image") {
+      if (isLoadingImage) {
+        return (
+          <div className="mt-4 rounded-lg overflow-hidden">
+            <Skeleton className="w-full h-64" />
+          </div>
+        );
+      }
+
+      if (!signedUrl) return null;
+
       return (
         <div className="mt-4 rounded-lg overflow-hidden">
           <img 
-            src={post.media_url} 
+            src={signedUrl} 
             alt={post.title} 
             className="w-full h-auto max-h-[500px] object-cover"
           />
