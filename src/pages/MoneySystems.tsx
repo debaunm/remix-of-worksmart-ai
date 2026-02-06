@@ -3,11 +3,12 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Wallet, TrendingUp, Calculator, LineChart, ArrowRight, CheckCircle, Star, Play, FileText, DollarSign, Loader2 } from "lucide-react";
+import { Wallet, TrendingUp, Calculator, LineChart, ArrowRight, CheckCircle, Star, Play, FileText, DollarSign, Loader2, BookOpen } from "lucide-react";
 import { useCheckout } from "@/hooks/useCheckout";
 import { usePurchases } from "@/hooks/usePurchases";
+import { useState } from "react";
 
-const bundleIncludes = ["3 Workshop Sessions", "Wealthy Life Budget & Dashboard", "The Passive Income Vault", "Speaker Pricing Formula", "Brand Deal Pricing Formula", "Services Pricing Formula", "Shopmy Tutorial"];
+const bundleIncludes = ["3 Workshop Sessions", "Wealthy Life Budget & Dashboard", "The Passive Income Vault", "Speaker Pricing Formula", "Brand Deal Pricing Formula", "Services Pricing Formula", "Shopmy Tutorial", "The Wealth Code Book (Ebook)"];
 
 const sessions = [{
   number: "01",
@@ -45,10 +46,17 @@ const freeTools = [{
 
 const MoneySystems = () => {
   const { checkout, isLoading } = useCheckout();
-  const { hasMoneyAccess } = usePurchases();
+  const { hasMoneyAccess, hasEbookAccess } = usePurchases();
+  const [ebookLoading, setEbookLoading] = useState(false);
   
   const handlePurchase = () => {
     checkout("money_systems");
+  };
+
+  const handleEbookPurchase = async () => {
+    setEbookLoading(true);
+    await checkout("wealth_code_book");
+    setEbookLoading(false);
   };
   
   return (
@@ -201,6 +209,83 @@ const MoneySystems = () => {
                       <span className="text-2xl font-bold text-primary">$197</span>
                     </div>
                     <p className="text-xs text-muted-foreground">Lifetime access • Instant download • Updates included</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Ebook Section */}
+      <section className="py-16 px-6">
+        <div className="container mx-auto max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+          >
+            <div className="p-8 rounded-2xl border border-border bg-card relative overflow-hidden">
+              <div className="absolute top-4 right-4">
+                <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-accent text-accent-foreground text-xs font-semibold">
+                  <Star className="w-3 h-3" />
+                  INCLUDED IN BUNDLE
+                </div>
+              </div>
+              
+              <div className="flex flex-col md:flex-row gap-8 items-center">
+                <div className="w-32 h-44 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-accent/20 flex items-center justify-center shrink-0 border border-primary/20">
+                  <BookOpen className="w-12 h-12 text-primary" />
+                </div>
+                
+                <div className="flex-1 text-center md:text-left">
+                  <h3 className="text-2xl font-bold text-foreground mb-2">The Wealth Code Book</h3>
+                  <p className="text-muted-foreground mb-4">
+                    The comprehensive ebook companion to the Money Systems workshop. Get all the frameworks, 
+                    worksheets, and strategies in one beautifully designed digital book you can reference anytime.
+                  </p>
+                  
+                  <div className="flex flex-col sm:flex-row items-center gap-4">
+                    {hasEbookAccess ? (
+                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 text-primary font-medium">
+                        <CheckCircle className="w-4 h-4" />
+                        You Own This
+                      </div>
+                    ) : (
+                      <>
+                        <Button 
+                          variant="outline" 
+                          size="lg" 
+                          onClick={handleEbookPurchase}
+                          disabled={ebookLoading || isLoading}
+                        >
+                          {ebookLoading ? (
+                            <>
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                              Processing...
+                            </>
+                          ) : (
+                            <>
+                              Buy Separately - $5.99
+                            </>
+                          )}
+                        </Button>
+                        <span className="text-sm text-muted-foreground">or</span>
+                        <Button variant="hero" onClick={handlePurchase} disabled={isLoading || ebookLoading}>
+                          {isLoading ? (
+                            <>
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                              Processing...
+                            </>
+                          ) : (
+                            <>
+                              Get Full Bundle - $197
+                              <ArrowRight className="w-4 h-4 ml-2" />
+                            </>
+                          )}
+                        </Button>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

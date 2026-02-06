@@ -17,6 +17,7 @@ const PRICE_IDS: Record<string, string> = {
 
 // For individual tool purchases, we use dynamic pricing via Stripe
 const TOOL_PRICE_CENTS = 1499; // $14.99
+const EBOOK_PRICE_CENTS = 599; // $5.99
 
 const logStep = (step: string, details?: any) => {
   const detailsStr = details ? ` - ${JSON.stringify(details)}` : '';
@@ -42,7 +43,8 @@ serve(async (req) => {
     logStep("Received request", { productType, toolName, toolSlug });
 
     const isToolPurchase = productType === "tool" && toolName && toolSlug;
-    const validProductTypes = ["money_systems", "work_systems", "ai_agent_101", "lovable_101", "tool"];
+    const isEbookPurchase = productType === "wealth_code_book";
+    const validProductTypes = ["money_systems", "work_systems", "ai_agent_101", "lovable_101", "tool", "wealth_code_book"];
 
     if (!productType || !validProductTypes.includes(productType)) {
       throw new Error("Invalid product type");
@@ -105,6 +107,27 @@ serve(async (req) => {
         user_id: user.id,
         product_type: `tool:${toolSlug}`,
         tool_name: toolName,
+      };
+    } else if (isEbookPurchase) {
+      // Ebook purchase
+      lineItems = [
+        {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: "The Wealth Code Book",
+              description: "Comprehensive ebook companion to the Money Systems workshop series",
+            },
+            unit_amount: EBOOK_PRICE_CENTS,
+          },
+          quantity: 1,
+        },
+      ];
+      successUrl = `${origin}/purchase-success?ebook=wealth_code_book&session_id={CHECKOUT_SESSION_ID}`;
+      cancelUrl = `${origin}/money-systems`;
+      metadata = {
+        user_id: user.id,
+        product_type: "wealth_code_book",
       };
     } else {
       // Existing product checkout

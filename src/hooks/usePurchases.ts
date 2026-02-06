@@ -34,7 +34,11 @@ export const usePurchases = () => {
   const hasMoneyAccess = purchases?.some(p => p.product_type === 'money_systems') ?? false;
   const hasWorkAccess = purchases?.some(p => p.product_type === 'work_systems') ?? false;
   const hasMediaCompanyAccess = purchases?.some(p => p.product_type === 'media_company') ?? false;
+  const hasWealthCodeBook = purchases?.some(p => p.product_type === 'wealth_code_book') ?? false;
   const hasBothAccess = hasMoneyAccess && hasWorkAccess;
+
+  // Wealth Code Book is included with Money Systems bundle
+  const hasEbookAccess = hasWealthCodeBook || hasMoneyAccess;
 
   return {
     purchases,
@@ -43,6 +47,8 @@ export const usePurchases = () => {
     hasMoneyAccess,
     hasWorkAccess,
     hasMediaCompanyAccess,
+    hasWealthCodeBook,
+    hasEbookAccess,
     hasBothAccess,
   };
 };
