@@ -75,12 +75,8 @@ export const PostComposer = () => {
 
       if (error) throw error;
 
-      // Get public URL
-      const { data: urlData } = supabase.storage
-        .from("community-images")
-        .getPublicUrl(data.path);
-
-      setMediaUrl(urlData.publicUrl);
+      // Store just the file path - signed URLs will be generated when displaying
+      setMediaUrl(data.path);
       setUploadProgress(100);
       
       toast({
