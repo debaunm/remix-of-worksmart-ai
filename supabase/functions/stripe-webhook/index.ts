@@ -25,8 +25,18 @@ serve(async (req) => {
       apiVersion: "2025-08-27.basil",
     });
 
-    const signature = req.headers.get("stripe-signature");
     const webhookSecret = Deno.env.get("STRIPE_WEBHOOK_SECRET");
+    
+    // CRITICAL: Require webhook secret in production - reject if not configured
+    if (!webhookSecret) {
+      logStep("ERROR: STRIPE_WEBHOOK_SECRET not configured");
+      return new Response(JSON.stringify({ error: "Webhook secret not configured" }), {
+        status: 503,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const signature = req.headers.get("stripe-signature");
     
     if (!signature) {
       logStep("No signature provided");
@@ -39,22 +49,16 @@ serve(async (req) => {
     const body = await req.text();
     let event: Stripe.Event;
 
-    if (webhookSecret) {
-      try {
-        event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
-        logStep("Webhook signature verified");
-      } catch (err) {
-        const message = err instanceof Error ? err.message : "Unknown error";
-        logStep("Webhook signature verification failed", { error: message });
-        return new Response(JSON.stringify({ error: `Webhook Error: ${message}` }), {
-          status: 400,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-    } else {
-      // If no webhook secret, parse the event without verification (not recommended for production)
-      event = JSON.parse(body) as Stripe.Event;
-      logStep("WARNING: Processing webhook without signature verification");
+    try {
+      event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
+      logStep("Webhook signature verified");
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Unknown error";
+      logStep("Webhook signature verification failed", { error: message });
+      return new Response(JSON.stringify({ error: `Webhook Error: ${message}` }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     logStep("Processing event", { type: event.type });
