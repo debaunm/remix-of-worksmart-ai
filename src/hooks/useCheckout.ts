@@ -4,7 +4,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
-export type ProductType = "money_systems" | "work_systems" | "ai_agent_101" | "lovable_101";
+export type ProductType = "money_systems" | "work_systems" | "ai_agent_101" | "lovable_101" | "wealth_code_book";
 
 export const useCheckout = () => {
   const [isLoading, setIsLoading] = useState(false);
