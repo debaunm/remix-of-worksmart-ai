@@ -1,13 +1,12 @@
-import { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { usePurchases } from "@/hooks/usePurchases";
 import { useCheckout } from "@/hooks/useCheckout";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Lock, BookOpen, ExternalLink, Check, Sparkles, DollarSign, TrendingUp, PiggyBank } from "lucide-react";
+import { ArrowLeft, BookOpen, ExternalLink, Check, Sparkles, DollarSign, TrendingUp, PiggyBank } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-
+import wealthCodeCover from "@/assets/wealth-code-cover.png";
 const WealthCodeBook = () => {
   const { user, loading: authLoading } = useAuth();
   const { hasEbookAccess, hasMoneyAccess, isLoading: purchasesLoading } = usePurchases();
@@ -50,16 +49,14 @@ const WealthCodeBook = () => {
           <section className="px-6 pb-16">
             <div className="container mx-auto max-w-6xl">
               <div className="grid lg:grid-cols-2 gap-12 items-center">
-                {/* Book Preview */}
+                {/* Book Cover */}
                 <div className="relative">
-                  <div className="aspect-[3/4] max-w-sm mx-auto bg-gradient-to-br from-primary/20 via-primary/10 to-background rounded-2xl border border-border shadow-2xl flex items-center justify-center overflow-hidden">
-                    <div className="text-center p-8">
-                      <div className="w-20 h-20 rounded-2xl bg-primary/20 flex items-center justify-center mx-auto mb-6">
-                        <BookOpen className="w-10 h-10 text-primary" />
-                      </div>
-                      <h3 className="text-2xl font-bold text-foreground mb-2">The Wealth Code</h3>
-                      <p className="text-muted-foreground">Your Blueprint to Financial Independence</p>
-                    </div>
+                  <div className="max-w-sm mx-auto">
+                    <img 
+                      src={wealthCodeCover} 
+                      alt="The Wealth Code Book Cover" 
+                      className="w-full rounded-2xl shadow-2xl"
+                    />
                   </div>
                   <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl" />
                   <div className="absolute -top-4 -left-4 w-32 h-32 bg-primary/5 rounded-full blur-3xl" />
