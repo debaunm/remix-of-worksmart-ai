@@ -9,7 +9,8 @@ export interface Purchase {
   user_id: string;
   product_type: string;
   purchased_at: string;
-  stripe_session_id: string | null;
+  created_at: string;
+  updated_at: string;
 }
 
 export const usePurchases = () => {
@@ -20,12 +21,15 @@ export const usePurchases = () => {
     queryFn: async () => {
       if (!user) return [];
       
+      // Use the safe view that excludes sensitive stripe_session_id
+      // Cast to unknown first since the view isn't in generated types
       const { data, error } = await supabase
-        .from('user_purchases')
-        .select('*')
+        .from('user_purchases_safe' as 'user_purchases')
+        .select('id, user_id, product_type, purchased_at, created_at, updated_at')
         .eq('user_id', user.id);
       
       if (error) throw error;
+      return (data ?? []) as unknown as Purchase[];
       return data as Purchase[];
     },
     enabled: !!user,
