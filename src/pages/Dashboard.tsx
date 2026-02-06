@@ -25,7 +25,8 @@ import {
   Wrench,
   Sparkles,
   Copy,
-  Check
+  Check,
+  BookOpen
 } from "lucide-react";
 import ExpandableSessionCard, { SessionData } from "@/components/dashboard/ExpandableSessionCard";
 
@@ -37,7 +38,7 @@ import { useToast } from "@/hooks/use-toast";
 const Dashboard = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
-  const { hasMoneyAccess, hasWorkAccess, hasMediaCompanyAccess, hasBothAccess, isLoading: purchasesLoading } = usePurchases();
+  const { hasMoneyAccess, hasWorkAccess, hasMediaCompanyAccess, hasEbookAccess, hasBothAccess, isLoading: purchasesLoading } = usePurchases();
   const { data: contentCreationPack } = usePromptPackWithPrompts("content-creation");
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const { toast } = useToast();
@@ -189,6 +190,7 @@ const Dashboard = () => {
   ];
 
   const moneyTools = [
+    { name: "The Wealth Code Book", href: "/products/wealth-code-book", external: false, icon: BookOpen },
     { name: "Wealthy Life Budget & Dashboard", href: "https://docs.google.com/spreadsheets/d/1pRoVM2qe16wUiL4AlX85x6gLDBK1DLjs/copy", external: true, icon: TrendingUp },
     { name: "The Passive Income Vault", href: "https://docs.google.com/spreadsheets/d/1I2cZZZoBQ29XX_kPfMATAwDIv9GyLAEE/copy", external: true, icon: FileText },
     { name: "Speaker Pricing Formula", href: "https://docs.google.com/spreadsheets/d/1tGodvWyDjglJ-FhUxa4Mrw7iwsq7pEfU/copy", external: true, icon: FileText },
