@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import { useAIWorkflow } from "@/hooks/useAIWorkflow";
-import BuyToolButton from "@/components/BuyToolButton";
 import CalendarSidebar from "@/components/calendar/CalendarSidebar";
 
 interface TimeBlock {
@@ -86,7 +85,7 @@ const WeeklyPlanBuilder = () => {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border/50 bg-card/50 backdrop-blur-sm mb-6">
               <Calendar className="w-4 h-4 text-primary" />
-              <span className="text-xs font-medium text-primary uppercase tracking-wider">AI Workflow</span>
+              <span className="text-xs font-medium text-primary uppercase tracking-wider">FREE AI TOOL</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Weekly Plan <span className="gradient-text">Builder</span>
@@ -94,9 +93,6 @@ const WeeklyPlanBuilder = () => {
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Turn your goals and responsibilities into a realistic weekly plan with smart time blocks.
             </p>
-            <div className="mt-6">
-              <BuyToolButton toolName="Weekly Plan Builder" />
-            </div>
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="space-y-8">
