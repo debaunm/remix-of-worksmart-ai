@@ -84,7 +84,7 @@ const Navbar = () => {
     { label: "Money Systems", href: "/money-systems" },
     { label: "Work Systems", href: "/work-systems" },
     // { label: "On Demand", href: "/sessions" }, // Hidden while building out
-    { label: "Community", href: "/community" },
+    { label: "Community", href: "https://www.patreon.com/MorganDeBaun", external: true },
   ];
 
   return (
@@ -116,11 +116,12 @@ const Navbar = () => {
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-6" aria-label="Main navigation">
             {navItems.map((item) => (
-              item.href.startsWith("/#") ? (
+              item.href.startsWith("/#") || item.external ? (
                 <a 
                   key={item.label}
                   href={item.href} 
                   className={`transition-colors text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded px-1 ${navLinkStyles}`}
+                  {...(item.external && { target: "_blank", rel: "noopener noreferrer" })}
                 >
                   {item.label}
                 </a>
@@ -198,12 +199,13 @@ const Navbar = () => {
           >
             <nav className="flex flex-col gap-4" aria-label="Mobile navigation">
               {navItems.map((item) => (
-                item.href.startsWith("/#") ? (
+                item.href.startsWith("/#") || item.external ? (
                   <a 
                     key={item.label}
                     href={item.href} 
                     className={`transition-colors py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded px-2 ${navLinkStyles}`}
                     onClick={() => setIsOpen(false)}
+                    {...(item.external && { target: "_blank", rel: "noopener noreferrer" })}
                   >
                     {item.label}
                   </a>
