@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft, Mic, Loader2, Copy, Check } from "lucide-react";
+import { ArrowLeft, Mic, Loader2, Copy, Check, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -8,7 +8,6 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAIWorkflow } from "@/hooks/useAIWorkflow";
 import { toast } from "sonner";
-import BuyToolButton from "@/components/BuyToolButton";
 
 const BrandVoiceGenerator = () => {
   const [writingSamples, setWritingSamples] = useState("");
@@ -47,17 +46,18 @@ const BrandVoiceGenerator = () => {
           Back to Tools
         </Link>
 
-        <div className="flex flex-col md:flex-row md:items-start gap-4 mb-6">
-          <div className="flex items-center gap-3 flex-1">
-            <div className="p-3 rounded-xl bg-primary/10">
-              <Mic className="w-6 h-6 text-primary" />
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold text-foreground">Brand Voice Generator</h1>
-              <p className="text-muted-foreground">Extract your unique voice and create reusable voice rules</p>
-            </div>
+        <div className="flex items-center gap-3 mb-6">
+          <div className="p-3 rounded-xl bg-primary/10">
+            <Mic className="w-6 h-6 text-primary" />
           </div>
-          <BuyToolButton toolName="Brand Voice Generator" />
+          <div>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-1">
+              <Sparkles className="w-3 h-3" />
+              FREE TOOL
+            </span>
+            <h1 className="text-3xl font-bold text-foreground">Brand Voice Generator</h1>
+            <p className="text-muted-foreground">Extract your unique voice and create reusable voice rules</p>
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6 mb-8">
