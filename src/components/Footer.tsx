@@ -90,13 +90,18 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Prompt Library */}
+          {/* Products */}
           <div>
-            <h4 className="font-semibold mb-4 text-white">Prompt Library</h4>
+            <h4 className="font-semibold mb-4 text-white">Products</h4>
             <ul className="space-y-2 text-sm text-white/50">
               <li>
-                <Link to="/prompts" className="hover:text-white transition-colors">
-                  Browse All Prompts
+                <Link to="/money-systems" className="hover:text-white transition-colors">
+                  Money Systems
+                </Link>
+              </li>
+              <li>
+                <Link to="/work-systems" className="hover:text-white transition-colors">
+                  Work Systems
                 </Link>
               </li>
             </ul>
