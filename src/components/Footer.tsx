@@ -68,8 +68,8 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/tools/early-retirement-calculator" className="hover:text-white transition-colors">
-                  Cash Flow Projection Guide
+              <Link to="/tools/early-retirement-calculator" className="hover:text-white transition-colors">
+                  Early Retirement Calculator
                 </Link>
               </li>
               <li>
@@ -90,23 +90,13 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Sessions */}
+          {/* Prompt Library */}
           <div>
-            <h4 className="font-semibold mb-4 text-white">Sessions</h4>
+            <h4 className="font-semibold mb-4 text-white">Prompt Library</h4>
             <ul className="space-y-2 text-sm text-white/50">
               <li>
-                <Link to="/sessions/ai-foundations" className="hover:text-white transition-colors">
-                  AI Foundations
-                </Link>
-              </li>
-              <li>
-                <Link to="/sessions/ai-content-systems" className="hover:text-white transition-colors">
-                  AI Content Systems
-                </Link>
-              </li>
-              <li>
-                <Link to="/sessions/automation-zapier" className="hover:text-white transition-colors">
-                  Automation with Zapier
+                <Link to="/prompts" className="hover:text-white transition-colors">
+                  Browse All Prompts
                 </Link>
               </li>
             </ul>
