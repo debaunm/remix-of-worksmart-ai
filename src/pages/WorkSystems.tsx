@@ -60,16 +60,16 @@ const freeTools = [
     description: "Structure your week like a CEO with AI-powered planning."
   },
   { 
-    icon: Target, 
-    name: "Decision Helper", 
-    href: "/tools/decision-helper",
-    description: "Make confident decisions with structured frameworks."
-  },
-  { 
     icon: Users, 
     name: "Social Bio Builder", 
     href: "/tools/social-bio-builder",
     description: "Craft compelling bios that convert followers."
+  },
+  { 
+    icon: Megaphone, 
+    name: "Brand Voice Generator", 
+    href: "/tools/brand-voice-generator",
+    description: "Define your unique brand voice for consistent messaging."
   }
 ];
 

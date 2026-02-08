@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft, User, Loader2, Copy, Check } from "lucide-react";
+import { ArrowLeft, User, Loader2, Copy, Check, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,7 +10,6 @@ import { useAIWorkflow } from "@/hooks/useAIWorkflow";
 import { toast } from "sonner";
 import ResultsEmailGate from "@/components/ResultsEmailGate";
 import { useEmailGate } from "@/hooks/useEmailGate";
-import BuyToolButton from "@/components/BuyToolButton";
 
 const SocialBioBuilder = () => {
   const [role, setRole] = useState("");
@@ -56,17 +55,18 @@ const SocialBioBuilder = () => {
           Back to Tools
         </Link>
 
-        <div className="flex flex-col md:flex-row md:items-start gap-4 mb-6">
-          <div className="flex items-center gap-3 flex-1">
-            <div className="p-3 rounded-xl bg-primary/10">
-              <User className="w-6 h-6 text-primary" />
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold text-foreground">Social Bio Builder</h1>
-              <p className="text-muted-foreground">Create optimized bios for all your social platforms</p>
-            </div>
+        <div className="flex items-center gap-3 mb-6">
+          <div className="p-3 rounded-xl bg-primary/10">
+            <User className="w-6 h-6 text-primary" />
           </div>
-          <BuyToolButton toolName="Social Bio Builder" />
+          <div>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-1">
+              <Sparkles className="w-3 h-3" />
+              FREE TOOL
+            </span>
+            <h1 className="text-3xl font-bold text-foreground">Social Bio Builder</h1>
+            <p className="text-muted-foreground">Create optimized bios for all your social platforms</p>
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6 mb-8">
