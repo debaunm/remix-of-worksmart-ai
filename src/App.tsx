@@ -36,8 +36,6 @@ import LifeCoachAI from "./pages/tools/LifeCoachAI";
 import ServicePricingWorkbook from "./pages/tools/ServicePricingWorkbook";
 import FreedomNumberCalculator from "./pages/tools/FreedomNumberCalculator";
 import CompoundInterestCalculator from "./pages/tools/CompoundInterestCalculator";
-import RetirementAgeCalculator from "./pages/tools/RetirementAgeCalculator";
-import MoneyLeakFinder from "./pages/tools/MoneyLeakFinder";
 import AIAccelerator from "./pages/courses/AIAccelerator";
 import ChatGPT101 from "./pages/courses/ChatGPT101";
 import MediaCompany from "./pages/courses/MediaCompany";
@@ -108,8 +106,6 @@ const App = () => (
           <Route path="/tools/service-pricing-workbook" element={<ServicePricingWorkbook />} />
           <Route path="/tools/freedom-number-calculator" element={<FreedomNumberCalculator />} />
           <Route path="/tools/compound-interest-calculator" element={<CompoundInterestCalculator />} />
-          <Route path="/tools/retirement-age-calculator" element={<RetirementAgeCalculator />} />
-          <Route path="/tools/money-leak-finder" element={<MoneyLeakFinder />} />
           <Route path="/purchase-success" element={<PurchaseSuccess />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/dashboard" element={<Dashboard />} />

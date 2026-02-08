@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Sparkles, Zap, Clock, Gift, ArrowRight, PenLine, MessageSquare, Target, ClipboardList, Lightbulb, User, Presentation, TrendingUp, TrendingDown, FileText, Utensils, PenTool } from "lucide-react";
+import { Sparkles, Zap, Clock, Gift, ArrowRight, PenLine, MessageSquare, Target, ClipboardList, Lightbulb, User, Presentation, TrendingUp, FileText, Utensils, PenTool } from "lucide-react";
 import { useTools } from "@/hooks/useTools";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -17,7 +17,6 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   User,
   Presentation,
   TrendingUp,
-  TrendingDown,
   FileText,
   Sparkles,
   Utensils,
