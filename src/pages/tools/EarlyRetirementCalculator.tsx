@@ -12,6 +12,8 @@ import { toast } from "sonner";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import CoastFIREChart from "@/components/CoastFIREChart";
+import ResultsEmailGate from "@/components/ResultsEmailGate";
+import { useEmailGate } from "@/hooks/useEmailGate";
 
 const EarlyRetirementCalculator = () => {
   const [currentAge, setCurrentAge] = useState("35");
@@ -27,6 +29,7 @@ const EarlyRetirementCalculator = () => {
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
   const { execute, isLoading, result } = useAIWorkflow("early_retirement_calculator");
+  const { hasSubmittedEmail, handleEmailSubmitted } = useEmailGate();
 
   const validateInputs = () => {
     const age = parseInt(currentAge);
@@ -289,6 +292,12 @@ const EarlyRetirementCalculator = () => {
                     <p>Enter your numbers and click Calculate to see your Coast FIRE analysis</p>
                   </div>
                 ) : (
+                  <ResultsEmailGate
+                    toolName="Early Retirement Calculator"
+                    onEmailSubmitted={handleEmailSubmitted}
+                    hasSubmittedEmail={hasSubmittedEmail}
+                    hasResults={true}
+                  >
                   <div className="space-y-6">
                     <div className="grid gap-4">
                       {/* Coast FIRE Number - What you need TODAY */}
@@ -457,6 +466,7 @@ const EarlyRetirementCalculator = () => {
                       </div>
                     )}
                   </div>
+                </ResultsEmailGate>
                 )}
               </CardContent>
             </Card>
