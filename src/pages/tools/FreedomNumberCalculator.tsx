@@ -11,6 +11,8 @@ import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ResultsEmailGate from "@/components/ResultsEmailGate";
+import { useEmailGate } from "@/hooks/useEmailGate";
 
 // Tax brackets for 2024 (single filer, simplified for monthly calculation)
 function calculateEffectiveTaxRate(annualIncome: number): number {
@@ -185,6 +187,7 @@ const FreedomNumberCalculator = () => {
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [isCalculating, setIsCalculating] = useState(false);
+  const { hasSubmittedEmail, handleEmailSubmitted } = useEmailGate();
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -413,18 +416,25 @@ const FreedomNumberCalculator = () => {
 
         {/* Results Section */}
         <AnimatePresence>
-          {showResults && results && <motion.div initial={{
-          opacity: 0,
-          y: 30
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} exit={{
-          opacity: 0,
-          y: -20
-        }} transition={{
-          duration: 0.5
-        }} className="space-y-6">
+          {showResults && results && (
+            <ResultsEmailGate
+              toolName="Freedom Number Calculator"
+              onEmailSubmitted={handleEmailSubmitted}
+              hasSubmittedEmail={hasSubmittedEmail}
+              hasResults={true}
+            >
+              <motion.div initial={{
+                opacity: 0,
+                y: 30
+              }} animate={{
+                opacity: 1,
+                y: 0
+              }} exit={{
+                opacity: 0,
+                y: -20
+              }} transition={{
+                duration: 0.5
+              }} className="space-y-6">
               {/* Primary Results */}
               <Card className="border-primary/30 bg-gradient-to-br from-primary/5 via-background to-accent/5">
                 <CardContent className="pt-8 pb-8">
@@ -601,7 +611,9 @@ const FreedomNumberCalculator = () => {
                   </Button>
                 </Link>
               </div>
-            </motion.div>}
+            </motion.div>
+          </ResultsEmailGate>
+          )}
         </AnimatePresence>
 
         {/* Educational Content */}

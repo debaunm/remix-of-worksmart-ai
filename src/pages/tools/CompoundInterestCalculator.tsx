@@ -11,6 +11,8 @@ import { Slider } from "@/components/ui/slider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart, Legend } from "recharts";
+import ResultsEmailGate from "@/components/ResultsEmailGate";
+import { useEmailGate } from "@/hooks/useEmailGate";
 
 type CompoundingFrequency = "daily" | "monthly" | "quarterly" | "annually";
 
@@ -35,6 +37,7 @@ const CompoundInterestCalculator = () => {
   const [years, setYears] = useState(30);
   const [frequency, setFrequency] = useState<CompoundingFrequency>("monthly");
   const [showResults, setShowResults] = useState(false);
+  const { hasSubmittedEmail, handleEmailSubmitted } = useEmailGate();
 
   const calculateCompoundInterest = () => {
     const P = parseFloat(initialInvestment) || 0;
@@ -253,6 +256,12 @@ const CompoundInterestCalculator = () => {
             transition={{ delay: 0.2 }}
             className="space-y-6"
           >
+            <ResultsEmailGate
+              toolName="Compound Interest Calculator"
+              onEmailSubmitted={handleEmailSubmitted}
+              hasSubmittedEmail={hasSubmittedEmail}
+              hasResults={showResults}
+            >
             {/* Summary Cards */}
             <div className="grid grid-cols-1 gap-4">
               <Card className="bg-primary/5 border-primary/20">
@@ -373,6 +382,7 @@ const CompoundInterestCalculator = () => {
                 </div>
               </CardContent>
             </Card>
+            </ResultsEmailGate>
           </motion.div>
         </div>
 
