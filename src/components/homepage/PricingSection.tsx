@@ -61,8 +61,6 @@ const pricingPlans = [
     priceNote: "/month",
     description: "Full access + live coaching & community",
     features: [
-      "Everything in Money Systems",
-      "Everything in Work Systems",
       "Monthly live sessions with the WorkSmart team",
       "Private community access",
       "New tool drops and templates monthly",
