@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     question: "What's the difference between buying a course and joining Pro?",
-    answer: "The courses (Money Systems and Work Systems) are one-time purchases that give you lifetime access to the training and tools. Pro membership includes both courses plus monthly live sessions, community access, accountability groups, and new tools and templates every month. It's the full operating system.",
+    answer: "The courses (Money Systems and Work Systems) are one-time purchases that give you lifetime access to the training and tools. Pro membership includes monthly live sessions, community access, accountability groups, and new tools and templates every month. It's the full operating system.",
   },
   {
     question: "Can I upgrade from a course to Pro later?",
