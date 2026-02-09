@@ -1,29 +1,31 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/homepage/HeroSection";
+import SocialProofBar from "@/components/homepage/SocialProofBar";
 import ProblemSection from "@/components/homepage/ProblemSection";
-import GuideSection from "@/components/homepage/GuideSection";
-import PlanSection from "@/components/homepage/PlanSection";
-import TwoPathsSection from "@/components/homepage/TwoPathsSection";
-import SuccessSection from "@/components/homepage/SuccessSection";
-import StakesSection from "@/components/homepage/StakesSection";
-import NewsletterSection from "@/components/homepage/NewsletterSection";
-import FinalCTASection from "@/components/homepage/FinalCTASection";
+import InlineTestimonial from "@/components/homepage/InlineTestimonial";
+import HowItWorksSection from "@/components/homepage/HowItWorksSection";
+import ResultsSection from "@/components/homepage/ResultsSection";
+import AboutSection from "@/components/homepage/AboutSection";
 import FreeToolsSection from "@/components/homepage/FreeToolsSection";
+import PricingSection from "@/components/homepage/PricingSection";
+import FAQSection from "@/components/homepage/FAQSection";
+import FinalCTASection from "@/components/homepage/FinalCTASection";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       <HeroSection />
+      <SocialProofBar />
       <ProblemSection />
-      <GuideSection />
-      <PlanSection />
+      <InlineTestimonial />
+      <HowItWorksSection />
+      <ResultsSection />
+      <AboutSection />
       <FreeToolsSection />
-      <TwoPathsSection />
-      <SuccessSection />
-      <StakesSection />
-      <NewsletterSection />
+      <PricingSection />
+      <FAQSection />
       <FinalCTASection />
       <Footer />
     </div>

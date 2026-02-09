@@ -59,7 +59,6 @@ const Navbar = () => {
   useEffect(() => {
     if (isOpen) {
       document.addEventListener("keydown", handleKeyDown);
-      // Focus first focusable element in menu
       const firstFocusable = mobileMenuRef.current?.querySelector<HTMLElement>(
         'a, button'
       );
@@ -68,23 +67,11 @@ const Navbar = () => {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, handleKeyDown]);
 
-  const isHomepage = location.pathname === "/";
-  const useDarkText = scrolled || !isHomepage;
-
-  const navLinkStyles = useDarkText 
-    ? "text-foreground hover:text-primary" 
-    : "text-foreground hover:text-primary";
-  const logoTextStyles = useDarkText ? "text-foreground" : "text-foreground";
-  const buttonGhostStyles = useDarkText 
-    ? "text-muted-foreground hover:text-foreground hover:bg-secondary" 
-    : "text-muted-foreground hover:text-foreground hover:bg-secondary";
-  const mobileMenuBorderStyles = "border-border";
-
   const navItems = [
     { label: "Money Systems", href: "/money-systems" },
     { label: "Work Systems", href: "/work-systems" },
-    // { label: "On Demand", href: "/sessions" }, // Hidden while building out
     { label: "Community", href: "https://www.patreon.com/MorganDeBaun", external: true },
+    { label: "Dashboard", href: "/dashboard" },
   ];
 
   return (
@@ -93,14 +80,14 @@ const Navbar = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled || !isHomepage
-          ? "bg-background/95 backdrop-blur-xl border-b border-border" 
-          : "bg-transparent"
+        scrolled
+          ? "bg-white/95 backdrop-blur-xl border-b border-border shadow-sm" 
+          : "bg-white"
       }`}
     >
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
+          {/* Logo - Left */}
           <Link 
             to="/" 
             className="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
@@ -108,20 +95,21 @@ const Navbar = () => {
           >
             <img 
               src={worksmartLogo} 
-              alt="WorkSmart" 
+              alt="worksmart" 
               className="h-8 w-auto"
             />
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-6" aria-label="Main navigation">
+          {/* Desktop Nav - Center */}
+          <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
             {navItems.map((item) => (
-              item.href.startsWith("/#") || item.external ? (
+              item.external ? (
                 <a 
                   key={item.label}
                   href={item.href} 
-                  className={`transition-colors text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded px-1 ${navLinkStyles}`}
-                  {...(item.external && { target: "_blank", rel: "noopener noreferrer" })}
+                  className="text-sm font-medium text-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded px-1"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   {item.label}
                 </a>
@@ -129,7 +117,7 @@ const Navbar = () => {
                 <Link 
                   key={item.label}
                   to={item.href} 
-                  className={`transition-colors text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded px-1 ${navLinkStyles}`}
+                  className="text-sm font-medium text-foreground hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded px-1"
                   aria-current={location.pathname === item.href ? "page" : undefined}
                 >
                   {item.label}
@@ -138,37 +126,32 @@ const Navbar = () => {
             ))}
           </nav>
 
-          {/* CTA */}
-          <div className="hidden md:flex items-center gap-3" role="group" aria-label="Account actions">
+          {/* Right side - Sign In + Get Started */}
+          <div className="hidden md:flex items-center gap-4" role="group" aria-label="Account actions">
             {!loading && (
               <>
                 {user ? (
-                  <>
-                    <Link to="/dashboard">
-                      <Button variant="ghost" className={`focus-visible:ring-2 focus-visible:ring-primary ${buttonGhostStyles}`}>
-                        Dashboard
-                      </Button>
-                    </Link>
-                    <Button 
-                      variant="ghost" 
-                      className={`focus-visible:ring-2 focus-visible:ring-primary ${buttonGhostStyles}`}
-                      onClick={handleSignOut}
-                    >
-                      <LogOut className="w-4 h-4 mr-2" aria-hidden="true" />
-                      Sign Out
-                    </Button>
-                  </>
+                  <Button 
+                    variant="ghost" 
+                    className="text-muted-foreground hover:text-foreground"
+                    onClick={handleSignOut}
+                  >
+                    <LogOut className="w-4 h-4 mr-2" aria-hidden="true" />
+                    Sign Out
+                  </Button>
                 ) : (
                   <Link to="/auth">
-                    <Button variant="ghost" className={`focus-visible:ring-2 focus-visible:ring-primary ${buttonGhostStyles}`}>
+                    <Button variant="ghost" className="text-muted-foreground hover:text-foreground font-medium">
                       Sign In
                     </Button>
                   </Link>
                 )}
               </>
             )}
-            <Link to="/pricing">
-              <Button variant="hero" className="focus-visible:ring-2 focus-visible:ring-primary">View Pricing</Button>
+            <Link to="/auth">
+              <Button className="bg-primary hover:bg-primary/90 text-white font-semibold rounded-lg px-6">
+                Get Started
+              </Button>
             </Link>
           </div>
 
@@ -176,7 +159,7 @@ const Navbar = () => {
           <button 
             ref={menuButtonRef}
             onClick={() => setIsOpen(!isOpen)} 
-            className={`md:hidden p-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg ${navLinkStyles}`}
+            className="md:hidden p-2 text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-lg"
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
             aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
@@ -192,20 +175,21 @@ const Navbar = () => {
             id="mobile-menu"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`md:hidden pt-6 pb-4 border-t ${mobileMenuBorderStyles} mt-4`}
+            className="md:hidden pt-6 pb-4 border-t border-border mt-4"
             role="dialog"
             aria-modal="true"
             aria-label="Mobile navigation menu"
           >
             <nav className="flex flex-col gap-4" aria-label="Mobile navigation">
               {navItems.map((item) => (
-                item.href.startsWith("/#") || item.external ? (
+                item.external ? (
                   <a 
                     key={item.label}
                     href={item.href} 
-                    className={`transition-colors py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded px-2 ${navLinkStyles}`}
+                    className="text-foreground hover:text-primary transition-colors py-2 px-2 font-medium"
                     onClick={() => setIsOpen(false)}
-                    {...(item.external && { target: "_blank", rel: "noopener noreferrer" })}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     {item.label}
                   </a>
@@ -213,7 +197,7 @@ const Navbar = () => {
                   <Link 
                     key={item.label}
                     to={item.href} 
-                    className={`transition-colors py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded px-2 ${navLinkStyles}`}
+                    className="text-foreground hover:text-primary transition-colors py-2 px-2 font-medium"
                     onClick={() => setIsOpen(false)}
                     aria-current={location.pathname === item.href ? "page" : undefined}
                   >
@@ -222,39 +206,34 @@ const Navbar = () => {
                 )
               ))}
               
-              <div className="flex flex-col gap-2 pt-4" role="group" aria-label="Account actions">
+              <div className="flex flex-col gap-2 pt-4 border-t border-border" role="group" aria-label="Account actions">
                 {!loading && (
                   <>
                     {user ? (
-                      <>
-                        <Link to="/dashboard" className="w-full" onClick={() => setIsOpen(false)}>
-                          <Button variant="ghost" className={`w-full focus-visible:ring-2 focus-visible:ring-primary ${buttonGhostStyles}`}>
-                            Dashboard
-                          </Button>
-                        </Link>
-                        <Button 
-                          variant="ghost" 
-                          className={`w-full focus-visible:ring-2 focus-visible:ring-primary ${buttonGhostStyles}`}
-                          onClick={() => {
-                            handleSignOut();
-                            setIsOpen(false);
-                          }}
-                        >
-                          <LogOut className="w-4 h-4 mr-2" aria-hidden="true" />
-                          Sign Out
-                        </Button>
-                      </>
+                      <Button 
+                        variant="ghost" 
+                        className="w-full justify-start text-muted-foreground"
+                        onClick={() => {
+                          handleSignOut();
+                          setIsOpen(false);
+                        }}
+                      >
+                        <LogOut className="w-4 h-4 mr-2" aria-hidden="true" />
+                        Sign Out
+                      </Button>
                     ) : (
                       <Link to="/auth" className="w-full" onClick={() => setIsOpen(false)}>
-                        <Button variant="ghost" className={`w-full focus-visible:ring-2 focus-visible:ring-primary ${buttonGhostStyles}`}>
+                        <Button variant="ghost" className="w-full justify-start text-muted-foreground">
                           Sign In
                         </Button>
                       </Link>
                     )}
                   </>
                 )}
-                <Link to="/pricing" className="w-full" onClick={() => setIsOpen(false)}>
-                  <Button variant="hero" className="w-full focus-visible:ring-2 focus-visible:ring-primary">View Pricing</Button>
+                <Link to="/auth" className="w-full" onClick={() => setIsOpen(false)}>
+                  <Button className="w-full bg-primary hover:bg-primary/90 text-white font-semibold">
+                    Get Started
+                  </Button>
                 </Link>
               </div>
             </nav>

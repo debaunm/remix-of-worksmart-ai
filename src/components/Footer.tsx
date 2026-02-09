@@ -1,5 +1,6 @@
-import { Sparkles, Shield, Clock } from "lucide-react";
+import { Clock } from "lucide-react";
 import { Link } from "react-router-dom";
+import worksmartLogo from "@/assets/worksmart-logo.png";
 
 const Footer = () => {
   return (
@@ -8,24 +9,25 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                <Sparkles className="w-4 h-4 text-primary-foreground" />
-              </div>
-              <span className="text-lg font-bold text-white">Worksmart</span>
+            <Link to="/" className="inline-block mb-4">
+              <img 
+                src={worksmartLogo} 
+                alt="WorkSmart" 
+                className="h-8 w-auto brightness-0 invert"
+              />
             </Link>
-            <p className="text-sm text-white/50 mb-4">
-              The Tech and accountability operating system for modern professionals and founders.
+            <p className="text-sm text-white/60 leading-relaxed">
+              The career and wealth operating system for modern professionals.
             </p>
           </div>
 
-          {/* Product */}
+          {/* About */}
           <div>
             <h4 className="font-semibold mb-4 text-white">About</h4>
-            <ul className="space-y-2 text-sm text-white/50">
+            <ul className="space-y-3 text-sm text-white/60">
               <li>
                 <Link to="/how-it-works" className="hover:text-white transition-colors">
-                  About Worksmart
+                  About WorkSmart
                 </Link>
               </li>
               <li>
@@ -44,7 +46,7 @@ const Footer = () => {
           {/* Account */}
           <div>
             <h4 className="font-semibold mb-4 text-white">Account</h4>
-            <ul className="space-y-2 text-sm text-white/50">
+            <ul className="space-y-3 text-sm text-white/60">
               <li>
                 <Link to="/settings" className="hover:text-white transition-colors">
                   Profile
@@ -61,31 +63,19 @@ const Footer = () => {
           {/* Resources */}
           <div>
             <h4 className="font-semibold mb-4 text-white">Resources</h4>
-            <ul className="space-y-2 text-sm text-white/50">
+            <ul className="space-y-3 text-sm text-white/60">
               <li>
-                <Link to="/prompts" className="hover:text-white transition-colors">
-                  Prompt Library
+                <Link to="/free-tools" className="hover:text-white transition-colors">
+                  Free AI Tools
                 </Link>
               </li>
               <li>
-              <Link to="/tools/early-retirement-calculator" className="hover:text-white transition-colors">
-                  Early Retirement Calculator
-                </Link>
-              </li>
-              <li>
-                <Link to="/tools/budget-builder-prompts" className="hover:text-white transition-colors">
-                  Budget Builder Prompts
-                </Link>
-              </li>
-              <li>
-                <Link to="/tools/linkedin-21-day-content-plan" className="hover:text-white transition-colors">
-                  Content Pipeline Planning
-                </Link>
-              </li>
-              <li>
-                <Link to="/tools/weekly-plan-builder" className="hover:text-white transition-colors">
-                  Weekly Planning System
-                </Link>
+                <a 
+                  href="mailto:support@worksmartadvisor.com" 
+                  className="hover:text-white transition-colors"
+                >
+                  Support
+                </a>
               </li>
             </ul>
           </div>
@@ -93,7 +83,7 @@ const Footer = () => {
           {/* Products */}
           <div>
             <h4 className="font-semibold mb-4 text-white">Products</h4>
-            <ul className="space-y-2 text-sm text-white/50">
+            <ul className="space-y-3 text-sm text-white/60">
               <li>
                 <Link to="/money-systems" className="hover:text-white transition-colors">
                   Money Systems
@@ -104,26 +94,23 @@ const Footer = () => {
                   Work Systems
                 </Link>
               </li>
+              <li>
+                <Link to="/pricing" className="hover:text-white transition-colors">
+                  WorkSmart Pro
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
 
-        {/* Trust banner */}
-        <div className="flex flex-wrap items-center justify-center gap-6 py-6 border-t border-b border-white/10 mb-8">
-          <div className="flex items-center gap-2 text-white/60 text-sm">
-            <Shield className="w-4 h-4 text-primary" />
-            Money-back guarantee
-          </div>
-          <div className="flex items-center gap-2 text-white/60 text-sm">
-            <Clock className="w-4 h-4 text-primary" />
+        {/* Bottom bar */}
+        <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/10">
+          <div className="flex items-center gap-2 text-white/60 text-sm mb-4 md:mb-0">
+            <Clock className="w-4 h-4" />
             Support within 24 hours
           </div>
-        </div>
-
-        {/* Bottom */}
-        <div className="flex flex-col md:flex-row items-center justify-between">
-          <p className="text-sm text-white/50 mb-4 md:mb-0">
-            © 2025 Worksmart Advisor. All rights reserved.
+          <p className="text-sm text-white/50">
+            © 2026 WorkSmart Advisor. All rights reserved.
           </p>
         </div>
       </div>
