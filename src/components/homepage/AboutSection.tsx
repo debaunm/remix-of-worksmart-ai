@@ -51,7 +51,7 @@ const AboutSection = () => {
             </h2>
             <div className="space-y-4 text-muted-foreground leading-relaxed mb-8">
               <p>
-                WorkSmart was founded by Morgan DeBaun, CEO of Blavity Inc. — the media company behind AfroTech, Blavity News, and 21Ninety, reaching over 100 million people.
+                WorkSmart was founded by Morgan DeBaun, CEO of Blavity Inc., the media company behind AfroTech, Blavity News, and 21Ninety, reaching over 100 million people.
               </p>
               <p>
                 After a decade of building companies, advising Fortune 500 brands, and being named to Forbes 30 Under 30, Morgan and her team created WorkSmart to solve a problem they kept seeing: talented professionals working harder than ever with no system underneath them.

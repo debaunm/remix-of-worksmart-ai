@@ -8,7 +8,7 @@ const systems = [
     icon: DollarSign,
     title: "Money Systems",
     subtitle: "Master your money and build lasting wealth",
-    description: "A structured approach to building wealth that fits how you actually live. Budgeting tools, FIRE calculators, passive income frameworks, and pricing formulas for your skills — all in one dashboard. No jargon. No shame. Just a clear financial plan.",
+    description: "A structured approach to building wealth that fits how you actually live. Budgeting tools, FIRE calculators, passive income frameworks, and pricing formulas for your skills, all in one dashboard. No jargon. No shame. Just a clear financial plan.",
     link: "/money-systems",
     linkText: "Explore Money Systems",
   },
@@ -17,7 +17,7 @@ const systems = [
     icon: Cpu,
     title: "Work Systems",
     subtitle: "10x your productivity with AI",
-    description: "AI isn't optional anymore — it's infrastructure. Our 6-hour mastery course, 50+ prompt library, and automation workshops help you reclaim 10+ hours per week and build workflows that compound over time.",
+    description: "AI isn't optional anymore. It's infrastructure. Our 6-hour mastery course, 50+ prompt library, and automation workshops help you reclaim 10+ hours per week and build workflows that compound over time.",
     link: "/work-systems",
     linkText: "Explore Work Systems",
   },
@@ -26,7 +26,7 @@ const systems = [
     icon: Users,
     title: "Community & Accountability",
     subtitle: "Stay consistent with real support",
-    description: "Monthly live strategy sessions, peer accountability groups, and direct access to our advisory team. WorkSmart isn't a course you forget about — it's a system you use every week.",
+    description: "Monthly live strategy sessions, peer accountability groups, and direct access to our advisory team. WorkSmart isn't a course you forget about. It's a system you use every week.",
     link: "https://www.patreon.com/MorganDeBaun",
     linkText: "Join the Community",
     external: true,
@@ -49,7 +49,7 @@ const HowItWorksSection = () => {
             Three Systems. One Integrated Platform.
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            We combine AI-powered productivity tools, proven wealth-building frameworks, and structured accountability into one system — so you can stop piecing it together yourself.
+            We combine AI-powered productivity tools, proven wealth-building frameworks, and structured accountability into one system so you can stop piecing it together yourself.
           </p>
         </motion.div>
 

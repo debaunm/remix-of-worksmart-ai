@@ -16,7 +16,7 @@ const painPoints = [
   },
   {
     icon: Puzzle,
-    text: "You've tried apps and courses — none of them stuck",
+    text: "You've tried apps and courses, but none of them stuck",
   },
 ];
 
@@ -37,7 +37,7 @@ const ProblemSection = () => {
           </h2>
           <div className="max-w-2xl mx-auto space-y-6 text-lg text-muted-foreground leading-relaxed">
             <p>
-              You've done everything the traditional path asked — the degrees, the promotions, the late nights. But the gap between how hard you work and how far ahead you actually get keeps widening.
+              You've done everything the traditional path asked - the degrees, the promotions, the late nights. But the gap between how hard you work and how far ahead you actually get keeps widening.
             </p>
             <p>
               AI is reshaping every industry. Wealth-building advice still feels like it was written for someone else. And the tools that are supposed to help? Most of them create more noise, not less.

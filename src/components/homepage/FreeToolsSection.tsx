@@ -48,7 +48,7 @@ const FreeToolsSection = () => {
         >
           <span className="tag-pill mb-6 inline-block">Try It Free</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Start With Our AI-Powered Tools — No Cost
+            Start With Our AI-Powered Tools - No Cost
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">
             Explore the tools our members use every day. Enter your email to get free, instant access.

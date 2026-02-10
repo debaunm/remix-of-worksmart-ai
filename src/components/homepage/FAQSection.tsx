@@ -9,7 +9,7 @@ import {
 const faqs = [
   {
     question: "Who is WorkSmart for?",
-    answer: "WorkSmart is built for ambitious professionals — typically mid-career — who want to build real wealth, master AI tools, and stop trading all their time for their success. Our members include managers, directors, VPs, founders, freelancers, and consultants across industries.",
+    answer: "WorkSmart is built for ambitious professionals, typically mid-career, who want to build real wealth, master AI tools, and stop trading all their time for their success. Our members include managers, directors, VPs, founders, freelancers, and consultants across industries.",
   },
   {
     question: "Do I need to be technical to use the AI tools?",

@@ -15,7 +15,7 @@ const InlineTestimonial = () => {
             "I was working 60-hour weeks and had nothing to show for it financially. Within 3 months of using the Money Systems framework, I automated my savings, started investing consistently, and finally have a plan I actually trust."
           </blockquote>
           <footer className="text-muted-foreground">
-            <span className="font-semibold text-foreground">— Danielle R.</span>
+            <span className="font-semibold text-foreground">- Danielle R.</span>
             <span className="mx-2">·</span>
             <span>Senior Marketing Manager, Atlanta</span>
           </footer>

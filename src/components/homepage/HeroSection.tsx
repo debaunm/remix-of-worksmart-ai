@@ -31,7 +31,7 @@ const HeroSection = () => {
 
           {/* Subheadline */}
           <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
-            WorkSmart gives ambitious professionals the AI tools, wealth frameworks, and accountability systems to build financial freedom — without burning out getting there.
+            WorkSmart gives ambitious professionals the AI tools, wealth frameworks, and accountability systems to build financial freedom without burning out getting there.
           </p>
 
           {/* CTAs */}

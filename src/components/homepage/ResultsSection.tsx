@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const testimonials = [
   {
-    quote: "The AI mastery course paid for itself in the first week. I built an automation that handles my entire client onboarding process — something that used to take me 5 hours a week. Now it takes zero.",
+    quote: "The AI mastery course paid for itself in the first week. I built an automation that handles my entire client onboarding process, something that used to take me 5 hours a week. Now it takes zero.",
     name: "Keisha M.",
     title: "Freelance Consultant, Houston",
     result: "Saved 5+ hrs/week",
@@ -14,7 +14,7 @@ const testimonials = [
     result: "+$14K in savings",
   },
   {
-    quote: "I used the Speaker Pricing Formula and the Brand Voice Generator before pitching myself for a conference. I landed a $5,000 speaking fee — my first paid speaking gig ever. WorkSmart gave me the confidence and the framework.",
+    quote: "I used the Speaker Pricing Formula and the Brand Voice Generator before pitching myself for a conference. I landed a $5,000 speaking fee, my first paid speaking gig ever. WorkSmart gave me the confidence and the framework.",
     name: "Aisha L.",
     title: "VP of Operations, Chicago",
     result: "First $5K speaking fee",
