@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 import { Calculator, CalendarDays, Mic, FileText, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const tools = [
   {
@@ -28,14 +27,6 @@ const tools = [
 ];
 
 const FreeToolsSection = () => {
-  const [email, setEmail] = useState("");
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle email submission
-    console.log("Email submitted:", email);
-  };
-
   return (
     <section className="py-24 section-cream">
       <div className="container mx-auto px-6">
@@ -51,27 +42,18 @@ const FreeToolsSection = () => {
             Start With Our AI-Powered Tools - No Cost
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">
-            Explore the tools our members use every day. Enter your email to get free, instant access.
+            Explore the tools our members use every day. Sign up to get free, instant access.
           </p>
 
-          {/* Email capture */}
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto mb-16">
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="h-14 px-5 text-base bg-white border-border rounded-lg flex-grow"
-              required
-            />
+          {/* CTA button */}
+          <Link to="/auth">
             <Button 
-              type="submit"
-              className="h-14 px-6 font-semibold rounded-lg text-base gap-2 bg-primary hover:bg-primary/90 text-white whitespace-nowrap"
+              className="h-14 px-8 font-semibold rounded-lg text-base gap-2 bg-primary hover:bg-primary/90 text-white mb-16"
             >
               Get Free Access
               <ArrowRight className="w-4 h-4" />
             </Button>
-          </form>
+          </Link>
         </motion.div>
 
         {/* Tool preview cards */}
