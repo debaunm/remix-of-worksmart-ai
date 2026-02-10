@@ -23,11 +23,11 @@ export const LatestUpdates = () => {
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg flex items-center gap-2">
             <span className="text-primary">💬</span>
-            Latest from Morgan
+            Community Updates
           </CardTitle>
           <Link to="/community">
             <Button variant="ghost" size="sm" className="text-xs gap-1">
-              View All
+              Go to Community
               <ArrowRight className="w-3 h-3" />
             </Button>
           </Link>

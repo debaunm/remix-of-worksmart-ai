@@ -1,14 +1,12 @@
 import { motion } from "framer-motion";
 import { 
   Target, 
-  Sparkles,
   RefreshCw,
   Calendar,
   Brain
 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCurrentWeeklyFocus } from "@/hooks/useWeeklyFocus";
 import { format, parseISO, addDays } from "date-fns";
@@ -69,15 +67,11 @@ const WeeklyCEOBrief = () => {
           <div>
             <CardTitle className="flex items-center gap-2">
               <Brain className="w-5 h-5 text-primary" />
-              Weekly CEO Brief
-              <Badge variant="outline" className="ml-2 text-xs font-normal">
-                <Sparkles className="w-3 h-3 mr-1" />
-                Updated
-              </Badge>
+              Your Weekly Focus
             </CardTitle>
             <CardDescription className="flex items-center gap-2 mt-1">
               <Calendar className="w-3 h-3" />
-              Week of {formatWeekRange(weeklyFocus.week_start)}
+              {formatWeekRange(weeklyFocus.week_start)} — Set by Morgan to keep you on track
             </CardDescription>
           </div>
           <Button 

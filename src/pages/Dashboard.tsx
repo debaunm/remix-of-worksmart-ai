@@ -138,9 +138,7 @@ const Dashboard = () => {
         "Why understanding AI matters for better results",
         "The fundamentals of modern AI systems",
       ],
-      downloads: [
-        { title: "Module 1 Slides", url: "#" },
-      ],
+      downloads: [],
     },
     {
       id: "ai-toolkit-breakdown",
@@ -153,9 +151,7 @@ const Dashboard = () => {
         "Strengths and weaknesses of each AI tool",
         "Optimal use cases for each platform",
       ],
-      downloads: [
-        { title: "Module 2 Slides", url: "#" },
-      ],
+      downloads: [],
     },
     {
       id: "multi-step-flows-tech-stack",
@@ -168,9 +164,7 @@ const Dashboard = () => {
         "Creating your AI tech stack",
         "Automation strategies for productivity",
       ],
-      downloads: [
-        { title: "Module 3 Slides", url: "#" },
-      ],
+      downloads: [],
     },
     {
       id: "content-creation-brand-building",
@@ -183,9 +177,7 @@ const Dashboard = () => {
         "AI voice calibration for authentic outputs",
         "Omnichannel distribution strategy",
       ],
-      downloads: [
-        { title: "Module 4 Slides", url: "#" },
-      ],
+      downloads: [],
     },
   ];
 
@@ -310,15 +302,18 @@ const Dashboard = () => {
                     </CardHeader>
                     <CardContent className="space-y-4">
                       {workSessions.map((session, index) => (
-                        <ExpandableSessionCard key={index} session={session} locked={false} />
+                        <ExpandableSessionCard key={index} session={session} locked={!hasWorkAccess} />
                       ))}
                       {!hasWorkAccess && (
-                        <Link to="/work-systems" className="block mt-4">
-                          <Button variant="hero" className="w-full">
-                            Unlock Work Systems
-                            <ArrowRight className="w-4 h-4 ml-2" />
-                          </Button>
-                        </Link>
+                        <div className="mt-4 p-4 rounded-xl bg-primary/5 border border-primary/20 text-center">
+                          <p className="text-sm text-muted-foreground mb-3">Unlock all 4 AI Mastery sessions and tools</p>
+                          <Link to="/work-systems">
+                            <Button variant="hero" className="w-full">
+                              Unlock Work Systems — $197
+                              <ArrowRight className="w-4 h-4 ml-2" />
+                            </Button>
+                          </Link>
+                        </div>
                       )}
                     </CardContent>
                   </Card>
@@ -378,15 +373,18 @@ const Dashboard = () => {
                     </CardHeader>
                     <CardContent className="space-y-4">
                       {moneySessions.map((session, index) => (
-                        <ExpandableSessionCard key={index} session={session} locked={false} />
+                        <ExpandableSessionCard key={index} session={session} locked={!hasMoneyAccess} />
                       ))}
                       {!hasMoneyAccess && (
-                        <Link to="/money-systems" className="block mt-4">
-                          <Button variant="hero" className="w-full">
-                            Unlock Money Systems
-                            <ArrowRight className="w-4 h-4 ml-2" />
-                          </Button>
-                        </Link>
+                        <div className="mt-4 p-4 rounded-xl bg-primary/5 border border-primary/20 text-center">
+                          <p className="text-sm text-muted-foreground mb-3">Unlock all 4 wealth-building sessions and tools</p>
+                          <Link to="/money-systems">
+                            <Button variant="hero" className="w-full">
+                              Unlock Money Systems — $197
+                              <ArrowRight className="w-4 h-4 ml-2" />
+                            </Button>
+                          </Link>
+                        </div>
                       )}
                     </CardContent>
                   </Card>
