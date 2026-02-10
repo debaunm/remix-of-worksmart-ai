@@ -504,7 +504,28 @@ serve(async (req) => {
     try {
       result = JSON.parse(content);
     } catch {
-      result = { raw_response: content };
+      // Try extracting JSON from markdown code blocks
+      let cleaned = content;
+      const codeBlockMatch = cleaned.match(/```(?:json)?\s*\n?([\s\S]*?)\n?```/);
+      if (codeBlockMatch) {
+        cleaned = codeBlockMatch[1].trim();
+      }
+      // Try finding JSON object boundaries
+      const firstBrace = cleaned.indexOf('{');
+      const lastBrace = cleaned.lastIndexOf('}');
+      if (firstBrace !== -1 && lastBrace > firstBrace) {
+        cleaned = cleaned.substring(firstBrace, lastBrace + 1);
+      }
+      try {
+        // Remove trailing commas before closing braces/brackets
+        cleaned = cleaned.replace(/,\s*([\]}])/g, '$1');
+        // Remove control characters
+        cleaned = cleaned.replace(/[\x00-\x1F\x7F]/g, ' ');
+        result = JSON.parse(cleaned);
+      } catch {
+        console.error('Failed to parse AI response as JSON, returning raw');
+        result = { raw_response: content };
+      }
     }
 
     return new Response(JSON.stringify({ result }), {

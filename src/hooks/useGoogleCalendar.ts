@@ -8,17 +8,16 @@ interface UseGoogleCalendarReturn {
   connect: () => void;
   disconnect: () => void;
   refetch: () => void;
-  setMockConnected: (connected: boolean) => void; // For design preview toggle
+  setMockConnected: (connected: boolean) => void;
 }
 
 export const useGoogleCalendar = (): UseGoogleCalendarReturn => {
-  const [isConnected, setIsConnected] = useState(true); // Start connected for preview
+  const [isConnected, setIsConnected] = useState(false); // Start disconnected - no fake calendar
   const [isLoading, setIsLoading] = useState(false);
-  const [events, setEvents] = useState<CalendarEvent[]>(mockCalendarEvents);
+  const [events, setEvents] = useState<CalendarEvent[]>([]);
 
   const connect = useCallback(() => {
     setIsLoading(true);
-    // Simulate connection delay
     setTimeout(() => {
       setIsConnected(true);
       setEvents(mockCalendarEvents);

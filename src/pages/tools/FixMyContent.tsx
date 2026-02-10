@@ -2,7 +2,6 @@ import { useState } from "react";
 import { ArrowLeft, FileText, Loader2, Copy, Check, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,6 +9,7 @@ import { useAIWorkflow } from "@/hooks/useAIWorkflow";
 import { toast } from "sonner";
 import ResultsEmailGate from "@/components/ResultsEmailGate";
 import { useEmailGate } from "@/hooks/useEmailGate";
+import Navbar from "@/components/Navbar";
 
 const FixMyContent = () => {
   const [rawContent, setRawContent] = useState("");
@@ -51,7 +51,8 @@ const FixMyContent = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <Navbar />
+      <div className="container mx-auto px-4 py-8 pt-28 max-w-4xl">
         <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-8 transition-colors">
           <ArrowLeft className="w-4 h-4" />
           Back to Tools
@@ -74,12 +75,12 @@ const FixMyContent = () => {
         <form onSubmit={handleSubmit} className="space-y-6 mb-8">
           <div className="space-y-2">
             <Label htmlFor="rawContent">Your Raw Content *</Label>
-            <Textarea
+            <textarea
               id="rawContent"
               placeholder="Paste your rough draft, idea, or content here..."
               value={rawContent}
               onChange={(e) => setRawContent(e.target.value)}
-              className="min-h-[150px]"
+              className="flex min-h-[150px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-y"
             />
           </div>
 
@@ -119,12 +120,12 @@ const FixMyContent = () => {
 
           <div className="space-y-2">
             <Label htmlFor="profileUrls">Profile URLs (optional)</Label>
-            <Textarea
+            <textarea
               id="profileUrls"
               placeholder="Share your social profile URLs so the AI can analyze your current tone and style..."
               value={profileUrls}
               onChange={(e) => setProfileUrls(e.target.value)}
-              className="min-h-[80px]"
+              className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-y"
             />
           </div>
 
