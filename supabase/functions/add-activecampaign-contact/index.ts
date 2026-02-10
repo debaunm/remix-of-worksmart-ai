@@ -4,7 +4,7 @@ import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 };
 
 // Input validation schema
@@ -18,7 +18,7 @@ const ContactRequestSchema = z.object({
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders });
+    return new Response('ok', { headers: corsHeaders });
   }
 
   try {
@@ -37,9 +37,9 @@ serve(async (req) => {
     );
 
     const token = authHeader.replace('Bearer ', '');
-    const { data: claimsData, error: authError } = await supabaseClient.auth.getClaims(token);
+    const { data: userData, error: authError } = await supabaseClient.auth.getUser(token);
 
-    if (authError || !claimsData?.claims) {
+    if (authError || !userData?.user) {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), {
         status: 401,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -71,7 +71,7 @@ serve(async (req) => {
     // Clean the API URL (remove trailing slash if present)
     const baseUrl = apiUrl.replace(/\/$/, '');
 
-    console.log(`Adding contact: ${email} from tool: ${toolName} for user: ${claimsData.claims.sub}`);
+    console.log(`Adding contact: ${email} from tool: ${toolName} for user: ${userData.user.id}`);
 
     // Create or update contact in ActiveCampaign
     const contactResponse = await fetch(`${baseUrl}/api/3/contact/sync`, {
