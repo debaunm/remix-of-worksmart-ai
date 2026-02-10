@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Play, Clock, CheckCircle, ExternalLink, Lock } from "lucide-react";
+import { ChevronDown, Play, Clock, CheckCircle, ExternalLink, Lock, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Download {
@@ -23,23 +23,40 @@ interface ExpandableSessionCardProps {
   session: SessionData;
   locked: boolean;
   defaultOpen?: boolean;
+  purchaseLink?: string;
+  purchaseLabel?: string;
 }
 
-const ExpandableSessionCard = ({ session, locked, defaultOpen = false }: ExpandableSessionCardProps) => {
+const ExpandableSessionCard = ({ session, locked, defaultOpen = false, purchaseLink, purchaseLabel }: ExpandableSessionCardProps) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   if (locked) {
     return (
-      <div className="p-4 rounded-xl border border-border bg-muted/50">
-        <div className="flex items-start gap-4">
-          <div className="flex-1">
-            <div className="flex items-center gap-2 mb-2">
-              <Lock className="w-4 h-4 text-muted-foreground" />
-              <span className="text-xs text-muted-foreground">{session.duration}</span>
+      <div className="rounded-xl border border-border bg-muted/50 overflow-hidden">
+        {/* Blurred video placeholder */}
+        <div className="relative aspect-video bg-gradient-to-br from-muted to-muted/80">
+          <div className="absolute inset-0 backdrop-blur-sm bg-background/60 flex flex-col items-center justify-center gap-3">
+            <div className="w-12 h-12 rounded-full bg-muted-foreground/10 flex items-center justify-center">
+              <Lock className="w-6 h-6 text-muted-foreground" />
             </div>
-            <h4 className="font-medium text-muted-foreground mb-1">{session.title}</h4>
-            <p className="text-sm text-muted-foreground">{session.description}</p>
+            <p className="text-sm font-medium text-muted-foreground">Premium Content</p>
+            {purchaseLink && (
+              <a href={purchaseLink}>
+                <Button variant="hero" size="sm" className="gap-2">
+                  Purchase to Unlock
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              </a>
+            )}
           </div>
+        </div>
+        <div className="p-4">
+          <div className="flex items-center gap-2 mb-2">
+            <Lock className="w-4 h-4 text-muted-foreground" />
+            <span className="text-xs text-muted-foreground">{session.duration}</span>
+          </div>
+          <h4 className="font-medium text-muted-foreground mb-1">{session.title}</h4>
+          <p className="text-sm text-muted-foreground">{session.description}</p>
         </div>
       </div>
     );

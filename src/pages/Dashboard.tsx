@@ -303,9 +303,12 @@ const Dashboard = () => {
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      {workSessions.map((session, index) => (
-                        <ExpandableSessionCard key={index} session={session} locked={!hasWorkAccess} />
-                      ))}
+                      {workSessions.map((session, index) => {
+                        const safeSession = hasWorkAccess ? session : { ...session, videoUrl: undefined, downloads: [] };
+                        return (
+                          <ExpandableSessionCard key={index} session={safeSession} locked={!hasWorkAccess} purchaseLink="/work-systems" purchaseLabel="Unlock Work Systems — $197" />
+                        );
+                      })}
                       {!hasWorkAccess && (
                         <div className="mt-4 p-4 rounded-xl bg-primary/5 border border-primary/20 text-center">
                           <p className="text-sm text-muted-foreground mb-3">Unlock all 4 AI Mastery sessions and tools</p>
@@ -374,9 +377,12 @@ const Dashboard = () => {
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      {moneySessions.map((session, index) => (
-                        <ExpandableSessionCard key={index} session={session} locked={!hasMoneyAccess} />
-                      ))}
+                      {moneySessions.map((session, index) => {
+                        const safeSession = hasMoneyAccess ? session : { ...session, videoUrl: undefined, downloads: [] };
+                        return (
+                          <ExpandableSessionCard key={index} session={safeSession} locked={!hasMoneyAccess} purchaseLink="/money-systems" purchaseLabel="Unlock Money Systems — $197" />
+                        );
+                      })}
                       {!hasMoneyAccess && (
                         <div className="mt-4 p-4 rounded-xl bg-primary/5 border border-primary/20 text-center">
                           <p className="text-sm text-muted-foreground mb-3">Unlock all 4 wealth-building sessions and tools</p>
