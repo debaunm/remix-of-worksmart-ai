@@ -50,10 +50,10 @@ const defaultTasks = [
 ];
 
 const availableTools = [
-  { id: "google-calendar", label: "Google Calendar", icon: Calendar, description: "Sync your schedule" },
-  { id: "linkedin", label: "LinkedIn", icon: Share2, description: "Track professional content" },
-  { id: "twitter", label: "X (Twitter)", icon: Share2, description: "Monitor social presence" },
-  { id: "instagram", label: "Instagram", icon: Share2, description: "Track visual content" },
+  { id: "google-calendar", label: "Google Calendar", icon: Calendar, description: "Coming soon", comingSoon: true },
+  { id: "linkedin", label: "LinkedIn", icon: Share2, description: "Track professional content", comingSoon: false },
+  { id: "twitter", label: "X (Twitter)", icon: Share2, description: "Monitor social presence", comingSoon: false },
+  { id: "instagram", label: "Instagram", icon: Share2, description: "Track visual content", comingSoon: false },
 ];
 
 const Onboarding = () => {
@@ -310,6 +310,29 @@ const Onboarding = () => {
                   <p className="text-muted-foreground max-w-md mx-auto">
                     What's the one big thing you want to achieve this quarter?
                   </p>
+                  <div className="flex flex-wrap justify-center gap-2 mt-2">
+                    {[
+                      "Grow my business",
+                      "Build multiple income streams",
+                      "Scale as a solopreneur",
+                      "Land more clients",
+                      "Launch a new offer",
+                      "Automate my workflows",
+                    ].map((suggestion) => (
+                      <button
+                        key={suggestion}
+                        type="button"
+                        onClick={() => setData(prev => ({ ...prev, quarterlyGoal: suggestion }))}
+                        className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+                          data.quarterlyGoal === suggestion
+                            ? "bg-primary/10 border-primary/30 text-primary"
+                            : "bg-muted/50 border-border text-muted-foreground hover:border-primary/30"
+                        }`}
+                      >
+                        {suggestion}
+                      </button>
+                    ))}
+                  </div>
                 </div>
                 
                 <Card className="max-w-lg mx-auto">
@@ -320,7 +343,7 @@ const Onboarding = () => {
                       </Label>
                       <Input
                         id="quarterly-goal"
-                        placeholder="e.g., Launch new product line and hit $100K revenue"
+                        placeholder="e.g., Land 5 new freelance clients and hit $10K/month"
                         value={data.quarterlyGoal}
                         onChange={(e) => setData(prev => ({ ...prev, quarterlyGoal: e.target.value }))}
                         className="text-lg"
@@ -352,7 +375,7 @@ const Onboarding = () => {
               </div>
             )}
 
-            {/* Step 2: CEO vs Operating Tasks */}
+            {/* Step 2: Growth vs Day-to-Day Tasks */}
             {currentStep === 2 && (
               <div className="space-y-6">
                 <div className="text-center space-y-3">
@@ -360,18 +383,19 @@ const Onboarding = () => {
                     <Briefcase className="w-8 h-8 text-primary" />
                   </div>
                   <h1 className="text-3xl font-bold text-foreground">
-                    CEO vs Operating Tasks
+                    Growth Work vs Day-to-Day
                   </h1>
                   <p className="text-muted-foreground max-w-md mx-auto">
-                    Toggle tasks between CEO-level work (strategy, vision) and Operating work (execution, admin)
+                    Separate the work that <strong>grows</strong> your business from the work that <strong>runs</strong> it. 
+                    Toggle each task to where it fits for you.
                   </p>
                 </div>
 
                 <Card className="max-w-lg mx-auto">
                   <CardContent className="p-6">
                     <div className="flex justify-between text-sm font-medium text-muted-foreground mb-4 px-2">
-                      <span className="text-primary">CEO Tasks</span>
-                      <span>Operating Tasks</span>
+                      <span className="text-primary">🚀 Growth Work</span>
+                      <span>⚙️ Day-to-Day</span>
                     </div>
                     <div className="space-y-3">
                       {defaultTasks.map((task) => {
@@ -533,9 +557,12 @@ const Onboarding = () => {
                     return (
                       <button
                         key={tool.id}
-                        onClick={() => toggleTool(tool.id)}
+                        onClick={() => !tool.comingSoon && toggleTool(tool.id)}
+                        disabled={tool.comingSoon}
                         className={`p-4 rounded-xl border-2 transition-all text-left ${
-                          isConnected
+                          tool.comingSoon
+                            ? "border-border bg-muted/30 opacity-60 cursor-not-allowed"
+                            : isConnected
                             ? "border-primary bg-primary/5"
                             : "border-border hover:border-primary/50 bg-card"
                         }`}
@@ -553,7 +580,7 @@ const Onboarding = () => {
                               {tool.label}
                             </span>
                             <span className="text-xs text-muted-foreground">
-                              {tool.description}
+                              {tool.comingSoon ? "🔜 Coming soon" : tool.description}
                             </span>
                           </div>
                         </div>

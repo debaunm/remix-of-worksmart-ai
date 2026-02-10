@@ -32,6 +32,7 @@ import ExpandableSessionCard, { SessionData } from "@/components/dashboard/Expan
 
 import WeeklyCEOBrief from "@/components/dashboard/WeeklyCEOBrief";
 import { LatestUpdates } from "@/components/dashboard/LatestUpdates";
+import { QuarterlyGoal } from "@/components/dashboard/QuarterlyGoal";
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
@@ -254,7 +255,8 @@ const Dashboard = () => {
           </div>
 
           {/* Latest Community Updates */}
-          <div className="mb-8">
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <QuarterlyGoal />
             <LatestUpdates />
           </div>
 

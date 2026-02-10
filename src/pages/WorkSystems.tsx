@@ -240,7 +240,7 @@ const WorkSystems = () => {
                       <span className="text-sm font-medium text-foreground">One-Time Investment</span>
                       <span className="text-2xl font-bold text-primary">$197</span>
                     </div>
-                    <p className="text-xs text-muted-foreground">Lifetime access • Instant download • Updates included</p>
+                    <p className="text-xs text-muted-foreground">Lifetime access • Instant delivery • Free updates forever</p>
                   </div>
                 </div>
               </div>
