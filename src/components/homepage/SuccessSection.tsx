@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Check, Sparkles } from "lucide-react";
-const successPoints = ["You have clarity on what actually matters to you", "You've reclaimed your time by delegating and automating the tasks that drain you", "You're making strategic decisions aligned with YOUR vision—not someone else's", "Your weeks include what fills you up, not just what empties you", "You're earning more while working smarter, not harder", "AI and systems are working FOR you, not replacing you", "You feel like the CEO of your own life"];
+const successPoints = ["You have clarity on what actually matters to you", "You've reclaimed your time by delegating and automating the tasks that drain you", "You're making strategic decisions aligned with YOUR vision, not someone else's", "Your weeks include what fills you up, not just what empties you", "You're earning more while working smarter, not harder", "AI and systems are working FOR you, not replacing you", "You feel like the CEO of your own life"];
 const SuccessSection = () => {
   return <section className="py-20 bg-muted/30">
       <div className="container mx-auto px-6">
@@ -72,7 +72,7 @@ const SuccessSection = () => {
                 </div>
               </div>
               <div className="text-left">
-                <p className="text-muted-foreground">To: clear, strategic, energized, and building a life that's successful AND fulfilling...on your own terms.<span className="font-medium text-foreground">To:</span> clear, strategic, energized, and building a life that's successful AND fulfilling—on your own terms.
+                <p className="text-muted-foreground">To: clear, strategic, energized, and building a life that's successful AND fulfilling...on your own terms.<span className="font-medium text-foreground">To:</span> clear, strategic, energized, and building a life that's successful AND fulfilling, on your own terms.
                 </p>
               </div>
             </div>

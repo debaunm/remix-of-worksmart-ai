@@ -8,7 +8,7 @@ const paths = [
     id: "wealth",
     title: "Wealth Builders",
     subtitle: "For those ready to build financial freedom",
-    description: "Master your money with joy—not deprivation. Learn FIRE principles, passive income strategies, and how to design multiple income streams that work while you sleep.",
+    description: "Master your money with joy, not deprivation. Learn FIRE principles, passive income strategies, and how to design multiple income streams that work while you sleep.",
     icon: DollarSign,
     link: "/money-systems",
     color: "emerald",

@@ -6,7 +6,7 @@ const steps = [
     number: "01",
     icon: Target,
     title: "Clarify Your Vision",
-    description: "Define your priorities using the Six Pillars framework—Money, Stability, Freedom, Relationships, Passions, and Wellness—so you're building toward what YOU actually want.",
+    description: "Define your priorities using the Six Pillars framework - Money, Stability, Freedom, Relationships, Passions, and Wellness - so you're building toward what YOU actually want.",
   },
   {
     number: "02",
