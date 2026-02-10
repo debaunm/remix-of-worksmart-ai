@@ -73,20 +73,30 @@ export const CommunityPost = ({ post }: CommunityPostProps) => {
     }
 
     if (post.media_type === "video") {
-      // Handle YouTube and Vimeo embeds
       const videoUrl = post.media_url;
-      let embedUrl = videoUrl;
+      let embedUrl: string | null = null;
 
-      if (videoUrl.includes("youtube.com/watch")) {
-        const videoId = new URL(videoUrl).searchParams.get("v");
-        embedUrl = `https://www.youtube.com/embed/${videoId}`;
-      } else if (videoUrl.includes("youtu.be/")) {
-        const videoId = videoUrl.split("youtu.be/")[1]?.split("?")[0];
-        embedUrl = `https://www.youtube.com/embed/${videoId}`;
-      } else if (videoUrl.includes("vimeo.com/") && !videoUrl.includes("player.vimeo.com")) {
-        const videoId = videoUrl.split("vimeo.com/")[1]?.split("?")[0];
-        embedUrl = `https://player.vimeo.com/video/${videoId}`;
+      try {
+        const url = new URL(videoUrl);
+        const hostname = url.hostname.toLowerCase();
+
+        if (hostname === "www.youtube.com" || hostname === "youtube.com") {
+          const videoId = url.searchParams.get("v");
+          if (videoId) embedUrl = `https://www.youtube.com/embed/${videoId}`;
+        } else if (hostname === "youtu.be") {
+          const videoId = url.pathname.slice(1).split("/")[0];
+          if (videoId) embedUrl = `https://www.youtube.com/embed/${videoId}`;
+        } else if (hostname === "www.vimeo.com" || hostname === "vimeo.com") {
+          const videoId = url.pathname.slice(1).split("/")[0];
+          if (videoId && /^\d+$/.test(videoId)) embedUrl = `https://player.vimeo.com/video/${videoId}`;
+        } else if (hostname === "player.vimeo.com") {
+          embedUrl = videoUrl;
+        }
+      } catch {
+        // Invalid URL — don't embed
       }
+
+      if (!embedUrl) return null;
 
       return (
         <div className="mt-4 rounded-lg overflow-hidden aspect-video">
