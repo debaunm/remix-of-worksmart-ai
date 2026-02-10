@@ -119,7 +119,7 @@ const Onboarding = () => {
           ceo_percentage: data.ceoPercentage,
           connected_tools: data.connectedTools,
           onboarding_completed_at: new Date().toISOString(),
-        });
+        }, { onConflict: 'user_id' });
 
       if (error) throw error;
 
