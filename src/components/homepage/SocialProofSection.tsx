@@ -15,12 +15,6 @@ const testimonials = [
   },
   {
     quote:
-      "We actually do the work during the sessions so we can ask questions, mitigate challenges, and stay ahead of the curve as AI evolves daily. Morgan has done the vetting from an expert standpoint so it was nice to learn what works and what doesn't and why - so I could decide what was best for me.",
-    name: "Kalyanna Williams",
-    role: "Founder",
-  },
-  {
-    quote:
       "It helped open my eyes to all the tools available for automation and helping streamline your work and personal life. I loved this class! I learned a lot about different AI tools and what's possible with each one. I want to dive further in!",
     name: "Debbie",
     role: "Data Analytics Team Lead",
