@@ -47,10 +47,10 @@
 
     /* Slate: #0D1726 */
     --slate-bg: 215 49% 10%;
-    /* Gold: #C9A84C */
-    --gold: 43 52% 54%;
-    /* Kelly Green: #4CAF50 */
-    --kelly-green: 122 39% 49%;
+    /* Gold: #FAAB33 */
+    --gold: 38 95% 59%;
+    /* Kelly Green: #209d50 */
+    --kelly-green: 143 66% 37%;
     /* Sky: #4A90D9 */
     --sky: 214 60% 57%;
     /* Fire: #F56640 */
@@ -179,6 +179,11 @@
 
   .section-fire {
     background-color: hsl(var(--fire));
+    color: hsl(0 0% 100%);
+  }
+
+  .section-green {
+    background-color: hsl(var(--kelly-green));
     color: hsl(0 0% 100%);
   }
 }

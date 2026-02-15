@@ -33,7 +33,7 @@ const HeroSection = () => {
 
             {/* CTA */}
             <Link to="/auth">
-              <Button className="h-14 px-8 font-semibold rounded-lg text-base gap-2 bg-primary hover:bg-primary/90 text-white">
+              <Button className="h-14 px-8 font-semibold rounded-full text-base gap-2 bg-primary hover:bg-primary/90 text-white">
                 Start Building Your Business
                 <ArrowRight className="w-4 h-4" />
               </Button>

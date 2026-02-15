@@ -7,28 +7,28 @@ const steps = [
     label: "Week 1",
     title: "Your Business Diagnostic",
     description:
-      "You start with a diagnostic assessment that tells you exactly where your business is and what to work on first. No guessing. No starting at Module 1 if you're already past it. You get a custom roadmap from day one.",
+      "A diagnostic assessment tells you exactly where your business is and what to work on first. You get a custom roadmap from day one.",
   },
   {
     icon: Phone,
     label: "Every Week",
     title: "Live Advising + Implementation",
     description:
-      "This isn't \"watch a video and figure it out.\" Every week, you're on a call with a WorkSmart Advisor who helps you implement - not just learn. You bring the real problem you're facing right now. They help you solve it in real time. Then you execute before the next call.",
+      "You're on a call with a WorkSmart Advisor who helps you implement - not just learn. Bring the real problem, leave with a next step.",
   },
   {
     icon: Crown,
     label: "Every Month",
     title: "CEO Circle with Morgan",
     description:
-      "Once a month, Morgan hosts a live session where she shares what's working across the entire WorkSmart member base - trends, strategies, tools, and real numbers. You can ask anything. Typically 4-8 members join, so it's intimate enough to get direct feedback on your specific business.",
+      "Morgan shares what's working across the member base - trends, strategies, and real numbers. Intimate enough for direct feedback on your business.",
   },
   {
     icon: Database,
     label: "Always On",
     title: "Community + Templates + The Vault",
     description:
-      "Between calls, you have the full WorkSmart ecosystem - the template library, the AI tool stack, the member directory, and a community of people building alongside you. Everything is searchable, organized, and designed for someone who has 2 hours a day to build their business, not 12.",
+      "The full WorkSmart ecosystem - template library, AI tool stack, member directory. Designed for someone with 2 hours a day, not 12.",
   },
 ];
 
