@@ -55,6 +55,7 @@ import Calendar from "./pages/Calendar";
 import Onboarding from "./pages/Onboarding";
 import Community from "./pages/Community";
 import Podcast from "./pages/Podcast";
+import InnerCircle from "./pages/InnerCircle";
 
 const queryClient = new QueryClient();
 
@@ -116,6 +117,7 @@ const App = () => (
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/community" element={<Community />} />
           <Route path="/podcast" element={<Podcast />} />
+          <Route path="/inner-circle" element={<InnerCircle />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
