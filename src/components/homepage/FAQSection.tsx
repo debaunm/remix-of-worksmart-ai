@@ -8,71 +8,67 @@ import {
 
 const faqs = [
   {
-    question: "Who is WorkSmart for?",
-    answer: "WorkSmart is built for ambitious professionals, typically mid-career, who want to build real wealth, master AI tools, and stop trading all their time for their success. Our members include managers, directors, VPs, founders, freelancers, and consultants across industries.",
+    q: "I have a business or side hustle doing $5-10K a month. Is this for me?",
+    a: "This is exactly who WorkSmart is built for. You've proven you can make money - now you need the systems, strategy, and advisors to scale it past $20K, $50K, even $100K/month without working twice as hard. The Accelerator gives you the full operating system plus weekly advisor calls with a CPA, revenue coach, and ops strategist. You'll stop guessing and start building with a plan.",
   },
   {
-    question: "Do I need to be technical to use the AI tools?",
-    answer: "Not at all. The Work Systems course starts from zero and walks you through everything step by step. If you can use Google Docs, you can use our AI systems.",
+    q: "How is this different from every other business coaching program?",
+    a: "Two things. First, WorkSmart isn't coaching - it's infrastructure. We don't motivate you. We give you the systems, templates, and advisors so you can build a real business with real operations. Second, our advisor team isn't one guru with a course. It's a CPA, an HR strategist, a legal advisor, a revenue coach, and an operations lead - the same team a funded startup would have, available to you weekly.",
   },
   {
-    question: "What's the difference between buying a course and joining Pro?",
-    answer: "The courses (Money Systems and Work Systems) are one-time purchases that give you lifetime access to the training and tools. Pro membership includes monthly live sessions, community access, accountability groups, and new tools and templates every month. It's the full operating system.",
+    q: "I just got laid off. Is this the right time to join?",
+    a: "This is exactly the right time. If you're transitioning from corporate to self-employment, the Money System ($197) helps you map out your income streams and build a plan immediately - including how to turn your corporate skills into a revenue source. If you're further along, the Accelerator gives you the full system plus weekly advisor calls so you're not building blind.",
   },
   {
-    question: "Can I upgrade from a course to Pro later?",
-    answer: "Yes. If you've already purchased Money Systems or Work Systems, contact our support team and we'll credit your purchase toward your Pro membership.",
+    q: "I don't have a business idea yet. Can I still join?",
+    a: "Yes - start with the free community or the Money System. The course walks you through auditing your skills, identifying your best income opportunities, and building a wealth plan that works for your situation. Most people don't need a \"business idea\" - they need to package what they already know into something someone will pay for. That's exactly what we help you do.",
   },
   {
-    question: "Is there a refund policy?",
-    answer: "Yes. We offer a 30-day money-back guarantee on all products. If you're not satisfied, contact us for a full refund.",
+    q: "What if I'm already making money but I'm stuck?",
+    a: "The Accelerator is built for you. Module 3 (Master Your Data) and Module 4 (Master Your Revenue) are specifically designed for business owners who have revenue but can't figure out how to grow it without working more hours. The advisor calls are where this gets real - you'll bring your specific bottleneck and get a specific answer, not generic advice.",
   },
   {
-    question: "How do the live sessions work?",
-    answer: "Pro members get access to a monthly live strategy session where our team covers timely topics, answers questions, and provides direct feedback. Sessions are recorded and posted to the dashboard if you can't attend live.",
+    q: "What's the refund policy?",
+    a: "Complete Modules 1 and 2 within your first 30 days. If you've done the work and genuinely feel WorkSmart isn't for you, email us and we'll refund you - no interrogation. We only ask that you actually engage with the system before deciding. We're that confident it works.",
+  },
+  {
+    q: "Do I need to know about AI to join?",
+    a: "No. We don't teach you how to be an AI expert. We teach you how to run a business - and show you where AI makes that easier. Think of AI as a tool in your toolkit, not a subject you need to master. If you can use Google, you can use the AI tools we recommend.",
   },
 ];
 
 const FAQSection = () => {
   return (
-    <section className="py-24 section-cream">
+    <section className="py-24 section-white">
       <div className="container mx-auto px-6">
-        <motion.div
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="text-3xl md:text-4xl font-extrabold text-foreground text-center mb-14"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-            Frequently Asked Questions
-          </h2>
-        </motion.div>
+          Frequently Asked Questions
+        </motion.h2>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="max-w-3xl mx-auto"
-        >
-          <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => (
+        <div className="max-w-3xl mx-auto">
+          <Accordion type="single" collapsible className="space-y-3">
+            {faqs.map((faq, i) => (
               <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="bg-white rounded-xl border border-border px-6 data-[state=open]:shadow-card"
+                key={i}
+                value={`faq-${i}`}
+                className="bg-card border border-border rounded-xl px-6 overflow-hidden"
               >
-                <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline py-5">
-                  {faq.question}
+                <AccordionTrigger className="hover:no-underline py-5 text-left font-semibold text-foreground text-[16px]">
+                  {faq.q}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
-                  {faq.answer}
+                <AccordionContent className="pb-5 text-[15px] text-muted-foreground leading-relaxed">
+                  {faq.a}
                 </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

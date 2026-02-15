@@ -14,7 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'DM Sans', 'system-ui', 'sans-serif'],
+        sans: ['Poppins', 'Inter', 'system-ui', 'sans-serif'],
+        poppins: ['Poppins', 'system-ui', 'sans-serif'],
+        mono: ['Space Mono', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -67,6 +69,15 @@ export default {
           border: "hsl(var(--dark-border))",
           muted: "hsl(var(--dark-muted))",
         },
+        // Brand colors
+        fire: "hsl(var(--fire))",
+        gold: "hsl(var(--gold))",
+        "kelly-green": "hsl(var(--kelly-green))",
+        sky: "hsl(var(--sky))",
+        slate: {
+          bg: "hsl(var(--slate-bg))",
+        },
+        greige: "hsl(var(--greige))",
         // Marketplace tier colors
         tier: {
           free: "hsl(var(--tier-free))",

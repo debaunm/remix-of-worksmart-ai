@@ -1,72 +1,77 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import morganPhoto from "@/assets/morgan-debaun.jpeg";
 
 const HeroSection = () => {
   return (
-    <section className="pt-32 pb-24 section-cream">
+    <section className="pt-32 pb-20 section-greige relative overflow-hidden">
       <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto text-center"
-        >
-          {/* Tag */}
+        <div className="grid lg:grid-cols-5 gap-12 items-center">
+          {/* Copy - Left 60% */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 tag-pill mb-8"
+            transition={{ duration: 0.4 }}
+            className="lg:col-span-3"
           >
-            <Sparkles className="w-4 h-4" />
-            <span>The Career & Wealth Operating System</span>
-          </motion.div>
+            {/* Eyebrow */}
+            <p className="font-mono text-sm uppercase tracking-widest text-primary mb-6">
+              The Business Operating System for the New Self-Employed
+            </p>
 
-          {/* Headline */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight tracking-tight">
-            The Operating System for Your Career, Money, and Time
-          </h1>
+            {/* Headline */}
+            <h1 className="text-4xl md:text-5xl lg:text-[56px] font-extrabold text-foreground mb-6 leading-[1.1] tracking-tight">
+              Build a business that hits $500K to $1M - whether you're a team of one or a team of five.
+            </h1>
 
-          {/* Subheadline */}
-          <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
-            WorkSmart gives ambitious professionals the AI tools, wealth frameworks, and accountability systems to build financial freedom without burning out getting there.
-          </p>
+            {/* Subhead */}
+            <p className="text-[17px] text-muted-foreground mb-10 max-w-2xl leading-relaxed">
+              WorkSmart gives solopreneurs, consultants, and small business owners the strategy, systems, AI tools, and expert advisors to build real revenue. Whether you just left a $150K corporate job and need to replace that income, or you're running a small team and trying to break through to $1M - this is the business infrastructure you've been operating without.
+            </p>
 
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8"
-          >
+            {/* CTA */}
             <Link to="/auth">
               <Button className="h-14 px-8 font-semibold rounded-lg text-base gap-2 bg-primary hover:bg-primary/90 text-white">
-                Get Started
+                Start Building Your Business
                 <ArrowRight className="w-4 h-4" />
               </Button>
             </Link>
-            <Link to="/free-tools">
-              <Button 
-                variant="outline" 
-                className="h-14 px-8 font-semibold rounded-lg text-base border-foreground/20 text-foreground hover:bg-foreground/5"
-              >
-                Explore Free Tools
-              </Button>
-            </Link>
+
+            {/* Social proof line */}
+            <p className="text-sm text-muted-foreground mt-6">
+              Join 1,000+ business owners who stopped winging it and started building real infrastructure.
+            </p>
           </motion.div>
 
-          {/* Trust line */}
-          <motion.p
+          {/* Right - Morgan Photo + Burst */}
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="text-sm text-muted-foreground"
+            transition={{ duration: 0.4, delay: 0.1 }}
+            className="lg:col-span-2 relative flex items-center justify-center"
           >
-            Trusted by 10,000+ professionals • Built by the team behind Blavity Inc. & AfroTech
-          </motion.p>
-        </motion.div>
+            {/* Fire burst - oversized, partially cropped */}
+            <div
+              className="absolute w-[500px] h-[500px] rounded-full opacity-20"
+              style={{
+                background: `radial-gradient(circle, hsl(var(--fire)) 0%, transparent 70%)`,
+                right: "-100px",
+                top: "-50px",
+              }}
+              aria-hidden="true"
+            />
+            {/* Morgan photo */}
+            <div className="relative z-10 w-full max-w-sm">
+              <img
+                src={morganPhoto}
+                alt="Morgan DeBaun, CEO of Blavity Inc. and founder of WorkSmart"
+                className="w-full rounded-2xl grayscale object-cover aspect-[3/4]"
+              />
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
