@@ -111,6 +111,54 @@ export type Database = {
         }
         Relationships: []
       }
+      inner_circle_applications: {
+        Row: {
+          annual_revenue: string | null
+          anything_else: string | null
+          business_name: string
+          business_type: string | null
+          created_at: string
+          email: string
+          full_name: string
+          help_with: string | null
+          id: string
+          referral_source: string | null
+          status: string
+          team_size: string | null
+          years_in_business: string | null
+        }
+        Insert: {
+          annual_revenue?: string | null
+          anything_else?: string | null
+          business_name: string
+          business_type?: string | null
+          created_at?: string
+          email: string
+          full_name: string
+          help_with?: string | null
+          id?: string
+          referral_source?: string | null
+          status?: string
+          team_size?: string | null
+          years_in_business?: string | null
+        }
+        Update: {
+          annual_revenue?: string | null
+          anything_else?: string | null
+          business_name?: string
+          business_type?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          help_with?: string | null
+          id?: string
+          referral_source?: string | null
+          status?: string
+          team_size?: string | null
+          years_in_business?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null

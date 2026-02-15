@@ -48,11 +48,30 @@ const InnerCircle = () => {
       return;
     }
     setSubmitting(true);
-    // Simulate submission
-    await new Promise((r) => setTimeout(r, 1200));
-    setSubmitting(false);
-    setSubmitted(true);
-    toast({ title: "Application submitted", description: "We'll review your application within 5 business days." });
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/submit-inner-circle`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+          body: JSON.stringify(form),
+        }
+      );
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.error || 'Submission failed');
+      }
+      setSubmitted(true);
+      toast({ title: "Application submitted", description: "We'll review your application within 5 business days." });
+    } catch (error: unknown) {
+      const msg = error instanceof Error ? error.message : 'Something went wrong';
+      toast({ title: "Submission failed", description: msg, variant: "destructive" });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (

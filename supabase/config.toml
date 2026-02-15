@@ -14,3 +14,6 @@ verify_jwt = false
 
 [functions.add-activecampaign-contact]
 verify_jwt = false
+
+[functions.submit-inner-circle]
+verify_jwt = false
