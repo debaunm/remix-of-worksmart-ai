@@ -60,12 +60,12 @@ const Podcast = () => {
                 Morgan DeBaun breaks down the business strategy, AI tools, and mindset shifts that actually move the needle - for solopreneurs, small business owners, and anyone building a lean company on the path to $1M. New episodes weekly.
               </p>
               <div className="flex flex-wrap gap-3">
-                <a href="https://podcasts.apple.com/us/podcast/the-journey-with-morgan-debaun/id1530-placeholder" target="_blank" rel="noopener noreferrer">
+                <a href="https://podcasts.apple.com/us/podcast/the-journey-with-morgan-debaun/id1687058364" target="_blank" rel="noopener noreferrer">
                   <Button className="rounded-full bg-foreground hover:bg-foreground/90 text-white gap-2">
                     Apple Podcasts <ExternalLink className="w-4 h-4" />
                   </Button>
                 </a>
-                <a href="https://open.spotify.com/show/placeholder" target="_blank" rel="noopener noreferrer">
+                <a href="https://open.spotify.com/show/71KTbQcRlSRPaWM5IlXkBf" target="_blank" rel="noopener noreferrer">
                   <Button className="rounded-full bg-foreground hover:bg-foreground/90 text-white gap-2">
                     Spotify <ExternalLink className="w-4 h-4" />
                   </Button>
