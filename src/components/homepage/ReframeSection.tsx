@@ -22,7 +22,7 @@ const ReframeSection = () => {
           </p>
 
           {/* Callout block */}
-          <div className="border-l-4 border-kelly-green pl-6 py-4">
+          <div className="border-l-4 border-kelly-green bg-greige rounded-xl pl-6 pr-6 py-6">
             <p className="text-lg text-foreground font-medium leading-relaxed mb-4">
               Think of it this way: you're not an employee who uses AI. You're a CEO whose first hire is AI.
             </p>

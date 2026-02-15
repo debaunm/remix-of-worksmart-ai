@@ -13,7 +13,7 @@ const NewsletterSection = () => {
   };
 
   return (
-    <section className="py-20 section-fire">
+    <section className="py-20 section-green">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -23,10 +23,10 @@ const NewsletterSection = () => {
           className="max-w-2xl mx-auto text-center"
         >
           <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
-            Get smarter about self-employment every week.
+            Not ready yet? Stay close.
           </h2>
           <p className="text-white/90 text-[17px] mb-10 leading-relaxed">
-            The WorkSmart newsletter: what's working, what's not, and what to build next - straight from Morgan and the WorkSmart community.
+            Weekly insights on business, AI, and the future of work. Free. No spam. Unsubscribe anytime.
           </p>
 
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
@@ -43,7 +43,7 @@ const NewsletterSection = () => {
             </div>
             <Button
               type="submit"
-              className="h-14 px-8 font-semibold rounded-xl bg-kelly-green hover:bg-kelly-green/90 text-white"
+              className="h-14 px-8 font-semibold rounded-full bg-foreground hover:bg-foreground/90 text-white"
             >
               Subscribe
             </Button>

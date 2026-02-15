@@ -29,8 +29,8 @@ const paths = [
     description:
       "You want the podcast, the book, and the perspective on wealth, AI, and the future of work.",
     cta: "Listen, Read, Follow →",
-    href: "https://www.amazon.com/Rewrite-Your-Rules-Achieve-Freedom/dp/0593725050/",
-    external: true,
+    href: "/podcast",
+    external: false,
   },
 ];
 

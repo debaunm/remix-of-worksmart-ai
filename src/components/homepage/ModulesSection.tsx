@@ -79,13 +79,11 @@ const ModulesSection = () => {
                       </span>
                       <div>
                         <h3 className="text-lg font-bold text-foreground">{m.title}</h3>
+                        <p className="text-sm text-muted-foreground mt-1">{m.outcome}</p>
                       </div>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="pl-10 pb-6">
-                    <p className="text-primary font-semibold text-sm mb-3">
-                      The outcome: {m.outcome}
-                    </p>
                     <p className="text-[15px] text-muted-foreground leading-relaxed">
                       {m.description}
                     </p>

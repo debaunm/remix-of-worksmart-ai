@@ -32,7 +32,7 @@ const FinalCTASection = () => {
             WorkSmart is the system. The advisors. The community. The operating system for your next chapter.
           </p>
           <Link to="/auth">
-            <Button className="h-14 px-10 font-semibold rounded-lg text-lg gap-2 bg-primary hover:bg-primary/90 text-white">
+            <Button className="h-14 px-10 font-semibold rounded-full text-lg gap-2 bg-primary hover:bg-primary/90 text-white">
               Start Building Your Business
               <ArrowRight className="w-5 h-5" />
             </Button>

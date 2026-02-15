@@ -18,16 +18,13 @@ const WhyMorganSection = () => {
             </h2>
             <div className="space-y-5 text-[16px] text-muted-foreground leading-relaxed">
               <p>
-                I built Blavity Inc. into the largest digital media company for Black culture - reaching 100 million people a month across AfroTech, Shadow and Act, 21Ninety, and Travel Noire. Forbes 30 Under 30. Inc. 5000. The whole highlight reel.
+                I built Blavity Inc. into the largest digital media company for Black culture - reaching 100 million people a month. Forbes 30 Under 30. Inc. 5000. The whole highlight reel.
               </p>
               <p>
-                But here's what the highlight reel doesn't show: the years I spent figuring out basic business infrastructure by trial and error. Pricing. Hiring. Revenue models. Operations. Nobody taught me any of it. I learned it the expensive way.
+                But the highlight reel doesn't show the years figuring out basic business infrastructure by trial and error. Pricing. Hiring. Revenue models. Nobody taught me any of it. I learned it the expensive way.
               </p>
               <p>
-                I built WorkSmart because the most talented people I know - the ones getting laid off from big companies, the ones leaving to start their own thing, the ones who have incredible skills but no business system - shouldn't have to learn it the expensive way too.
-              </p>
-              <p>
-                The economy is shifting underneath everyone's feet right now. AI is accelerating it. And the people being pushed into self-employment deserve more than a YouTube playlist and a prayer. They deserve real infrastructure. Real advisors. A real system.
+                I built WorkSmart because the most talented people I know - the ones getting laid off, the ones going solo - shouldn't have to learn it the expensive way too. They deserve real infrastructure. Real advisors. A real system.
               </p>
               <p className="text-foreground font-semibold text-lg">
                 That's WorkSmart.
@@ -36,7 +33,7 @@ const WhyMorganSection = () => {
 
             {/* Credential bar */}
             <p className="mt-8 font-mono text-xs text-muted-foreground uppercase tracking-wider leading-relaxed">
-              CEO, Blavity Inc. & AfroTech · Forbes 30 Under 30 · Angel Investor · Best-Selling Author, Rewrite Your Rules · Inc. 5000 · Advisor to Pepsi Co., American Airlines, Disney
+              CEO, Blavity Inc. & AfroTech · Forbes 30 Under 30 · Angel Investor · Best-Selling Author · Inc. 5000
             </p>
           </motion.div>
 

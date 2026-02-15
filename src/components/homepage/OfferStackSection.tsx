@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Check, Star } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const tiers = [
@@ -65,12 +65,12 @@ const extras = [
       "Direct access to Morgan, quarterly strategy sessions, 1 private live event per year with Morgan, your AfroTech conference ticket included, exclusive retreats (CEO Spring Break), curated peer network. Capped at 50 members.",
     bestFor: "Established business owners doing $500K+/year who want to scale to $1M+",
     cta: "Apply for Inner Circle",
-    href: "/auth",
+    href: "/apply",
     external: false,
   },
   {
-    name: "Money System",
-    price: "$197 one-time",
+    name: "Wealth Builder Blueprint",
+    price: "$497 one-time",
     description:
       "Self-paced course on building multiple income streams: identify your 3-5 revenue sources, build out your personal wealth plan, and grow a profitable side business alongside your main income. Templates, financial models, income stream playbooks. No community access.",
     bestFor: "People who want to build wealth through multiple income streams - whether employed, side-hustling, or already self-employed",
@@ -112,7 +112,7 @@ const OfferStackSection = () => {
               }`}
             >
               {tier.badge && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-xs font-bold px-4 py-1 rounded-full">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold px-4 py-1 rounded-full" style={{ backgroundColor: "hsl(var(--gold))", color: "hsl(var(--slate-bg))" }}>
                   {tier.badge}
                 </div>
               )}
@@ -135,7 +135,7 @@ const OfferStackSection = () => {
               {tier.external ? (
                 <a href={tier.href} target="_blank" rel="noopener noreferrer">
                   <Button
-                    className={`w-full ${
+                    className={`w-full rounded-full ${
                       tier.highlighted
                         ? "bg-primary hover:bg-primary/90 text-white"
                         : "bg-foreground hover:bg-foreground/90 text-white"
@@ -147,7 +147,7 @@ const OfferStackSection = () => {
                 </a>
               ) : (
                 <Link to={tier.href}>
-                  <Button className="w-full bg-foreground hover:bg-foreground/90 text-white">
+                  <Button className="w-full rounded-full bg-foreground hover:bg-foreground/90 text-white">
                     {tier.cta}
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
@@ -178,13 +178,13 @@ const OfferStackSection = () => {
               <p className="text-xs text-muted-foreground mb-5">Best for: {ex.bestFor}</p>
               {ex.external ? (
                 <a href={ex.href} target="_blank" rel="noopener noreferrer">
-                  <Button variant="outline" className="gap-2">
+                  <Button variant="outline" className="gap-2 rounded-full">
                     {ex.cta} <ArrowRight className="w-4 h-4" />
                   </Button>
                 </a>
               ) : (
                 <Link to={ex.href}>
-                  <Button variant="outline" className="gap-2">
+                  <Button variant="outline" className="gap-2 rounded-full">
                     {ex.cta} <ArrowRight className="w-4 h-4" />
                   </Button>
                 </Link>

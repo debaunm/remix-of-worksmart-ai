@@ -17,11 +17,11 @@ const faqs = [
   },
   {
     q: "I just got laid off. Is this the right time to join?",
-    a: "This is exactly the right time. If you're transitioning from corporate to self-employment, the Money System ($197) helps you map out your income streams and build a plan immediately - including how to turn your corporate skills into a revenue source. If you're further along, the Accelerator gives you the full system plus weekly advisor calls so you're not building blind.",
+    a: "This is exactly the right time. If you're transitioning from corporate to self-employment, the Wealth Builder Blueprint ($497) helps you map out your income streams and build a plan immediately - including how to turn your corporate skills into a revenue source. If you're further along, the Accelerator gives you the full system plus weekly advisor calls so you're not building blind.",
   },
   {
     q: "I don't have a business idea yet. Can I still join?",
-    a: "Yes - start with the free community or the Money System. The course walks you through auditing your skills, identifying your best income opportunities, and building a wealth plan that works for your situation. Most people don't need a \"business idea\" - they need to package what they already know into something someone will pay for. That's exactly what we help you do.",
+    a: "Yes - start with the free community or the Wealth Builder Blueprint. The course walks you through auditing your skills, identifying your best income opportunities, and building a wealth plan that works for your situation. Most people don't need a \"business idea\" - they need to package what they already know into something someone will pay for. That's exactly what we help you do.",
   },
   {
     q: "What if I'm already making money but I'm stuck?",

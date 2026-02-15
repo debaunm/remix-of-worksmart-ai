@@ -23,9 +23,12 @@ const ProblemSection = () => {
             The rules of work changed. Nobody sent a memo.
           </h2>
           <p className="text-[17px] md:text-lg text-white/70 leading-relaxed mb-6">
-            Millions of professionals are entrepreneurs and self-employed. AI is replacing roles faster than companies can restructure.
+            Millions of professionals are becoming self-employed - not because they planned to, but because the economy decided for them. AI is replacing roles faster than companies can restructure. Layoffs aren't temporary anymore. And the people who built careers inside companies are now trying to build businesses from scratch, alone, with no playbook.
           </p>
-          <p className="text-lg md:text-xl text-white font-semibold">
+          <p className="text-[17px] md:text-lg text-white/70 leading-relaxed mb-8">
+            Some of them watched 200 hours of YouTube. Read the books. Took the free masterclass. They still haven't launched. That's not an information problem. That's an implementation problem.
+          </p>
+          <p className="text-lg md:text-xl font-semibold" style={{ color: "hsl(var(--gold))" }}>
             WorkSmart was built for this exact moment.
           </p>
         </motion.div>
