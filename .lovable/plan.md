@@ -1,40 +1,52 @@
-# Security Remediation Complete
 
-## Completed Actions
 
-### ✅ Phase 1: Code Fixes
-- **Fixed duplicate return in usePurchases.ts** - Removed unreachable code on line 33
+# Inner Circle Application — Database + ActiveCampaign Integration
 
-### ✅ Phase 2: Edge Function Security
-All three edge functions now have:
-- **JWT Authentication** using `supabase.auth.getClaims()` 
-- **Zod Input Validation** with strict schemas
-- **Proper error responses** (401 for auth failures, 400 for validation errors)
+## Overview
+Wire up the Inner Circle application form to save submissions to the database for tracking/review and simultaneously send the contact to ActiveCampaign for CRM automation.
 
-| Function | Auth | Validation |
-|----------|------|------------|
-| ai-workflow | ✅ JWT verified | ✅ Zod schema for workflow_id + inputs |
-| life-coach-chat | ✅ JWT verified | ✅ Zod schema for messages array |
-| add-activecampaign-contact | ✅ JWT verified | ✅ Zod schema for email/contact data |
+## What will happen
 
-### ✅ Phase 3: Frontend Updates
-- Updated `LifeCoachChat.tsx` to use session access token instead of anon key
+1. When someone submits the application form, their data is saved to a new `inner_circle_applications` table in the database with a `pending` status.
+2. The same submission is sent to ActiveCampaign as a contact with custom fields (business type, revenue, team size, etc.) so you can manage outreach and follow-up from your CRM.
+3. Admins can later review applications by querying the database or building an admin view.
 
-### ✅ Phase 4: Security Finding Updates
-- Deleted `edge_func_no_validation` finding
-- Deleted `edge_func_no_auth` finding
+## Technical Details
 
----
+### 1. New Database Table: `inner_circle_applications`
 
-## Manual Action Required
+| Column | Type | Notes |
+|--------|------|-------|
+| id | uuid | Primary key |
+| full_name | text | Required |
+| email | text | Required |
+| business_name | text | Required |
+| business_type | text | Dropdown value |
+| team_size | text | Dropdown value |
+| annual_revenue | text | Dropdown value |
+| years_in_business | text | Free text |
+| help_with | text | Open text |
+| referral_source | text | Free text |
+| anything_else | text | Optional |
+| status | text | Default: `pending` (pending / accepted / rejected) |
+| created_at | timestamptz | Auto |
 
-### Enable Leaked Password Protection
-1. Go to Cloud Dashboard → Authentication → Settings
-2. Enable "Leaked Password Protection"
+- RLS: INSERT allowed for anyone (no auth required — this is a public application form). SELECT/UPDATE/DELETE restricted to admins only.
 
----
+### 2. New Edge Function: `submit-inner-circle`
 
-## Previously Resolved
+- Accepts the form data via POST
+- Validates input fields
+- Inserts a row into `inner_circle_applications`
+- Sends the contact to ActiveCampaign (using existing `ACTIVECAMPAIGN_API_KEY` and `ACTIVECAMPAIGN_API_URL` secrets) with custom field values for business type, revenue, team size, and a tag like `inner-circle-applicant`
+- Returns success/error response
 
-- `user_purchases_stripe_exposure` - Fixed with secure view
-- `public_storage_bucket` - Fixed with private bucket + signed URLs
+### 3. Update `InnerCircle.tsx`
+
+- Replace the simulated `setTimeout` submission with a real call to the `submit-inner-circle` edge function
+- Show appropriate success/error toasts based on the response
+
+### 4. No Authentication Required
+
+Since this is a public-facing application page for prospective members, no login is needed. The edge function handles validation and insertion server-side.
+
