@@ -68,7 +68,6 @@ const Navbar = () => {
   }, [isOpen, handleKeyDown]);
 
   const navItems = [
-    { label: "Money Systems", href: "/money-systems" },
     { label: "Work Systems", href: "/work-systems" },
     { label: "Podcast", href: "/podcast" },
     { label: "Community", href: "https://www.patreon.com/MorganDeBaun", external: true },
