@@ -20,7 +20,7 @@ const tiers = [
     highlighted: false,
   },
   {
-    name: "WorkSmart Essentials",
+    name: "WorkSmart+",
     price: "$29",
     period: "/mo",
     bestFor: "Self-starters who want tools and resources but prefer to implement independently",
