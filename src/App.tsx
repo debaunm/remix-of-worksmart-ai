@@ -75,7 +75,7 @@ const App = () => (
           <Route path="/products/wealth-dashboard" element={<WealthDashboard />} />
           <Route path="/products/ceo-life-planner" element={<CEOLifePlanner />} />
           <Route path="/products/media-company-spreadsheet" element={<MediaCompanySpreadsheet />} />
-          <Route path="/products/wealth-code-book" element={<WealthCodeBook />} />
+          
           <Route path="/prompts" element={<PromptLibrary />} />
           <Route path="/advisors" element={<Advisors />} />
           <Route path="/sessions" element={<Sessions />} />

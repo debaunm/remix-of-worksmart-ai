@@ -228,64 +228,6 @@ const MoneySystems = () => {
                 </div>
               </div>
               
-              <div className="flex flex-col md:flex-row gap-8 items-center">
-                <div className="w-32 h-44 rounded-lg bg-gradient-to-br from-primary/20 via-primary/10 to-accent/20 flex items-center justify-center shrink-0 border border-primary/20">
-                  <BookOpen className="w-12 h-12 text-primary" />
-                </div>
-                
-                <div className="flex-1 text-center md:text-left">
-                  <h3 className="text-2xl font-bold text-foreground mb-2">The Wealth Code Book</h3>
-                  <p className="text-muted-foreground mb-4">
-                    The comprehensive ebook companion to the Money Systems workshop. Get all the frameworks, 
-                    worksheets, and strategies in one beautifully designed digital book you can reference anytime.
-                  </p>
-                  
-                  <div className="flex flex-col sm:flex-row items-center gap-4">
-                    {hasEbookAccess ? (
-                      <Link to="/products/wealth-code-book">
-                        <Button variant="hero" size="lg">
-                          <BookOpen className="w-4 h-4 mr-2" />
-                          Read the Book
-                        </Button>
-                      </Link>
-                    ) : (
-                      <>
-                        <Button 
-                          variant="outline" 
-                          size="lg" 
-                          onClick={handleEbookPurchase}
-                          disabled={ebookLoading || isLoading}
-                        >
-                          {ebookLoading ? (
-                            <>
-                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                              Processing...
-                            </>
-                          ) : (
-                            <>
-                              Buy Separately - $5.99
-                            </>
-                          )}
-                        </Button>
-                        <span className="text-sm text-muted-foreground">or</span>
-                        <Button variant="hero" onClick={handlePurchase} disabled={isLoading || ebookLoading}>
-                          {isLoading ? (
-                            <>
-                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                              Processing...
-                            </>
-                          ) : (
-                            <>
-                              Get Full Bundle - $197
-                              <ArrowRight className="w-4 h-4 ml-2" />
-                            </>
-                          )}
-                        </Button>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
             </div>
           </motion.div>
         </div>
