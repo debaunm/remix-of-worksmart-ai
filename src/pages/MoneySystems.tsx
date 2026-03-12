@@ -212,25 +212,6 @@ const MoneySystems = () => {
       </section>
 
       {/* Ebook Section */}
-      <section className="py-16 px-6">
-        <div className="container mx-auto max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-          >
-            <div className="p-8 rounded-2xl border border-border bg-card relative overflow-hidden">
-              <div className="absolute top-4 right-4">
-                <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-accent text-accent-foreground text-xs font-semibold">
-                  <Star className="w-3 h-3" />
-                  INCLUDED IN BUNDLE
-                </div>
-              </div>
-              
-            </div>
-          </motion.div>
-        </div>
-      </section>
 
       {/* Free Tools Section */}
       <section className="py-16 px-6">
