@@ -12,7 +12,7 @@ import WorkSystems from "./pages/WorkSystems";
 import WealthDashboard from "./pages/products/WealthDashboard";
 import CEOLifePlanner from "./pages/products/CEOLifePlanner";
 import MediaCompanySpreadsheet from "./pages/products/MediaCompanySpreadsheet";
-import WealthCodeBook from "./pages/products/WealthCodeBook";
+
 import PromptLibrary from "./pages/PromptLibrary";
 import NotFound from "./pages/NotFound";
 import MeetingToActionPlan from "./pages/tools/MeetingToActionPlan";
