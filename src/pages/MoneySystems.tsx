@@ -46,8 +46,7 @@ const freeTools = [{
 
 const MoneySystems = () => {
   const { checkout, isLoading } = useCheckout();
-  const { hasMoneyAccess, hasEbookAccess } = usePurchases();
-  const [ebookLoading, setEbookLoading] = useState(false);
+  const { hasMoneyAccess } = usePurchases();
   
   const handlePurchase = () => {
     checkout("money_systems");
