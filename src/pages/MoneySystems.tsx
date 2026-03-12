@@ -53,11 +53,6 @@ const MoneySystems = () => {
     checkout("money_systems");
   };
 
-  const handleEbookPurchase = async () => {
-    setEbookLoading(true);
-    await checkout("wealth_code_book");
-    setEbookLoading(false);
-  };
   
   return (
     <div className="min-h-screen bg-background">
