@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Wallet, TrendingUp, Calculator, LineChart, ArrowRight, CheckCircle, Star, Play, FileText, DollarSign, Loader2, BookOpen } from "lucide-react";
+import { Wallet, TrendingUp, Calculator, LineChart, ArrowRight, CheckCircle, Star, Play, FileText, DollarSign, Loader2 } from "lucide-react";
 import { useCheckout } from "@/hooks/useCheckout";
 import { usePurchases } from "@/hooks/usePurchases";
 import { useState } from "react";
