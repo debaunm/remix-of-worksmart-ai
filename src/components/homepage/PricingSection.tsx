@@ -30,7 +30,7 @@ const pricingPlans = [
       "Coast FIRE Calculator",
       "Passive Income Vault",
       "Speaker & Brand Deal Pricing Formulas",
-      "The Wealth Code Book (Ebook)",
+      
       "Lifetime access & updates",
     ],
     cta: "Get Money Systems",
