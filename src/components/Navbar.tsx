@@ -67,8 +67,7 @@ const Navbar = () => {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, handleKeyDown]);
 
-  const navItems = [
-    { label: "Work Systems", href: "/work-systems" },
+const navItems = [
     { label: "Podcast", href: "/podcast" },
     { label: "Community", href: "https://www.patreon.com/MorganDeBaun", external: true },
     { label: "Dashboard", href: "/dashboard" },

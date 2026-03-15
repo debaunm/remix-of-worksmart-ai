@@ -16,6 +16,7 @@ const paths = [
       { label: "Speaking & Brand Deal Calculators", price: "Free" },
       { label: "Wealthy Life Dashboard + Workshop", price: "$97.99" },
       { label: "Wealth Code Sessions (3-Part Series)", price: "$397" },
+      { label: "Work Systems (AI Tools & Automation)", price: "Included" },
     ],
     cta: "Start Building Wealth",
   },
