@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const paths = [
   {
     id: "wealth",
-    title: "Wealth Builder Blueprint",
+    title: "Wealth Builders",
     subtitle: "For those ready to build financial freedom",
     description: "Master your money with joy, not deprivation. Learn FIRE principles, passive income strategies, and how to design multiple income streams that work while you sleep.",
     icon: DollarSign,
@@ -21,7 +21,7 @@ const paths = [
   },
   {
     id: "tech",
-    title: "AI Mastery Training",
+    title: "Tech & Tools",
     subtitle: "For those ready to 10x their productivity with AI",
     description: "Stop falling behind on technology. Learn to think about AI differently, build systems that compound, and automate the work that drains you.",
     icon: Cpu,
