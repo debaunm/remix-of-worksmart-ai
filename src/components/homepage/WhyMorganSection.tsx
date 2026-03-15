@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import morganPhoto from "@/assets/morgan-debaun.jpeg";
+import morganPhoto from "@/assets/morgan-debaun-new.jpeg";
 
 const WhyMorganSection = () => {
   return (
