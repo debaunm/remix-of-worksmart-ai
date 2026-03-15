@@ -51,8 +51,8 @@ const tiers = [
       "Priority community access",
     ],
     cta: "Apply Now",
-    href: "https://REPLACE-WITH-YOUR-FORM-URL.com",
-    external: true,
+    href: "/accelerator",
+    external: false,
     highlighted: true,
   },
 ];

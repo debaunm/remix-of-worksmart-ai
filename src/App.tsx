@@ -55,6 +55,7 @@ import Calendar from "./pages/Calendar";
 import Onboarding from "./pages/Onboarding";
 import Community from "./pages/Community";
 import Podcast from "./pages/Podcast";
+import Accelerator from "./pages/Accelerator";
 
 
 const queryClient = new QueryClient();
@@ -117,6 +118,7 @@ const App = () =>
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/community" element={<Community />} />
           <Route path="/podcast" element={<Podcast />} />
+          <Route path="/accelerator" element={<Accelerator />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
