@@ -272,11 +272,10 @@ const Accelerator = () => {
             className="text-center mb-14"
           >
             <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">
-              Is WorkSmart right for me?
+              Is WorkSmart+ right for me?
             </h2>
           </motion.div>
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {/* Membership */}
+          <div className="max-w-2xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -284,7 +283,8 @@ const Accelerator = () => {
               className="bg-card rounded-2xl border-2 border-primary p-8 shadow-lg"
             >
               <h3 className="text-xl font-bold text-foreground mb-1">WorkSmart+ Membership</h3>
-              <p className="text-sm text-muted-foreground mb-6">is the right fit if you…</p>
+              <p className="text-2xl font-extrabold text-foreground mt-2 mb-1">$297<span className="text-base font-normal text-muted-foreground">/month</span></p>
+              <p className="text-sm text-muted-foreground mb-6">The right fit if you…</p>
               <div className="space-y-4 mb-8">
                 {membershipFit.map((item, i) => (
                   <div key={i} className="flex items-start gap-3">
@@ -298,31 +298,7 @@ const Accelerator = () => {
                   JOIN WORKSMART+ <ArrowRight className="w-4 h-4" />
                 </Button>
               </a>
-            </motion.div>
-
-            {/* Self-Study */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="bg-card rounded-2xl border border-border p-8"
-            >
-              <h3 className="text-xl font-bold text-foreground mb-1">WorkSmart (self-study)</h3>
-              <p className="text-sm text-muted-foreground mb-6">is right if you…</p>
-              <div className="space-y-4 mb-8">
-                {selfStudyFit.map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <Check className="w-4 h-4 text-kelly-green shrink-0 mt-1" />
-                    <span className="text-sm text-muted-foreground leading-relaxed">{item}</span>
-                  </div>
-                ))}
-              </div>
-              <a href={JOIN_URL} target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" className="w-full h-12 rounded-full font-semibold gap-2">
-                  Buy the Self-Study Course <ArrowRight className="w-4 h-4" />
-                </Button>
-              </a>
+              <p className="text-xs text-muted-foreground text-center mt-4">No refunds · Cancel anytime</p>
             </motion.div>
           </div>
         </div>
