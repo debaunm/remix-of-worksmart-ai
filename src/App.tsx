@@ -117,7 +117,7 @@ const App = () =>
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/community" element={<Community />} />
           <Route path="/podcast" element={<Podcast />} />
-          <Route path="/inner-circle" element={<InnerCircle />} />
+          
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
