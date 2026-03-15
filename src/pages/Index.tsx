@@ -2,7 +2,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/homepage/HeroSection";
 import ChoosePathSection from "@/components/homepage/ChoosePathSection";
-import ProblemSection from "@/components/homepage/ProblemSection";
 import ReframeSection from "@/components/homepage/ReframeSection";
 import WhatYouGetSection from "@/components/homepage/WhatYouGetSection";
 import ModulesSection from "@/components/homepage/ModulesSection";
@@ -21,18 +20,17 @@ const Index = () => {
       <Navbar />
       {/* 1 */}<HeroSection />
       {/* 2 */}<ChoosePathSection />
-      {/* 3 */}<ProblemSection />
-      {/* 4 */}<ReframeSection />
-      {/* 5 */}<WhatYouGetSection />
-      {/* 6 */}<ModulesSection />
-      {/* 7 */}<HowItWorksSection />
-      {/* 8 */}<WhoItsForSection />
-      {/* 9 */}<SocialProofSection />
-      {/* 10 */}<WhyMorganSection />
-      {/* 11 */}<OfferStackSection />
-      {/* 12 */}<FAQSection />
-      {/* 13 */}<FinalCTASection />
-      {/* 14 */}<NewsletterSection />
+      {/* 3 */}<ReframeSection />
+      {/* 4 */}<WhatYouGetSection />
+      {/* 5 */}<ModulesSection />
+      {/* 6 */}<HowItWorksSection />
+      {/* 7 */}<WhoItsForSection />
+      {/* 8 */}<SocialProofSection />
+      {/* 9 */}<WhyMorganSection />
+      {/* 10 */}<OfferStackSection />
+      {/* 11 */}<FAQSection />
+      {/* 12 */}<FinalCTASection />
+      {/* 13 */}<NewsletterSection />
       <Footer />
     </div>
   );
