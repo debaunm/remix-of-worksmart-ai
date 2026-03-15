@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const paths = [
   {
     id: "wealth",
-    title: "Wealth Builders",
+    title: "Wealth Builder Blueprint",
     subtitle: "For those ready to build financial freedom",
     description: "Master your money with joy, not deprivation. Learn FIRE principles, passive income strategies, and how to design multiple income streams that work while you sleep.",
     icon: DollarSign,
