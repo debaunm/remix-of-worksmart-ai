@@ -59,16 +59,6 @@ const tiers = [
 
 const extras = [
   {
-    name: "WorkSmart Inner Circle",
-    price: "$5,000/yr",
-    description:
-      "Direct access to Morgan, quarterly strategy sessions, 1 private live event per year with Morgan, your AfroTech conference ticket included, exclusive retreats (CEO Spring Break), curated peer network. Capped at 50 members.",
-    bestFor: "Established business owners doing $500K+/year who want to scale to $1M+",
-    cta: "Apply for Inner Circle",
-    href: "/apply",
-    external: false,
-  },
-  {
     name: "Wealth Builder Blueprint",
     price: "$497 one-time",
     description:
