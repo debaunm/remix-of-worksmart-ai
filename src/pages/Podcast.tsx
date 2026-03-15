@@ -25,7 +25,7 @@ const Podcast = () => {
       return new Date(dateStr).toLocaleDateString("en-US", {
         month: "short",
         day: "numeric",
-        year: "numeric",
+        year: "numeric"
       });
     } catch {
       return dateStr;
@@ -42,14 +42,14 @@ const Podcast = () => {
       <Navbar />
 
       {/* Hero */}
-      <section className="pt-32 pb-20 relative overflow-hidden" style={{ backgroundColor: "hsl(var(--sky))" }}>
+      <section className="pt-32 pb-20 relative overflow-hidden bg-muted" style={{ backgroundColor: "hsl(var(--sky))" }}>
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-            >
+              transition={{ duration: 0.4 }}>
+              
               <p className="font-mono text-sm uppercase tracking-widest mb-6" style={{ color: "hsl(var(--slate-bg))" }}>
                 The WorkSmart Podcast
               </p>
@@ -82,19 +82,19 @@ const Podcast = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.1 }}
-              className="flex justify-center"
-            >
-              {channelImage ? (
-                <img
-                  src={channelImage}
-                  alt="The Journey with Morgan DeBaun podcast cover"
-                  className="w-full max-w-sm rounded-2xl shadow-lg"
-                />
-              ) : (
-                <div className="w-full max-w-sm aspect-square rounded-2xl bg-white/20 flex items-center justify-center">
+              className="flex justify-center">
+              
+              {channelImage ?
+              <img
+                src={channelImage}
+                alt="The Journey with Morgan DeBaun podcast cover"
+                className="w-full max-w-sm rounded-2xl shadow-lg" /> :
+
+
+              <div className="w-full max-w-sm aspect-square rounded-2xl bg-white/20 flex items-center justify-center">
                   <span className="text-6xl">🎙️</span>
                 </div>
-              )}
+              }
             </motion.div>
           </div>
         </div>
@@ -110,40 +110,40 @@ const Podcast = () => {
                 Latest Episodes
               </h2>
 
-              {loading && (
-                <div className="space-y-6">
-                  {[...Array(4)].map((_, i) => (
-                    <div key={i} className="animate-pulse bg-muted rounded-2xl h-32" />
-                  ))}
+              {loading &&
+              <div className="space-y-6">
+                  {[...Array(4)].map((_, i) =>
+                <div key={i} className="animate-pulse bg-muted rounded-2xl h-32" />
+                )}
                 </div>
-              )}
+              }
 
-              {error && (
-                <p className="text-muted-foreground">Unable to load episodes. Please try again later.</p>
-              )}
+              {error &&
+              <p className="text-muted-foreground">Unable to load episodes. Please try again later.</p>
+              }
 
               <div className="space-y-5">
-                {episodes.map((ep, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: i * 0.05 }}
-                    className="bg-card border border-border rounded-2xl p-5 hover:shadow-card-hover transition-all duration-300"
-                  >
+                {episodes.map((ep, i) =>
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: i * 0.05 }}
+                  className="bg-card border border-border rounded-2xl p-5 hover:shadow-card-hover transition-all duration-300">
+                  
                     <div className="flex gap-4">
                       {/* Play button */}
                       <button
-                        onClick={() => handlePlay(i)}
-                        className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0 hover:bg-primary/20 transition-colors"
-                        aria-label={playingIndex === i ? `Pause ${ep.title}` : `Play ${ep.title}`}
-                      >
-                        {playingIndex === i ? (
-                          <Pause className="w-5 h-5 text-primary" />
-                        ) : (
-                          <Play className="w-5 h-5 text-primary ml-0.5" />
-                        )}
+                      onClick={() => handlePlay(i)}
+                      className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0 hover:bg-primary/20 transition-colors"
+                      aria-label={playingIndex === i ? `Pause ${ep.title}` : `Play ${ep.title}`}>
+                      
+                        {playingIndex === i ?
+                      <Pause className="w-5 h-5 text-primary" /> :
+
+                      <Play className="w-5 h-5 text-primary ml-0.5" />
+                      }
                       </button>
 
                       <div className="flex-1 min-w-0">
@@ -154,12 +154,12 @@ const Podcast = () => {
                         </div>
                         <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
                           <span>{formatDate(ep.pubDate)}</span>
-                          {ep.duration && (
-                            <>
+                          {ep.duration &&
+                        <>
                               <span>·</span>
                               <span>{ep.duration}</span>
                             </>
-                          )}
+                        }
                         </div>
                         <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
                           {ep.description}
@@ -168,19 +168,19 @@ const Podcast = () => {
                     </div>
 
                     {/* Inline audio player when playing */}
-                    {playingIndex === i && (
-                      <div className="mt-4 pt-4 border-t border-border">
+                    {playingIndex === i &&
+                  <div className="mt-4 pt-4 border-t border-border">
                         <audio
-                          src={ep.audioUrl}
-                          controls
-                          autoPlay
-                          className="w-full h-10"
-                          onEnded={() => setPlayingIndex(null)}
-                        />
+                      src={ep.audioUrl}
+                      controls
+                      autoPlay
+                      className="w-full h-10"
+                      onEnded={() => setPlayingIndex(null)} />
+                    
                       </div>
-                    )}
+                  }
                   </motion.div>
-                ))}
+                )}
               </div>
             </div>
 
@@ -204,8 +204,8 @@ const Podcast = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="pl-10"
-                        required
-                      />
+                        required />
+                      
                     </div>
                     <Button type="submit" className="w-full rounded-full bg-primary hover:bg-primary/90 text-white">
                       Subscribe
@@ -234,8 +234,8 @@ const Podcast = () => {
       </section>
 
       <Footer />
-    </div>
-  );
+    </div>);
+
 };
 
 export default Podcast;
