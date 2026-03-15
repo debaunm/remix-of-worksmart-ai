@@ -73,7 +73,7 @@ const faqs = [
   },
   {
     q: "What if I am unhappy with the course?",
-    a: "We offer a 30-day money-back guarantee. If you're not satisfied, contact us within 30 days for a full refund.",
+    a: "There are no refunds, but you can cancel your membership anytime—no long-term commitment required.",
   },
   {
     q: "Will WorkSmart work for my specific business?",
