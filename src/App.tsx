@@ -55,6 +55,7 @@ import Calendar from "./pages/Calendar";
 import Onboarding from "./pages/Onboarding";
 import Community from "./pages/Community";
 import Podcast from "./pages/Podcast";
+import Accelerator from "./pages/Accelerator";
 
 
 const queryClient = new QueryClient();
