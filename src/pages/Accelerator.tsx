@@ -76,7 +76,7 @@ const faqs = [
     a: "There are no refunds, but you can cancel your membership anytime—no long-term commitment required.",
   },
   {
-    q: "Will WorkSmart work for my specific business?",
+    q: "Will the WorkSmart membership work for my specific business?",
     a: "WorkSmart is designed for entrepreneurs across industries. The principles of mastering yourself, your team, your data, your revenue, and your growth are universal to all businesses.",
   },
 ];
