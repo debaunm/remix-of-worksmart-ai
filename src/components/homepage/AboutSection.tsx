@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Award, Building2, BookOpen } from "lucide-react";
-import morganHeadshot from "@/assets/morgan-debaun.jpeg";
+import morganHeadshot from "@/assets/morgan-debaun-new.jpeg";
 
 const credentials = [
   { icon: BookOpen, text: 'Author, "Rewrite Your Rules"' },
