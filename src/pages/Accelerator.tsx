@@ -57,12 +57,6 @@ const membershipFit = [
   "You want to learn how to accurately predict future business growth and direction and get over your nerves of taking a wrong step",
 ];
 
-const selfStudyFit = [
-  "You have launched your business and you are making between 1k-5k in predictable monthly revenue",
-  "Are just starting out in business and are working to master your target audience and positioning within the industry",
-  "You're ready to bet on yourself, but you need help making this transition to a scaled up company work.",
-  "You are making money, and good money, but month-over-month your growth is a guessing game.",
-];
 
 const faqs = [
   {
