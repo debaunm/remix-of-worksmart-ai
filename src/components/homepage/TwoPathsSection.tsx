@@ -21,7 +21,7 @@ const paths = [
   },
   {
     id: "tech",
-    title: "Tech & Tools",
+    title: "AI Mastery Training",
     subtitle: "For those ready to 10x their productivity with AI",
     description: "Stop falling behind on technology. Learn to think about AI differently, build systems that compound, and automate the work that drains you.",
     icon: Cpu,
