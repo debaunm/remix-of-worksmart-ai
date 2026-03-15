@@ -452,7 +452,7 @@ const Accelerator = () => {
               </Button>
             </a>
             <p className="text-sm text-white/40 mt-6">
-              30-day money-back guarantee · Cancel anytime
+              $297/month · No refunds · Cancel anytime
             </p>
           </motion.div>
         </div>
